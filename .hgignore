@@ -10,6 +10,7 @@ syntax: glob
 build
 temp
 dist
+settings_local.py
 
 syntax: regexp
 .*\#.*\#$ 
