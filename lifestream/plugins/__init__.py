@@ -10,7 +10,7 @@ import copy
 from django.utils.http import urlquote
 from django.db.models import Q
 
-from util import clean_item_content
+from lifestream.util import clean_item_content
 from lifestream.models import *
 from tagging.models import *
 
@@ -52,50 +52,60 @@ class FeedPlugin(object):
     this is a check for if the item has already been added or not.
     '''
     items_count = Item.objects.filter(
-      Q(item_date = entry['published']) | Q(item_permalink = entry['link'])
+      Q(date = entry['published']) | Q(permalink = entry['link'])
     ).filter(
-      item_feed = self.feed
+      feed = self.feed
     ).count()
     
     return items_count == 0
     
-  def process(self, entries):
+  def process(self, entry):
     '''
-    Process a list of entries and return a list of Item models. This
-    hook could be overridden to create a single Item for a list of entries. For
-    example a last.fm stream where you don't want to include all songs
-    you listened to but rather a single item saying you listened to X number
-    of songs.
+    Process a single entry and return an item model.
+    '''
+
+    feed_contents = entry.get('content')
+    if feed_contents is not None:
+      content_type = feed_contents[0]['type']
+      feed_content = feed_contents[0]['value']
+      content, clean_content = clean_item_content(feed_content)
+    else:
+      content_type = None
+      content = None
+      clean_content = None
     
-    Items must be saved by this hook and tags must be updated.
+    media_url = None
+    media_content_attrs = entry.get('media_content_attrs')
+    if media_content_attrs:
+      media_url = media_content_attrs.get('url')
+
+    thumbnail_url = None
+    media_thumbnail_attrs = entry.get('media_thumbnail_attrs')
+    if media_thumbnail_attrs:
+      thumbnail_url = media_thumbnail_attrs.get('url')
+
+    media_description_type = None
+    media_description_attrs = entry.get('media_description_attrs')
+    if media_description_attrs:
+      media_description_type = media_description_attrs.get('type')
+
+    item = Item(feed = self.feed,
+             date = entry.get('published'),
+             title = entry.get('title'),
+             content = content,
+             content_type = content_type,
+             clean_content = clean_content,
+             author = entry.get('author'),
+             permalink = entry.get('link'),
+             media_url = media_url,
+             media_thumbnail_url = thumbnail_url,
+             media_description = entry.get("media_description"),
+             media_description_type = media_description_type,
+    )
+    return item
+
+  def post_process(self, item):
     '''
-    item_list = []
-    for entry in entries:
-      feed_contents = entry.get('content')
-      if feed_contents is not None:
-        content_type = feed_contents[0]['type']
-        feed_content = feed_contents[0]['value']
-        content, clean_content = clean_item_content(feed_content)
-      else:
-        content_type = None
-        content = None
-        clean_content = None
-      
-      i = Item(item_feed = self.feed,
-               item_date = entry.get('published'),
-               item_title = entry.get('title'),
-               item_content = content,
-               item_content_type = content_type,
-               item_clean_content = clean_content,
-               item_author = entry.get('author'),
-               item_permalink = entry.get('link')
-      )
-      i.save()
-      # Get tags
-      tags = ()
-      if 'tags' in entry:
-        for tag in entry['tags']:
-          tag_name = tag.get('term')[:30]
-          Tag.objects.add_tag(i, tag_name)
-      item_list.append(i)
-    return item_list
+    Allows plugins to process an item model before it is saved.
+    '''
+    return item

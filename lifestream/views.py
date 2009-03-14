@@ -16,11 +16,10 @@ from lifestream.models import *
 
 @allow_methods('GET')
 def main_page(request, page="1"):
-  item_list = Item.objects.order_by('-item_date')
+  item_list = Item.objects.published()
   paginator = Paginator(item_list, request.lifestream.items_per_page) 
 
   # Make sure page request is an int. If not, deliver first page.
-  # TODO: make a better url for this like /page/1
   try:
     page = int(page)
   except ValueError:
@@ -37,7 +36,7 @@ def main_page(request, page="1"):
 @allow_methods('GET', 'POST')
 def item_page(request, item_id=None):
   try:
-    item = Item.objects.get(id=item_id)
+    item = Item.objects.get(id=item_id,published=True)
   except Item.DoesNotExist:
     raise Http404
   
