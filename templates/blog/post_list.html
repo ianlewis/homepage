@@ -1,0 +1,39 @@
+{% extends "base.tpl" %}
+{% load truncate_chars %}
+
+{% block title %}Ian's Blog{% endblock %}
+{% block content %}
+  {% if object_list %}
+    <ul>
+    {% for item in object_list %}
+      <li>
+        <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+        {{ item.pub_date }}
+        <p>
+          {% if item.content %}
+            {{ item.content }}
+          {% else %}
+            &nbsp;
+          {% endif %}
+        </p>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+<br/>
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      <a href="/page/{{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="/page/{{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

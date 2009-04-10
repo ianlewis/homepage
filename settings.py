@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'lifestream',
+    'blog',
     'tagging',
 )
 
@@ -120,3 +121,8 @@ PLUGINS = (
 )
 
 FORCE_LOWERCASE_TAGS=True
+
+try:
+    from settings_local import *
+except ImportError:
+    pass

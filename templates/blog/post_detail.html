@@ -1,0 +1,18 @@
+{% extends "base.tpl" %}
+{% load truncate_chars %}
+{% load humanize %}
+{% load i18n %}
+
+{% block title %}{{ object.title }}{% endblock %}
+{% block content %}
+<h2>{{ object.title }}</a></h2>
+{{ object.pub_date }}
+<p>
+  {% if object.content %}
+    {{ object.content }}
+  {% else %}
+    &nbsp;
+  {% endif %}
+</p>
+
+{% endblock %}

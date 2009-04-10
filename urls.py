@@ -4,7 +4,11 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+from blog import urls as blog_urls
+
+urlpatterns = blog_urls.urlpatterns
+
+urlpatterns += patterns('',
     
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
@@ -14,5 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/update_feeds', 'lifestream.admin_views.admin_update_feeds', name='admin_update_feeds'),
     (r'^admin/(.*)', admin.site.root),
     
-    (r'', include('lifestream.urls')),
+    
+
+    (r'^$', include('lifestream.urls')),
 )
