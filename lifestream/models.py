@@ -26,9 +26,6 @@ class Lifestream(models.Model):
   def __unicode__(self):
     return self.title
   
-  class Meta:
-    db_table="lifestream"
-
 class FeedManager(models.Manager):
   ''' Query only normal feeds. '''
   
@@ -59,9 +56,6 @@ class Feed(models.Model):
   def __unicode__(self):
     return self.name
     
-  class Meta:
-    db_table="feeds"
-
 class ItemManager(models.Manager):
   """Manager for querying Items"""
 
@@ -97,7 +91,6 @@ class Item(models.Model):
     return self.title
     
   class Meta:
-    db_table="items"
     ordering=["-date", "feed"]
 
 #tagging.register(Item)
