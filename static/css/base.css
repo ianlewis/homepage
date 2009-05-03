@@ -19,6 +19,7 @@ a {
 }
 
 a:hover {
+    color: #999999;
     text-decoration: underline;
 }
 
@@ -44,6 +45,11 @@ a:hover {
 .header .title {
     font-size: 400%;
     float: left;
+}
+
+.header .title a,.header .title a:hover {
+    color: white;
+    text-decoration: none;
 }
 
 .header .about {

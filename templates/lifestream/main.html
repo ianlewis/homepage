@@ -6,13 +6,17 @@
 {% block content %}
 
   <div class="blog-links">
+    <a href="{% url blog_page "en" %}">
     <div class="english-blog blog-link">
-      <a href="{% url blog_page "en" %}">English Blog</a>
+      English Blog
     </div>
+    </a>
 
+    <a href="{% url blog_page "jp" %}">
     <div class="japanese-blog blog-link">
-      <a href="{% url blog_page "jp" %}">Japanese Blog</a>
+      Japanese Blog
     </div>
+    </a>
   </div>
  
   <div class="lifestream">
