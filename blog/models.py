@@ -10,7 +10,7 @@ from tagging.fields import TagField
 from datetime import datetime
 
 BLOG_LOCALES = (
-    ('ja', u'日本語'),
+    ('jp', u'日本語'),
     ('en', u'English'),
 )
 
