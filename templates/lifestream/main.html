@@ -4,37 +4,50 @@
 {% block title %}{% ifnotequal items.number 1 %}Page {{ items.number }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
 {% block content %}
-  {% if items.object_list %}
-    <ul>
-    {% for item in items.object_list %}
-      <li>
-        <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
-        {{item.date}}
-        <p>
-          {% if item.clean_content %}
-            {{ item.clean_content|truncate_chars:100 }}
-          {% else %}
-            &nbsp;
-          {% endif %}
-        </p>
-      </li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-<br/>
-<div class="pagination">
-  <span class="step-links">
-    {% if items.has_previous %}
-    <a href="{% ifequal items.previous_page_number 1 %}{% url main_page %}{% else %}{% url main_page_paged items.previous_page_number %}{% endifequal %}">Previous</a>
-    {% endif %}
 
-    <span class="current">
-      Page {{ items.number }} of {{ items.paginator.num_pages }}.
-    </span>
+  <div class="blog-links">
+    <div class="english-blog blog-link">
+      <a href="{% url blog_page "en" %}">English Blog</a>
+    </div>
 
-    {% if items.has_next %}
-      <a href="{% url main_page_paged items.next_page_number %}">Next</a>
+    <div class="japanese-blog blog-link">
+      <a href="{% url blog_page "jp" %}">Japanese Blog</a>
+    </div>
+  </div>
+ 
+  <div class="lifestream">
+    {% if items.object_list %}
+      <ul>
+      {% for item in items.object_list %}
+        <li>
+          <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+          {{item.date}}
+          <p>
+            {% if item.clean_content %}
+              {{ item.clean_content|truncate_chars:100 }}
+            {% else %}
+              &nbsp;
+            {% endif %}
+          </p>
+        </li>
+      {% endfor %}
+      </ul>
     {% endif %}
-  </span>
-</div>
+    <br/>
+    <div class="pagination">
+      <span class="step-links">
+        {% if items.has_previous %}
+        <a href="{% ifequal items.previous_page_number 1 %}{% url main_page %}{% else %}{% url main_page_paged items.previous_page_number %}{% endifequal %}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+          <a href="{% url main_page_paged items.next_page_number %}">Next</a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
 {% endblock %}

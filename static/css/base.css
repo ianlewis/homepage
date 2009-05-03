@@ -59,4 +59,31 @@ a:hover {
     width: 800px;
     margin: 0 auto;
     padding: 10px 0;
+    overflow: hidden;
+}
+
+.content .blog-links {
+    margin: 0 50px;
+    overflow: hidden;
+}
+
+.content .blog-link {
+    border: 1px solid black;
+    padding: 25px;
+    width: 273px;
+    height: 100px;
+    /* margin-left: 100px; */
+    float: left;
+}
+
+.content .english-blog {
+
+}
+
+.content .japanese-blog {
+    margin-left: 50px;
+}
+
+.content .lifestream {
+    clear: both;
 }
