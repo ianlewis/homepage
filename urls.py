@@ -18,7 +18,5 @@ urlpatterns += patterns('',
     url(r'^admin/update_feeds', 'lifestream.admin_views.admin_update_feeds', name='admin_update_feeds'),
     (r'^admin/(.*)', admin.site.root),
     
-    
-
-    (r'^$', include('lifestream.urls')),
+    (r'', include('lifestream.urls')),
 )
