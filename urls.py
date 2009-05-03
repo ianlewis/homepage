@@ -2,9 +2,11 @@ from django.conf.urls.defaults import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-admin.autodiscover()
+from django.conf import settings
 
 from blog import urls as blog_urls
+
+admin.autodiscover()
 
 urlpatterns = blog_urls.urlpatterns
 
@@ -20,3 +22,9 @@ urlpatterns += patterns('',
     
     (r'', include('lifestream.urls')),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT}),
+    )

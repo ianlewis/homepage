@@ -1,0 +1,62 @@
+/*
+Copyright (c) 2006, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 0.10.0
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+q:before,q:after{content:'';}
+
+a {
+    color: #888888;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.main {
+    border: 1px solid black;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    color: white;
+    background: black;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.header-inner {
+    width: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header .title {
+    font-size: 400%;
+    float: left;
+}
+
+.header .about {
+    /* background: #FFFFCC; */
+    color: #CCCCCC;
+    width: 350px;
+    margin-left: 50px;
+    float: left;
+}
+
+.content {
+    clear: both;
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
