@@ -36,7 +36,7 @@ def get_mod_class(plugin):
     return plugin[:dot], plugin[dot+1:]
 
 def update_feeds():
-  feeds = Feed.objects.get_fetchable_feeds()
+  feeds = Feed.objects.fetchable()
   for feed in feeds:
     try:
       feed_items = feedparser.parse(feed.url)

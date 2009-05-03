@@ -59,14 +59,12 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
   'django.core.context_processors.auth',
-  'lifestream.context_processors.basic'
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'lifestream.middleware.LifestreamMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -121,6 +119,8 @@ PLUGINS = (
 )
 
 FORCE_LOWERCASE_TAGS=True
+
+LIFESTREAM_ITEMS_PER_PAGE=9
 
 try:
     from settings_local import *

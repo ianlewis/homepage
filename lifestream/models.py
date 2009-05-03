@@ -12,34 +12,18 @@ from django.utils.translation import ugettext_lazy as _
 
 import tagging
 
-class Lifestream(models.Model):
-  '''A lifestream itself.'''
-  title = models.CharField(_("Title"), max_length=128)
-  tagline = models.TextField(_("Tagline"), null=True, blank=True)
-  
-  baseurl = models.CharField(_("Base Url"), max_length=1000)
-  
-  items_per_page = models.IntegerField(_("Items Per Page"), default=10)
-  
-  user = models.ForeignKey(User)
-  
-  def __unicode__(self):
-    return self.title
-  
 class FeedManager(models.Manager):
   ''' Query only normal feeds. '''
   
-  def get_feeds(self):
+  def feeds(self):
     return super(FeedManager, self) \
            .get_query_set().filter(basic_feed=False)
   
-  def get_fetchable_feeds(self):
-    return self.get_feeds().filter(fetchable=True)
+  def fetchable(self):
+    return self.feeds().filter(fetchable=True)
 
 class Feed(models.Model):
   '''A feed for gathering data.'''
-  lifestream = models.ForeignKey(Lifestream,verbose_name=_("Lifestream"))
-  
   name = models.CharField(_("Feed Name"), max_length=255)
   url = models.URLField(_("Feed Url"), help_text=_("Must be a valid url"), verify_exists=True, max_length=1000)
   domain = models.CharField(_("Feed Domain"), max_length=255)
