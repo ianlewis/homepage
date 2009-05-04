@@ -1,4 +1,4 @@
-{% extends "base.tpl" %}
+{% extends "lifestream/base.html" %}
 {% load truncate_chars %}
 
 {% block title %}Ian's Blog{% endblock %}
@@ -6,12 +6,12 @@
   {% if object_list %}
     <ul>
     {% for item in object_list %}
-      <li>
+      <li class="blog-post">
         <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
-        {{ item.pub_date }}
+        <div class="post-date">{{ item.pub_date }}</div>
         <p>
           {% if item.content %}
-            {{ item.content }}
+            {{ item.content|safe }}
           {% else %}
             &nbsp;
           {% endif %}

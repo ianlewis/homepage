@@ -17,8 +17,29 @@ from lifestream.models import *
 
 ITEMS_PER_PAGE = getattr(settings,"LIFESTREAM_ITEMS_PER_PAGE",10)
 
+#@allow_methods('GET')
+#def main_page(request, page="1"):
+#  item_list = Item.objects.published()
+#  paginator = Paginator(item_list, ITEMS_PER_PAGE)
+#
+#  # Make sure page request is an int. If not, deliver first page.
+#  try:
+#    page = int(page)
+#  except ValueError:
+#    page = 1
+#
+#  # If page request (9999) is out of range, deliver last page of results.
+#  try:
+#    items = paginator.page(page)
+#  except (EmptyPage, InvalidPage):
+#    items = paginator.page(paginator.num_pages)
+#  
+#  return direct_to_template(request, "lifestream/main.html", { "items": items })
+
 @allow_methods('GET')
 def main_page(request, page="1"):
+  from blog.models import Post
+
   item_list = Item.objects.published()
   paginator = Paginator(item_list, ITEMS_PER_PAGE)
 
@@ -34,8 +55,22 @@ def main_page(request, page="1"):
   except (EmptyPage, InvalidPage):
     items = paginator.page(paginator.num_pages)
   
-  return direct_to_template(request, "lifestream/main.html", { "items": items })
-  
+  # Get latest English and Japanese post.
+  try:
+      en_post = Post.objects.active().filter(locale="en").latest("pub_date")
+  except Post.DoesNotExist:
+      en_post = None
+  try:
+      jp_post = Post.objects.active().filter(locale="jp").latest("pub_date")
+  except Post.DoesNotExist:
+      jp_post = None
+
+  return direct_to_template(request, "lifestream/main.html", {
+      "items": items,
+      "jp_post": jp_post,
+      "en_post": en_post,
+  })
+
 @allow_methods('GET', 'POST')
 def item_page(request, item_id=None):
   try:

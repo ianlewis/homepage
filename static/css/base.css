@@ -64,22 +64,31 @@ a:hover {
     clear: both;
     width: 800px;
     margin: 0 auto;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     overflow: hidden;
 }
 
 .content .blog-links {
-    margin: 0 50px;
+    margin: 20px 50px;
     overflow: hidden;
 }
 
 .content .blog-link {
     border: 1px solid black;
-    padding: 25px;
-    width: 273px;
-    height: 100px;
+    padding: 15px;
+    width: 293px;
+    height: 120px;
     /* margin-left: 100px; */
     float: left;
+}
+
+.content .blog-link .blog-link-title {
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.content .blog-link .blog-link-content {
+    padding: 10px;
 }
 
 .content .english-blog {
@@ -92,4 +101,47 @@ a:hover {
 
 .content .lifestream {
     clear: both;
+    display: inline;
+}
+
+.lifestream-item-list {
+    overflow: hidden;
+    width: 684px;
+    margin: 0 auto;
+}
+
+.lifestream-item-list .lifestream-item {
+    background: #F8F8F8 none repeat scroll 0 0;
+    display: inline;
+    float: left;
+    margin: 0 7px 15px 7px;
+    width: 214px;
+}
+
+.lifestream-item .lifestream-item-inner {
+    /* height: auto !important; */
+    min-height: 248px;
+    overflow: hidden;
+    padding: 10px 15px;
+}
+
+.content .blog-post {
+    margin-bottom: 20px;
+}
+
+.content .blog-post h2 {
+    font-size: 140%;
+    background: black;
+    color: white;
+    padding-left: 5px;
+}
+
+.content .blog-post h2 a,.content .blog-post h2 a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.content .blog-post .post-date {
+    font-size: 80%;
+    margin-bottom: 5px;
 }

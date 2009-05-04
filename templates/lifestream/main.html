@@ -8,31 +8,39 @@
   <div class="blog-links">
     <a href="{% url blog_page "en" %}">
     <div class="english-blog blog-link">
-      English Blog
+      {% if en_post %}
+        <div class="blog-link-title">{{ en_post.title }}</div>
+        <div class="blog-link-content">{{ en_post.content|safe|truncate_chars:50 }}</div>
+      {% endif %}
     </div>
     </a>
 
     <a href="{% url blog_page "jp" %}">
     <div class="japanese-blog blog-link">
-      Japanese Blog
+      {% if jp_post %}
+        <div class="blog-link-title">{{ jp_post.title }}</div>
+        <div class="blog-link-content">{{ jp_post.content|striptags|truncate_chars:50 }}</div>
+      {% endif %}
     </div>
     </a>
   </div>
  
   <div class="lifestream">
     {% if items.object_list %}
-      <ul>
+      <ul class="lifestream-item-list">
       {% for item in items.object_list %}
-        <li>
-          <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
-          {{item.date}}
-          <p>
-            {% if item.clean_content %}
-              {{ item.clean_content|truncate_chars:100 }}
-            {% else %}
-              &nbsp;
-            {% endif %}
-          </p>
+        <li class="lifestream-item">
+          <div class="lifestream-item-inner">
+            <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+            <p>
+              {% if item.clean_content %}
+                {{ item.clean_content|truncate_chars:100 }}
+              {% else %}
+                &nbsp;
+              {% endif %}
+            </p>
+          </div>
+          <div class="lifestream-item-date">{{ item.date }}</div>
         </li>
       {% endfor %}
       </ul>
