@@ -176,6 +176,7 @@ div.lifestream-item-msg.delicious-com {
 }
 
 .lifestream-item-inner.vimeo-com p {
+    background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
     padding: 0 15px;
 }
 
@@ -209,6 +210,30 @@ div.lifestream-item-msg.delicious-com {
 
 .lifestream-item-inner.ianlewis-org p {
     padding: 10px 15px;
+}
+
+.lifestream-item-msg.twitter-com {
+    padding-left: 18px;
+    background: transparent url(../img/twitter_16x16.png) no-repeat center left;
+}
+
+.lifestream-item-inner.twitter-com {
+    background: white url(../img/twitterback.jpg) no-repeat scroll 0 0;
+}
+
+.lifestream-item-inner.twitter-com p {
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    
+    padding: 10px;
+    background: white;
+}
+
+.twitter-com-speech-tail {
+    background: transparent url(../img/speech_tail.gif) no-repeat scroll 13px 0;
+    height: 10px;
 }
 
 span.type-label {

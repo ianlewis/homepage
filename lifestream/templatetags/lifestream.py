@@ -63,18 +63,13 @@ class LifestreamItemNode(Node):
 
     def render(self, context):
         item = self.item_var.resolve(context)
+        context["item"] = item
         try:
             template_name = "lifestream/sites/%s.html" % item_class(item)
-            return render_to_string(template_name, {
-                "item": item
-            })
+            return render_to_string(template_name, context)
         except TemplateDoesNotExist, e:
             template_name = "lifestream/sites/basic.html"
-            return render_to_string(template_name, {
-                "item": item
-            })
-
-        
+            return render_to_string(template_name, context)
 
 @register.tag
 def render_item(parser, token):
@@ -82,3 +77,8 @@ def render_item(parser, token):
     if len(bits) != 2:
         raise TemplateSyntaxError("%r takes one argument." % bits[0])
     return LifestreamItemNode(bits[1])
+
+@register.filter
+def urlize_twitter(text):
+    import re
+    return mark_safe(re.sub(r'@([a-zA-Z0-9_]*)', r'@<a href="http://twitter.com/\1">\1</a>', text))

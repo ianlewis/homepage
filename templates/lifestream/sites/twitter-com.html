@@ -1,0 +1,24 @@
+{% load lifestream %}
+{% load truncate_chars %}
+
+<li class="lifestream-item {% item_class item %}">
+  <div class="lifestream-item-msg {% item_class item %}">From {{ item.feed.domain }}</div>
+  {% block item_inner %}
+  <div class="lifestream-item-inner {% item_class item %}">
+    <cite class="avatar">
+      <a href="http://twitter.com/IanMLewis">
+        <img alt="" src="{{ MEDIA_URL }}img/avatar.jpg"/>
+      </a>
+    </cite>
+    <div class="twitter-com-speech-tail"></div>
+    <p>
+      {% if item.title %}
+        {{ item.title|urlizetrunc:50|urlize_twitter }}
+      {% else %}
+        &nbsp;
+      {% endif %}
+    </p>
+  </div>
+  {% endblock %}
+  <div class="lifestream-item-date">{{ item.date|friendly_date }}</div>
+</li>
