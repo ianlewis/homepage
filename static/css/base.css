@@ -144,6 +144,11 @@ div.lifestream-item-msg {
     /* background: #3274D0 none repeat scroll 0 0; */
 }
 
+.lifestream-item-inner.delicious-com p {
+    font-size: 70%;
+    color: #CCCCCC;
+}
+
 .lifestream-item-inner.delicious-com a {
     color: white;
 }
