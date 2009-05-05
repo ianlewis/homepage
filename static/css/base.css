@@ -134,6 +134,10 @@ a:hover {
     font-size: 80%;
 }
 
+.lifestream-item-inner p {
+    font-size: 70%;
+}
+
 div.lifestream-item-msg {
     font-size: 70%;
     margin-bottom: 5px;
@@ -149,7 +153,6 @@ div.lifestream-item-date {
 }
 
 .lifestream-item-inner.delicious-com p {
-    font-size: 70%;
     color: #CCCCCC;
 }
 

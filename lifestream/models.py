@@ -58,6 +58,7 @@ class Item(models.Model):
   permalink = models.URLField(_("Permalink"),max_length=1000)
   media_url = models.URLField(_("Media URL"),max_length=1000, null=True, blank=True)
   media_thumbnail_url = models.URLField(_("Media Thumbnail URL"), max_length=1000, null=True, blank=True)
+  media_player_url = models.URLField(_("media player URL"), max_length=1000, null=True, blank=True)
   media_description = models.TextField(_("Media Description"), null=True, blank=True)
   media_description_type = models.CharField(_("Media Description Type"), max_length=50, null=True, blank=True)
 

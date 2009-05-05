@@ -24,6 +24,8 @@ class DlifeFeedParser(feedparser._StrictFeedParser_old):
   def _start_media_description(self, attrsD):
     self.push('media_description', 1)
     self.entries[-1]['media_description_attrs'] = copy.deepcopy(attrsD)
+  def _start_media_player(self, attrsD):
+    self.entries[-1]['media_player_attrs'] = copy.deepcopy(attrsD)
 feedparser._StrictFeedParser = DlifeFeedParser
 
 def get_mod_class(plugin):
