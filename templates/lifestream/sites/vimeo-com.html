@@ -1,0 +1,16 @@
+{% extends "lifestream/sites/basic.html" %}
+{% load lifestream %}
+{% load truncate_chars %}
+
+{% block item_inner %}
+<div class="lifestream-item-inner {% item_class item %}">
+  <img width="100%" src="{{ item.media_thumbnail_url }}"/> 
+  <p>
+    {% if item.clean_content %}
+      {{ item.clean_content|truncate_chars:100 }}
+    {% else %}
+      &nbsp;
+    {% endif %}
+  </p>
+</div>
+{% endblock %}

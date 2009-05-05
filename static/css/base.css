@@ -139,6 +139,10 @@ div.lifestream-item-msg {
     margin-bottom: 5px;
 }
 
+div.lifestream-item-date {
+    font-size: 70%;
+}
+
 .lifestream-item-inner.delicious-com {
     background: #3274D0 url(../img/deliciousback.gif) no-repeat scroll left bottom;
     /* background: #3274D0 none repeat scroll 0 0; */
@@ -162,6 +166,12 @@ div.lifestream-item-msg.delicious-com {
     background: transparent url(../img/delicious_16x16.png) no-repeat center left; 
 }
 
+.lifestream-item-inner.vimeo-com {
+    background: white url(../img/vimeoback.png) no-repeat scroll left bottom;
+    padding: 0;
+    min-height: 268px;
+}
+
 span.type-label {
     bottom:0;
     display:block;
@@ -169,10 +179,6 @@ span.type-label {
     position:absolute;
     right:0;
     width:48px;
-}
-
-span.type-label.delicious {
-    background: transparent url(../img/delicious_48x48.png) repeat scroll 0 0;
 }
 
 .content .blog-post {
