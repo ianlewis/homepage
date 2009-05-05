@@ -6,7 +6,7 @@ from lifestream.rss import *
 admin.autodiscover()
 
 urlpatterns = patterns('django.views.generic.simple',
-    url(r'^page/0?1', 'redirect_to', {'url': '/'}, name="page_one"),
+    url(r'^page/0?1$', 'redirect_to', {'url': '/'}, name="page_one"),
 )
 
 urlpatterns += patterns('lifestream.views',
