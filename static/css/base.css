@@ -185,6 +185,15 @@ div.lifestream-item-msg.delicious-com {
     background: transparent url(../img/google_16x16.png) no-repeat center left; 
 }
 
+.lifestream-item-inner.google-com {
+    border: 2px solid #6688EE;
+    min-height: 244px;
+}
+
+.lifestream-item-inner.google-com a,.lifestream-item-inner.google-com a:hover {
+    color: #4F7FC9;
+}
+
 .lifestream-item-msg.ianlewis-org {
     padding-left: 18px;
     background: transparent url(../img/ianlewis_16x16.png) no-repeat center left; 
@@ -234,15 +243,6 @@ div.lifestream-item-msg.delicious-com {
 .twitter-com-speech-tail {
     background: transparent url(../img/speech_tail.gif) no-repeat scroll 13px 0;
     height: 10px;
-}
-
-span.type-label {
-    bottom:0;
-    display:block;
-    height:48px;
-    position:absolute;
-    right:0;
-    width:48px;
 }
 
 .content .blog-post {
