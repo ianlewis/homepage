@@ -65,10 +65,14 @@ class FeedPlugin(object):
     '''
 
     feed_contents = entry.get('content')
-    if feed_contents is not None:
-      content_type = feed_contents[0]['type']
-      feed_content = feed_contents[0]['value']
-      content, clean_content = clean_item_content(feed_content)
+    feed_description = entry.get('description')
+    if feed_contents:
+        content_type = feed_contents[0]['type']
+        feed_content = feed_contents[0]['value']
+        content, clean_content = clean_item_content(feed_content)
+    elif feed_description:
+        content_type = "text/html"
+        content, clean_content = clean_item_content(feed_description)
     else:
       content_type = None
       content = None
