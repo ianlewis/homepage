@@ -111,7 +111,6 @@ a:hover {
 }
 
 .lifestream-item-list .lifestream-item {
-    background: #F8F8F8 none repeat scroll 0 0;
     display: inline;
     float: left;
     margin: 0 7px 15px 7px;
@@ -120,9 +119,55 @@ a:hover {
 
 .lifestream-item .lifestream-item-inner {
     /* height: auto !important; */
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+
     min-height: 248px;
     overflow: hidden;
     padding: 10px 15px;
+    position: relative;
+}
+
+.lifestream-item-inner h2 {
+    font-size: 80%;
+}
+
+div.lifestream-item-msg {
+    font-size: 70%;
+    margin-bottom: 5px;
+}
+
+.lifestream-item-inner.delicious-com {
+    background: #3274D0 url(../img/deliciousback.gif) no-repeat scroll left bottom;
+    /* background: #3274D0 none repeat scroll 0 0; */
+}
+
+.lifestream-item-inner.delicious-com a {
+    color: white;
+}
+
+.lifestream-item-inner.delicious-com a:hover {
+    color: white;
+}
+
+div.lifestream-item-msg.delicious-com {
+    padding-left: 18px;
+    background: transparent url(../img/delicious_16x16.png) no-repeat center left; 
+}
+
+span.type-label {
+    bottom:0;
+    display:block;
+    height:48px;
+    position:absolute;
+    right:0;
+    width:48px;
+}
+
+span.type-label.delicious {
+    background: transparent url(../img/delicious_48x48.png) repeat scroll 0 0;
 }
 
 .content .blog-post {

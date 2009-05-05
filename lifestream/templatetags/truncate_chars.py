@@ -3,9 +3,6 @@
 #:tabSize=2:indentSize=2:noTabs=true:
 #:folding=explicit:collapseFolds=1:
 
-# Code copied from:
-# http://w.holeso.me/2008/08/a-simple-django-truncate-filter/
-
 from django import template
 register = template.Library()
 

@@ -70,7 +70,7 @@ class Item(models.Model):
     return ('item_page', (), {
       'item_id': self.id
     })
-  
+ 
   def __unicode__(self):
     return self.title
     

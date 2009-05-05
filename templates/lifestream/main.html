@@ -1,5 +1,6 @@
 {% extends "lifestream/base.html" %}
 {% load truncate_chars %}
+{% load lifestream %}
 
 {% block title %}{% ifnotequal items.number 1 %}Page {{ items.number }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
@@ -29,8 +30,10 @@
     {% if items.object_list %}
       <ul class="lifestream-item-list">
       {% for item in items.object_list %}
-        <li class="lifestream-item">
-          <div class="lifestream-item-inner">
+        <li class="lifestream-item {% item_class item %}">
+        <div class="lifestream-item-msg {% item_class item %}">From {{ item.feed.domain }}</div>
+          <div class="lifestream-item-inner {% item_class item %}">
+            <span class="type-label {% item_class item %}"></span>
             <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
             <p>
               {% if item.clean_content %}
