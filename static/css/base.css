@@ -166,13 +166,49 @@ div.lifestream-item-date {
 
 div.lifestream-item-msg.delicious-com {
     padding-left: 18px;
-    background: transparent url(../img/delicious_16x16.png) no-repeat center left; 
+    background: transparent url(../img/delicious_16x16.png) no-repeat center left;
 }
 
 .lifestream-item-inner.vimeo-com {
     background: white url(../img/vimeoback.png) no-repeat scroll left bottom;
     padding: 0;
     min-height: 268px;
+}
+
+.lifestream-item-inner.vimeo-com p {
+    padding: 0 15px;
+}
+
+.lifestream-item-msg.google-com {
+    padding-left: 18px;
+    background: transparent url(../img/google_16x16.png) no-repeat center left; 
+}
+
+.lifestream-item-msg.ianlewis-org {
+    padding-left: 18px;
+    background: transparent url(../img/ianlewis_16x16.png) no-repeat center left; 
+}
+
+.lifestream-item-inner.ianlewis-org {
+    padding: 0;
+    border: 1px solid black;
+    min-height: 266px;
+}
+
+.lifestream-item-inner.ianlewis-org h2 {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    padding: 10px 15px; 
+    color: white;
+    background: black;
+}
+
+.lifestream-item-inner.ianlewis-org a,.lifestream-item-inner.ianlewis-org a:hover {
+    color: white;
+}
+
+.lifestream-item-inner.ianlewis-org p {
+    padding: 10px 15px;
 }
 
 span.type-label {
