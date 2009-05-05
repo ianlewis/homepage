@@ -6,6 +6,7 @@
 
 {% block content %}
 
+  {% ifequal items.number 1 %}
   <div class="blog-links">
     <a href="{% url blog_page "en" %}">
     <div class="english-blog blog-link">
@@ -25,6 +26,7 @@
     </div>
     </a>
   </div>
+  {% endifequal %}
  
   <div class="lifestream">
     {% if items.object_list %}

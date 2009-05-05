@@ -101,7 +101,8 @@ a:hover {
 
 .content .lifestream {
     clear: both;
-    display: inline;
+    /* display: inline; */
+    margin-top: 20px;
 }
 
 .lifestream-item-list {
