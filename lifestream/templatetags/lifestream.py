@@ -23,13 +23,8 @@ def friendly_date(date, include_time=False):
   """
   delta = datetime.now() - date
    
-  if delta < timedelta(seconds=10):
+  if delta < timedelta(seconds=60):
     msg = _("Just now")
-  elif delta < timedelta(seconds=60):
-    msg = ngettext('%(seconds)s second ago',
-            '%(seconds)s seconds ago', delta.seconds) % {
-      'seconds': delta.seconds,
-    }
   elif delta < timedelta(seconds=60*60):
     minutes = delta.seconds / 60
     msg = ngettext('%(minutes)s minute ago',
@@ -47,13 +42,23 @@ def friendly_date(date, include_time=False):
             '%(days)s days ago', delta.days) % {
       'days': delta.days,
     }
+  elif delta < timedelta(days=31):
+    weeks = int(delta.days / 7)
+    msg = ngettext('%(weeks)s week ago',
+            '%(weeks)s weeks ago', weeks) % {
+      'weeks': weeks,
+    }
+  elif delta < timedelta(days=365):
+    months = int(delta.days / 31)
+    msg = ngettext('%(months)s month ago',
+            '%(months)s months ago', months) % {
+      'months': months,
+    }
   else:
-    # TODO: format date based on locale
-    date_format = '%Y-%m-%d'
-    if include_time:
-      date_format += ' %H:%m'
-    msg = _('%(date)s') % {
-      'date': date.strftime(date_format),
+    years = int(delta.days / 365)
+    msg = ngettext('%years)s year ago',
+            '%(years)s years ago', years) % {
+      'years': years,
     }
   return mark_safe(msg)
 
