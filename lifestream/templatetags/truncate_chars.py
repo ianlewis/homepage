@@ -13,4 +13,4 @@ def truncate_chars(value, max_length):
       truncd_val = value[:max_length]
       truncd_val = truncd_val.rstrip()
       return  truncd_val + "..."
-  return value
+  return ""
