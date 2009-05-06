@@ -128,6 +128,12 @@ FORCE_LOWERCASE_TAGS=True
 LIFESTREAM_ITEMS_PER_PAGE=9
 
 try:
+    from lifestream.util import feedparser
+    feedparser._debug = DEBUG
+except ImportError:
+    pass
+
+try:
     from settings_local import *
 except ImportError:
     pass
