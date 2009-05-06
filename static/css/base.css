@@ -246,6 +246,22 @@ div.lifestream-item-msg.delicious-com {
     height: 10px;
 }
 
+.lifestream-item-msg.youtube-com {
+    padding-left: 18px;
+    background: transparent url(../img/youtube_16x16.png) no-repeat center left;
+}
+
+.lifestream-item-inner.youtube-com {
+    background: #C61D1D;
+    padding: 0;
+    min-height: 268px;
+}
+
+.lifestream-item-inner.youtube-com p {
+    color: #CCCCCC;
+    padding: 0 15px;
+}
+
 .content .blog-post {
     margin-bottom: 20px;
 }

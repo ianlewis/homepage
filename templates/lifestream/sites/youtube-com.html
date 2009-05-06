@@ -17,7 +17,7 @@
     {% endcomment %}
   </object>
   <p>
-    {{ item.clean_content|truncate_chars:100 }}
+    {{ item.media_description|striptags|truncate_chars:100 }}
   </p>
 </div>
 {% endblock %}
