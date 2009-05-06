@@ -262,6 +262,16 @@ div.lifestream-item-msg.delicious-com {
     padding: 0 15px;
 }
 
+.lifestream-item-inner.flickr-com {
+    min-height: 268px;
+    padding: 0;
+}
+
+.lifestream-item-inner.flickr-com p {
+    background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
+    padding: 10px 15px;
+}
+
 .content .blog-post {
     margin-bottom: 20px;
 }
