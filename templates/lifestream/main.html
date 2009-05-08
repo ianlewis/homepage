@@ -1,11 +1,13 @@
 {% extends "lifestream/base.html" %}
 {% load truncate_chars %}
 {% load lifestream %}
+{% load pagination_tags %}i
 
 {% block title %}{% ifnotequal items.number 1 %}Page {{ items.number }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
 {% block content %}
-
+  {% autopaginate items %}
+  {% comment %}
   {% ifequal items.number 1 %}
   <div class="blog-links">
     <a href="{% url blog_page "en" %}">
@@ -27,16 +29,21 @@
     </a>
   </div>
   {% endifequal %}
+  {% endcomment %}
  
   <div class="lifestream">
-    {% if items.object_list %}
+    {% if page_obj.object_list %}
       <ul class="lifestream-item-list">
-      {% for item in items.object_list %}
+      {% for item in page_obj.object_list %}
         {% render_item item %}
       {% endfor %}
       </ul>
     {% endif %}
     <br/>
+
+    {% paginate %}
+
+    {% comment %}
     <div class="pagination">
       <span class="step-links">
         {% if items.has_previous %}
@@ -52,5 +59,6 @@
         {% endif %}
       </span>
     </div>
+    {% endcomment %}
   </div>
 {% endblock %}

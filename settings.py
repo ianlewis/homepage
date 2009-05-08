@@ -62,14 +62,18 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-  'django.core.context_processors.auth',
-  'django.core.context_processors.media',
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -87,6 +91,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'pagination',
     'lifestream',
     'blog',
     'tagging',
@@ -126,7 +131,9 @@ PLUGINS = (
 
 FORCE_LOWERCASE_TAGS=True
 
-LIFESTREAM_ITEMS_PER_PAGE=9
+PAGINATION_DEFAULT_PAGINATION = 9
+PAGINATION_INVALID_PAGE_RAISES_404 = True
+PAGINATION_DEFAULT_WINDOW = 3
 
 try:
     from lifestream.util import feedparser

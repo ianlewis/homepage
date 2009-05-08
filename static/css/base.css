@@ -292,3 +292,43 @@ div.lifestream-item-msg.delicious-com {
     font-size: 80%;
     margin-bottom: 5px;
 }
+
+.pagination {
+    text-align: center;
+    font-size: 13px;
+    padding: .25em .25em .6em .25em;
+}
+
+.pagination a.page {
+    padding: 2px 6px;
+    border: 1px solid #AAAAAA;
+    margin: 2px;
+}
+
+.pagination a.page:hover {
+    color: black;
+    border: 1px solid #666666;
+}
+
+.pagination .next,.pagination .prev {
+  padding: 2px 6px;
+  border: 1px solid #AAAAAA;
+  margin: 2px;
+}
+
+.pagination a.next:hover, .pagination a.prev:hover {
+    color: black;
+    border: 1px solid #666666;
+}
+
+.pagination .current {
+    padding: 2px 6px;
+    /*border: 1px solid #ddd;*/
+    border: 1px solid black;
+    /*font-weight: bold;*/
+    /*background:#417690;*/
+    background-color: black;
+    /*color:#f4f379;*/
+    color: white;
+    margin: 2px;
+}
