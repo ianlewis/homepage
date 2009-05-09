@@ -265,11 +265,24 @@ div.lifestream-item-msg.delicious-com {
 .lifestream-item-inner.flickr-com {
     min-height: 268px;
     padding: 0;
+    position: relative;
 }
 
 .lifestream-item-inner.flickr-com p {
     background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
     padding: 10px 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 184px;
+}
+
+.lifestream-item-inner.flickr-com img.source-image {    
+    /* width: 250px; */
+    height: 100%;
+	position: absolute;
+	top: 0;
+	left: -35%;
 }
 
 .content .blog-post {
