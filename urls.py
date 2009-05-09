@@ -20,6 +20,8 @@ urlpatterns += patterns('',
     url(r'^admin/update_feeds', 'lifestream.admin_views.admin_update_feeds', name='admin_update_feeds'),
     (r'^admin/(.*)', admin.site.root),
     
+    url(r'^page/(?P<page>\d+)/?$', 'django.views.generic.simple.redirect_to', {'url': '/?page=%(page)s'}, name="lifestream_page_redirect"),
+    
     (r'', include('lifestream.urls')),
 )
 
