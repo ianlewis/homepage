@@ -14,27 +14,8 @@ from lifestream.util.decorators import allow_methods
 
 from lifestream.models import *
 
-#@allow_methods('GET')
-#def main_page(request, page="1"):
-#  item_list = Item.objects.published()
-#  paginator = Paginator(item_list, ITEMS_PER_PAGE)
-#
-#  # Make sure page request is an int. If not, deliver first page.
-#  try:
-#    page = int(page)
-#  except ValueError:
-#    page = 1
-#
-#  # If page request (9999) is out of range, deliver last page of results.
-#  try:
-#    items = paginator.page(page)
-#  except (EmptyPage, InvalidPage):
-#    items = paginator.page(paginator.num_pages)
-#  
-#  return direct_to_template(request, "lifestream/main.html", { "items": items })
-
 @allow_methods('GET')
-def main_page(request, page="1"):
+def main_page(request):
   from blog.models import Post
 
   # Get latest English and Japanese post.
