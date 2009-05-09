@@ -311,9 +311,15 @@ div.lifestream-item-msg.delicious-com {
 }
 
 .pagination .next,.pagination .prev {
-  padding: 2px 6px;
-  border: 1px solid #AAAAAA;
-  margin: 2px;
+    padding: 2px 6px;
+    border: 1px solid #AAAAAA;
+    margin: 2px;
+}
+
+.pagination .disabled {
+    /* border: 1px solid #CCCCCC; */
+    /* color: #CCCCCC; */
+    display:none;
 }
 
 .pagination a.next:hover, .pagination a.prev:hover {
