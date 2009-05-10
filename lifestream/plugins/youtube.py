@@ -20,3 +20,8 @@ class YoutubePlugin(FeedPlugin):
     #Update the media player url
     if "media_player_attrs" in entry and "url" in entry["media_player_attrs"]:
         entry["media_player_attrs"]["url"] = entry["media_player_attrs"]["url"].replace("?v=", "/v/")
+
+    # youtube includes a strange schema url in the tags
+    for tag in entry["tags"]:
+        if tag.startswith("http://"):
+            entry["tags"].remove(tag)
