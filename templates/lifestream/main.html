@@ -1,9 +1,10 @@
 {% extends "lifestream/base.html" %}
 {% load truncate_chars %}
 {% load lifestream %}
-{% load pagination_tags %}i
+{% load pagination_tags %}
+{% load tagging_tags %} 
 
-{% block title %}{% ifnotequal items.number 1 %}Page {{ items.number }}{% else %}Homepage{% endifnotequal %}{% endblock %}
+{% block title %}{% ifnotequal request.page 1 %}Page {{ request.page }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
 {% block content %}
   {% autopaginate items %}
@@ -39,8 +40,7 @@
       {% endfor %}
       </ul>
     {% endif %}
-    <br/>
-
+    
     {% paginate %}
 
     {% comment %}
@@ -61,4 +61,13 @@
     </div>
     {% endcomment %}
   </div>
+{% endblock %}
+
+{% block footer %}
+<div class="tag-cloud">
+{% tag_cloud_for_model lifestream.item as item_tags with steps=9 min_count=2 distribution=log %}
+{% for item_tag in item_tags %}
+<a style="font-size: {{ item_tag.font_size }}px;" href="{{ item_tag.get_absolute_url }}">{{ item_tag.name }}</a>
+{% endfor %}
+</div>
 {% endblock %}
