@@ -1,4 +1,4 @@
-{% extends "lifestream/base.html" %}
+{% extends "lifestream/item_list.html" %}
 {% load truncate_chars %}
 {% load lifestream %}
 {% load pagination_tags %}
@@ -6,68 +6,26 @@
 
 {% block title %}{% ifnotequal request.page 1 %}Page {{ request.page }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
-{% block content %}
-  {% autopaginate items %}
-  {% comment %}
-  {% ifequal items.number 1 %}
-  <div class="blog-links">
-    <a href="{% url blog_page "en" %}">
-    <div class="english-blog blog-link">
-      {% if en_post %}
-        <div class="blog-link-title">{{ en_post.title }}</div>
-        <div class="blog-link-content">{{ en_post.content|safe|truncate_chars:50 }}</div>
-      {% endif %}
-    </div>
-    </a>
-
-    <a href="{% url blog_page "jp" %}">
-    <div class="japanese-blog blog-link">
-      {% if jp_post %}
-        <div class="blog-link-title">{{ jp_post.title }}</div>
-        <div class="blog-link-content">{{ jp_post.content|striptags|truncate_chars:50 }}</div>
-      {% endif %}
-    </div>
-    </a>
-  </div>
-  {% endifequal %}
-  {% endcomment %}
- 
-  <div class="lifestream">
-    {% if page_obj.object_list %}
-      <ul class="lifestream-item-list">
-      {% for item in page_obj.object_list %}
-        {% render_item item %}
-      {% endfor %}
-      </ul>
+{% block top_content %}
+{% ifequal request.page 1 %}
+<div class="blog-links">
+  <a href="{% url blog_page "en" %}">
+  <div class="english-blog blog-link">
+    {% if en_post %}
+      <div class="blog-link-title">{{ en_post.title }}</div>
+      <div class="blog-link-content">{{ en_post.content|safe|truncate_chars:50 }}</div>
     {% endif %}
-    
-    {% paginate %}
-
-    {% comment %}
-    <div class="pagination">
-      <span class="step-links">
-        {% if items.has_previous %}
-        <a href="{% ifequal items.previous_page_number 1 %}{% url main_page %}{% else %}{% url main_page_paged items.previous_page_number %}{% endifequal %}">Previous</a>
-        {% endif %}
-
-        <span class="current">
-          Page {{ items.number }} of {{ items.paginator.num_pages }}.
-        </span>
-
-        {% if items.has_next %}
-          <a href="{% url main_page_paged items.next_page_number %}">Next</a>
-        {% endif %}
-      </span>
-    </div>
-    {% endcomment %}
   </div>
-{% endblock %}
+  </a>
 
-{% block footer %}
-<div class="tag-cloud">
-{% tag_cloud_for_model lifestream.item as item_tags with steps=20 min_count=2 distribution=log %}
-{% for item_tag in item_tags %}
-<a style="font-size: {{ item_tag.font_size|add:"10" }}px;" href="{{ item_tag.get_absolute_url }}">{{ item_tag.name }}</a>
-{% endfor %}
+  <a href="{% url blog_page "jp" %}">
+  <div class="japanese-blog blog-link">
+    {% if jp_post %}
+      <div class="blog-link-title">{{ jp_post.title }}</div>
+      <div class="blog-link-content">{{ jp_post.content|striptags|truncate_chars:50 }}</div>
+    {% endif %}
+  </div>
+  </a>
 </div>
+{% endifequal %}
 {% endblock %}

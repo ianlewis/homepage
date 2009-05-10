@@ -1,0 +1,52 @@
+{% extends "lifestream/base.html" %}
+{% load truncate_chars %}
+{% load lifestream %}
+{% load pagination_tags %}
+{% load tagging_tags %} 
+
+{% block title %}Page {{ request.page }}{% endblock %}
+
+{% block content %}
+  {% autopaginate object_list %}
+
+  {% block top_content %}{% endblock %}
+
+  <div class="lifestream">
+    {% if page_obj.object_list %}
+      <ul class="lifestream-item-list">
+      {% for item in page_obj.object_list %}
+        {% render_item item %}
+      {% endfor %}
+      </ul>
+    {% endif %}
+    
+    {% paginate %}
+
+    {% comment %}
+    <div class="pagination">
+      <span class="step-links">
+        {% if items.has_previous %}
+        <a href="{% ifequal items.previous_page_number 1 %}{% url main_page %}{% else %}{% url main_page_paged items.previous_page_number %}{% endifequal %}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+          <a href="{% url main_page_paged items.next_page_number %}">Next</a>
+        {% endif %}
+      </span>
+    </div>
+    {% endcomment %}
+  </div>
+{% endblock %}
+
+{% block footer %}
+<div class="tag-cloud">
+{% tag_cloud_for_model lifestream.item as item_tags with steps=20 min_count=2 distribution=log %}
+{% for item_tag in item_tags %}
+<a style="font-size: {{ item_tag.font_size|add:"10" }}px;" href="{% url tag_page item_tag.name %}">{{ item_tag.name }}</a>
+{% endfor %}
+</div>
+{% endblock %}

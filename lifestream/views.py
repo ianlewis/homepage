@@ -7,12 +7,20 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.decorators import login_required
 from django.views.generic.simple import direct_to_template
+from django.views.generic.list_detail import object_detail
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from lifestream.util.decorators import allow_methods
 
 from lifestream.models import *
+
+def object_list(request, queryset, template_name, extra_context={}):
+    context = {
+      "object_list": queryset,
+    }
+    context.update(extra_context)
+    return direct_to_template(request, template_name, context)
 
 @allow_methods('GET')
 def main_page(request):
@@ -28,11 +36,19 @@ def main_page(request):
   except Post.DoesNotExist:
       jp_post = None
 
-  return direct_to_template(request, "lifestream/main.html", {
-      "items": Item.objects.published(),
+  return object_list(request, Item.objects.published(), "lifestream/main.html", {
       "jp_post": jp_post,
       "en_post": en_post,
   })
+
+@allow_methods('GET')
+def tag_page(request, tag):
+    from tagging.utils import get_tag
+    from tagging.models import TaggedItem
+    tag_instance = get_tag(tag)
+    queryset = TaggedItem.objects.get_by_model(Item.objects.published(), tag_instance)
+
+    return object_list(request, queryset, "lifestream/item_list.html")
 
 @allow_methods('GET', 'POST')
 def item_page(request, item_id=None):
@@ -44,4 +60,3 @@ def item_page(request, item_id=None):
   return direct_to_template(request, "lifestream/item.html", { 
     "item": item,
   })
-  
