@@ -114,10 +114,10 @@ VALID_ITEM_TAGS = (
   'td',
   'tr',
   'img',
-  'font',
+  #'font',
   'span',
-  'div',
-  'object'
+  #'div',
+  #'object'
 )
 
 PLUGINS = (
