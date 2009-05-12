@@ -10,9 +10,9 @@ register = template.Library()
 def truncate_chars(value, max_length):
     if value is None:
         return ""
-    
+    max_length = int(max_length)
     if len(value) > max_length:
         truncd_val = value[:max_length]
         truncd_val = truncd_val.rstrip()
-        return  truncd_val + "..."
+        return truncd_val + "..."
     return value
