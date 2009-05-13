@@ -4,9 +4,14 @@
 
 {% block item_inner %}
 <div class="lifestream-item-inner {% item_class item %}">
-  <img class="source-image" src="{{ item.media_url }}" alt="" />
+  <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}"><img class="source-image" src="{{ item.media_url }}" alt="" /></a>
   <p>
     {{ item.media_description|striptags|truncate_chars:200 }}
   </p>
+</div>
+
+<div id="window_{{ item.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
+  <img class="source-image" src="{{ item.media_url }}" alt="" />
+  <a href="javascript:void(0);" rel="window_{{ item.id }}" class="modal-close"></a>
 </div>
 {% endblock %}

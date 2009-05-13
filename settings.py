@@ -124,6 +124,7 @@ PLUGINS = (
   ('lifestream.plugins.FeedPlugin', 'Generic Feed'),
   ('lifestream.plugins.twitter.TwitterPlugin', 'Twitter Plugin'),
   ('lifestream.plugins.youtube.YoutubePlugin', 'Youtube Plugin'),
+  ('lifestream.plugins.flickr.FlickrPlugin', 'Flickr Plugin'),
   # ('youtube', 'Youtube'),
   # ('vimeo', 'Vimeo'),
   # ('lastfm', 'last.fm'),
