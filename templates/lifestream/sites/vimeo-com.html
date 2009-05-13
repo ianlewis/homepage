@@ -8,7 +8,15 @@
     <param name="allowfullscreen" value="true" />
     <param name="allowscriptaccess" value="always" />
     <param name="movie" value="{{ item.media_player_url }}" />
-    <embed src="{{ item.media_player_url }}" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="214" height="159">
+    <param name="wmode" value="opaque">
+    <embed src="{{ item.media_player_url }}" 
+      type="application/x-shockwave-flash"
+      allowfullscreen="true"
+      allowscriptaccess="always"
+      width="214"
+      height="159"
+      wmode="opaque"
+    >
     </embed>
     {% comment %}
     <param name="movie" value="{{ item.media_player_url }}&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" />
@@ -19,5 +27,15 @@
   <p>
     {{ item.clean_content|truncate_chars:100 }}
   </p>
+  <p>[ <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}">View Large</a> ]</p>
+</div>
+
+<div id="window_{{ item.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
+  <object width="500" height="415" style="z-index: 3001;">
+    <param name="movie" value="{{ item.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
+    <param name="allowFullScreen" value="true"/>
+    <embed width="500" height="415" allowfullscreen="true" type="application/x-shockwave-flash" src="{{ item.media_player_url }}&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1"/>
+  </object>
+  <a href="javascript:void(0);" rel="window_{{ item.id }}" class="modal-close"></a>
 </div>
 {% endblock %}

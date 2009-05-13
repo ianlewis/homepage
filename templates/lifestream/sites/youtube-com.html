@@ -27,7 +27,7 @@
   <p>
     {{ item.media_description|striptags|truncate_chars:100 }}
   </p>
-  <p>[ <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}">View Large</a> ]</p>  
+  <p>[ <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}">View Large</a> ]</p>
 </div>
 
 <div id="window_{{ item.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
