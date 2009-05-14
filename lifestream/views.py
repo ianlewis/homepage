@@ -50,6 +50,14 @@ def tag_page(request, tag):
 
     return object_list(request, queryset, "lifestream/item_list.html")
 
+@allow_methods('GET')
+def domain_page(request, domain):
+    return object_list(
+        request,
+        Item.objects.published().filter(feed__domain=domain),
+        "lifestream/item_list.html",
+    )
+
 @allow_methods('GET', 'POST')
 def item_page(request, item_id=None):
   try:
