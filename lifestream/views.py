@@ -21,11 +21,11 @@ def main_page(request):
 
   # Get latest English and Japanese post.
   try:
-      en_post = Post.objects.active().filter(locale="en").latest("pub_date")
+      en_post = Post.objects.published().filter(locale="en").latest("pub_date")
   except Post.DoesNotExist:
       en_post = None
   try:
-      jp_post = Post.objects.active().filter(locale="jp").latest("pub_date")
+      jp_post = Post.objects.published().filter(locale="jp").latest("pub_date")
   except Post.DoesNotExist:
       jp_post = None
 

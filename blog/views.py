@@ -7,12 +7,12 @@ from models import *
 
 @allow_methods('GET')
 def blog_page(request, locale="en"):
-    return object_list(request, Post.objects.active().filter(locale=locale))
+    return object_list(request, Post.objects.published().filter(locale=locale))
 
 @allow_methods('GET')
 def blog_detail(request, slug, locale="en"):
     defaults = {
-        "queryset": Post.objects.active().filter(locale=locale),
+        "queryset": Post.objects.published().filter(locale=locale),
         "slug": slug,
     }
     return object_detail(request, **defaults)
@@ -26,6 +26,6 @@ def tag_page(request, tag, locale="en"):
     if not tag_instance:
         raise Http404
 
-    queryset = TaggedItem.objects.get_by_model(Post.objects.active(), tag_instance)
+    queryset = TaggedItem.objects.get_by_model(Post.objects.published(), tag_instance)
 
     return object_list(request, queryset)

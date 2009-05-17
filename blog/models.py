@@ -15,7 +15,7 @@ BLOG_LOCALES = (
 )
 
 class PostManager(Manager):
-    def active(self):
+    def published(self):
         return self.filter(pub_date__lt = datetime.now(), active=True)
 
 class Post(Model):
@@ -30,7 +30,7 @@ class Post(Model):
     locale = CharField(u'locale', max_length=20, choices=BLOG_LOCALES, default="en")
     tags = TagField()
 
-    active = BooleanField(u'active', default=False)
+    active = BooleanField(u'published', default=False)
     pub_date = DateTimeField(u'date', default=datetime.now)
     create_date = DateTimeField(u'created', default=datetime.now)
    
