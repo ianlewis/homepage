@@ -2,4 +2,10 @@
 {% block javascript %}
 <script type="text/javascript" src="{{ MEDIA_URL }}lib/jquery/jqModal-r14.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/lifestream.js"></script>
-{% endblock %}     
+{% endblock %}
+
+{% block content %}
+<div id="lifestream">
+  {% block lifestream_content %}{% endblock %}
+</div>
+{% endblock %}

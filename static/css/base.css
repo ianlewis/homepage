@@ -43,7 +43,7 @@ a:hover {
 }
 
 .header .title {
-    font-size: 400%;
+    font-size: 300%;
     float: left;
 }
 
@@ -68,12 +68,17 @@ a:hover {
     overflow: hidden;
 }
 
-.content .blog-links {
+/*
+ * ========================== 
+ * Lifestream 
+ * ==========================
+ */
+#lifestream .blog-links {
     margin: 20px 50px;
     overflow: hidden;
 }
 
-.content .blog-link {
+#lifestream .blog-link {
     border: 1px solid black;
     padding: 15px;
     width: 293px;
@@ -82,43 +87,43 @@ a:hover {
     float: left;
 }
 
-.content .blog-link .blog-link-title {
+#lifestream .blog-link .blog-link-title {
     font-size: 110%;
     font-weight: bold;
 }
 
-.content .blog-link .blog-link-content {
+#lifestream .blog-link .blog-link-content {
     padding: 10px;
 }
 
-.content .english-blog {
+#lifestream .english-blog {
 
 }
 
-.content .japanese-blog {
+#lifestream .japanese-blog {
     margin-left: 50px;
 }
 
-.content .lifestream {
+#lifestream .lifestream {
     clear: both;
     /* display: inline; */
     margin-top: 20px;
 }
 
-.lifestream-item-list {
+#lifestream .lifestream-item-list {
     overflow: hidden;
     width: 684px;
     margin: 0 auto;
 }
 
-.lifestream-item-list .lifestream-item {
+#lifestream .lifestream-item-list .lifestream-item {
     display: inline;
     float: left;
     margin: 0 7px 15px 7px;
     width: 214px;
 }
 
-.lifestream-item .lifestream-item-inner {
+#lifestream .lifestream-item .lifestream-item-inner {
     /* height: auto !important; */
     -moz-border-radius-bottomleft:8px;
     -moz-border-radius-bottomright:8px;
@@ -131,82 +136,82 @@ a:hover {
     position: relative;
 }
 
-.lifestream-item-inner h2 {
+#lifestream .lifestream-item-inner h2 {
     font-size: 80%;
 }
 
-.lifestream-item-inner p {
+#lifestream .lifestream-item-inner p {
     font-size: 70%;
 }
 
-div.lifestream-item-msg {
+#lifestream div.lifestream-item-msg {
     font-size: 70%;
     margin-bottom: 5px;
 }
 
-div.lifestream-item-date {
+#lifestream div.lifestream-item-date {
     font-size: 70%;
 }
 
-.lifestream-item-inner.delicious-com {
+#lifestream .lifestream-item-inner.delicious-com {
     background: #3274D0 url(../img/deliciousback.gif) no-repeat scroll left bottom;
     /* background: #3274D0 none repeat scroll 0 0; */
 }
 
-.lifestream-item-inner.delicious-com p {
+#lifestream .lifestream-item-inner.delicious-com p {
     color: #CCCCCC;
 }
 
-.lifestream-item-inner.delicious-com a {
+#lifestream .lifestream-item-inner.delicious-com a {
     color: white;
 }
 
-.lifestream-item-inner.delicious-com a:hover {
+#lifestream .lifestream-item-inner.delicious-com a:hover {
     color: white;
 }
 
-div.lifestream-item-msg.delicious-com {
+#lifestream div.lifestream-item-msg.delicious-com {
     padding-left: 18px;
     background: transparent url(../img/delicious_16x16.png) no-repeat center left;
 }
 
-.lifestream-item-inner.vimeo-com {
+#lifestream .lifestream-item-inner.vimeo-com {
     background: white url(../img/vimeoback.png) no-repeat scroll left bottom;
     padding: 0;
     min-height: 268px;
 }
 
-.lifestream-item-inner.vimeo-com p {
+#lifestream .lifestream-item-inner.vimeo-com p {
     background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
     padding: 0 15px;
 }
 
-.lifestream-item-msg.google-com {
+#lifestream .lifestream-item-msg.google-com {
     padding-left: 18px;
     background: transparent url(../img/google_16x16.png) no-repeat center left; 
 }
 
-.lifestream-item-inner.google-com {
+#lifestream .lifestream-item-inner.google-com {
     border: 2px solid #6688EE;
     min-height: 244px;
 }
 
-.lifestream-item-inner.google-com a,.lifestream-item-inner.google-com a:hover {
+#lifestream .lifestream-item-inner.google-com a,.lifestream-item-inner.google-com a:hover {
     color: #4F7FC9;
 }
 
-.lifestream-item-msg.ianlewis-org {
+#lifestream .lifestream-item-msg.ianlewis-org {
     padding-left: 18px;
     background: transparent url(../img/ianlewis_16x16.png) no-repeat center left; 
 }
 
-.lifestream-item-inner.ianlewis-org {
+#lifestream .lifestream-item-inner.ianlewis-org {
     padding: 0;
     border: 1px solid black;
     min-height: 266px;
 }
 
-.lifestream-item-inner.ianlewis-org h2 {
+#lifestream .lifestream-item-inner.ianlewis-org h2 {
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
     padding: 10px 15px; 
@@ -214,24 +219,24 @@ div.lifestream-item-msg.delicious-com {
     background: black;
 }
 
-.lifestream-item-inner.ianlewis-org a,.lifestream-item-inner.ianlewis-org a:hover {
+#lifestream .lifestream-item-inner.ianlewis-org a,.lifestream-item-inner.ianlewis-org a:hover {
     color: white;
 }
 
-.lifestream-item-inner.ianlewis-org p {
+#lifestream .lifestream-item-inner.ianlewis-org p {
     padding: 10px 15px;
 }
 
-.lifestream-item-msg.twitter-com {
+#lifestream .lifestream-item-msg.twitter-com {
     padding-left: 18px;
     background: transparent url(../img/twitter_16x16.png) no-repeat center left;
 }
 
-.lifestream-item-inner.twitter-com {
+#lifestream .lifestream-item-inner.twitter-com {
     background: white url(../img/twitterback.jpg) no-repeat scroll 0 0;
 }
 
-.lifestream-item-inner.twitter-com p {
+#lifestream .lifestream-item-inner.twitter-com p {
     -moz-border-radius-bottomleft:8px;
     -moz-border-radius-bottomright:8px;
     -moz-border-radius-topleft:8px;
@@ -241,34 +246,34 @@ div.lifestream-item-msg.delicious-com {
     background: white;
 }
 
-.twitter-com-speech-tail {
+#lifestream .twitter-com-speech-tail {
     background: transparent url(../img/speech_tail.gif) no-repeat scroll 13px 0;
     height: 10px;
 }
 
-.lifestream-item-msg.youtube-com {
+#lifestream .lifestream-item-msg.youtube-com {
     padding-left: 18px;
     background: transparent url(../img/youtube_16x16.png) no-repeat center left;
 }
 
-.lifestream-item-inner.youtube-com {
+#lifestream .lifestream-item-inner.youtube-com {
     background: #C61D1D;
     padding: 0;
     min-height: 268px;
 }
 
-.lifestream-item-inner.youtube-com p {
+#lifestream .lifestream-item-inner.youtube-com p {
     color: #CCCCCC;
     padding: 0 15px;
 }
 
-.lifestream-item-inner.flickr-com {
+#lifestream .lifestream-item-inner.flickr-com {
     min-height: 268px;
     padding: 0;
     position: relative;
 }
 
-.lifestream-item-inner.flickr-com p {
+#lifestream .lifestream-item-inner.flickr-com p {
     background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
     padding: 10px 15px;
     position: absolute;
@@ -277,7 +282,7 @@ div.lifestream-item-msg.delicious-com {
     width: 184px;
 }
 
-.lifestream-item-inner.flickr-com img.source-image {    
+#lifestream .lifestream-item-inner.flickr-com img.source-image {    
     /* width: 250px; */
     height: 100%;
 	position: absolute;
@@ -285,30 +290,56 @@ div.lifestream-item-msg.delicious-com {
 	left: -35%;
 }
 
-.content .blog-post {
+#blog .blog-post {
     margin: 10px;
 }
 
-.content .blog-post h2 {
+#blog h1.post-title {
     font-size: 140%;
     background: black;
     color: white;
     padding-left: 5px;
 }
 
-.content .blog-post h2 a,.content .blog-post h2 a:hover {
+#blog h1.post-title a,#blog h1.post-title a:hover {
     color: white;
     text-decoration: none;
 }
 
-.content .blog-post .post-date {
+#blog .post-date {
     font-size: 80%;
     margin-bottom: 5px;
 }
 
+#blog .highlight {
+    background-color: #EEEEEE;
+    border: 2px dotted #CCCCCC;
+    border-left: 5px solid #DDDDDD;
+    margin: 15px 30px 0 10px;
+    /* padding-left: 20px; */
+    padding: 0 1ex 0 20px;
+}
+
+#blog .post-body {
+    font-size: 80%;
+}
+
+#blog .post-body h2 {
+    margin-bottom: 5px;
+}
+
+#blog .post-body p {
+    margin: 10px 0;
+}
+
+#blog .post-body li {
+    list-style: disc;
+    margin-left: 20px;
+}
+
 .pagination {
     text-align: center;
-    font-size: 13px;
+    font-size: 80%;
     margin: 1em;
     padding: .25em .25em .6em .25em;
 }

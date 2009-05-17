@@ -1,9 +1,9 @@
-{% extends "base.tpl" %}
+{% extends "lifestream/base.html" %}
 {% load truncate_chars %}
 {% load i18n %}
 
 {% block title %}{{lifestream.ls_title}}{% endblock %}
-{% block content %}
+{% block lifestream_content %}
 <h2><a href="{{item.item_permalink}}">{{ item.item_title }}</a></h2>
 {{item.item_date}}
 <p>

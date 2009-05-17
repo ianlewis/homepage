@@ -6,4 +6,11 @@
 
 {% block css %}
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/highlight.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block content %}
+<div id="blog">
+  {% block blog_content %}{% endblock %}
+</div>
 {% endblock %}
