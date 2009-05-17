@@ -20,7 +20,7 @@ class PostManager(Manager):
 
 class Post(Model):
     author = ForeignKey(User, verbose_name=u"author")
-    slug = SlugField(u"slug", max_length=50)
+    slug = SlugField(u"slug", max_length=50, unique=True)
     title = TextField(u"title")
     content = TextField(u"content")
     markup_type = models.CharField(max_length=10, choices=(
@@ -35,6 +35,13 @@ class Post(Model):
     create_date = DateTimeField(u'created', default=datetime.now)
    
     objects = PostManager()
+
+    @permalink
+    def get_absolute_url(self):
+        return ('blog_detail', (), {
+            'locale': self.locale,
+            'slug': self.slug,
+        })
 
     class Meta:
         verbose_name = _("post")
