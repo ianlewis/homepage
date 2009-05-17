@@ -30,6 +30,24 @@ pygments_directive.options = dict([(key, directives.flag) for key in VARIANTS])
 
 directives.register_directive("sourcecode", pygments_directive)
 
+def lightbox_directive(name, arguments, options, content, lineno,
+        content_offset, block_text, state, state_machine):
+    thumb_href = arguments[0]
+    img_href = arguments[1]
+    title = u" ".join(content)
+
+    html = '<div class="lightbox-img"><a title="%(title)s" rel="lightbox" href="%(img_href)s"><img src="%(thumb_href)s" title="%(title)s" alt=""/></a></div>' % {
+        "title": title, 
+        "img_href": img_href,
+        "thumb_href": thumb_href,
+    }
+    return [nodes.raw("", html, format="html")]
+lightbox_directive.arguments = (2, 2, False)
+lightbox_directive.content = 1
+lightbox_directive.options = dict([(key, directives.flag) for key in VARIANTS])
+
+directives.register_directive("lightbox", lightbox_directive)
+
 class HTMLWriter(html4css1.Writer):
     def __init__(self):
         html4css1.Writer.__init__(self)

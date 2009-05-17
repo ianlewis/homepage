@@ -337,6 +337,13 @@ a:hover {
     margin-left: 20px;
 }
 
+#blog .post-body .lightbox-img {
+    display: inline;
+    /* float: left; */
+    margin: 10px;
+    overflow: auto;
+}
+
 .pagination {
     text-align: center;
     font-size: 80%;
