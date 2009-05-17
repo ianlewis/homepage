@@ -2,7 +2,8 @@
 {% load truncate_chars %}
 {% load lifestream %}
 {% load pagination_tags %}
-{% load tagging_tags %} 
+{% load tagging_tags %}
+{% load blog_tags %}
 
 {% block title %}{% ifnotequal request.page 1 %}Page {{ request.page }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
@@ -13,7 +14,7 @@
   <div class="english-blog blog-link">
     {% if en_post %}
       <div class="blog-link-title">{{ en_post.title }}</div>
-      <div class="blog-link-content">{{ en_post.content|safe|truncate_chars:50 }}</div>
+      <div class="blog-link-content">{{ en_post|to_html|striptags|safe|truncate_chars:50 }}</div>
     {% endif %}
   </div>
   </a>
@@ -22,7 +23,7 @@
   <div class="japanese-blog blog-link">
     {% if jp_post %}
       <div class="blog-link-title">{{ jp_post.title }}</div>
-      <div class="blog-link-content">{{ jp_post.content|striptags|truncate_chars:50 }}</div>
+      <div class="blog-link-content">{{ jp_post|to_html|striptags|safe|truncate_chars:50 }}</div>
     {% endif %}
   </div>
   </a>
