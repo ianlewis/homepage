@@ -14,7 +14,7 @@
   <div class="english-blog blog-link">
     {% if en_post %}
       <div class="blog-link-title">{{ en_post.title }}</div>
-      <div class="blog-link-content">{{ en_post|to_html|striptags|safe|truncate_chars:50 }}</div>
+      <div class="blog-link-content">{{ en_post|to_html|striptags|truncate_chars:50|safe }}</div>
     {% endif %}
   </div>
   </a>
@@ -23,7 +23,7 @@
   <div class="japanese-blog blog-link">
     {% if jp_post %}
       <div class="blog-link-title">{{ jp_post.title }}</div>
-      <div class="blog-link-content">{{ jp_post|to_html|striptags|safe|truncate_chars:50 }}</div>
+      <div class="blog-link-content">{{ jp_post|to_html|striptags|truncate_chars:50|safe }}</div>
     {% endif %}
   </div>
   </a>

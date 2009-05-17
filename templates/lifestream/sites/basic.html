@@ -8,7 +8,7 @@
     <h2><a href="{{ item.permalink }}">{{ item.title|truncate_chars:60 }}</a></h2>
     <p>
       {% if item.clean_content %}
-        {{ item.clean_content|truncate_chars:200 }}
+        {{ item.clean_content|striptags|truncate_chars:200|safe }}
       {% else %}
         &nbsp;
       {% endif %}
