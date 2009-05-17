@@ -291,7 +291,7 @@ a:hover {
 }
 
 #blog .blog-post {
-    margin: 10px;
+    margin: 10px 0;
 }
 
 #blog h1.post-title {
@@ -315,13 +315,14 @@ a:hover {
     background-color: #EEEEEE;
     border: 2px dotted #CCCCCC;
     border-left: 5px solid #DDDDDD;
-    margin: 15px 30px 0 10px;
+    margin: 15px 30px 15px 10px;
     /* padding-left: 20px; */
     padding: 0 1ex 0 20px;
 }
 
 #blog .post-body {
     font-size: 80%;
+    margin: 0 10px;
 }
 
 #blog .post-body h2 {
