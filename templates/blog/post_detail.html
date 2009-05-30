@@ -1,12 +1,15 @@
 {% extends "blog/base.html" %}
 {% load i18n %}
+{% load tagging_tags %}
 {% load blog_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block blog_content %}
+{% tags_for_object object as item_tags %}
 <div class="blog-post">
   <h1 class="post-title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
   <div class="post-date">{{ object.pub_date }}</div>
+  <div class="post-tags">{% for tag in item_tags %}<a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
   <div class="post-body">
   {% if object.content %}
     {{ object|to_html|safe }}
