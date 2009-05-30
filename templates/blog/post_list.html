@@ -11,7 +11,7 @@
     <ul>
     {% for item in object_list %}
       <li class="blog-post">
-        <h1 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h1>
+        <h1 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title|safe }}</a></h1>
         <div class="post-date">{{ item.pub_date }}</div>
         <div class="post-body">
         {% if item.content %}
