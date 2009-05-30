@@ -59,38 +59,3 @@
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
-
-.inline-comments { 
-  border-bottom: 1px solid;
-}
-
-.inline-comment-lineno {
-  /* border-left: thin solid white; */
-  /* border-right: thin solid white; */
-  /* border-top: thin solid white; */
-  margin-left: 1px;
-  margin-right: 1px;
-  margin-top: 1px;
-  padding: 2px;
-  /* cursor: pointer; */
-  /* overflow: hidden; */
-  white-space: nowrap;
-}
-
-.inline-comment {
-  background-color: #E5ECF9;
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-top: 1px solid;
-  padding: 2px;
-}
-
-.inline-comment-title {
-  cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.inline-comment .extra {
-  color: #777777;
-}
