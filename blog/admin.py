@@ -8,7 +8,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "locale", "pub_date", "active")
     list_filter = ("active","locale")
     list_display_links = ("id", "title")
-    search_fields = ("title", "text")
+    search_fields = ("title", "content")
     prepopulated_fields = {"slug": ("title",)}
 
     def get_form(self, request, obj=None, **kwargs):
