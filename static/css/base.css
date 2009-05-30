@@ -291,7 +291,7 @@ a:hover {
 }
 
 #blog .blog-post {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 #blog h1.post-title {
@@ -323,6 +323,7 @@ a:hover {
 #blog .post-body {
     font-size: 80%;
     margin: 0 10px;
+    overflow: hidden;
 }
 
 #blog .post-body h2 {
