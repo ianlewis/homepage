@@ -30,3 +30,25 @@ from ianlewis_b2evo.evo_items__item
     LEFT OUTER JOIN ianlewis_b2evo.evo_items__prerendering
         ON post_ID = itpr_itm_ID AND itpr_format = "htmlbody"
 WHERE cat_blog_ID = 5 OR cat_blog_ID = 14;
+
+insert into ianlewis.tagging_tag
+    (
+     id,
+     name
+    )
+select
+    tag_ID,
+    tag_name
+from ianlewis_b2evo.evo_items__tag;
+
+insert into ianlewis.tagging_taggeditem
+    (
+     tag_id,
+     content_type_id,
+     object_id
+    )
+select 
+    itag_tag_ID,
+    (select id from ianlewis.django_content_type where name = 'post'),
+    itag_itm_ID
+from ianlewis_b2evo.evo_items__itemtag;
