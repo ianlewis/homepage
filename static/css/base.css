@@ -315,7 +315,7 @@ a:hover {
     text-align: right;
 }
 
-#blog .highlight {
+#blog .highlight,#blog .codeblock {
     background-color: #EEEEEE;
     border: 2px dotted #CCCCCC;
     border-left: 5px solid #DDDDDD;
