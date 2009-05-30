@@ -311,6 +311,10 @@ a:hover {
     margin-bottom: 5px;
 }
 
+#blog .post-comment-link {
+    text-align: right;
+}
+
 #blog .highlight {
     background-color: #EEEEEE;
     border: 2px dotted #CCCCCC;
