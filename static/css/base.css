@@ -306,9 +306,20 @@ a:hover {
     text-decoration: none;
 }
 
+#blog .post-tags {
+    /* display: inline; */
+    font-size: 80%;
+    margin-bottom: 5px;
+    /* text-align: right; */
+    /* width: 100%; */
+    float: right;
+}
+
 #blog .post-date {
     font-size: 80%;
     margin-bottom: 5px;
+    /* display: inline; */
+    float: left;
 }
 
 #blog .post-comment-link {
@@ -328,6 +339,7 @@ a:hover {
     font-size: 80%;
     margin: 0 10px;
     overflow: hidden;
+    clear: both;
 }
 
 #blog .post-body h2 {
