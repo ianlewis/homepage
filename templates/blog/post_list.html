@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 {% load truncate_chars %}
 {% load pagination_tags %}
+{% load tagging_tags %}
 {% load blog_tags %}
 
 {% block title %}Ian's Blog{% endblock %}
@@ -10,9 +11,11 @@
   {% if object_list %}
     <ul>
     {% for item in object_list %}
+      {% tags_for_object item as item_tags %}
       <li class="blog-post">
         <h1 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title|safe }}</a></h1>
         <div class="post-date">{{ item.pub_date }}</div>
+        <div class="post-tags">{% for tag in item_tags %}<a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         <div class="post-body">
         {% if item.content %}
           {{ item|to_html|safe }}

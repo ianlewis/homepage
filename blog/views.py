@@ -7,13 +7,17 @@ from models import *
 
 @allow_methods('GET')
 def blog_page(request, locale="en"):
-    return object_list(request, Post.objects.published().filter(locale=locale))
+    return object_list(request, 
+        Post.objects.published().filter(locale=locale),
+        extra_context={"locale":locale},
+    )
 
 @allow_methods('GET')
 def blog_detail(request, slug, locale="en"):
     defaults = {
         "queryset": Post.objects.published().filter(locale=locale),
         "slug": slug,
+        "extra_context": {"locale": locale},
     }
     return object_detail(request, **defaults)
 
@@ -28,4 +32,7 @@ def tag_page(request, tag, locale="en"):
 
     queryset = TaggedItem.objects.get_by_model(Post.objects.published(), tag_instance)
 
-    return object_list(request, queryset)
+    return object_list(request,
+        queryset,
+        extra_context={"locale":locale},
+    )
