@@ -24,5 +24,7 @@ class YoutubePlugin(FeedPlugin):
     # youtube includes a strange schema url in the tags
     for tag in entry["tags"]:
         tag_term = tag.get('term')
-        if tag_term and tag_term.startswith("http://"):
+        if tag_term and \
+          (tag_term.startswith("http://") or \
+           tag_term.startswith("yt:")):
             entry["tags"].remove(tag)
