@@ -45,14 +45,18 @@ def tag_page(request, tag):
     tag_instance = get_tag(tag)
     queryset = TaggedItem.objects.get_by_model(Item.objects.published(), tag_instance)
 
-    return object_list(request, queryset, "lifestream/item_list.html")
+    return object_list(
+        request,
+        queryset,
+        template_name="lifestream/item_list.html"
+    )
 
 @allow_methods('GET')
 def domain_page(request, domain):
     return object_list(
         request,
         Item.objects.published().filter(feed__domain=domain),
-        "lifestream/item_list.html",
+        template_name = "lifestream/item_list.html",
     )
 
 @allow_methods('GET', 'POST')
