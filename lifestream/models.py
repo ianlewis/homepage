@@ -16,8 +16,7 @@ class FeedManager(models.Manager):
   ''' Query only normal feeds. '''
   
   def feeds(self):
-    return super(FeedManager, self) \
-           .get_query_set().filter(basic_feed=False)
+    return super(FeedManager, self).get_query_set()
   
   def fetchable(self):
     return self.feeds().filter(fetchable=True)
@@ -28,9 +27,6 @@ class Feed(models.Model):
   url = models.URLField(_("Feed Url"), help_text=_("Must be a valid url"), verify_exists=True, max_length=1000)
   domain = models.CharField(_("Feed Domain"), max_length=255)
   fetchable = models.BooleanField(_("Fetchable"), default=True)
-  
-  # Used for feeds that allow users to directly add to the lifestream.
-  basic_feed = models.BooleanField(default=False)
   
   # The feed plugin name used to process the incoming feed data.
   plugin_class_name = models.CharField(_("Plugin Name"), max_length=255, null=True, blank=True, choices=settings.PLUGINS)

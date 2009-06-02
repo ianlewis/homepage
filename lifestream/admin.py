@@ -20,7 +20,7 @@ from lifestream.util import clean_item_content
 class FeedCreationForm(forms.ModelForm):
     class Meta:
         model = Feed
-        exclude = ['name', 'domain', 'fetchable', 'basic_feed']
+        exclude = ['name', 'domain', 'fetchable']
   
     def clean(self):
         """
@@ -53,7 +53,6 @@ class FeedCreationForm(forms.ModelForm):
         return cleaned_data
 
 class FeedAdmin(admin.ModelAdmin):
-    exclude         = ['basic_feed']
     list_display    = ('name', 'domain', 'fetchable')
     list_filter     = ('domain',)
   
