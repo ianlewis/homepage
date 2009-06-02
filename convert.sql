@@ -52,3 +52,36 @@ select
     (select id from ianlewis.django_content_type where name = 'post'),
     itag_itm_ID
 from ianlewis_b2evo.evo_items__itemtag;
+
+-- Lifestream
+insert into ianlewis.lifestream_feed
+  (
+   id,
+   name,
+   url,
+   domain,
+   fetchable,
+   plugin_class_name
+  )
+select
+  feed_id as id,
+  feed_title as name,
+  feed_url as url,
+  feed_domain as domain,
+  (IF feed_status="active",1,0) as fetchable,
+  NULL as plugin_class_name
+from ianlewis_swtcron.feeds;
+
+select
+  ID as id,
+  item_feed_id as feed_id,
+  item_date as date,
+  item_title as title,
+  item_content as content,
+  "text/html" as content_type,
+  item_content as clean_content,
+  "" as author,
+  item_permalink as permalink,  
+  IF(item_status == "publish",1,0) as published
+  -- TODO: parse out video/picture data
+from ianlewis_swtcron.items;
