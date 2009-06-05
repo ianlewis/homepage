@@ -21,7 +21,7 @@ def friendly_date(date, include_time=False):
   """
   Prints a human friendly date.
   """
-  delta = datetime.now() - date
+  delta = datetime.utcnow() - date
    
   if delta < timedelta(seconds=60):
     msg = _("Just now")
@@ -32,7 +32,7 @@ def friendly_date(date, include_time=False):
       'minutes': minutes,
     }
   elif delta < timedelta(days=1):
-    hours = int(delta.seconds / 60.0 / 60)
+    hours = int(delta.seconds / 60 / 60)
     msg = ngettext('%(hours)s hour ago',
             '%(hours)s hours ago', hours) % {
       'hours': hours,

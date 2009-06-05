@@ -12,6 +12,7 @@ from util import feedparser
 from models import *
 from tagging.models import *
 import plugins
+import re
 
 # MonkeyPatch feedparser so we can get access to interesting parts of media
 # extentions.
@@ -72,7 +73,7 @@ def update_feeds():
         if 'tags' in entry:
           for tag in entry['tags']:
             tag_name = tag.get('term')[:30]
-            Tag.objects.add_tag(i, tag_name)
+            Tag.objects.add_tag(i, re.sub(r"[ ,]+", "_", tag_name))
     except:
       #TODO: Make this work with standard python logging
       print "Error in feed: %s" % feed
