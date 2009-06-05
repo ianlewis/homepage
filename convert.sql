@@ -83,6 +83,7 @@ insert into ianlewis.lifestream_item
    clean_content,
    author,
    permalink,
+   tags,
    published,
    media_url,
    media_player_url,
@@ -97,7 +98,8 @@ select
   "text/html" as content_type,
   item_content as clean_content,
   "" as author,
-  item_permalink as permalink, 
+  item_permalink as permalink,
+  "" as tags,
   if(item_status = "publish",1,0) as published,
   if(LENGTH(@media_url:=substring(@substr:=replace(substring(item_data, @idx1:=locate(";", item_data, locate("\"image\"",item_data)+7)+1, locate(";", item_data, @idx1)-@idx1),'_m.jpg','.jpg'), @idx2:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx2)-@idx2)) > 0, @media_url, null) as media_url,
   if(LENGTH(@media_player_url:=substring(@substr:=replace(substring(item_data, @idx3:=locate(";", item_data, locate("\"player\"",item_data)+7)+1, locate(";", item_data, @idx3)-@idx3),'?v=','/v/'), @idx4:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx4)-@idx2)) > 0, @media_player_url, null) as media_player_url,
@@ -115,7 +117,8 @@ insert ignore into ianlewis.tagging_tag
     )
 select
     LOWER(slug)
-from ianlewis_swtcron.tags;
+from ianlewis_swtcron.tags
+where slug not like "%\%%";
 
 insert into ianlewis.tagging_taggeditem
     (
@@ -130,4 +133,5 @@ select
 from ianlewis_swtcron.tag_relationships
     left join ianlewis_swtcron.tags 
         on ianlewis_swtcron.tag_relationships.tag_id =
-            ianlewis_swtcron.tags.tag_id;
+            ianlewis_swtcron.tags.tag_id
+where slug not like "%\%%";;
