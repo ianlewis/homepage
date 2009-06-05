@@ -56,7 +56,7 @@ def friendly_date(date, include_time=False):
     }
   else:
     years = int(delta.days / 365)
-    msg = ngettext('%years)s year ago',
+    msg = ngettext('%(years)s year ago',
             '%(years)s years ago', years) % {
       'years': years,
     }
