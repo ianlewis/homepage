@@ -1,4 +1,4 @@
-INSERT INTO ianlewis.blog_post 
+insert into ianlewis.blog_post 
     (
      id,
      author_id,
@@ -14,22 +14,22 @@ INSERT INTO ianlewis.blog_post
     )
 select 
     post_ID as id,
-    1 AS author_id,
-    post_urltitle AS slug,
-    post_title AS title,
-    IF(itpr_content_prerendered IS NOT NULL,itpr_content_prerendered,post_content) as content,
-    "html" AS markup_type,
-    IF(cat_blog_ID=5,"en","jp") AS locale,
-    "" AS tags,
-    IF(post_status="published",1,0) AS active,
-    post_datestart AS pub_date,
-    post_datecreated AS create_date 
+    1 as author_id,
+    if(post_urltitle is not null and post_urltitle != '', post_urltitle, concat('p', post_ID)) as slug,
+    post_title as title,
+    if(itpr_content_prerendered is not null,itpr_content_prerendered,post_content) as content,
+    "html" as markup_type,
+    if(cat_blog_ID=5,"en","jp") as locale,
+    "" as tags,
+    if(post_status="published",1,0) as active,
+    post_datestart as pub_date,
+    post_datecreated as create_date 
 from ianlewis_b2evo.evo_items__item
-    LEFT JOIN ianlewis_b2evo.evo_categories 
-        ON post_main_cat_ID = cat_ID
-    LEFT OUTER JOIN ianlewis_b2evo.evo_items__prerendering
-        ON post_ID = itpr_itm_ID AND itpr_format = "htmlbody"
-WHERE cat_blog_ID = 5 OR cat_blog_ID = 14;
+    left join ianlewis_b2evo.evo_categories 
+        on post_main_cat_ID = cat_ID
+    left outer join ianlewis_b2evo.evo_items__prerendering
+        on post_ID = itpr_itm_ID and itpr_format = "htmlbody"
+where cat_blog_ID = 5 or cat_blog_ID = 14;
 
 insert into ianlewis.tagging_tag
     (
@@ -38,7 +38,7 @@ insert into ianlewis.tagging_tag
     )
 select
     tag_ID,
-    tag_name
+    LOWER(tag_name)
 from ianlewis_b2evo.evo_items__tag;
 
 insert into ianlewis.tagging_taggeditem
@@ -68,20 +68,61 @@ select
   feed_title as name,
   feed_url as url,
   feed_domain as domain,
-  (IF feed_status="active",1,0) as fetchable,
+  if(feed_status="active",1,0) as fetchable,
   NULL as plugin_class_name
-from ianlewis_swtcron.feeds;
+from ianlewis_swtcron.feeds where feed_status = "active";
 
+insert into ianlewis.lifestream_item
+  (
+   id,
+   feed_id,
+   date,
+   title,
+   content,
+   content_type,
+   clean_content,
+   author,
+   permalink,
+   published,
+   media_url,
+   media_player_url,
+   media_description
+  )
 select
   ID as id,
   item_feed_id as feed_id,
-  item_date as date,
+  FROM_UNIXTIME(item_date) as date,
   item_title as title,
   item_content as content,
   "text/html" as content_type,
   item_content as clean_content,
   "" as author,
-  item_permalink as permalink,  
-  IF(item_status == "publish",1,0) as published
-  -- TODO: parse out video/picture data
-from ianlewis_swtcron.items;
+  item_permalink as permalink, 
+  if(item_status = "publish",1,0) as published,
+  if(LENGTH(@media_url:=substring(@substr:=replace(substring(item_data, @idx1:=locate(";", item_data, locate("\"image\"",item_data)+7)+1, locate(";", item_data, @idx1)-@idx1),'_m.jpg','.jpg'), @idx2:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx2)-@idx2)) > 0, @media_url, null) as media_url,
+  if(LENGTH(@media_player_url:=substring(@substr:=replace(substring(item_data, @idx3:=locate(";", item_data, locate("\"player\"",item_data)+7)+1, locate(";", item_data, @idx3)-@idx3),'?v=','/v/'), @idx4:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx4)-@idx2)) > 0, @media_player_url, null) as media_player_url,
+  item_content as media_description
+from ianlewis_swtcron.items where item_title is not null and item_title != '' and item_status = "publish";
+
+insert ignore into ianlewis.tagging_tag
+    (
+     name
+    )
+select
+    LOWER(slug)
+from ianlewis_swtcron.tags;
+
+insert into ianlewis.tagging_taggeditem
+    (
+     tag_id,
+     content_type_id,
+     object_id
+    )
+select 
+    (select id from ianlewis.tagging_tag where name = LOWER(ianlewis_swtcron.tags.slug)) as tag_id,
+    (select id from ianlewis.django_content_type where name = 'item') as content_type_id,
+    item_id
+from ianlewis_swtcron.tag_relationships
+    left join ianlewis_swtcron.tags 
+        on ianlewis_swtcron.tag_relationships.tag_id =
+            ianlewis_swtcron.tags.tag_id;
