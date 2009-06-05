@@ -102,7 +102,12 @@ select
   if(LENGTH(@media_url:=substring(@substr:=replace(substring(item_data, @idx1:=locate(";", item_data, locate("\"image\"",item_data)+7)+1, locate(";", item_data, @idx1)-@idx1),'_m.jpg','.jpg'), @idx2:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx2)-@idx2)) > 0, @media_url, null) as media_url,
   if(LENGTH(@media_player_url:=substring(@substr:=replace(substring(item_data, @idx3:=locate(";", item_data, locate("\"player\"",item_data)+7)+1, locate(";", item_data, @idx3)-@idx3),'?v=','/v/'), @idx4:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx4)-@idx2)) > 0, @media_player_url, null) as media_player_url,
   item_content as media_description
-from ianlewis_swtcron.items where item_title is not null and item_title != '' and item_status = "publish";
+from ianlewis_swtcron.items 
+    left join ianlewis_swtcron.feeds on item_feed_id = feed_id
+where item_title is not null
+    and item_title != ''
+    and item_status = "publish"
+    and feed_status = "active";
 
 insert ignore into ianlewis.tagging_tag
     (
