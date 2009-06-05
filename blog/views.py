@@ -23,16 +23,11 @@ def blog_detail(request, slug, locale="en"):
 
 @allow_methods('GET')
 def tag_page(request, tag, locale="en"):
-    from tagging.utils import get_tag
-    from tagging.models import TaggedItem
-    #import pdb;pdb.set_trace()
-    tag_instance = get_tag(tag)
-    if not tag_instance:
-        raise Http404
-
-    queryset = TaggedItem.objects.get_by_model(Post.objects.published(), tag_instance)
-
-    return object_list(request,
-        queryset,
-        extra_context={"locale":locale},
+    from tagging.views import tagged_object_list
+    return tagged_object_list(
+        request,
+        queryset_or_model=Post.objects.published(),
+        tag=tag,
+        template_name="blog/post_list.html",
+        extra_context={'locale':locale},
     )
