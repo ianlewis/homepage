@@ -40,19 +40,20 @@ def main_page(request):
 
 @allow_methods('GET')
 def tag_page(request, tag):
-    from tagging.utils import get_tag
-    from tagging.models import TaggedItem
-    tag_instance = get_tag(tag)
-    queryset = TaggedItem.objects.get_by_model(Item.objects.published(), tag_instance)
-
-    return object_list(request, queryset, "lifestream/item_list.html")
+    from tagging.views import tagged_object_list
+    return tagged_object_list(
+        request,
+        queryset_or_model=Item.objects.published(),
+        tag=tag,
+        template_name="lifestream/item_list.html",
+    )
 
 @allow_methods('GET')
 def domain_page(request, domain):
     return object_list(
         request,
-        Item.objects.published().filter(feed__domain=domain),
-        "lifestream/item_list.html",
+        queryset=Item.objects.published().filter(feed__domain=domain),
+        template_name="lifestream/item_list.html",
     )
 
 @allow_methods('GET', 'POST')
