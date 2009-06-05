@@ -37,14 +37,23 @@ a:hover {
 }
 
 .header-inner {
-    width: 700px;
+    width: 800px;
     margin: 0 auto;
     overflow: hidden;
 }
 
+.header .profile-img {
+    float:left;
+}
+
 .header .title {
+    /* background: transparent url(../img/profile.jpg) no-repeat center left; */
+    /* padding-left: 100px; */
+    /* display: table-cell; */
+    /* vertical-align: middle; */
     font-size: 300%;
     float: left;
+    padding: 10px 0 0 20px;
 }
 
 .header .title a,.header .title a:hover {
@@ -55,7 +64,7 @@ a:hover {
 .header .about {
     /* background: #FFFFCC; */
     color: #CCCCCC;
-    width: 350px;
+    width: 400px;
     margin-left: 50px;
     float: left;
 }
