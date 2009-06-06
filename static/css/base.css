@@ -154,6 +154,7 @@ a:hover {
     overflow: hidden;
     padding: 10px 15px;
     position: relative;
+    margin-bottom:5px;
 }
 
 #lifestream .lifestream-item-inner h2 {
@@ -170,6 +171,13 @@ a:hover {
 }
 
 #lifestream div.lifestream-item-date {
+    float:left;
+    font-size: 70%;
+}
+
+#lifestream div.lifestream-item-detail-link {
+    float:right;
+    text-align: right;
     font-size: 70%;
 }
 
@@ -290,6 +298,11 @@ a:hover {
 
 #lifestream .item-detail .lifestream-item-inner.youtube-com p {
     margin: 10px;
+}
+
+#lifestream .item-detail #disqus_thread {
+    clear: both;
+    padding: 15px 0;
 }
 
 #lifestream .lifestream-item-inner.youtube-com p {

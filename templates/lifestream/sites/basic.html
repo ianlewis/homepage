@@ -15,5 +15,5 @@
     </p>
   </div>
   {% endblock %}
-  <div class="lifestream-item-date">{{ item.date|friendly_date }}</div>
+  <div class="lifestream-item-date">{{ item.date|friendly_date }}</div> <div class="lifestream-item-detail-link"><a href="{% url item_page item.id %}#disqus_thread">Send feedback</a></div>
 </li>

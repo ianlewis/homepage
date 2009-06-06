@@ -1,4 +1,4 @@
-insert into ianlewis.blog_post 
+insert into ianlewis_hp.blog_post 
     (
      id,
      author_id,
@@ -24,14 +24,14 @@ select
     if(post_status="published",1,0) as active,
     post_datestart as pub_date,
     post_datecreated as create_date 
-from ianlewis_b2evo.evo_items__item
-    left join ianlewis_b2evo.evo_categories 
+from test.evo_items__item
+    left join test.evo_categories 
         on post_main_cat_ID = cat_ID
-    left outer join ianlewis_b2evo.evo_items__prerendering
+    left outer join test.evo_items__prerendering
         on post_ID = itpr_itm_ID and itpr_format = "htmlbody"
 where cat_blog_ID = 5 or cat_blog_ID = 14;
 
-insert into ianlewis.tagging_tag
+insert into ianlewis_hp.tagging_tag
     (
      id,
      name
@@ -39,9 +39,9 @@ insert into ianlewis.tagging_tag
 select
     tag_ID,
     LOWER(tag_name)
-from ianlewis_b2evo.evo_items__tag;
+from test.evo_items__tag;
 
-insert into ianlewis.tagging_taggeditem
+insert into ianlewis_hp.tagging_taggeditem
     (
      tag_id,
      content_type_id,
@@ -49,12 +49,12 @@ insert into ianlewis.tagging_taggeditem
     )
 select 
     itag_tag_ID,
-    (select id from ianlewis.django_content_type where name = 'post'),
+    (select id from ianlewis_hp.django_content_type where name = 'post'),
     itag_itm_ID
-from ianlewis_b2evo.evo_items__itemtag;
+from test.evo_items__itemtag;
 
 -- Lifestream
-insert into ianlewis.lifestream_feed
+insert into ianlewis_hp.lifestream_feed
   (
    id,
    name,
@@ -70,9 +70,9 @@ select
   feed_domain as domain,
   if(feed_status="active",1,0) as fetchable,
   NULL as plugin_class_name
-from ianlewis_swtcron.feeds where feed_status = "active";
+from test.feeds where feed_status = "active";
 
-insert into ianlewis.lifestream_item
+insert into ianlewis_hp.lifestream_item
   (
    id,
    feed_id,
@@ -102,34 +102,34 @@ select
   if(LENGTH(@media_url:=substring(@substr:=replace(substring(item_data, @idx1:=locate(";", item_data, locate("\"image\"",item_data)+7)+1, locate(";", item_data, @idx1)-@idx1),'_m.jpg','.jpg'), @idx2:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx2)-@idx2)) > 0, @media_url, null) as media_url,
   if(LENGTH(@media_player_url:=substring(@substr:=replace(substring(item_data, @idx3:=locate(";", item_data, locate("\"player\"",item_data)+7)+1, locate(";", item_data, @idx3)-@idx3),'?v=','/v/'), @idx4:=locate(":", @substr, locate(":", @substr)+1)+2, locate("\"", @substr, @idx4)-@idx2)) > 0, @media_player_url, null) as media_player_url,
   item_content as media_description
-from ianlewis_swtcron.items 
-    left join ianlewis_swtcron.feeds on item_feed_id = feed_id
+from test.items 
+    left join test.feeds on item_feed_id = feed_id
 where item_title is not null
     and item_title != ''
     and item_status = "publish"
     and feed_status = "active";
 
-insert ignore into ianlewis.tagging_tag
+insert ignore into ianlewis_hp.tagging_tag
     (
      name
     )
 select
     LOWER(slug)
-from ianlewis_swtcron.tags
+from test.tags
 where slug not like "%\%%";
 
-insert into ianlewis.tagging_taggeditem
+insert into ianlewis_hp.tagging_taggeditem
     (
      tag_id,
      content_type_id,
      object_id
     )
 select 
-    (select id from ianlewis.tagging_tag where name = LOWER(ianlewis_swtcron.tags.slug)) as tag_id,
-    (select id from ianlewis.django_content_type where name = 'item') as content_type_id,
+    (select id from ianlewis_hp.tagging_tag where name = LOWER(test.tags.slug)) as tag_id,
+    (select id from ianlewis_hp.django_content_type where name = 'item') as content_type_id,
     item_id
-from ianlewis_swtcron.tag_relationships
-    left join ianlewis_swtcron.tags 
-        on ianlewis_swtcron.tag_relationships.tag_id =
-            ianlewis_swtcron.tags.tag_id
+from test.tag_relationships
+    left join test.tags 
+        on test.tag_relationships.tag_id =
+            test.tags.tag_id
 where slug not like "%\%%";;
