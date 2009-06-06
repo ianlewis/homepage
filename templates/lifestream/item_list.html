@@ -6,6 +6,8 @@
 
 {% block title %}Page {{ request.page }}{% endblock %}
 
+{% block other_head %}<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{% url lifestream_feeds "recent" %}" />{% endblock %}
+
 {% block lifestream_content %}
   {% autopaginate object_list %}
 
