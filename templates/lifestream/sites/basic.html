@@ -1,5 +1,5 @@
 {% load lifestream %}
-{% load truncate_chars %}
+{% load utility_tags %}
 
 <li class="lifestream-item {% item_class item %}">
 <div class="lifestream-item-msg {% item_class item %}">From <a href="{% url domain_page item.feed.domain %}">{{ item.feed.domain }}</a></div>
