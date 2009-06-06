@@ -13,18 +13,22 @@
   <a href="{% url blog_page "en" %}">
   <div class="english-blog blog-link">
     {% if en_post %}
+      <div class="blog-title">English Blog</div>
       <div class="blog-link-title">{{ en_post.title }}</div>
-      <div class="blog-link-content">{{ en_post|to_html|striptags|truncate_chars:50|safe }}</div>
+      <div class="blog-link-content">{{ en_post|to_html|striptags|truncate_chars:80|safe }}</div>
     {% endif %}
+    <div class="more">Read More</div>
   </div>
   </a>
 
   <a href="{% url blog_page "jp" %}">
   <div class="japanese-blog blog-link">
     {% if jp_post %}
+      <div class="blog-title">日本語ブログ</div>
       <div class="blog-link-title">{{ jp_post.title }}</div>
-      <div class="blog-link-content">{{ jp_post|to_html|striptags|truncate_chars:50|safe }}</div>
+      <div class="blog-link-content">{{ jp_post|to_html|striptags|truncate_chars:60|safe }}</div>
     {% endif %}
+    <div class="more">もっと見る</div>
   </div>
   </a>
 </div>
