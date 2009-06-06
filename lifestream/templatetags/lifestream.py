@@ -36,6 +36,27 @@ def render_item(parser, token):
         raise TemplateSyntaxError("%r takes one argument." % bits[0])
     return LifestreamItemNode(bits[1])
 
+class LifestreamItemDetailNode(Node):
+    def __init__(self, item_var):
+        self.item_var = Variable(item_var)
+
+    def render(self, context):
+        item = self.item_var.resolve(context)
+        context["item"] = item
+        try:
+            template_name = "lifestream/sites/%s_detail.html" % item_class(item)
+            return render_to_string(template_name, context)
+        except TemplateDoesNotExist, e:
+            template_name = "lifestream/sites/basic_detail.html"
+            return render_to_string(template_name, context)
+
+@register.tag
+def render_item_detail(parser, token):
+    bits = token.split_contents()
+    if len(bits) != 2:
+        raise TemplateSyntaxError("%r takes one argument." % bits[0])
+    return LifestreamItemDetailNode(bits[1])
+
 @register.filter
 def urlize_twitter(text):
     import re
