@@ -1,4 +1,4 @@
-insert into ianlewis.blog_post 
+insert into ianlewis_hp.blog_post 
     (
      id,
      author_id,
@@ -31,7 +31,7 @@ from test.evo_items__item
         on post_ID = itpr_itm_ID and itpr_format = "htmlbody"
 where cat_blog_ID = 5 or cat_blog_ID = 14;
 
-insert into ianlewis.tagging_tag
+insert into ianlewis_hp.tagging_tag
     (
      id,
      name
@@ -41,7 +41,7 @@ select
     LOWER(tag_name)
 from test.evo_items__tag;
 
-insert into ianlewis.tagging_taggeditem
+insert into ianlewis_hp.tagging_taggeditem
     (
      tag_id,
      content_type_id,
@@ -49,12 +49,12 @@ insert into ianlewis.tagging_taggeditem
     )
 select 
     itag_tag_ID,
-    (select id from ianlewis.django_content_type where name = 'post'),
+    (select id from ianlewis_hp.django_content_type where name = 'post'),
     itag_itm_ID
 from test.evo_items__itemtag;
 
 -- Lifestream
-insert into ianlewis.lifestream_feed
+insert into ianlewis_hp.lifestream_feed
   (
    id,
    name,
@@ -72,7 +72,7 @@ select
   NULL as plugin_class_name
 from test.feeds where feed_status = "active";
 
-insert into ianlewis.lifestream_item
+insert into ianlewis_hp.lifestream_item
   (
    id,
    feed_id,
@@ -109,7 +109,7 @@ where item_title is not null
     and item_status = "publish"
     and feed_status = "active";
 
-insert ignore into ianlewis.tagging_tag
+insert ignore into ianlewis_hp.tagging_tag
     (
      name
     )
@@ -118,15 +118,15 @@ select
 from test.tags
 where slug not like "%\%%";
 
-insert into ianlewis.tagging_taggeditem
+insert into ianlewis_hp.tagging_taggeditem
     (
      tag_id,
      content_type_id,
      object_id
     )
 select 
-    (select id from ianlewis.tagging_tag where name = LOWER(test.tags.slug)) as tag_id,
-    (select id from ianlewis.django_content_type where name = 'item') as content_type_id,
+    (select id from ianlewis_hp.tagging_tag where name = LOWER(test.tags.slug)) as tag_id,
+    (select id from ianlewis_hp.django_content_type where name = 'item') as content_type_id,
     item_id
 from test.tag_relationships
     left join test.tags 
