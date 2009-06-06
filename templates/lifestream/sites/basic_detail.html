@@ -1,14 +1,14 @@
 {% load lifestream %}
 {% load utility_tags %}
 
-<li class="lifestream-item {% item_class item %}">
+<div class="lifestream-item {% item_class item %}">
 <div class="lifestream-item-msg {% item_class item %}">From <a href="{% url domain_page item.feed.domain %}">{{ item.feed.domain }}</a></div>
   {% block item_inner %}
   <div class="lifestream-item-inner {% item_class item %}">
-    <h2><a href="{{ item.permalink }}">{{ item.title|truncate_chars:60 }}</a></h2>
+    <h2><a href="{{ item.permalink }}">{{ item.title }}</a></h2>
     <p>
       {% if item.clean_content %}
-        {{ item.clean_content|striptags|truncate_chars:200|safe }}
+        {{ item.clean_content|striptags|safe }}
       {% else %}
         &nbsp;
       {% endif %}
@@ -16,4 +16,4 @@
   </div>
   {% endblock %}
   <div class="lifestream-item-date">{{ item.date|friendly_date }}</div>
-</li>
+</div>

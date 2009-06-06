@@ -1,10 +1,13 @@
 {% extends "blog/base.html" %}
-{% load truncate_chars %}
+{% load utility_tags %}
 {% load pagination_tags %}
 {% load tagging_tags %}
 {% load blog_tags %}
 
 {% block title %}Ian's Blog{% endblock %}
+
+{% block other_head %}<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{% url blog_feeds locale|cat:"feed" %}" />{% endblock %}
+
 {% block blog_content %}
   {% autopaginate object_list 10 %}
 

@@ -87,6 +87,10 @@ a:hover {
     overflow: hidden;
 }
 
+#lifestream .item-detail {
+    margin: 20px;
+}
+
 #lifestream .blog-link {
     border: 1px solid black;
     padding: 15px;
@@ -94,6 +98,13 @@ a:hover {
     height: 120px;
     /* margin-left: 100px; */
     float: left;
+    position: relative;
+}
+
+#lifestream .blog-link .more {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
 }
 
 #lifestream .blog-link .blog-link-title {
@@ -242,7 +253,7 @@ a:hover {
 }
 
 #lifestream .lifestream-item-inner.twitter-com {
-    background: white url(../img/twitterback.jpg) no-repeat scroll 0 0;
+    background: white url(../img/twitterback.jpg) repeat scroll 0 0;
 }
 
 #lifestream .lifestream-item-inner.twitter-com p {
@@ -269,6 +280,16 @@ a:hover {
     background: #C61D1D;
     padding: 0;
     min-height: 268px;
+}
+
+#lifestream .item-detail .lifestream-item-inner.youtube-com {
+    min-height: 500px;
+    text-align: center;
+    font-size: 130%;
+}
+
+#lifestream .item-detail .lifestream-item-inner.youtube-com p {
+    margin: 10px;
 }
 
 #lifestream .lifestream-item-inner.youtube-com p {

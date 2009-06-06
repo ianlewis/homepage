@@ -1,25 +1,9 @@
 {% extends "lifestream/base.html" %}
-{% load truncate_chars %}
+{% load lifestream %}
+{% load utility_tags %}
 {% load i18n %}
 
-{% block title %}{{lifestream.ls_title}}{% endblock %}
+{% block title %}{{ item.title|striptags }}{% endblock %}
 {% block lifestream_content %}
-<h2><a href="{{item.item_permalink}}">{{ item.item_title }}</a></h2>
-{{item.item_date}}
-<p>
-  {% if item.item_content %}
-    {% ifequal item.item_content_type "text/plain"  %}
-      {{ item.item_content|linebreaks }}
-    {% else %}
-      {% ifequal item.item_content_type "text/html"  %}
-        {{ item.item_content|safe }}
-      {% else %}
-        {{ item.item_content }}
-      {% endifequal %}
-    {% endifequal %}
-  {% else %}
-    &nbsp;
-  {% endif %}
-</p>
-
+<div class="item-detail">{% render_item_detail item %}</div>
 {% endblock %}
