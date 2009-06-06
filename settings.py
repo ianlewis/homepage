@@ -138,12 +138,12 @@ PAGINATION_INVALID_PAGE_RAISES_404 = True
 PAGINATION_DEFAULT_WINDOW = 3
 
 try:
-    from lifestream.util import feedparser
-    feedparser._debug = DEBUG
+    from settings_local import *
 except ImportError:
     pass
 
 try:
-    from settings_local import *
+    from lifestream.util import feedparser
+    feedparser._debug = DEBUG
 except ImportError:
     pass
