@@ -4,8 +4,10 @@ from django.http import Http404
 
 from lifestream.util.decorators import allow_methods
 from models import *
+from decorators import *
 
 @allow_methods('GET')
+@feed_redirect
 def blog_page(request, locale="en"):
     return object_list(request, 
         Post.objects.published().filter(locale=locale),
