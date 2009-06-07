@@ -74,6 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'utils.middleware.WWWRedirectMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
