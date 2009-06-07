@@ -14,7 +14,7 @@ class LatestEnglishBlogEntries(Feed):
     description="The latest blog posts from Ian Lewis' blog"
 
     def items(self, obj):
-        return Post.objects.published().filter(locale='en')
+        return Post.objects.published().filter(locale='en')[:10]
 
 class LatestJapaneseBlogEntries(Feed):
     title=u"イアンルイスのブログ"
@@ -38,4 +38,4 @@ class LatestJapaneseBlogEntries(Feed):
         return item.create_date
 
     def item_categories(self, item):
-        return parse_tag_input(item.tags)
+        return parse_tag_input(item.tags)[:10]
