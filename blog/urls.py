@@ -23,5 +23,5 @@ urlpatterns += patterns('blog.views',
 )
 
 urlpatterns += patterns('django.contrib.syndication.views',
-    url(r'^feed/(?P<url>.*)$', 'feed', {'feed_dict':feeds}, name='blog_feeds'),
+    url(r'^feeds/(?P<url>.*)$', 'feed', {'feed_dict':feeds}, name='blog_feeds'),
 )
