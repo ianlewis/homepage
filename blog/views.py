@@ -28,7 +28,7 @@ def tag_page(request, tag, locale="en"):
     from tagging.views import tagged_object_list
     return tagged_object_list(
         request,
-        queryset_or_model=Post.objects.published(),
+        queryset_or_model=Post.objects.published().filter(locale=locale),
         tag=tag,
         template_name="blog/post_list.html",
         extra_context={'locale':locale},
