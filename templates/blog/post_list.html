@@ -26,7 +26,7 @@
           &nbsp;
         {% endif %}
         </div>
-        <div class="post-comment-link"><a href="http://www.ianlewis.org/en/tokyo-barcamp-2009#disqus_thread">Send feedback</a></div>
+        <div class="post-comment-link"><a href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a></div>
       </li>
     {% endfor %}
     </ul>
