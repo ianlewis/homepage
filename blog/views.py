@@ -1,10 +1,22 @@
 # Create your views here.
 from django.views.generic.list_detail import object_list,object_detail
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
 
 from lifestream.util.decorators import allow_methods
 from models import *
 from decorators import *
+
+@staff_member_required
+@allow_methods('GET')
+def blog_detail_preview(request, object_id):
+    object = Post.objects.get(pk=object_id)
+    defaults = {
+        "queryset": Post.objects.all(),
+        "object_id": object_id,
+        "extra_context": {"locale": object.locale},
+    }
+    return object_detail(request, **defaults)
 
 @allow_methods('GET')
 @feed_redirect
