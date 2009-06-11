@@ -3,13 +3,13 @@
 {% load utility_tags %}
 
 {% block item_inner %}
-<div class="lifestream-item-inner {% item_class item %}" style="z-index: 1;">
+<div class="lifestream-item-inner {% item_class object %}" style="z-index: 1;">
   <object width="214" height="159" style="z-index: 2;">
     <param name="allowfullscreen" value="true" />
     <param name="allowscriptaccess" value="always" />
-    <param name="movie" value="{{ item.media_player_url }}" />
+    <param name="movie" value="{{ object.media_player_url }}" />
     <param name="wmode" value="opaque">
-    <embed src="{{ item.media_player_url }}"
+    <embed src="{{ object.media_player_url }}"
       type="application/x-shockwave-flash"
       allowfullscreen="true"
       allowscriptaccess="always"
@@ -25,17 +25,17 @@
     {% endcomment %}
   </object>
   <p>
-    {{ item.media_description|striptags|truncate_chars:80 }}
+    {{ object.media_description|striptags|truncate_chars:80 }}
   </p>
-  <p>[ <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}">View Large</a> ]</p>
+  <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
 </div>
 
-<div id="window_{{ item.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
+<div id="window_{{ object.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
   <object width="500" height="415" style="z-index: 3001;">
-    <param name="movie" value="{{ item.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
+    <param name="movie" value="{{ object.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
     <param name="allowFullScreen" value="true"/>
-    <embed width="500" height="415" allowfullscreen="true" type="application/x-shockwave-flash" src="{{ item.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
+    <embed width="500" height="415" allowfullscreen="true" type="application/x-shockwave-flash" src="{{ object.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
   </object>
-  <a href="javascript:void(0);" rel="window_{{ item.id }}" class="modal-close"></a>
+  <a href="javascript:void(0);" rel="window_{{ object.id }}" class="modal-close"></a>
 </div>
 {% endblock %}

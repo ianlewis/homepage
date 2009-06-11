@@ -45,7 +45,6 @@ def tag_page(request, tag):
         request,
         queryset_or_model=Item.objects.published(),
         tag=tag,
-        template_name="lifestream/item_list.html",
     )
 
 @allow_methods('GET')
@@ -53,16 +52,12 @@ def domain_page(request, domain):
     return object_list(
         request,
         queryset=Item.objects.published().filter(feed__domain=domain),
-        template_name="lifestream/item_list.html",
     )
 
 @allow_methods('GET', 'POST')
-def item_page(request, item_id=None):
-  try:
-    item = Item.objects.get(id=item_id,published=True)
-  except Item.DoesNotExist:
-    raise Http404
-  
-  return direct_to_template(request, "lifestream/item.html", { 
-    "item": item,
-  })
+def item_page(request, item_id):
+  return object_detail(
+        request,
+        queryset=Item.objects.published(),
+        object_id=item_id,    
+    )

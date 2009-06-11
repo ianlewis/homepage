@@ -21,7 +21,7 @@ class LifestreamItemNode(Node):
 
     def render(self, context):
         item = self.item_var.resolve(context)
-        context["item"] = item
+        context["object"] = item
         try:
             template_name = "lifestream/sites/%s.html" % item_class(item)
             return render_to_string(template_name, context)
@@ -42,7 +42,7 @@ class LifestreamItemDetailNode(Node):
 
     def render(self, context):
         item = self.item_var.resolve(context)
-        context["item"] = item
+        context["object"] = item
         try:
             template_name = "lifestream/sites/%s_detail.html" % item_class(item)
             return render_to_string(template_name, context)

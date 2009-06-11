@@ -3,15 +3,15 @@
 {% load utility_tags %}
 
 {% block item_inner %}
-<div class="lifestream-item-inner {% item_class item %}">
-  <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}"><img class="source-image" src="{{ item.media_url }}" alt="" /></a>
+<div class="lifestream-item-inner {% item_class object %}">
+  <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}"><img class="source-image" src="{{ object.media_url }}" alt="" /></a>
   <p>
-    {{ item.media_description|striptags|truncate_chars:200 }}
+    {{ object.media_description|striptags|truncate_chars:200 }}
   </p>
 </div>
 
-<div id="window_{{ item.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
-  <img class="source-image" src="{{ item.media_url }}" alt="" />
-  <a href="javascript:void(0);" rel="window_{{ item.id }}" class="modal-close"></a>
+<div id="window_{{ object.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
+  <img class="source-image" src="{{ object.media_url }}" alt="" />
+  <a href="javascript:void(0);" rel="window_{{ object.id }}" class="modal-close"></a>
 </div>
 {% endblock %}

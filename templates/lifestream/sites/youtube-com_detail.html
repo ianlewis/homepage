@@ -3,21 +3,21 @@
 {% load utility_tags %}
 
 {% block item_inner %}
-<div class="lifestream-item-inner {% item_class item %}" style="z-index: 1;">
+<div class="lifestream-item-inner {% item_class object %}" style="z-index: 1;">
   <object width="500" height="415" style="z-index: 3001;">
-    <param name="movie" value="{{ item.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
+    <param name="movie" value="{{ object.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0&amp;autoplay=1"/>
     <param name="allowFullScreen" value="true"/>
     <embed 
         width="500"
         height="415"
         allowfullscreen="true"
         type="application/x-shockwave-flash"
-        src="{{ item.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0"
+        src="{{ object.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0"
     />
   </object>
   <p>
-    {{ item.media_description|striptags }}
+    {{ object.media_description|striptags }}
   </p>
-  <p>[ <a class="modal" rel="window_{{ item.id }}" href="{{ item.permalink }}">View Original</a> ]</p>
+  <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Original</a> ]</p>
 </div>
 {% endblock %}

@@ -16,8 +16,8 @@
   <div class="lifestream">
     {% if page_obj.object_list %}
       <ul class="lifestream-item-list">
-      {% for item in page_obj.object_list %}
-        {% render_item item %}
+      {% for object in page_obj.object_list %}
+        {% render_item object %}
       {% endfor %}
       </ul>
     {% endif %}
