@@ -11,6 +11,7 @@ build
 temp
 dist
 settings_local.py
+fabfile.py
 
 syntax: regexp
 .*\#.*\#$ 
