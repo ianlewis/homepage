@@ -38,8 +38,8 @@ class FeedPlugin(object):
     # support it.
     utcoffset = date_published.utcoffset()
     if utcoffset:
-        date_published = date_published - date_published.utcoffset()
-    date_published.replace(tzinfo=None)
+        date_published = date_published - utcoffset 
+    date_published = date_published.replace(tzinfo=None)
     
     entry['published'] = date_published
     
