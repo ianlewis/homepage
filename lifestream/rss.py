@@ -35,3 +35,11 @@ class RecentItemsFeed(SyndicationFeed):
 
   def items(self):
     return Item.objects.published()[:10]
+
+  def item_pubdate(self, item):
+      return item.date
+
+  def item_categories(self, item):
+      def item_categories(self, item):
+        return [tag.name for tag in item.tag_set]
+  
