@@ -31,7 +31,7 @@ class Post(Model):
     tags = TagField()
 
     active = BooleanField(u'published', default=False)
-    pub_date = DateTimeField(u'date', default=datetime.now)
+    pub_date = DateTimeField(u'published', default=datetime.now)
     create_date = DateTimeField(u'created', default=datetime.now)
    
     objects = PostManager()

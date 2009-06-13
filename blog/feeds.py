@@ -27,7 +27,7 @@ class LatestEnglishBlogEntries(Feed):
         return reverse('main_page')
 
     def item_pubdate(self, item):
-        return item.create_date
+        return item.pub_date
 
     def item_categories(self, item):
         return parse_tag_input(item.tags)
@@ -52,7 +52,7 @@ class LatestJapaneseBlogEntries(Feed):
         return reverse('main_page')
 
     def item_pubdate(self, item):
-        return item.create_date
+        return item.pub_date
 
     def item_categories(self, item):
         return parse_tag_input(item.tags)
