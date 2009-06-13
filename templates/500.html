@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    
+      <title>500 - Server Error</title>
+      <style type="text/css">
+/*
+Copyright (c) 2006, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 0.10.0
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+q:before,q:after{content:'';}
+
+a {
+    color: #888888;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #999999;
+    text-decoration: underline;
+}
+
+.main {
+    border: 1px solid black;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    color: white;
+    background: black;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.header-inner {
+    width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header .profile-img {
+    float:left;
+}
+
+.header .title {
+    /* background: transparent url(../img/profile.jpg) no-repeat center left; */
+    /* padding-left: 100px; */
+    /* display: table-cell; */
+    /* vertical-align: middle; */
+    font-size: 300%;
+    float: left;
+    padding: 10px 0 0 20px;
+}
+
+.header .title a,.header .title a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.header .about {
+    /* background: #FFFFCC; */
+    color: #CCCCCC;
+    width: 400px;
+    margin-left: 50px;
+    float: left;
+}
+
+.content {
+    clear: both;
+    width: 800px;
+    margin: 0 auto;
+    /* padding: 10px 0; */
+    overflow: hidden;
+}
+
+/*
+ * ========================== 
+ * Lifestream 
+ * ==========================
+ */
+#lifestream .blog-links {
+    margin: 20px 50px;
+    overflow: hidden;
+}
+
+#lifestream .item-detail {
+    margin: 20px;
+}
+
+#lifestream .blog-link {
+    border: 1px solid black;
+    padding: 15px;
+    width: 293px;
+    height: 160px;
+    /* margin-left: 100px; */
+    float: left;
+    position: relative;
+}
+
+#lifestream .blog-link .more {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+}
+
+#lifestream .blog-link .blog-link-title {
+    font-size: 110%;
+    font-weight: bold;
+}
+
+#lifestream .blog-link .blog-link-content {
+    padding: 10px;
+}
+
+#lifestream .english-blog {
+
+}
+
+#lifestream .japanese-blog {
+    margin-left: 50px;
+}
+
+#lifestream .lifestream {
+    clear: both;
+    /* display: inline; */
+    margin-top: 20px;
+}
+
+#lifestream .lifestream-item-list {
+    overflow: hidden;
+    width: 684px;
+    margin: 0 auto;
+}
+
+#lifestream .lifestream-item-list .lifestream-item {
+    display: inline;
+    float: left;
+    margin: 0 7px 15px 7px;
+    width: 214px;
+}
+
+#lifestream .lifestream-item .lifestream-item-inner {
+    /* height: auto !important; */
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+
+    min-height: 248px;
+    overflow: hidden;
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom:5px;
+}
+
+#lifestream .lifestream-item-inner h2 {
+    font-size: 80%;
+}
+
+#lifestream .lifestream-item-inner p {
+    font-size: 70%;
+}
+
+#lifestream div.lifestream-item-msg {
+    font-size: 70%;
+    margin-bottom: 5px;
+}
+
+#lifestream div.lifestream-item-date {
+    float:left;
+    font-size: 70%;
+}
+
+#lifestream div.lifestream-item-detail-link {
+    float:right;
+    text-align: right;
+    font-size: 70%;
+}
+
+#lifestream .lifestream-item-inner.delicious-com {
+    background: #3274D0 url(../img/deliciousback.gif) no-repeat scroll left bottom;
+    /* background: #3274D0 none repeat scroll 0 0; */
+}
+
+#lifestream .lifestream-item-inner.delicious-com p {
+    color: #CCCCCC;
+}
+
+#lifestream .lifestream-item-inner.delicious-com a {
+    color: white;
+}
+
+#lifestream .lifestream-item-inner.delicious-com a:hover {
+    color: white;
+}
+
+#lifestream div.lifestream-item-msg.delicious-com {
+    padding-left: 18px;
+    background: transparent url(../img/delicious_16x16.png) no-repeat center left;
+}
+
+#lifestream .lifestream-item-inner.vimeo-com {
+    background: white url(../img/vimeoback.png) no-repeat scroll left bottom;
+    padding: 0;
+    min-height: 268px;
+}
+
+#lifestream .lifestream-item-inner.vimeo-com p {
+    background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
+    padding: 0 15px;
+}
+
+#lifestream .lifestream-item-msg.google-com {
+    padding-left: 18px;
+    background: transparent url(../img/google_16x16.png) no-repeat center left; 
+}
+
+#lifestream .lifestream-item-inner.google-com {
+    border: 2px solid #6688EE;
+    min-height: 244px;
+}
+
+#lifestream .lifestream-item-inner.google-com a,.lifestream-item-inner.google-com a:hover {
+    color: #4F7FC9;
+}
+
+#lifestream .lifestream-item-msg.ianlewis-org {
+    padding-left: 18px;
+    background: transparent url(../img/ianlewis_16x16.png) no-repeat center left; 
+}
+
+#lifestream .lifestream-item-inner.ianlewis-org {
+    padding: 0;
+    border: 1px solid black;
+    min-height: 266px;
+}
+
+#lifestream .lifestream-item-inner.ianlewis-org h2 {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    padding: 10px 15px; 
+    color: white;
+    background: black;
+}
+
+#lifestream .lifestream-item-inner.ianlewis-org a,.lifestream-item-inner.ianlewis-org a:hover {
+    color: white;
+}
+
+#lifestream .lifestream-item-inner.ianlewis-org p {
+    padding: 10px 15px;
+}
+
+#lifestream .lifestream-item-msg.twitter-com {
+    padding-left: 18px;
+    background: transparent url(../img/twitter_16x16.png) no-repeat center left;
+}
+
+#lifestream .lifestream-item-inner.twitter-com {
+    background: white url(../img/twitterback.jpg) repeat scroll 0 0;
+}
+
+#lifestream .lifestream-item-inner.twitter-com p {
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    
+    padding: 10px;
+    background: white;
+}
+
+#lifestream .twitter-com-speech-tail {
+    background: transparent url(../img/speech_tail.gif) no-repeat scroll 13px 0;
+    height: 10px;
+}
+
+#lifestream .lifestream-item-msg.youtube-com {
+    padding-left: 18px;
+    background: transparent url(../img/youtube_16x16.png) no-repeat center left;
+}
+
+#lifestream .lifestream-item-inner.youtube-com {
+    background: #C61D1D;
+    padding: 0;
+    min-height: 268px;
+}
+
+#lifestream .item-detail .lifestream-item-inner.youtube-com {
+    min-height: 500px;
+    text-align: center;
+    font-size: 130%;
+}
+
+#lifestream .item-detail .lifestream-item-inner.youtube-com p {
+    margin: 10px;
+}
+
+#lifestream .item-detail #disqus_thread {
+    clear: both;
+    padding: 15px 0;
+}
+
+#lifestream .lifestream-item-inner.youtube-com p {
+    color: #CCCCCC;
+    padding: 0 15px;
+}
+
+#lifestream .lifestream-item-inner.flickr-com {
+    min-height: 268px;
+    padding: 0;
+    position: relative;
+}
+
+#lifestream .lifestream-item-inner.flickr-com p {
+    background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
+    padding: 10px 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 184px;
+}
+
+#lifestream .lifestream-item-inner.flickr-com img.source-image {    
+    /* width: 250px; */
+    height: 100%;
+	position: absolute;
+	top: 0;
+	left: -35%;
+}
+
+#blog .blog-post {
+    margin: 20px 0;
+}
+
+#blog h1.post-title {
+    font-size: 140%;
+    background: black;
+    color: white;
+    padding-left: 5px;
+}
+
+#blog h1.post-title a,#blog h1.post-title a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#blog .post-tags {
+    /* display: inline; */
+    font-size: 80%;
+    margin-bottom: 5px;
+    /* text-align: right; */
+    /* width: 100%; */
+    float: right;
+}
+
+#blog .post-date {
+    font-size: 80%;
+    margin-bottom: 5px;
+    /* display: inline; */
+    float: left;
+}
+
+#blog .post-comment-link {
+    text-align: right;
+}
+
+#blog .highlight,#blog .codeblock {
+    background-color: #EEEEEE;
+    border: 2px dotted #CCCCCC;
+    border-left: 5px solid #DDDDDD;
+    margin: 15px 30px 15px 10px;
+    /* padding-left: 20px; */
+    padding: 0 1ex 0 20px;
+}
+
+#blog .post-body {
+    font-size: 80%;
+    margin: 0 10px;
+    overflow: hidden;
+    clear: both;
+}
+
+#blog .post-body h2 {
+    margin-bottom: 5px;
+}
+
+#blog .post-body p {
+    margin: 10px 0;
+}
+
+#blog .post-body li {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+#blog .post-body .lightbox-img {
+    display: inline;
+    /* float: left; */
+    margin: 10px;
+    overflow: auto;
+}
+
+.pagination {
+    text-align: center;
+    font-size: 80%;
+    margin: 1em;
+    padding: .25em .25em .6em .25em;
+}
+
+.pagination a.page {
+    padding: 2px 6px;
+    border: 1px solid #AAAAAA;
+    margin: 2px;
+}
+
+.pagination a.page:hover {
+    color: black;
+    border: 1px solid #666666;
+}
+
+.pagination .next,.pagination .prev {
+    padding: 2px 6px;
+    border: 1px solid #AAAAAA;
+    margin: 2px;
+}
+
+.pagination .disabled {
+    /* border: 1px solid #CCCCCC; */
+    /* color: #CCCCCC; */
+    display:none;
+}
+
+.pagination a.next:hover, .pagination a.prev:hover {
+    color: black;
+    border: 1px solid #666666;
+}
+
+.pagination .current {
+    padding: 2px 6px;
+    /*border: 1px solid #ddd;*/
+    border: 1px solid black;
+    /*font-weight: bold;*/
+    /*background:#417690;*/
+    background-color: black;
+    /*color:#f4f379;*/
+    color: white;
+    margin: 2px;
+}
+
+.footer {
+    color: white;
+    background: black;
+    padding: 10px 40px;
+    overflow: hidden;
+}
+
+/* 404 Page */
+
+.not-found-msg {
+    margin: 20px;    
+}
+
+.not-found-msg h1 {
+    font-size: 150%;
+    margin-bottom: 5px;
+}
+
+.not-found-msg li {
+    list-style: disc;
+    margin-left: 25px;
+}
+
+.not-found-search {
+    margin-top: 10px;
+}
+
+/* jqModal base Styling courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+	the Window's z-index value will be set to 3000 by default (via jqModal.js). */
+	
+.jqmWindow {
+    -moz-border-radius-bottomleft:3px;
+    -moz-border-radius-bottomright:3px;
+    -moz-border-radius-topleft:3px;
+    -moz-border-radius-topright:3px;
+    background:white none repeat scroll 0 0;
+    border:medium none;
+    color:black;
+    line-height:1.5em;
+    margin-left:-250px;
+    padding:20px;
+    width:500px;
+    left:50%;
+    position:fixed;
+    top:10%;
+}
+
+a.modal-close {
+    background:transparent url(../img/button-close.png) no-repeat scroll 0 0;
+    height:32px;
+    position:absolute;
+    right:-10px;
+    top:-10px;
+    width:32px;
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Background iframe styling for IE6. Prevents ActiveX bleed-through (<select> form elements, etc.) */
+* iframe.jqm {position:absolute;top:0;left:0;z-index:-1;
+	width: expression(this.parentNode.offsetWidth+'px');
+	height: expression(this.parentNode.offsetHeight+'px');
+}
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+      </style>
+      <div class="main">
+        <div class="header">
+          
+          <div class="header-inner">
+            <div class="profile-img"><img src="/img/profile.jpg" alt="Ian Lewis" height="90" width="90"></div>
+            <div class="title"><a href="/">Ian Lewis</a></div>
+            <div class="about">Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Web Services (XML-RPC/SOAP), <a href="http://www.djangoproject.com/">Django</a>, <a href="http://www.python.org/">python</a>, and rapid web application development.</div>
+          </div>
+          
+        </div>
+        <div class="content">
+          
+<div class="not-found-msg">
+  <h1>500 Server Error</h1>
+  <h2>Whoops!!</h2>
+  <p>A server error has occurred. It looks like you couldn't find what you were looking for. You could try one of the following:</p>
+  <ul>
+    <li>Try your request again later. This may be a temporary problem.</li>
+    <li>If you typed the page address in the Address bar, make sure that it is spelled correctly.</li>
+    <li>Navigate to the <a href="/">Homepage</a> and look for what you want.</li>
+    <li>Use the navigation bar at the top to find the link you are looking for.</li>
+    <li>Click the Back button to try another link.</li>
+  </ul>
+  <div class="not-found-search">
+    <script type="text/javascript">
+          var GOOG_FIXURL_LANG = 'en';
+          var GOOG_FIXURL_SITE = '';
+        </script>
+        <script type="text/javascript" 
+          src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script> 
+  </div>
+</div>
+
+        </div>
+        <div class="footer">
+          
+        </div>
+      </div>
+      
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script><script src="500_files/ga.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        try {
+          var pageTracker = _gat._getTracker("UA-2149299-1");
+          pageTracker._trackPageview();
+        } catch(err) {}
+      </script> 
+    </body></html>
