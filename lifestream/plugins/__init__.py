@@ -36,7 +36,10 @@ class FeedPlugin(object):
     date_published = dateutil.parser.parse(date_published)
     # Change the date to UTC and remove timezone info since MySQL doesn't
     # support it.
-    date_published = (date_published - date_published.utcoffset()).replace(tzinfo=None)
+    utcoffset = date_published.utcoffset()
+    if utcoffset:
+        date_published = date_published - date_published.utcoffset()
+    date_published.replace(tzinfo=None)
     
     entry['published'] = date_published
     
