@@ -459,6 +459,26 @@ a:hover {
     overflow: hidden;
 }
 
+/* 404 Page */
+
+.not-found-msg {
+    margin: 20px;    
+}
+
+.not-found-msg h1 {
+    font-size: 150%;
+    margin-bottom: 5px;
+}
+
+.not-found-msg li {
+    list-style: disc;
+    margin-left: 25px;
+}
+
+.not-found-search {
+    margin-top: 10px;
+}
+
 /* jqModal base Styling courtesy of;
 	Brice Burgess <bhb@iceburg.net> */
 
