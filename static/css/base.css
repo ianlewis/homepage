@@ -310,6 +310,11 @@ a:hover {
     padding: 0 15px;
 }
 
+#lifestream .lifestream-item-msg.flickr-com {
+    padding-left: 18px;
+    background: transparent url(../img/flickr_16x16.png) no-repeat center left;
+}
+
 #lifestream .lifestream-item-inner.flickr-com {
     min-height: 268px;
     padding: 0;
