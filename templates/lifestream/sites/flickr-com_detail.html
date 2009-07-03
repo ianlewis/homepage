@@ -6,7 +6,7 @@
   {% block item_inner %}
   <div class="lifestream-item-inner-detail {% item_class object %}">
     <h2><a href="{{ object.permalink }}">{{ object.title }}</a></h2>
-    <p><img src="{{ object.media_url }}"/></p>
+    <p><img src="{{ object.media_url }}"></p>
     <p>
       {% if object.media_description %}
         {{ object.media_description|striptags|safe }}
