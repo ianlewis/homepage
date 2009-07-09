@@ -1,5 +1,6 @@
 #:coding=utf8:
 
+from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from tagging.models import *
 from django.db.models import *
@@ -42,6 +43,9 @@ class Post(Model):
             'locale': self.locale,
             'slug': self.slug,
         })
+    
+    def get_full_url(self):
+        return 'http://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
 
     class Meta:
         verbose_name = _("post")

@@ -17,6 +17,14 @@
     &nbsp;
   {% endif %}
   </div>
+  <div class="post-comment-link"> 
+      <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}">
+        <img src="http://d.hatena.ne.jp/images/b_entry.gif" width="16" height="12" style="border: none;"
+   alt="このエントリーを含むはてなブックマーク" title="このエントリーを含むはてなブックマーク" />
+        <img src="http://b.hatena.ne.jp/entry/image/{{ object.get_full_url }}" alt="はてなブックマーク - {{ object.title }}" title="はてなブックマーク - {{ object.title }}">
+    </a>
+  </div>
+  
   <div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ianlewisblog/embed.js"></script><noscript><a href="http://ianlewisblog.disqus.com/?url=ref">View the discussion thread.</a></noscript>
 
 </div>
