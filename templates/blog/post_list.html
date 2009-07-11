@@ -27,7 +27,13 @@
           &nbsp;
         {% endif %}
         </div>
-        <div class="post-comment-link"><a href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a></div>
+        <div class="post-comment-link">
+          <a href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a>
+          <a href="http://b.hatena.ne.jp/entry/{{ item.get_full_url }}">
+            <img src="http://d.hatena.ne.jp/images/b_entry.gif" width="16" height="12" style="border: none;" alt="このエントリーを含むはてなブックマーク" title="このエントリーを含むはてなブックマーク" />
+            <img src="http://b.hatena.ne.jp/entry/image/{{ item.get_full_url }}" alt="はてなブックマーク - {{ item.title }}" title="はてなブックマーク - {{ item.title }}">
+          </a>
+        </div>
       </li>
     {% endfor %}
     </ul>
