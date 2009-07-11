@@ -13,6 +13,8 @@ dist
 settings_local.py
 settings_production.py
 fabfile.py
+google*.html
+y_key_*.html
 
 syntax: regexp
 .*\#.*\#$ 
