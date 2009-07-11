@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load tagging_tags %}
 {% load blog_tags %}
+{% load disqus_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block blog_content %}
@@ -25,7 +26,7 @@
     </a>
   </div>
   
-  <div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ianlewisblog/embed.js"></script><noscript><a href="http://ianlewisblog.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+  {% disqus_show_comments %}
 
 </div>
 {% endblock %}

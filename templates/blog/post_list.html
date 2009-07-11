@@ -3,6 +3,7 @@
 {% load pagination_tags %}
 {% load tagging_tags %}
 {% load blog_tags %}
+{% load disqus_tags %}
 
 {% block title %}Ian's Blog{% endblock %}
 
@@ -38,20 +39,7 @@
 {% endblock %}
 
 {% block js_footer %}
-<script type="text/javascript">
-//<[CDATA[
-(function() {
-		var links = document.getElementsByTagName('a');
-		var query = '?';
-		for(var i = 0; i < links.length; i++) {
-			if(links[i].href.indexOf('#disqus_thread') >= 0) {
-				query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
-			}
-		}
-		document.write('<script type="text/javascript" src="http://disqus.com/forums/ianlewisblog/get_num_replies.js' + query + '"></' + 'script>');
-	})();
-//]]>
-</script>
+{% disqus_num_replies %}
 {% endblock %}
 
 {% block footer %}

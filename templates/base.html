@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+{% load disqus_tags %}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -8,11 +8,13 @@
       <script type="text/javascript">
         MEDIA_URL='{{ MEDIA_URL }}';
       </script>
+      <meta name="keywords" content="Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド"> 
+      <meta name="description" content=">Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.">
+      {% disqus_dev %}
+      {% block rss %}{% endblock %}
       {% block javascript %}{% endblock %}
       {% block css %}{% endblock %}
       {% block other_head %}{% endblock %}
-      <meta name="keywords" content="Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド"> 
-      <meta name="description" content=">Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.">
     </head>
     <body>
       <div class="main">

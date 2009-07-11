@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'blog',
     'tagging',
     'utils',
+    'disqus',
 )
 
 # dlife settings
@@ -137,6 +138,9 @@ FORCE_LOWERCASE_TAGS=True
 PAGINATION_DEFAULT_PAGINATION = 9
 PAGINATION_INVALID_PAGE_RAISES_404 = True
 PAGINATION_DEFAULT_WINDOW = 3
+
+DISQUS_API_KEY = ''
+DISQUS_WEBSITE_SHORTNAME = ''
 
 try:
     from settings_local import *
