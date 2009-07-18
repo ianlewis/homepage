@@ -1,8 +1,8 @@
-{% load lifestream %}
+{% load lifestream_tags %}
 {% load utility_tags %}
 
 <li class="lifestream-item {% item_class object %}">
-<div class="lifestream-item-msg {% item_class object %}">From <a href="{% url domain_page object.feed.domain %}">{{ object.feed.domain }}</a></div>
+<div class="lifestream-item-msg {% item_class object %}">From <a href="{% url lifestream_domain_page object.feed.domain %}">{{ object.feed.domain }}</a></div>
   {% block item_inner %}
   <div class="lifestream-item-inner {% item_class object %}">
     <h2><a href="{{ object.permalink }}">{{ object.title|truncate_chars:60 }}</a></h2>
@@ -15,5 +15,5 @@
     </p>
   </div>
   {% endblock %}
-  {% block date %}<div class="lifestream-item-date">{{ object.date|friendly_date }}</div>{% endblock %} {% block comments-link %}<div class="lifestream-item-detail-link"><a href="{% url item_page object.id %}#disqus_thread">Send feedback</a></div>{% endblock %}
+  {% block date %}<div class="lifestream-item-date">{{ object.date|friendly_date }}</div>{% endblock %} {% block comments-link %}<div class="lifestream-item-detail-link"><a href="{% url lifestream_item_page object.id %}#disqus_thread">Send feedback</a></div>{% endblock %}
 </li>

@@ -1,8 +1,8 @@
-{% load lifestream %}
+{% load lifestream_tags %}
 {% load utility_tags %}
 
 <div class="lifestream-item {% item_class object %}">
-  <div class="lifestream-item-msg {% item_class object %}">From <a href="{% url domain_page object.feed.domain %}">{{ object.feed.domain }}</a></div>
+  <div class="lifestream-item-msg {% item_class object %}">From <a href="{% url lifestream_domain_page object.feed.domain %}">{{ object.feed.domain }}</a></div>
   {% block item_inner %}
   <div class="lifestream-item-inner-detail {% item_class object %}">
     <h2><a href="{{ object.permalink }}">{{ object.title }}</a></h2>

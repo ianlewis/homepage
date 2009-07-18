@@ -22,7 +22,10 @@ urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/update_feeds', 'lifestream.admin_views.admin_update_feeds', name='admin_update_feeds'),
     (r'^admin/(.*)', admin.site.root),
-    
+  
+    url(r'^$', 'homepage.views.main_page', name='main_page'), 
+    url(r'^items/tag/(?P<tag>.+)$', 'tag_page', name='tag_page'),
+
     (r'', include('lifestream.urls')),
 )
 

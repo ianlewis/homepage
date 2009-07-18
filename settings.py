@@ -74,7 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'pagination.middleware.PaginationMiddleware',
-    'utils.middleware.WWWRedirectMiddleware',
+    'homepage.middleware.WWWRedirectMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -92,11 +92,12 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.comments',
+    'homepage',
     'pagination',
     'lifestream',
     'blog',
     'tagging',
-    'utils',
     'disqus',
 )
 
