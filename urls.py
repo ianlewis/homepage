@@ -24,7 +24,7 @@ urlpatterns += patterns('',
     (r'^admin/(.*)', admin.site.root),
   
     url(r'^$', 'homepage.views.main_page', name='main_page'), 
-    url(r'^items/tag/(?P<tag>.+)$', 'tag_page', name='tag_page'),
+    url(r'^items/tag/(?P<tag>.+)$', 'homepage.views.tag_page', name='tag_page'),
 
     (r'', include('lifestream.urls')),
 )
