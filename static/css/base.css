@@ -23,6 +23,14 @@ a:hover {
     text-decoration: underline;
 }
 
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
 .main {
     border: 1px solid black;
     width: 900px;
