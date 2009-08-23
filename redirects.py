@@ -9,4 +9,9 @@ urlpatterns = patterns('django.views.generic.simple',
     url(r'^jp/about(?:/.*)?$', 'redirect_to', {'url': '/'}, name="jp_about_redirect"),
 
     url(r'^feed/?$', 'redirect_to', {'url': '/feeds/recent'}),
+
+    # Legacy urls for the blog
+    url(r'^index.php/(?P<locale>\w{2})/?$', 'redirect_to', {'url': '/%(locale)s/' }),
+    url(r'^index.php$', 'redirect_to', {'url': '/en/'}),
+    url(r'^index.php/(?P<locale>\w{2})/(?P<slug>[^/]+)/?$', 'redirect_to', {'url': '/%(locale)s/%(slug)s'}),
 )

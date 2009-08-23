@@ -21,11 +21,6 @@ urlpatterns += patterns('blog.views',
         
     url(r'^(?P<locale>\w{2})/(?P<slug>[^/]+)/?$', 'blog_detail', name='blog_detail'),
     url(r'^(?P<locale>\w{2})/?$', 'blog_page', name="blog_page"),
-    
-    # Legacy urls for the blog
-    url(r'^index.php/(?P<locale>\w{2})/?$', 'blog_page'),
-    url(r'^index.php$', 'blog_page', {'locale': 'en'}),
-    url(r'^index.php/(?P<locale>\w{2})/(?P<slug>[^/]+)/?$', 'blog_detail'),
 )
 
 urlpatterns += patterns('django.contrib.syndication.views',
