@@ -13,10 +13,11 @@
         allowfullscreen="true"
         type="application/x-shockwave-flash"
         src="{{ object.media_player_url }}&amp;hl=en&amp;fs=1&amp;showsearch=0"
-    />
+    >
+    </embed>
   </object>
   <p>
-    {{ object.media_description|striptags }}
+    {{ object.media_description|striptags|stripentities }}
   </p>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Original</a> ]</p>
 </div>

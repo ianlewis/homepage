@@ -4,6 +4,7 @@ from datetime import datetime,timedelta
 
 from django.utils.safestring import mark_safe
 from django.utils.translation import ngettext,ugettext_lazy as _
+from django.template.defaultfilters import stringfilter
 
 from django import template
 register = template.Library()
@@ -18,6 +19,14 @@ def truncate_chars(value, max_length):
         truncd_val = truncd_val.rstrip()
         return truncd_val + "..."
     return value
+
+def stripentities(value):
+    """Strips all HTML entities"""
+    from django.utils.html import strip_entities
+    return strip_entities(value)
+stripentities.is_safe = True
+stripentities = stringfilter(stripentities)
+register.filter(stripentities)
 
 @register.filter
 def friendly_date(date, include_time=False):

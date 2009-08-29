@@ -12,7 +12,7 @@
   <div class="twitter-com-speech-tail"></div>
   <p>
     {% if object.title %}
-      {{ object.title|striptags|urlizetrunc:50|urlize_twitter }}
+      {{ object.title|striptags|stripentities|urlizetrunc:50|urlize_twitter }}
     {% else %}
       &nbsp;
     {% endif %}

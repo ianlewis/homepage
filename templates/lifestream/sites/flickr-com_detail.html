@@ -9,7 +9,7 @@
     <p><img src="{{ object.media_url }}"></p>
     <p>
       {% if object.media_description %}
-        {{ object.media_description|striptags|safe }}
+        {{ object.media_description|striptags|stripentities }}
       {% else %}
         &nbsp;
       {% endif %}
