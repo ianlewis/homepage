@@ -1,0 +1,29 @@
+{% extends "lifestream/sites/basic_detail.html" %}
+{% load lifestream_tags %}
+{% load utility_tags %}
+
+{% block item_inner %}
+<div class="lifestream-item-inner {% item_class object %}" style="z-index: 1;">
+  <div class="movie">
+    <object width="500" height="415" style="z-index: 3001;">
+      <param name="allowfullscreen" value="true" />
+      <param name="allowscriptaccess" value="always" />
+      <param name="movie" value="{{ object.media_player_url }}" />
+      <param name="wmode" value="opaque">
+      <embed src="{{ object.media_player_url }}"
+        type="application/x-shockwave-flash"
+        allowfullscreen="true"
+        allowscriptaccess="always"
+        width="500"
+        height="415"
+        wmode="opaque"
+      >
+      </embed>
+    </object>
+  </div>
+  <p>
+    {{ object.clean_content|safe }}
+  </p>
+  <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Original</a> ]</p>
+</div>
+{% endblock %}
