@@ -20,6 +20,7 @@ def main_page(request):
 
   return object_list(request, 
       queryset = Item.objects.published(), 
+      paginate_by = 9,
       template_name = "lifestream/main.html",
       extra_context = {
           "jp_post": jp_post,
