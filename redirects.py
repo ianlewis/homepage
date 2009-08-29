@@ -14,4 +14,7 @@ urlpatterns = patterns('django.views.generic.simple',
     url(r'^index.php/(?P<locale>\w{2})/?$', 'redirect_to', {'url': '/%(locale)s/' }),
     url(r'^index.php$', 'redirect_to', {'url': '/en/'}),
     url(r'^index.php/(?P<locale>\w{2})/(?P<slug>[^/]+)/?$', 'redirect_to', {'url': '/%(locale)s/%(slug)s'}),
+
+    url(r'^en/(?P<tag_name>.+)\;', 'redirect_to', {'url': '/en/tag/%(tag_name)s'}),
+    url(r'^jp/(?P<tag_name>.+)\;', 'redirect_to', {'url': '/jp/tag/%(tag_name)s'}),
 )
