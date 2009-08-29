@@ -20,7 +20,6 @@ def main_page(request):
 
   return object_list(request, 
       queryset = Item.objects.published(), 
-      paginate_by = 9,
       template_name = "lifestream/main.html",
       extra_context = {
           "jp_post": jp_post,
@@ -29,12 +28,30 @@ def main_page(request):
   )
 
 @allow_methods('GET')
+def main_page(request):
+    return object_list(request, 
+        queryset = Item.objects.published(),
+    )
+
+@allow_methods('GET')
+def domain_page(request, domain):
+    return object_list(
+        request,
+        queryset=Item.objects.published().filter(feed__domain=domain),
+    )
+
+@allow_methods('GET', 'POST')
+def item_page(request, item_id):
+    return object_detail(
+        request,
+        queryset=Item.objects.published(),
+        object_id=item_id,    
+    )
+
+@allow_methods('GET')
 def tag_page(request, tag):
     return tagged_object_list(
         request,
-        paginate_by = 9,
         queryset_or_model=Item.objects.published(),
         tag=tag,
     )
-
-

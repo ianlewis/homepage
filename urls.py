@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.conf import settings
 
 from blog import urls as blog_urls
+from lifestream.rss import *
 import redirects
 
 admin.autodiscover()
@@ -26,7 +27,18 @@ urlpatterns += patterns('',
     url(r'^$', 'homepage.views.main_page', name='main_page'), 
     url(r'^items/tag/(?P<tag>.+)$', 'homepage.views.tag_page', name='tag_page'),
 
-    (r'', include('lifestream.urls')),
+    url(r'^$', 'homepage.views.main_page', name='lifestream_main_page'),
+    url(r'^items/view/(?P<item_id>\d+)$', 'homepage.views.item_page', name='lifestream_item_page'),
+    url(r'^items/site/(?P<domain>.+)$', 'homepage.views.domain_page', name='lifestream_domain_page'),
+
+)
+
+feeds = {
+    'recent': RecentItemsFeed,
+}
+
+urlpatterns += patterns('',
+    url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds }, name='lifestream_feeds'), 
 )
 
 if settings.DEBUG:
