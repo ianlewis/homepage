@@ -32,6 +32,7 @@ def main_page(request):
 def tag_page(request, tag):
     return tagged_object_list(
         request,
+        paginate_by = 9,
         queryset_or_model=Item.objects.published(),
         tag=tag,
     )
