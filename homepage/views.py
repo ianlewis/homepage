@@ -1,5 +1,5 @@
 #:coding=utf8:
-from django.views.generic.list_detail import object_list
+from django.views.generic.list_detail import object_list,object_detail
 
 from lifestream.models import Item
 from lifestream.util.decorators import allow_methods
@@ -26,12 +26,6 @@ def main_page(request):
           "en_post": en_post,
       }
   )
-
-@allow_methods('GET')
-def main_page(request):
-    return object_list(request, 
-        queryset = Item.objects.published(),
-    )
 
 @allow_methods('GET')
 def domain_page(request, domain):
