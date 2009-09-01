@@ -7,7 +7,7 @@
   <div class="lifestream-item-inner {% item_class object %}">
     <h2><a href="{{ object.permalink }}">{{ object.title }}</a></h2>
     <p>
-      {% if object.clean_content %}
+      {% if object.content %}
         {{ object.content|safe }}
       {% else %}
         &nbsp;
