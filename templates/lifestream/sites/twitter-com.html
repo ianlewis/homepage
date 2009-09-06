@@ -11,8 +11,8 @@
   </cite>
   <div class="twitter-com-speech-tail"></div>
   <p>
-    {% if object.title %}
-      {{ object.title|striptags|stripentities|urlizetrunc:50|urlize_twitter }}
+    {% if object.content %}
+      {{ object.content|safe|urlizetrunc:50|urlize_twitter }}
     {% else %}
       &nbsp;
     {% endif %}

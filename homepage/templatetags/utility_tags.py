@@ -1,4 +1,5 @@
 #:coding=utf8:
+import re
 
 from datetime import datetime,timedelta
 
@@ -10,15 +11,17 @@ from django import template
 register = template.Library()
 
 @register.filter
+@stringfilter
 def truncate_chars(value, max_length):
-    if value is None:
+    try:
+        max_length = int(max_length)
+        if len(value.rstrip()) > max_length:
+            truncd_val = value[:max_length]
+            truncd_val = truncd_val.rstrip()
+            return truncd_val + "..."
+        return value
+    except:
         return ""
-    max_length = int(max_length)
-    if len(value) > max_length:
-        truncd_val = value[:max_length]
-        truncd_val = truncd_val.rstrip()
-        return truncd_val + "..."
-    return value
 
 def stripentities(value):
     """Strips all HTML entities"""
@@ -77,3 +80,11 @@ def friendly_date(date, include_time=False):
 @register.filter
 def cat(value, other_value):
     return "%s%s" % (value, other_value)
+
+@register.filter
+def urlize_twitter(text):
+    return mark_safe(
+        re.sub(r'@([a-zA-Z0-9_]*)', r'@<a href="http://twitter.com/\1">\1</a>',
+            re.sub(r'#([a-zA-Z0-9_]*)', r'<a href="http://twitter.com/#search?q=\1">#\1</a>', text)
+        )
+    )
