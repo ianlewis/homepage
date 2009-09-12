@@ -18,10 +18,15 @@ def main_page(request):
   except Post.DoesNotExist:
       jp_post = None
 
+  latest_tweet = Item.objects.published()\
+                    .filter(feed__domain="twitter.com")\
+                    .latest('date')
+
   return object_list(request, 
-      queryset = Item.objects.published(), 
+      queryset = Item.objects.published().exclude(feed__domain="twitter.com"), 
       template_name = "lifestream/main.html",
       extra_context = {
+          'latest_tweet': latest_tweet,
           "jp_post": jp_post,
           "en_post": en_post,
       }

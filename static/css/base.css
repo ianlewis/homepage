@@ -77,6 +77,26 @@ em {
     float: left;
 }
 
+.header .latest-tweet {
+    clear: both;
+}
+
+.header .latest-tweet p {
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    
+    padding: 10px;
+    color: black;
+    background: white;
+}
+
+.header .latest-tweet .twitter-com-speech-tail {
+    background: transparent url(../img/speech_tail.gif) no-repeat scroll 13px 0;
+    height: 10px;
+}
+
 .content {
     clear: both;
     width: 800px;

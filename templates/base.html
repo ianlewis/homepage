@@ -24,6 +24,7 @@
             <div class="profile-img"><img src="{{ MEDIA_URL }}img/profile.jpg" alt="Ian Lewis" height="90px" width="90px"></div>
             <div class="title"><a href="{% url main_page %}">Ian Lewis</a></div>
             <div class="about">Ian Lewis is a web developer living in Tokyo Japan. His current interests are in <a href="http://www.djangoproject.com/">Django</a>, <a href="http://www.python.org/">python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>.</div>
+            {% block extra_header %}{% endblock %}
           </div>
           {% endblock %}
         </div>

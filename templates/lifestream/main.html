@@ -7,6 +7,13 @@
 
 {% block title %}{% ifnotequal request.page 1 %}Page {{ request.page }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
+{% block extra_header %}
+<div class="latest-tweet">
+  <div class="twitter-com-speech-tail"></div>
+  <p>{{ latest_tweet.content|safe|urlizetrunc:50|urlize_twitter }}</p>
+</div>
+{% endblock %}
+
 {% block top_content %}
 {% ifequal request.page 1 %}
 <div class="blog-links">
