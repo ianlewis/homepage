@@ -91,9 +91,11 @@ em {
     
     padding: 10px;
     background: white;
+    min-height: 2.5em;
 }
 
 .header .latest-tweet .profile-link {
+    clear: both;
     position: absolute;
     bottom: 5px;
     right: 15px;
