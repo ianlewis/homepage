@@ -79,6 +79,8 @@ em {
 
 .header .latest-tweet {
     clear: both;
+    color: black;
+    position: relative;
 }
 
 .header .latest-tweet p {
@@ -88,8 +90,13 @@ em {
     -moz-border-radius-topright:8px;
     
     padding: 10px;
-    color: black;
     background: white;
+}
+
+.header .latest-tweet .profile-link {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
 }
 
 .header .latest-tweet .twitter-com-speech-tail {
