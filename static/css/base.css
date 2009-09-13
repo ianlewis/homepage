@@ -303,6 +303,60 @@ em {
     padding: 10px 15px;
 }
 
+/*#lifestream .lifestream-item-msg.smipple-net {
+    padding-left: 18px;
+    background: transparent url(../img/ianlewis_16x16.png) no-repeat center left; 
+}*/
+
+#lifestream .lifestream-item-inner.smipple-net {
+    padding: 0;
+    border: 1px solid black;
+    min-height: 266px;
+}
+
+#lifestream .lifestream-item-inner.smipple-net h2 {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    padding: 10px 15px; 
+    color: black;
+    background: #F7F7F7 url(../img/smipple_menu_bg.png) repeat-x scroll left bottom;
+}
+
+#lifestream .lifestream-item-inner.smipple-net a,.lifestream-item-inner.smipple-net a:hover {
+    color: black;
+}
+
+#lifestream .lifestream-item-inner.smipple-net p {
+    padding: 10px 15px;
+}
+
+#lifestream .lifestream-item-msg.bitbucket-org {
+    padding-left: 18px;
+    background: transparent url(../img/ianlewis_16x16.png) no-repeat center left; 
+}
+
+#lifestream .lifestream-item-inner.bitbucket-org {
+    padding: 0;
+    border: 1px solid black;
+    min-height: 266px;
+}
+
+#lifestream .lifestream-item-inner.bitbucket-org h2 {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    padding: 10px 15px; 
+    color: white;
+    background: black;
+}
+
+#lifestream .lifestream-item-inner.bitbucket-org a,.lifestream-item-inner.bitbucket-org a:hover {
+    color: white;
+}
+
+#lifestream .lifestream-item-inner.bitbucket-org p {
+    padding: 10px 15px;
+}
+
 #lifestream .lifestream-item-msg.twitter-com {
     padding-left: 18px;
     background: transparent url(../img/twitter_16x16.png) no-repeat center left;
@@ -385,7 +439,7 @@ em {
     height: 100%;
 	position: absolute;
 	top: 0;
-	left: -35%;
+	/* left: -35%; */
 }
 
 #blog .blog-post {
