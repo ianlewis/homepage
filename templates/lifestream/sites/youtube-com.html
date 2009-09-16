@@ -25,7 +25,7 @@
     {% endcomment %}
   </object>
   <p>
-    {{ object.media_description|striptags|stripentities|truncate_chars:80 }}
+    {{ object.media_description|default:object.title|default:""|striptags|stripentities|truncate_chars:80 }}
   </p>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
 </div>

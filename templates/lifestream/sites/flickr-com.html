@@ -6,7 +6,7 @@
 <div class="lifestream-item-inner {% item_class object %}">
   <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}"><img class="source-image" src="{{ object.media_url }}" alt=""></a>
   <p>
-    {{ object.media_description|striptags|stripentities }}
+    {{ object.media_description|default:object.title|default:""|striptags|stripentities|truncate_chars:100 }}
   </p>
 </div>
 
