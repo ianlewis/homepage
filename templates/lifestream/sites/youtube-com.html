@@ -25,7 +25,11 @@
     {% endcomment %}
   </object>
   <p>
-    {{ object.media_description|default:object.title|default:""|striptags|stripentities|truncate_chars:80 }}
+    {% if object.media_description %}
+    {{ object.media_description|striptags|stripentities|truncate_chars:80 }}
+    {% else %}
+    {{ object.title|truncate_chars:80|default:"" }}
+    {% endif %}
   </p>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
 </div>
