@@ -13,7 +13,7 @@
   <p>
     {{ latest_tweet.content|safe|urlizetrunc:50|urlize_twitter }}
   </p>
-  <div class="profile-link"><a href="http://twitter.com/IanMLewis">More</a></div>
+  <div class="profile-link"><a href="{% url lifestream_domain_page "twitter.com" %}">More</a></div>
 </div>
 {% endblock %}
 
