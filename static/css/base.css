@@ -71,10 +71,19 @@ em {
 
 .header .about {
     /* background: #FFFFCC; */
+    position: relative;
     color: #CCCCCC;
     width: 400px;
     margin-left: 50px;
     float: left;
+}
+
+.header .about .profile-link {
+    clear: both;
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    font-style: italic;
 }
 
 .header .latest-tweet {
@@ -99,6 +108,7 @@ em {
     position: absolute;
     bottom: 5px;
     right: 15px;
+    font-style: italic;
 }
 
 .header .latest-tweet .twitter-com-speech-tail {
@@ -147,6 +157,7 @@ em {
     position: absolute;
     bottom: 5px;
     right: 15px;
+    font-style: italic;
 }
 
 #lifestream .blog-link .blog-link-title {
@@ -517,6 +528,59 @@ em {
     /* float: left; */
     margin: 10px;
     overflow: auto;
+}
+
+#flatpage {
+    margin: 20px 50px;
+}
+
+#flatpage #about p {
+    margin: 10px 0;
+}
+
+#flatpage #about .profiles li {
+    /* display: inline; */
+    float: left;
+    margin-right: 5px;
+}
+
+#flatpage #about .profiles li a {
+    display: block;
+    height: 16px;
+    width: 16px;
+    text-indent: -30000px;
+    border: 1px solid #CCC;
+}
+
+#flatpage #about .profiles li a {
+    background-image: url(../img/icon_externalsite.png);
+    background-repeat: no-repeat;
+}
+
+
+#flatpage #about .profiles li.twitter a {
+    background-position: 0 -650px;
+}
+#flatpage #about .profiles li.github a {
+    background-position: 0 -1516px;
+}
+#flatpage #about .profiles li.flickr a {
+    background-position: 0 -150px;
+}
+#flatpage #about .profiles li.lastfm a {
+    background-position: 0 -350px;
+}
+#flatpage #about .profiles li.facebook a {
+    background-position: 0 -1648px;
+}
+#flatpage #about .profiles li.delicious a {
+    background-position: 0 -1200px;
+}
+#flatpage #about .profiles li.linkedin a {
+    background-position: 0 -800px;
+}
+#flatpage #about .profiles li.friendfeed a {
+    background-position: 0 -1472px;
 }
 
 .pagination {

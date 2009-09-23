@@ -75,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'pagination.middleware.PaginationMiddleware',
     'homepage.middleware.WWWRedirectMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -93,6 +94,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.comments',
+    'django.contrib.flatpages',
     'homepage',
     'pagination',
     'lifestream',
@@ -100,6 +102,10 @@ INSTALLED_APPS = (
     'tagging',
     'disqus',
 )
+
+# Need this to get around a bugs in HttpResponseRedirect
+# for non-ascii urls and flatpages
+APPEND_SLASH=False
 
 # dlife settings
 VALID_ITEM_TAGS = (
