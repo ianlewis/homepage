@@ -229,9 +229,9 @@ em {
 }
 
 #lifestream div.lifestream-item-detail-link {
-    float:right;
+    /* float: right; */
     text-align: right;
-    font-size: 70%;
+    font-size: 60%;
 }
 
 #lifestream .lifestream-item-inner.delicious-com {
