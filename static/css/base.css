@@ -79,10 +79,6 @@ em {
 }
 
 .header .about .profile-link {
-    clear: both;
-    position: absolute;
-    bottom: 0px;
-    right: 15px;
     font-style: italic;
 }
 
