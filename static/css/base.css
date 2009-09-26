@@ -549,17 +549,21 @@ em {
     height: 16px;
     width: 16px;
     text-indent: -30000px;
-    border: 1px solid #CCC;
+    /* border: 1px solid #CCC; */
 }
 
 #flatpage #about .profiles li a {
     background-image: url(../img/icon_externalsite.png);
     background-repeat: no-repeat;
+    outline: none;
 }
 
 
 #flatpage #about .profiles li.twitter a {
     background-position: 0 -650px;
+}
+#flatpage #about .profiles li.bitbucket a {
+    background-position: 0 -1751px;
 }
 #flatpage #about .profiles li.github a {
     background-position: 0 -1516px;
