@@ -89,10 +89,8 @@ em {
 }
 
 .header .latest-tweet p {
-    -moz-border-radius-bottomleft:8px;
-    -moz-border-radius-bottomright:8px;
-    -moz-border-radius-topleft:8px;
-    -moz-border-radius-topright:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
     
     padding: 10px;
     background: white;
@@ -194,10 +192,8 @@ em {
 
 #lifestream .lifestream-item .lifestream-item-inner {
     /* height: auto !important; */
-    -moz-border-radius-bottomleft:8px;
-    -moz-border-radius-bottomright:8px;
-    -moz-border-radius-topleft:8px;
-    -moz-border-radius-topright:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
 
     min-height: 248px;
     overflow: hidden;
@@ -302,6 +298,8 @@ em {
 #lifestream .lifestream-item-inner.ianlewis-org h2 {
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
+    -webkit-border-radius-topleft:5px;
+    -webkit-border-radius-topright:5px;
     padding: 10px 15px; 
     color: white;
     background: black;
@@ -329,6 +327,8 @@ em {
 #lifestream .lifestream-item-inner.smipple-net h2 {
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
+    -webkit-border-radius-topleft: 5px;
+    -webkit-border-radius-topright: 5px;
     padding: 10px 15px; 
     color: black;
     background: #F7F7F7 url(../img/smipple_menu_bg.png) repeat-x scroll left bottom;
@@ -356,6 +356,9 @@ em {
 #lifestream .lifestream-item-inner.bitbucket-org h2 {
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
+    -webkit-border-radius-topleft: 5px;
+    -webkit-border-radius-topright: 5px;
+
     padding: 10px 15px; 
     color: white;
     background: black;
@@ -379,10 +382,8 @@ em {
 }
 
 #lifestream .lifestream-item-inner.twitter-com p {
-    -moz-border-radius-bottomleft:8px;
-    -moz-border-radius-bottomright:8px;
-    -moz-border-radius-topleft:8px;
-    -moz-border-radius-topright:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
     
     padding: 10px;
     background: white;
@@ -664,10 +665,8 @@ em {
 	the Window's z-index value will be set to 3000 by default (via jqModal.js). */
 	
 .jqmWindow {
-    -moz-border-radius-bottomleft:3px;
-    -moz-border-radius-bottomright:3px;
-    -moz-border-radius-topleft:3px;
-    -moz-border-radius-topright:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
     background:white none repeat scroll 0 0;
     border:medium none;
     color:black;
