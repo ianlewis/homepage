@@ -8,6 +8,7 @@
 {% block title %}{% ifnotequal request.page 1 %}Page {{ request.page }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
 {% block extra_header %}
+{% if latest_tweet %}
 <div class="latest-tweet">
   <div class="twitter-com-speech-tail-top"></div>
   <p>
@@ -15,11 +16,13 @@
   </p>
   <div class="profile-link"><a href="{% url lifestream_domain_page "twitter.com" %}">More</a></div>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block top_content %}
 {% ifequal request.page 1 %}
 <div class="blog-links">
+  {% if en_post %}
   <a href="{% url blog_page "en" %}">
   <div class="english-blog blog-link">
     {% if en_post %}
@@ -30,7 +33,9 @@
     <div class="more">Read More</div>
   </div>
   </a>
+  {% endif %}
 
+  {% if jp_post %}
   <a href="{% url blog_page "jp" %}">
   <div class="japanese-blog blog-link">
     {% if jp_post %}
@@ -41,6 +46,7 @@
     <div class="more">もっと見る</div>
   </div>
   </a>
+  {% endif %}
 </div>
 {% endifequal %}
 {% endblock %}
