@@ -2,11 +2,11 @@
 from django.views.generic.list_detail import object_list,object_detail
 
 from lifestream.models import Item
-from lifestream.util.decorators import allow_methods
+from django.views.decorators.http import require_http_methods
 from blog.models import Post
 from tagging.views import tagged_object_list
 
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 def main_page(request):
   # Get latest English and Japanese post.
   try:
@@ -17,10 +17,13 @@ def main_page(request):
       jp_post = Post.objects.published().filter(locale="jp").latest("pub_date")
   except Post.DoesNotExist:
       jp_post = None
-
-  latest_tweet = Item.objects.published()\
-                    .filter(feed__domain="twitter.com")\
-                    .latest('date')
+  
+  try:
+      latest_tweet = Item.objects.published()\
+                         .filter(feed__domain="twitter.com")\
+                         .latest('date')
+  except Item.DoesNotExist:
+      latest_tweet = None
 
   return object_list(request, 
       queryset = Item.objects.published().exclude(feed__domain="twitter.com"), 
@@ -32,14 +35,14 @@ def main_page(request):
       }
   )
 
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 def domain_page(request, domain):
     return object_list(
         request,
         queryset=Item.objects.published().filter(feed__domain=domain),
     )
 
-@allow_methods('GET', 'POST')
+@require_http_methods(['GET', 'HEAD', 'POST'])
 def item_page(request, item_id):
     return object_detail(
         request,
@@ -47,7 +50,7 @@ def item_page(request, item_id):
         object_id=item_id,    
     )
 
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 def tag_page(request, tag):
     return tagged_object_list(
         request,

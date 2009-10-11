@@ -2,13 +2,12 @@
 from django.views.generic.list_detail import object_list,object_detail
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
-
-from lifestream.util.decorators import allow_methods
+from django.views.decorators.http import require_http_methods
 from models import *
 from decorators import *
 
 @staff_member_required
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 def blog_detail_preview(request, object_id):
     object = Post.objects.get(pk=object_id)
     defaults = {
@@ -18,7 +17,7 @@ def blog_detail_preview(request, object_id):
     }
     return object_detail(request, **defaults)
 
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 @feed_redirect
 def blog_page(request, locale="en"):
     return object_list(request, 
@@ -26,7 +25,7 @@ def blog_page(request, locale="en"):
         extra_context={"locale":locale},
     )
 
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 def blog_detail(request, slug, locale="en"):
     defaults = {
         "queryset": Post.objects.published().filter(locale=locale),
@@ -35,7 +34,7 @@ def blog_detail(request, slug, locale="en"):
     }
     return object_detail(request, **defaults)
 
-@allow_methods('GET')
+@require_http_methods(['GET', 'HEAD'])
 def tag_page(request, tag, locale="en"):
     from tagging.views import tagged_object_list
     return tagged_object_list(
