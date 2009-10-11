@@ -7,6 +7,7 @@ syntax: glob
 *.o
 *.pyc
 *.swp
+*.db
 build
 temp
 dist
