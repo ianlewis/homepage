@@ -25,7 +25,7 @@
     {% endcomment %}
   </object>
   <p>
-    {{ object.clean_content|truncate_chars:80 }}
+    {{ object.clean_content|safe|truncate_chars:80 }}
   </p>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
 </div>
