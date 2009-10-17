@@ -145,6 +145,15 @@ em {
     /* margin-left: 100px; */
     float: left;
     position: relative;
+
+    color: #888888;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#lifestream .blog-link.over {
+    color: #999999;
+    text-decoration: underline;
 }
 
 #lifestream .blog-link .more {
