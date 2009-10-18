@@ -2,10 +2,13 @@ from django.conf.urls.defaults import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from blog import urls as blog_urls
-from lifestream.rss import *
+from lifestream.rss import RecentItemsFeed
+from lifestream.models import Lifestream
+
 import redirects
 
 admin.autodiscover()
@@ -32,8 +35,21 @@ urlpatterns += patterns('',
 
 )
 
+class HomepageRecentItemsFeed(RecentItemsFeed):
+
+    def link(self, obj):
+        return reverse('lifestream_main_page')
+
+    def item_link(self, item):
+        return reverse('lifestream_item_page', kwargs={
+            'item_id': item.id,
+        })
+
+    def get_object(self, bits):
+        return Lifestream.objects.get(pk=1)
+
 feeds = {
-    'recent': RecentItemsFeed,
+    'recent': HomepageRecentItemsFeed,
 }
 
 urlpatterns += patterns('',
