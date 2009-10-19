@@ -1,10 +1,14 @@
 #:coding=utf8:
+from django.http import HttpResponseRedirect 
 from django.views.generic.list_detail import object_list,object_detail
-
-from lifestream.models import Item
 from django.views.decorators.http import require_http_methods
-from blog.models import Post
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+
 from tagging.views import tagged_object_list
+
+from blog.models import Post
+from lifestream.models import Item
 
 @require_http_methods(['GET', 'HEAD'])
 def main_page(request):
@@ -56,4 +60,25 @@ def tag_page(request, tag):
         request,
         queryset_or_model=Item.objects.published(),
         tag=tag,
+    )
+
+@require_http_methods(['GET', 'HEAD'])
+def search(request):
+    # Get unique keywords
+    keywords = list(set((request.GET.get("q") or "").split()))
+    if keywords: 
+        queryset = Item.objects.published()
+        for keyword in keywords:
+            queryset = queryset.filter(Q(title__icontains=keyword) | Q(clean_content__icontains=keyword))
+    else:
+        #queryset = Item.objects.none()
+        return HttpResponseRedirect(reverse('main_page'))
+
+    return object_list(
+        request,
+        template_name='lifestream/item_search.html',
+        queryset=queryset,
+        extra_context={
+            'keywords': keywords,
+        },
     )

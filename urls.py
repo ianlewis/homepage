@@ -29,16 +29,16 @@ urlpatterns += patterns('',
     url(r'^$', 'homepage.views.main_page', name='main_page'), 
     url(r'^items/tag/(?P<tag>.+)$', 'homepage.views.tag_page', name='tag_page'),
 
-    url(r'^$', 'homepage.views.main_page', name='lifestream_main_page'),
     url(r'^items/view/(?P<item_id>\d+)$', 'homepage.views.item_page', name='lifestream_item_page'),
     url(r'^items/site/(?P<domain>.+)$', 'homepage.views.domain_page', name='lifestream_domain_page'),
 
+    url(r'^items/search$', 'homepage.views.search', name='lifestream_item_search'),
 )
 
 class HomepageRecentItemsFeed(RecentItemsFeed):
 
     def link(self, obj):
-        return reverse('lifestream_main_page')
+        return reverse('main_page')
 
     def item_link(self, item):
         return reverse('lifestream_item_page', kwargs={
