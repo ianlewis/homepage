@@ -23,6 +23,26 @@
         {% render_item object %}
       {% endfor %}
       </ul>
+    {% else %}
+    <div class="not-found-msg">
+      <h1>No Items Found</h1>
+      <h2>Sorry!!</h2>
+      <p>There weren't any results for your query. You could try one of the following:</p>
+      <ul>
+        <li>Try searching using the search box in the upper right.</li>
+        <li>Navigate to the <a href="/">Homepage</a> and look for what you want.</li>
+        <li>Use the navigation bar at the top to find the link you are looking for.</li>
+        <li>Click the Back button to try another link.</li>
+      </ul>
+      <div class="not-found-search">
+        <script type="text/javascript">
+              var GOOG_FIXURL_LANG = 'en';
+              var GOOG_FIXURL_SITE = '';
+            </script>
+            <script type="text/javascript" 
+              src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
+      </div>
+    </div>
     {% endif %}
     
     {% paginate %}
