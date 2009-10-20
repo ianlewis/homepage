@@ -4,6 +4,15 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/lifestream.js"></script>
 {% endblock %}
 
+{% block header_right %}
+<form class="search-box" action="{% url lifestream_item_search %}">
+  <input type="text" name="q" value="{{ keywords }}" />
+  <button id="search-button" name="search" type="submit">
+    <span>Search</span>
+  </button> 
+</form>
+{% endblock %}
+
 {% block content %}
 <div id="lifestream">
   {% block lifestream_content %}{% endblock %}

@@ -65,7 +65,8 @@ def tag_page(request, tag):
 @require_http_methods(['GET', 'HEAD'])
 def search(request):
     # Get unique keywords
-    keywords = list(set((request.GET.get("q") or "").split()))
+    raw_keywords = request.GET.get("q") or ""
+    keywords = list(set((raw_keywords).split()))
     if keywords: 
         queryset = Item.objects.published()
         for keyword in keywords:
@@ -79,6 +80,6 @@ def search(request):
         template_name='lifestream/item_search.html',
         queryset=queryset,
         extra_context={
-            'keywords': keywords,
+            'keywords': raw_keywords,
         },
     )

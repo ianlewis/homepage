@@ -1,4 +1,4 @@
-/*
+tle/*
 Copyright (c) 2006, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
@@ -55,13 +55,7 @@ em {
 }
 
 .header .title {
-    /* background: transparent url(../img/profile.jpg) no-repeat center left; */
-    /* padding-left: 100px; */
-    /* display: table-cell; */
-    /* vertical-align: middle; */
-    font-size: 300%;
-    float: left;
-    padding: 10px 0 0 20px;
+    font-size: 150%;
 }
 
 .header .title a,.header .title a:hover {
@@ -74,12 +68,50 @@ em {
     position: relative;
     color: #CCCCCC;
     width: 400px;
-    margin-left: 50px;
+    margin-left: 20px;
     float: left;
 }
 
 .header .about .profile-link {
     font-style: italic;
+}
+
+.header .search-box {
+    float: right;
+    position: relative;
+}
+
+.header .search-box input {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    
+    background: #FFFFFF none repeat scroll 0 0;
+    border: 1px solid #AAAAAA;
+    color: #333333;
+    padding: 2px 5px;
+    width: 200px;
+    margin-right: 18px;
+}
+
+.header .search-box button {
+    background: transparent url(../img/icon_searchglass.png) no-repeat scroll 0 0;
+    border: 0 none;
+    cursor: pointer;
+
+    position: absolute;
+    right: 0px;
+    top: -1px;
+    height: 35px;
+    width: 35px;
+}
+
+.header .search-box button:hover {
+    background-position: 0 -36px;
+}
+
+.header .search-box #search-button span {
+    position: absolute;
+    left: -9999999px;
 }
 
 .header .latest-tweet {
