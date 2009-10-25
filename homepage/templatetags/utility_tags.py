@@ -43,7 +43,7 @@ def friendly_date(date, include_time=False):
   elif delta < timedelta(seconds=60*60):
     minutes = delta.seconds / 60
     msg = ngettext('%(minutes)s minute ago',
-            '%(minutes)s minutes ago', minutes) % {
+            '%(minutes)s min ago', minutes) % {
       'minutes': minutes,
     }
   elif delta < timedelta(days=1):
