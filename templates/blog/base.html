@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/highlight.css" type="text/css" media="screen" />
 {% endblock %}
 
+{% block header_right %}
+<form class="search-box" action="{% url lifestream_item_search %}">
+  <input type="text" name="q" value="{{ keywords }}" />
+  <button id="search-button" name="search" type="submit">
+    <span>Search</span>
+  </button> 
+  <input type="hidden" name="domain" value="ianlewis.org" />
+</form>
+{% endblock %}
+
 {% block content %}
 <div id="blog">
   {% block blog_content %}{% endblock %}

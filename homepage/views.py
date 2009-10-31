@@ -66,11 +66,14 @@ def tag_page(request, tag):
 def search(request):
     # Get unique keywords
     raw_keywords = request.GET.get("q") or ""
+    domain = request.GET.get("domain")
     keywords = list(set((raw_keywords).split()))
     if keywords: 
         queryset = Item.objects.published()
         for keyword in keywords:
             queryset = queryset.filter(Q(title__icontains=keyword) | Q(clean_content__icontains=keyword))
+        if domain:
+            queryset = queryset.filter(feed__domain=domain)
     else:
         #queryset = Item.objects.none()
         return HttpResponseRedirect(reverse('main_page'))
