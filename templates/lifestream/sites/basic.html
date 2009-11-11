@@ -6,13 +6,13 @@
   {% block item_inner %}
   <div class="lifestream-item-inner {% item_class object %}">
     <h2><a href="{{ object.permalink }}">{{ object.title|truncate_chars:60 }}</a></h2>
-    <p>
+    <div class="lifestream-item-body">
       {% if object.clean_content %}
-        {{ object.clean_content|safe|truncate_chars:180 }}
+        {{ object.clean_content|truncate_chars:180|safe }}
       {% else %}
         &nbsp;
       {% endif %}
-    </p>
+    </div>
   </div>
   {% endblock %}
   {% block date %}<div class="lifestream-item-date">{{ object.date|friendly_date }}</div>{% endblock %} {% block comments-link %}<div class="lifestream-item-detail-link"><a href="{% url lifestream_item_page object.id %}#disqus_thread">Send feedback</a></div>{% endblock %}

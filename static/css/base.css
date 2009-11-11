@@ -251,8 +251,13 @@ em {
     font-size: 80%;
 }
 
-#lifestream .lifestream-item-inner p {
+#lifestream .lifestream-item-inner h3 {
+    font-size: 60%;
+}
+
+#lifestream .lifestream-item-body {
     font-size: 70%;
+    padding-top: 10px;
 }
 
 #lifestream div.lifestream-item-msg {
