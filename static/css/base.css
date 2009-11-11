@@ -281,7 +281,7 @@ em {
     /* background: #3274D0 none repeat scroll 0 0; */
 }
 
-#lifestream .lifestream-item-inner.delicious-com p {
+#lifestream .lifestream-item-inner.delicious-com .lifestream-item-body {
     color: #CCCCCC;
 }
 
@@ -304,7 +304,7 @@ em {
     min-height: 268px;
 }
 
-#lifestream .lifestream-item-inner.vimeo-com p {
+#lifestream .lifestream-item-inner.vimeo-com .lifestream-item-body {
     background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
     padding: 0 15px;
 }
@@ -359,7 +359,7 @@ em {
     color: white;
 }
 
-#lifestream .lifestream-item-inner.ianlewis-org p {
+#lifestream .lifestream-item-inner.ianlewis-org .lifestream-item-body {
     padding: 10px 15px;
 }
 
@@ -388,7 +388,7 @@ em {
     color: black;
 }
 
-#lifestream .lifestream-item-inner.smipple-net p {
+#lifestream .lifestream-item-inner.smipple-net .lifestream-item-body {
     padding: 10px 15px;
 }
 
@@ -418,7 +418,7 @@ em {
     color: white;
 }
 
-#lifestream .lifestream-item-inner.bitbucket-org p {
+#lifestream .lifestream-item-inner.bitbucket-org .lifestream-item-body {
     padding: 10px 15px;
 }
 
@@ -431,7 +431,7 @@ em {
     background: white url(../img/twitterback.jpg) repeat scroll 0 0;
 }
 
-#lifestream .lifestream-item-inner.twitter-com p {
+#lifestream .lifestream-item-inner.twitter-com .lifestream-item-body {
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
     
@@ -463,7 +463,7 @@ em {
     margin: 0 auto;
 }
 
-#lifestream .item-detail .lifestream-item-inner.youtube-com p {
+#lifestream .item-detail .lifestream-item-inner.youtube-com .lifestream-item-body {
     margin: 10px;
 }
 
@@ -472,7 +472,7 @@ em {
     padding: 15px 0;
 }
 
-#lifestream .lifestream-item-inner.youtube-com p {
+#lifestream .lifestream-item-inner.youtube-com .lifestream-item-body {
     color: #CCCCCC;
     padding: 0 15px;
 }
@@ -488,7 +488,7 @@ em {
     position: relative;
 }
 
-#lifestream .lifestream-item-inner.flickr-com p {
+#lifestream .lifestream-item-inner.flickr-com .lifestream-item-body {
     background: transparent url(../img/opaque_white.png) repeat scroll 0 0;
     padding: 10px 15px;
     position: absolute;

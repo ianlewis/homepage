@@ -24,13 +24,13 @@
     </embed>
     {% endcomment %}
   </object>
-  <p>
+  <div class="lifestream-item-body">
     {% if object.media_description %}
     {{ object.media_description|striptags|stripentities|truncate_chars:80 }}
     {% else %}
     {{ object.title|truncate_chars:80|default:"" }}
     {% endif %}
-  </p>
+  </div>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
 </div>
 

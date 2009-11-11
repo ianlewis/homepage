@@ -21,9 +21,9 @@
       </embed>
     </object>
   </div>
-  <p>
+  <div class="lifestream-item-body">
     {{ object.clean_content|safe }}
-  </p>
+  </div>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Original</a> ]</p>
 </div>
 {% endblock %}

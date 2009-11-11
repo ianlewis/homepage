@@ -5,13 +5,13 @@
 {% block item_inner %}
 <div class="lifestream-item-inner {% item_class object %}">
   <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}"><img class="source-image" src="{{ object.media_url }}" alt=""></a>
-  <p>
+  <div class="lifestream-item-body">
     {% if object.media_description %}
     {{ object.media_description|striptags|stripentities|truncate_chars:100 }}
     {% else %}
     {{ object.title|truncate_chars:100|default:"" }}
     {% endif %}
-  </p>
+  </div>
 </div>
 
 <div id="window_{{ object.id }}" class="jqmWindow" style="z-index: 3000; display: none;text-align:center;">

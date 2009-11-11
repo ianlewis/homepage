@@ -16,9 +16,9 @@
     >
     </embed>
   </object>
-  <p>
+  <div class="lifestream-item-body">
     {{ object.media_description|striptags|stripentities }}
-  </p>
+  </div>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Original</a> ]</p>
 </div>
 {% endblock %}

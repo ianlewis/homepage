@@ -24,9 +24,9 @@
     </embed>
     {% endcomment %}
   </object>
-  <p>
-    {{ object.clean_content|safe|truncate_chars:80 }}
-  </p>
+  <div class="lifestream-item-body">
+    {{ object.clean_content|truncate_chars:80|safe }}
+  </div>
   <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
 </div>
 

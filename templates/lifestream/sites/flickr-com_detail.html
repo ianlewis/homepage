@@ -7,13 +7,13 @@
   <div class="lifestream-item-inner-detail {% item_class object %}">
     <h2><a href="{{ object.permalink }}">{{ object.title }}</a></h2>
     <p><img src="{{ object.media_url }}"></p>
-    <p>
+    <div class="lifestream-item-body">
       {% if object.media_description %}
         {{ object.media_description|striptags|stripentities }}
       {% else %}
         &nbsp;
       {% endif %}
-    </p>
+    </div>
   </div>
   {% endblock %}
   <div class="lifestream-item-date">{{ object.date|friendly_date }}</div>

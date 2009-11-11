@@ -10,12 +10,12 @@
     </a>
   </cite>
   <div class="twitter-com-speech-tail"></div>
-  <p>
+  <div class="lifestream-item-body">
     {% if object.content %}
-      {{ object.content|safe|urlizetrunc:50|urlize_twitter }}
+      {{ object.content|urlizetrunc:50|urlize_twitter|safe }}
     {% else %}
       &nbsp;
     {% endif %}
-  </p>
+  </div>
 </div>
 {% endblock %}
