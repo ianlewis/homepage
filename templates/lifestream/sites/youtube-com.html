@@ -31,7 +31,7 @@
     {{ object.title|truncate_chars:80|default:"" }}
     {% endif %}
   </div>
-  <p>[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</p>
+  <div class="lifestream-item-body">[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</div>
 </div>
 
 <div id="window_{{ object.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
