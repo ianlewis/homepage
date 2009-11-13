@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.comments',
     'django.contrib.flatpages',
+    'south',
     'homepage',
     'pagination',
     'lifestream',

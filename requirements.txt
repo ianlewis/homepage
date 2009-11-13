@@ -7,3 +7,4 @@ dateutils==0.4.1
 -e git+git://github.com/ericflo/django-pagination.git#egg=pagination
 -e svn+http://django-tagging.googlecode.com/svn/trunk#egg=django_tagging
 -e git+git://github.com/arthurk/django-disqus.git#egg=disqus
+-e hg+http://bitbucket.org/andrewgodwin/south/@0.6.2#egg=south
