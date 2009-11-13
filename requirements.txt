@@ -3,8 +3,8 @@ BeautifulSoup==3.1.0.1
 docutils==0.5
 dateutils==0.4.1
 
--e hg+https://bitbucket.org/IanLewis/django-lifestream/#egg=lifestream
--e git+git://github.com/ericflo/django-pagination.git#egg=pagination
--e svn+http://django-tagging.googlecode.com/svn/trunk#egg=django_tagging
--e git+git://github.com/arthurk/django-disqus.git#egg=disqus
+-e hg+https://bitbucket.org/IanLewis/django-lifestream/@0428f408151c#egg=lifestream
+-e git+git://github.com/ericflo/django-pagination.git@1c414c8ed010359597b05dad1b41b65aeddfd1d7#egg=pagination
+-e svn+http://django-tagging.googlecode.com/svn/trunk@171#egg=django_tagging
+-e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
 -e hg+http://bitbucket.org/andrewgodwin/south/@0.6.2#egg=south
