@@ -136,6 +136,7 @@ PLUGINS = (
   ('lifestream.plugins.twitter.TwitterPlugin', 'Twitter Plugin'),
   ('lifestream.plugins.youtube.YoutubePlugin', 'Youtube Plugin'),
   ('lifestream.plugins.flickr.FlickrPlugin', 'Flickr Plugin'),
+  ('homepage.plugins.google.GooglePlugin', 'Google Plugin'),
   # ('youtube', 'Youtube'),
   # ('vimeo', 'Vimeo'),
   # ('lastfm', 'last.fm'),
