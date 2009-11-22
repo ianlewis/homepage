@@ -5,7 +5,7 @@
 <div class="lifestream-item-msg {% item_class object %}">From <a href="{% url lifestream_domain_page object.feed.domain %}">{{ object.feed.domain }}</a></div>
   {% block item_inner %}
   <div class="lifestream-item-inner {% item_class object %}">
-    <h2><a href="{{ object.permalink }}">{{ object.title|truncate_chars:60 }}</a></h2>
+    <h2><a href="{{ object.permalink }}">{{ object.title|truncate_chars:60|safe }}</a></h2>
     <div class="lifestream-item-body">
       {% if object.clean_content %}
         {{ object.clean_content|truncate_chars:180|safe }}
