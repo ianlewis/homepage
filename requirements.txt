@@ -9,3 +9,4 @@ dateutils==0.4.1
 -e svn+http://django-tagging.googlecode.com/svn/trunk@171#egg=django_tagging
 -e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
 -e hg+http://bitbucket.org/andrewgodwin/south/@0.6.2#egg=south
+-e git+git://github.com/zain/jogging.git#egg=jogging

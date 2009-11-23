@@ -71,6 +71,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'jogging.middleware.LoggingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'pagination.middleware.PaginationMiddleware',
@@ -102,13 +103,14 @@ INSTALLED_APPS = (
     'blog',
     'tagging',
     'disqus',
+    'jogging',
 )
 
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
 APPEND_SLASH=False
 
-# dlife settings
+# django-lifestream
 VALID_ITEM_TAGS = (
   'b',
   'a',
@@ -142,14 +144,29 @@ PLUGINS = (
   # ('lastfm', 'last.fm'),
 )
 
+# django-tagging
 FORCE_LOWERCASE_TAGS=True
 
+# django-pagination
 PAGINATION_DEFAULT_PAGINATION = 9
 PAGINATION_INVALID_PAGE_RAISES_404 = True 
 PAGINATION_DEFAULT_WINDOW = 3
 
+# django-disqus
 DISQUS_API_KEY = ''
 DISQUS_WEBSITE_SHORTNAME = ''
+
+# jogging
+from jogging.handlers import DatabaseHandler
+import logging
+GLOBAL_LOG_LEVEL = logging.INFO
+GLOBAL_LOG_HANDLERS = [DatabaseHandler()] # takes any Handler object that Python's logging takes
+LOGGING = {
+    'django-lifestream': {
+        'handler': DatabaseHandler(),
+        'level': logging.ERROR,
+    }
+}
 
 try:
     from settings_local import *
