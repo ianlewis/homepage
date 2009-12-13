@@ -85,6 +85,6 @@ def cat(value, other_value):
 def urlize_twitter(text):
     return mark_safe(
         re.sub(r'@([a-zA-Z0-9_]*)', r'@<a href="http://twitter.com/\1">\1</a>',
-            re.sub(r'#([a-zA-Z0-9_]*)', r'<a href="http://twitter.com/#search?q=\1">#\1</a>', text)
+            re.sub(r'#([a-zA-Z0-9_-]*)', r'<a href="http://twitter.com/#search?q=\1">#\1</a>', text)
         )
     )
