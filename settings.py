@@ -165,6 +165,10 @@ LOGGING = {
     'django-lifestream': {
         'handler': DatabaseHandler(),
         'level': logging.ERROR,
+    },
+    'feedcache.cache': {
+        'handler': DatabaseHandler(),
+        'level': logging.ERROR,
     }
 }
 
