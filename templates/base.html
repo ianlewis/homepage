@@ -1,6 +1,6 @@
 {% load disqus_tags %}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html{% block html_attrs %}{% endblock %}>
     <head>
       <title>{% block title %}Homepage{% endblock %} - Ian Lewis</title>
       <link rel="stylesheet" href="{{ MEDIA_URL }}css/base.css" type="text/css" media="screen">
@@ -10,6 +10,7 @@
       </script>
       <meta name="keywords" content="Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド"> 
       <meta name="description" content="Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.">
+      {% block extra_meta %}{% endblock %}
       {% disqus_dev %}
       {% block rss %}{% endblock %}
       {% block javascript %}{% endblock %}

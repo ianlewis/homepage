@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% block html_attrs %}{% if locale %} lang="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}"{% endif %}{% endblock %}
+
+{% block extra_meta %}
+{% if locale %}<meta http-equiv="content-language" content="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}">{% endif %}
+{% endblock %}
+
 {% block javascript %}
 <script type="text/javascript" src="{{ MEDIA_URL }}lib/jquery/jquery.lightbox-0.5.min.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/blog.js"></script>
@@ -18,6 +24,20 @@
   <input type="hidden" name="domain" value="ianlewis.org" />
 </form>
 {% endblock %}
+
+{% block extra_header %}
+{% if locale %}
+<div style="float:right;margin-top:20px;">
+<!-- Google Translate Element -->
+<div id="google_translate_element" style="display:block"></div><script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: "{{ locale }}"}, "google_translate_element");
+};</script>
+<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+{% endif %}
+{% endblock %}
+
 
 {% block content %}
 <div id="blog">
