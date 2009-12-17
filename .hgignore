@@ -18,6 +18,7 @@ settings_production.py
 fabfile.py
 google*.html
 y_key_*.html
+all.min.css
 
 syntax: regexp
 .*\#.*\#$ 

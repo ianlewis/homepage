@@ -10,11 +10,6 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/blog.js"></script>
 {% endblock %}
 
-{% block css %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/highlight.css" type="text/css" media="screen" />
-{% endblock %}
-
 {% block header_right %}
 <form class="search-box" action="{% url lifestream_item_search %}">
   <input type="text" name="q" value="{{ keywords }}" />
