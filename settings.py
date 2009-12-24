@@ -165,11 +165,11 @@ GLOBAL_LOG_HANDLERS = [DatabaseHandler()] # takes any Handler object that Python
 LOGGING = {
     'django-lifestream': {
         'handler': DatabaseHandler(),
-        'level': logging.ERROR,
+        'level': logging.WARNING,
     },
     'feedcache.cache': {
         'handler': DatabaseHandler(),
-        'level': logging.ERROR,
+        'level': logging.WARNING,
     }
 }
 
