@@ -173,6 +173,11 @@ em {
     margin: 20px;
 }
 
+#lifestream .item-detail #disqus_thread {
+    clear: both;
+    padding: 15px 0;
+}
+
 #lifestream .blog-link {
     border: 1px solid black;
     padding: 15px;
@@ -498,15 +503,39 @@ em {
     margin: 10px;
 }
 
-#lifestream .item-detail #disqus_thread {
-    clear: both;
-    padding: 15px 0;
-}
-
 #lifestream .lifestream-item-inner.youtube-com .lifestream-item-body {
     color: #CCCCCC;
     padding: 0 15px;
 }
+
+#lifestream .lifestream-item-msg.slideshare-net {
+    padding-left: 18px;
+    background: transparent url(../img/slideshare_16x16.png) no-repeat center left;
+}
+
+#lifestream .lifestream-item-inner.slideshare-net {
+    background: #EFF8F6;
+    padding: 0;
+    min-height: 268px;
+}
+
+#lifestream .item-detail .lifestream-item-inner.slideshare-net {
+    min-height: 500px;
+    text-align: center;
+    font-size: 130%;
+    width: 500px;
+    margin: 0 auto;
+}
+
+#lifestream .item-detail .lifestream-item-inner.slideshare-net .lifestream-item-body {
+    margin: 10px;
+}
+
+#lifestream .lifestream-item-inner.slideshare-net .lifestream-item-body {
+    color: black;
+    padding: 0 15px;
+}
+
 
 #lifestream .lifestream-item-msg.flickr-com {
     padding-left: 18px;

@@ -1,0 +1,49 @@
+{% extends "lifestream/sites/basic.html" %}
+{% load lifestream_tags %}
+{% load utility_tags %}
+
+{% block item_inner %}
+<div class="lifestream-item-inner {% item_class object %}">
+  {% if object.media_player_url %}
+  <object width="214" height="159">
+    <param name="movie" value="{{ object.media_player_url }}" />
+    <param name="allowFullScreen" value="true"/>
+    <param name="allowScriptAccess" value="always"/>
+    <param name="wmode" value="opaque">
+    <embed src="{{ object.media_player_url }}"
+      type="application/x-shockwave-flash"
+      allowscriptaccess="always"
+      allowfullscreen="true"
+      width="214"
+      height="159"
+      wmode="opaque"
+    >
+    </embed>
+  </object>
+  {% else %}
+  <img alt="{{ object.title }}" src="{{ object.media_thumbnail_url }}"/>
+  {% endif %}
+  <div class="lifestream-item-body">
+    {% if object.media_description %}
+    {{ object.media_description|striptags|stripentities|truncate_chars:80 }}
+    {% else %}
+    {{ object.title|truncate_chars:80|default:"" }}
+    {% endif %}
+  </div>
+  <div class="lifestream-item-body">[ <a class="modal" rel="window_{{ object.id }}" href="{{ object.permalink }}">View Large</a> ]</div>
+</div>
+
+<div id="window_{{ object.id }}" class="jqmWindow" style="z-index: 3000; display: none;">
+  <object width="510" height="415" style="z-index: 3001;">
+    <param name="movie" value="{{ object.media_player_url }}"/>
+    <param name="allowFullScreen" value="true"/>
+    <embed src="{{ object.media_player_url }}"
+      type="application/x-shockwave-flash"
+      allowfullscreen="true"
+      width="510"
+      height="415"
+    />
+  </object>
+  <a href="javascript:void(0);" rel="window_{{ object.id }}" class="modal-close"></a>
+</div>
+{% endblock %}
