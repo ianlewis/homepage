@@ -29,9 +29,19 @@ pygments_directive.content = 1
 pygments_directive.options = dict([(key, directives.flag) for key in VARIANTS])
 
 directives.register_directive("sourcecode", pygments_directive)
+directives.register_directive("code-block", pygments_directive)
 
 def lightbox_directive(name, arguments, options, content, lineno,
         content_offset, block_text, state, state_machine):
+    """
+    lightbox image directive
+
+    usage:
+
+    .. lightbox:: thumb_url img_url
+
+        Title
+    """
     thumb_href = arguments[0]
     img_href = arguments[1]
     title = u" ".join(content)
