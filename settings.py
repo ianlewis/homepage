@@ -160,16 +160,14 @@ DISQUS_WEBSITE_SHORTNAME = ''
 # jogging
 from jogging.handlers import DatabaseHandler
 import logging
-GLOBAL_LOG_LEVEL = logging.INFO
+GLOBAL_LOG_LEVEL = logging.DEBUG
 GLOBAL_LOG_HANDLERS = [DatabaseHandler()] # takes any Handler object that Python's logging takes
 LOGGING = {
     'django-lifestream': {
         'handler': DatabaseHandler(),
-        'level': logging.WARNING,
     },
     'feedcache.cache': {
         'handler': DatabaseHandler(),
-        'level': logging.WARNING,
     }
 }
 
