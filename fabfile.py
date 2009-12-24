@@ -13,7 +13,7 @@ def hg_pull():
     run("cd $(app_path)/hp;hg pull -r $(rev)")
 
 def hg_update():
-    run("cd $(app_path)/hp;hg update -r $(rev)")
+    run("cd $(app_path)/hp;hg update -C -r $(rev)")
 
 def install_prereqs():
     run("workon homepage;cd $(app_path)/hp;pip install -r requirements.txt")
