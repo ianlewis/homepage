@@ -3,8 +3,8 @@
 {% load utility_tags %}
 
 {% block item_inner %}
-<div class="lifestream-item-inner {% item_class object %}" style="z-index: 1;">
-  <object width="214" height="159" style="z-index: 2;">
+<div class="lifestream-item-inner {% item_class object %}">
+  <object width="214" height="159">
     <param name="allowfullscreen" value="true" />
     <param name="allowscriptaccess" value="always" />
     <param name="movie" value="{{ object.media_player_url }}" />
