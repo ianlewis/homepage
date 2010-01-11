@@ -11,3 +11,4 @@ dateutils==0.4.1
 -e hg+http://bitbucket.org/andrewgodwin/south/@0.6.2#egg=south
 #-e git+git://github.com/zain/jogging.git#egg=jogging
 -e hg+https://IanLewis@bitbucket.org/IanLewis/jogging/#egg=jogging
+-e hg+https://IanLewis@bitbucket.org/mariocesar/django-hgwebproxy/#egg=hgwebproxy

@@ -15,17 +15,20 @@ admin.autodiscover()
 
 urlpatterns = redirects.urlpatterns
 
-urlpatterns += blog_urls.urlpatterns
-
 urlpatterns += patterns('',
-    
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-  
+ 
+    (r'^hg/', include('hgwebproxy.urls')),
+)
+
+urlpatterns += blog_urls.urlpatterns
+
+urlpatterns += patterns('',
     url(r'^$', 'homepage.views.main_page', name='main_page'), 
     url(r'^items/tag/(?P<tag>.+)$', 'homepage.views.tag_page', name='tag_page'),
 
@@ -33,6 +36,7 @@ urlpatterns += patterns('',
     url(r'^items/site/(?P<domain>.+)$', 'homepage.views.domain_page', name='lifestream_domain_page'),
 
     url(r'^items/search$', 'homepage.views.search', name='lifestream_item_search'),
+
 )
 
 class HomepageRecentItemsFeed(RecentItemsFeed):

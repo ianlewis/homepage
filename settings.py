@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.flatpages',
     'south',
+    'hgwebproxy',
     'homepage',
     'pagination',
     'lifestream',
