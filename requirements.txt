@@ -1,9 +1,9 @@
-feedparser==4.1
 BeautifulSoup==3.1.0.1
 docutils>=0.5
 pygments>=1.0
 dateutils==0.4.1
 
+-e svn+http://feedparser.googlecode.com/svn/trunk/feedparser@303#egg=feedparser
 -e hg+https://bitbucket.org/IanLewis/django-lifestream/@c790039b946d#egg=lifestream
 -e git+git://github.com/ericflo/django-pagination.git@1c414c8ed010359597b05dad1b41b65aeddfd1d7#egg=pagination
 -e svn+http://django-tagging.googlecode.com/svn/trunk@171#egg=django_tagging
