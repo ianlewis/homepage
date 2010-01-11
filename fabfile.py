@@ -51,9 +51,9 @@ def deploy():
     require("fab_hosts", provided_by=[production])
     invoke(pull)
     invoke(update)
+    invoke(put_settings)
     invoke(migrate_db)
     invoke(compress_css)
-    invoke(put_settings)
     invoke(reboot)
 
 def production():
