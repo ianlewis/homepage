@@ -23,6 +23,7 @@ urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
  
+    (r'accounts/', include('django.contrib.auth.urls')),
     (r'^hg/', include('hgwebproxy.urls')),
 )
 
@@ -36,7 +37,6 @@ urlpatterns += patterns('',
     url(r'^items/site/(?P<domain>.+)$', 'homepage.views.domain_page', name='lifestream_domain_page'),
 
     url(r'^items/search$', 'homepage.views.search', name='lifestream_item_search'),
-
 )
 
 class HomepageRecentItemsFeed(RecentItemsFeed):

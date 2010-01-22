@@ -172,6 +172,8 @@ LOGGING = {
     }
 }
 
+HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
+
 INTERNAL_IPS = (
     '127.0.0.1',        
 )
