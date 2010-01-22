@@ -36,7 +36,7 @@ def friendly_date(date, include_time=False):
   """
   Prints a human friendly date.
   """
-  delta = datetime.utcnow() - date
+  delta = datetime.now() - date
    
   if delta < timedelta(seconds=60):
     msg = _("Just now")
