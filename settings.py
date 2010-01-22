@@ -173,6 +173,7 @@ LOGGING = {
 }
 
 HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
+HGPROXY_STATIC_URL = '/hgstatic/' 
 
 INTERNAL_IPS = (
     '127.0.0.1',        
