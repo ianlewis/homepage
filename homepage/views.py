@@ -60,6 +60,9 @@ def tag_page(request, tag):
         request,
         queryset_or_model=Item.objects.published(),
         tag=tag,
+        extra_context={
+            "rss_feed_url": reverse("lifestream_feeds", kwargs={"url": "tag/%s" % tag}),
+        }
     )
 
 @require_http_methods(['GET', 'HEAD'])

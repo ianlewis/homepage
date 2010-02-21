@@ -7,7 +7,8 @@ from django.conf import settings
 
 from blog import urls as blog_urls
 from lifestream.rss import RecentItemsFeed
-from lifestream.models import Lifestream
+from lifestream.models import Lifestream,Item
+from tagging.models import Tag,TaggedItem
 
 import redirects
 
@@ -52,8 +53,27 @@ class HomepageRecentItemsFeed(RecentItemsFeed):
     def get_object(self, bits):
         return Lifestream.objects.get(pk=1)
 
+class TaggedItemsFeed(RecentItemsFeed):
+
+    def link(self, obj):
+        return reverse('tag_page', kwargs={'tag': obj.name })
+
+    def item_link(self, item):
+        return reverse('lifestream_item_page', kwargs={
+            'item_id': item.id,
+        })
+
+    def items(self, obj):
+        return TaggedItem.objects.get_by_model(Item.objects.published(), obj)
+
+    def get_object(self, bits):
+        if len(bits) != 1:
+            raise Tag.DoesNotExist
+        return Tag.objects.get(name=bits[0])
+
 feeds = {
     'recent': HomepageRecentItemsFeed,
+    'tag': TaggedItemsFeed,
 }
 
 urlpatterns += patterns('',
