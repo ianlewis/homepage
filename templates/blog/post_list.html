@@ -7,7 +7,11 @@
 
 {% block title %}Ian's Blog{% endblock %}
 
-{% block other_head %}<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{% url blog_feeds locale|cat:"feed" %}" />{% endblock %}
+{% block rss %}
+{% if rss_feed_url %}
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ rss_feed_url }}" />
+{% endif %}
+{% endblock %}
 
 {% block blog_content %}
   {% autopaginate object_list 10 %}

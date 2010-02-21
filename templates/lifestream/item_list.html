@@ -8,7 +8,9 @@
 {% block title %}Page {{ request.page }}{% endblock %}
 
 {% block rss %}
-<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{% if rss_feed_url %}{{ rss_feed_url }}{% else %}{% url lifestream_feeds "recent" %}{% endif %}">
+{% if rss_feed_url %}
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ rss_feed_url }}">
+{% endif %}
 {% endblock %}
 
 {% block lifestream_content %}
