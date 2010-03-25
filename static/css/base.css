@@ -120,7 +120,7 @@ em {
     position: relative;
 }
 
-.header .latest-tweet p {
+.header .latest-tweet .bubble {
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
     
@@ -131,10 +131,8 @@ em {
 
 .header .latest-tweet .profile-link {
     clear: both;
-    position: absolute;
-    bottom: 5px;
-    right: 15px;
-    font-style: italic;
+    float: right;
+    padding-top: 5px;
 }
 
 .header .latest-tweet .twitter-com-speech-tail {

@@ -11,10 +11,11 @@
 {% if latest_tweet %}
 <div class="latest-tweet">
   <div class="twitter-com-speech-tail-top"></div>
-  <p>
+  <div class="bubble">
     {{ latest_tweet.content|safe|urlizetrunc:50|urlize_twitter }}
-  </p>
-  <div class="profile-link"><a href="{% url lifestream_domain_page "twitter.com" %}">More</a></div>
+    <div class="profile-link"><a href="http://twitter.com/IanMLewis"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow Ian on Twitter"/></a>{#<a href="{% url lifestream_domain_page "twitter.com" %}">More</a>#}</div>
+    <div style="clear:both"></div>
+  </div>
 </div>
 {% endif %}
 {% endblock %}
