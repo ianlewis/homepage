@@ -4,7 +4,7 @@ from fabric.decorators import runs_once
 
 @runs_once
 def reboot():
-    run("source %(venv_path)/bin/activate;%(app_path)s/apache2/bin/restart" % env)
+    run("source %(venv_path)s/bin/activate;%(app_path)s/apache2/bin/restart" % env)
 
 @runs_once
 def hg_pull():
@@ -16,21 +16,21 @@ def hg_update():
 
 @runs_once
 def install_prereqs():
-    run("source %(venv_path)/bin/activate;cd %(app_path)s/hp;pip install -E $(venv_path) -r requirements.txt" % env)
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;pip install -E $(venv_path)s -r requirements.txt" % env)
 
 # Needed until South can support reusable apps transparently
 @runs_once
 def run_syncdb():
-    run("source %(venv_path)/bin/activate;cd %(app_path)s/hp;python manage.py syncdb" % env)
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py syncdb" % env)
 
 @runs_once
 def run_migration():
-    run("source %(venv_path)/bin/activate;cd %(app_path)s/hp;python manage.py migrate" % env)
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py migrate" % env)
 
 @runs_once
 def compress_css():
     require("hosts", provided_by=[production])
-    run("source %(venv_path)/bin/activate;rm -f %(app_path)s/hp/static/css/all.min.css;for FILE in %(app_path)s/hp/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/hp/static/css/*.tmp; do cat $FILE >> %(app_path)s/hp/static/css/all.min.css; done;rm -f %(app_path)s/hp/static/css/*.tmp" % env)
+    run("source %(venv_path)s/bin/activate;rm -f %(app_path)s/hp/static/css/all.min.css;for FILE in %(app_path)s/hp/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/hp/static/css/*.tmp; do cat $FILE >> %(app_path)s/hp/static/css/all.min.css; done;rm -f %(app_path)s/hp/static/css/*.tmp" % env)
 
 @runs_once
 def pull():
