@@ -16,7 +16,7 @@ def hg_update():
 
 @runs_once
 def install_prereqs():
-    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;pip install -E $(venv_path)s -r requirements.txt" % env)
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;pip install -E %(venv_path)s -r requirements.txt" % env)
 
 # Needed until South can support reusable apps transparently
 @runs_once
