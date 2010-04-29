@@ -4,7 +4,7 @@ import site
 
 PYTHON_PATH = '/home/ianlewis/webapps/homepage/lib/python2.5'
 VHOST_PATH = '/home/ianlewis/webapps/homepage'
-VENV_PATH = '/var/www/venvs/sitebackstage'
+VENV_PATH = '/home/ianlewis/webapps/homepage/venvs/homepage'
 SETTINGS_MOD = 'settings_production'
 
 site.addsitedir(os.path.join(VENV_PATH, 'lib', 'python2.5', 'site-packages'))
