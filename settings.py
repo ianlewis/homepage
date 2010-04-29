@@ -180,11 +180,6 @@ INTERNAL_IPS = (
 )
 
 try:
-    from settings_local import *
-except ImportError:
-    pass
-
-try:
     from lifestream.util import feedparser
     feedparser._debug = DEBUG
 except ImportError:
