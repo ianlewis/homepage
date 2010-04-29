@@ -2,14 +2,9 @@
 from fabric.api import *
 from fabric.decorators import runs_once
 
-DEPLOY_USER = 'ianlewis'
-DEPLOY_HOSTS = ['ianlewis.webfactional.com']
-DEPLOY_REV = 'default'
-APP_PATH='~/webapps/homepage'
-
 @runs_once
 def reboot():
-    run("workon homepage;%(app_path)s/apache2/bin/restart" % env)
+    run("source %(venv_path)/bin/activate;%(app_path)s/apache2/bin/restart" % env)
 
 @runs_once
 def hg_pull():
@@ -21,21 +16,21 @@ def hg_update():
 
 @runs_once
 def install_prereqs():
-    run("workon homepage;cd %(app_path)s/hp;pip install -r requirements.txt" % env)
+    run("source %(venv_path)/bin/activate;cd %(app_path)s/hp;pip install -E $(venv_path) -r requirements.txt" % env)
 
 # Needed until South can support reusable apps transparently
 @runs_once
 def run_syncdb():
-    run("workon homepage;cd %(app_path)s/hp;python manage.py syncdb" % env)
+    run("source %(venv_path)/bin/activate;cd %(app_path)s/hp;python manage.py syncdb" % env)
 
 @runs_once
 def run_migration():
-    run("workon homepage;cd %(app_path)s/hp;python manage.py migrate" % env)
+    run("source %(venv_path)/bin/activate;cd %(app_path)s/hp;python manage.py migrate" % env)
 
 @runs_once
 def compress_css():
     require("hosts", provided_by=[production])
-    run("workon homepage;rm -f %(app_path)s/hp/static/css/all.min.css;for FILE in %(app_path)s/hp/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/hp/static/css/*.tmp; do cat $FILE >> %(app_path)s/hp/static/css/all.min.css; done;rm -f %(app_path)s/hp/static/css/*.tmp" % env)
+    run("source %(venv_path)/bin/activate;rm -f %(app_path)s/hp/static/css/all.min.css;for FILE in %(app_path)s/hp/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/hp/static/css/*.tmp; do cat $FILE >> %(app_path)s/hp/static/css/all.min.css; done;rm -f %(app_path)s/hp/static/css/*.tmp" % env)
 
 @runs_once
 def pull():
@@ -69,7 +64,8 @@ def deploy():
     reboot()
 
 def production():
-    env.user = DEPLOY_USER 
-    env.hosts = DEPLOY_HOSTS
-    env.rev = DEPLOY_REV
-    env.app_path = APP_PATH 
+    env.user = 'ianlewis'
+    env.hosts = ['ianlewis.webfactional.com']
+    env.rev = 'default' 
+    env.app_path = '~/webapps/homepage'
+    env.venv_path = '~/webapps/homepage/venvs/homepage'
