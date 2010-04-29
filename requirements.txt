@@ -11,5 +11,5 @@ dateutils==0.4.1
 -e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
 -e hg+http://bitbucket.org/andrewgodwin/south/@0.6.2#egg=south
 #-e git+git://github.com/zain/jogging.git#egg=jogging
--e hg+https://IanLewis@bitbucket.org/IanLewis/jogging/#egg=jogging
--e hg+https://IanLewis@bitbucket.org/mariocesar/django-hgwebproxy/#egg=hgwebproxy
+-e hg+https://IanLewis@bitbucket.org/IanLewis/jogging/@a995c38ddcc9#egg=jogging
+-e hg+https://IanLewis@bitbucket.org/IanLewis/django-hgwebproxy2/@81fb073f9baf#egg=hgwebproxy
