@@ -8,6 +8,7 @@ syntax: glob
 *.pyc
 *.swp
 *.db
+*.sqlite
 build
 temp
 dist
