@@ -70,6 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'homepage.middleware.GoogleAnalyticsStripCookieMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'jogging.middleware.LoggingMiddleware',
