@@ -72,7 +72,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'homepage.middleware.GoogleAnalyticsStripCookieMiddleware',
     #'django.middleware.cache.UpdateCacheMiddleware',
-    'homepage.middleware.UpdateCacheMiddleware',
+    #'homepage.middleware.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'jogging.middleware.LoggingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,7 +82,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
-    'homepage.middleware.FetchFromCacheMiddleware',
+    #'homepage.middleware.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -189,7 +189,7 @@ INTERNAL_IPS = (
 )
 
 try:
-    from lifestream.util import feedparser
+    import feedparser
     feedparser._debug = DEBUG
 except ImportError:
     pass
