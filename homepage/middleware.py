@@ -74,8 +74,8 @@ class UpdateCacheMiddleware(object):
         if timeout:
             cache_key = learn_cache_key(request, response, timeout, self.key_prefix)
             logging.info("%s: learned cache key: %s" % (request.path, cache_key))
-            cache.set(cache_key, response, timeout)
-            logging.info("set cache")
+            rtn = cache.set(cache_key, response, timeout)
+            logging.info("set cache: %s" rtn)
         return response
 
 class FetchFromCacheMiddleware(object):
