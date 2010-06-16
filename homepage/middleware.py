@@ -13,10 +13,16 @@ import re
 #           request.META['HTTP_HOST'] != current_site.domain:
 #            return HttpResponseRedirect('http://%s%s' % (current_site.domain, request.path))
 
+from jogging import logging
+
 class GoogleAnalyticsStripCookieMiddleware(object):
     strip_re = re.compile(r'(__utm.=.+?(?:; |$))')
     def process_request(self, request):
         try:
+            print request.META['HTTP_COOKIE']
+            before = request.META['HTTP_COOKIE']
             cookie = self.strip_re.sub('', request.META['HTTP_COOKIE'])
             request.META['HTTP_COOKIE'] = cookie
-        except: pass
+            logging.info("Stripped cookies for: %s\n\nBefore:\n%s\n\nAfter:\n%s" % (request.path, before, request.META['HTTP_COOKIE']))
+        except Exception, e:
+            logging.exception("Could not script analytics cookies", e, request)
