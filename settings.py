@@ -188,8 +188,8 @@ INTERNAL_IPS = (
     '127.0.0.1',        
 )
 
-try:
-    import feedparser
-    feedparser._debug = DEBUG
-except ImportError:
-    pass
+#try:
+#    import feedparser
+#    feedparser._debug = DEBUG
+#except ImportError:
+#    pass
