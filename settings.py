@@ -188,6 +188,13 @@ INTERNAL_IPS = (
     '127.0.0.1',        
 )
 
+SOUTH_MIGRATION_MODULES = {
+    "jogging": "migrations.jogging",
+    "hgwebproxy": "migrations.hgwebproxy",
+    "lifestream": "migrations.lifestream",
+    "tagging": "migrations.tagging",
+}
+
 #try:
 #    import feedparser
 #    feedparser._debug = DEBUG

@@ -46,7 +46,7 @@ def update():
 @runs_once
 def migrate_db():
     require("hosts", provided_by=[production])
-    run_syncdb() 
+    #run_syncdb() 
     run_migration()
 
 @runs_once
