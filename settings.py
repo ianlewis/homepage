@@ -97,7 +97,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.flatpages',
     'south',
-    'hgwebproxy',
+    #'hgwebproxy',
     'homepage',
     'pagination',
     'lifestream',
@@ -175,8 +175,8 @@ LOGGING = {
     }
 }
 
-HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
-HGPROXY_STATIC_URL = '/hgstatic/' 
+#HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
+#HGPROXY_STATIC_URL = '/hgstatic/' 
 
 INTERNAL_IPS = (
     '127.0.0.1',        
@@ -184,7 +184,7 @@ INTERNAL_IPS = (
 
 SOUTH_MIGRATION_MODULES = {
     "jogging": "migrations.jogging",
-    "hgwebproxy": "migrations.hgwebproxy",
+    #"hgwebproxy": "migrations.hgwebproxy",
     "lifestream": "migrations.lifestream",
     "tagging": "migrations.tagging",
 }
