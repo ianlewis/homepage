@@ -34,7 +34,7 @@
         <div class="post-comment-link">
           <a class="disqus-link" href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a>
           &nbsp;
-          <a href="http://twitter.com/share" class="twitter-share-button" data-url="{{ item.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ item.lang }}">Tweet</a>
+          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ item.title }}" data-url="{{ item.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ item.lang }}">Tweet</a>
           <a class="hatena-link" href="http://b.hatena.ne.jp/entry/{{ item.get_full_url }}">
             <img src="http://d.hatena.ne.jp/images/b_entry.gif" width="16" height="12" style="border: none;" alt="このエントリーを含むはてなブックマーク" title="このエントリーを含むはてなブックマーク" />
             <img src="http://b.hatena.ne.jp/entry/image/{{ item.get_full_url }}" alt="はてなブックマーク - {{ item.title }}" title="はてなブックマーク - {{ item.title }}">

@@ -21,11 +21,13 @@ def install_prereqs():
 # Needed until South can support reusable apps transparently
 @runs_once
 def run_syncdb():
-    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py syncdb" % env)
+    #run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py syncdb --settings=%(settings)s" % env)
+    pass
 
 @runs_once
 def run_migration():
-    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py migrate" % env)
+    #run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py migrate --settings=%(settings)s" % env)
+    pass
 
 @runs_once
 def compress_css():
@@ -67,5 +69,6 @@ def production():
     env.user = 'ianlewis'
     env.hosts = ['ianlewis.webfactional.com']
     env.rev = 'default' 
+    env.settings = 'settings_local'
     env.app_path = '~/webapps/homepage'
     env.venv_path = '~/webapps/homepage/venvs/homepage'
