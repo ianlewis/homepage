@@ -111,9 +111,6 @@ INSTALLED_APPS = (
 # for non-ascii urls and flatpages
 APPEND_SLASH=False
 
-CACHE_MIDDLEWARE_KEY_PREFIX='page_cache'
-CACHE_MIDDLEWARE_SECONDS=600
-
 # django-lifestream
 VALID_ITEM_TAGS = (
   'b',
