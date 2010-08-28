@@ -43,6 +43,13 @@ class Post(Model):
             'locale': self.locale,
             'slug': self.slug,
         })
+
+    @property
+    def lang(self):
+        return {
+            "en": "en",
+            "jp": "ja",
+        }.get(self.locale, "en")
     
     def get_full_url(self):
         return 'http://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())

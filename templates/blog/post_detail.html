@@ -18,15 +18,20 @@
     &nbsp;
   {% endif %}
   </div>
-  <div class="post-comment-link"> 
-      <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}">
-        <img src="http://d.hatena.ne.jp/images/b_entry.gif" width="16" height="12" style="border: none;"
-   alt="このエントリーを含むはてなブックマーク" title="このエントリーを含むはてなブックマーク" />
-        <img src="http://b.hatena.ne.jp/entry/image/{{ object.get_full_url }}" alt="はてなブックマーク - {{ object.title }}" title="はてなブックマーク - {{ object.title }}">
+  <div class="post-comment-link">
+    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="IanMLewis" data-lang="{{ object.lang }}">Tweet</a>
+    <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}">
+      <img src="http://d.hatena.ne.jp/images/b_entry.gif" width="16" height="12" style="border: none;"
+ alt="このエントリーを含むはてなブックマーク" title="このエントリーを含むはてなブックマーク" />
+      <img src="http://b.hatena.ne.jp/entry/image/{{ object.get_full_url }}" alt="はてなブックマーク - {{ object.title }}" title="はてなブックマーク - {{ object.title }}">
     </a>
   </div>
   
   {% disqus_show_comments %}
 
 </div>
+{% endblock %}
+
+{% block js_footer %}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 {% endblock %}

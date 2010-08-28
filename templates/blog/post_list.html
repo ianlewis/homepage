@@ -32,12 +32,15 @@
         {% endif %}
         </div>
         <div class="post-comment-link">
-          <a href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a>
-          <a href="http://b.hatena.ne.jp/entry/{{ item.get_full_url }}">
+          <a class="disqus-link" href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a>
+          &nbsp;
+          <a href="http://twitter.com/share" class="twitter-share-button" data-url="{{ item.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ item.lang }}">Tweet</a>
+          <a class="hatena-link" href="http://b.hatena.ne.jp/entry/{{ item.get_full_url }}">
             <img src="http://d.hatena.ne.jp/images/b_entry.gif" width="16" height="12" style="border: none;" alt="このエントリーを含むはてなブックマーク" title="このエントリーを含むはてなブックマーク" />
             <img src="http://b.hatena.ne.jp/entry/image/{{ item.get_full_url }}" alt="はてなブックマーク - {{ item.title }}" title="はてなブックマーク - {{ item.title }}">
           </a>
         </div>
+        <div class="clear"></div>
       </li>
     {% endfor %}
     </ul>
@@ -50,6 +53,7 @@
 
 {% block js_footer %}
 {% disqus_num_replies %}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 {% endblock %}
 
 {% block footer %}

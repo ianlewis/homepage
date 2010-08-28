@@ -598,6 +598,9 @@ em {
 #blog .post-comment-link {
     text-align: right;
 }
+#blog .post-comment-link .disqus-link,#blog .post-comment-link .hatena-link {
+    vertical-align: top;
+}
 
 #blog .highlight,#blog .codeblock {
     background-color: #EEEEEE;
@@ -744,6 +747,10 @@ em {
     background: black;
     padding: 10px 40px;
     overflow: hidden;
+}
+
+.clear {
+    clear: both;
 }
 
 /* 404 Page */
