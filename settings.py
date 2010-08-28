@@ -70,19 +70,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'homepage.middleware.GoogleAnalyticsStripCookieMiddleware',
-    #'django.middleware.cache.UpdateCacheMiddleware',
-    #'homepage.middleware.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'jogging.middleware.LoggingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'pagination.middleware.PaginationMiddleware',
-    #'homepage.middleware.WWWRedirectMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
-    #'homepage.middleware.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
