@@ -619,6 +619,8 @@ em {
 }
 
 #blog .post-body h2 {
+    font-size: 150%;
+    margin-top: 20px;
     margin-bottom: 5px;
 }
 
