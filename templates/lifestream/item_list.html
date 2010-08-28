@@ -71,9 +71,9 @@
 
 {% block footer %}
 <div class="tag-cloud">
-{% tag_cloud_for_model lifestream.item as item_tags with steps=20 min_count=15 distribution=log %}
+{% tag_cloud_for_model lifestream.item as item_tags with steps=20 min_count=20 distribution=log %}
 {% for item_tag in item_tags %}
-<a style="font-size: {% if item_tag.font_size %}{{ item_tag.font_size|add:"10" }}{% else %}10{% endif %}px;" href="{% url tag_page item_tag.name %}">{{ item_tag.name }}</a>
+<a style="font-size: {% if item_tag.font_size %}{{ item_tag.font_size|add:"10" }}{% else %}10{% endif %}px;" href="{% url tag_page item_tag.name %}">{{ item_tag.name }}</a>&nbsp;&nbsp;
 {% endfor %}
 </div>
 {% endblock %}

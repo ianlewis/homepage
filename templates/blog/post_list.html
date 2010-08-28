@@ -56,7 +56,7 @@
 <div class="tag-cloud">
 {% tag_cloud_for_model blog.post as post_tags with steps=20 min_count=4 distribution=log %}
 {% for post_tag in post_tags %}
-<a style="font-size: {{ post_tag.font_size|add:"10" }}px;" href="{% url blog_tag_page locale post_tag.name %}">{{ post_tag.name }}</a>
+<a style="font-size: {{ post_tag.font_size|add:"10" }}px;" href="{% url blog_tag_page locale post_tag.name %}">{{ post_tag.name }}</a>&nbsp;&nbsp;
 {% endfor %}
 </div>
 {% endblock %}
