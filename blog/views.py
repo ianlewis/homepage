@@ -4,9 +4,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.cache import never_cache
 from models import *
 from decorators import *
 
+@never_cache
 @staff_member_required
 @require_http_methods(['GET', 'HEAD'])
 def blog_detail_preview(request, object_id):
