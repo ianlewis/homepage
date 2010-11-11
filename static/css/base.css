@@ -14,7 +14,7 @@ h1,h2,h3,h4,h5,h6{font-size:100%;}
 q:before,q:after{content:'';}
 
 body {
-    font-family: "ＭＳ ゴシック","MS Gothic","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","IPAゴシック","IPAGothic","VL ゴシック","VL Gothic","さざなみゴシック","Sazanami Gothic","Gautami",sans-serif;
+    font-family: 'IPAゴシック', 'IPAGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Gautami', sans-serif;
 }
 
 a {
