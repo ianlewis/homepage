@@ -14,7 +14,8 @@ h1,h2,h3,h4,h5,h6{font-size:100%;}
 q:before,q:after{content:'';}
 
 body {
-    font-family: 'IPAゴシック', 'IPAGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Gautami', sans-serif;
+    font-family: 'IPAexゴシック', 'IPAexGothic', 'TakaoExゴシック', 'TakaoExGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Helvetica', sans-serif;
+    text-rendering: optimizeLegibility;
 }
 
 a {
