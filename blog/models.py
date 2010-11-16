@@ -54,6 +54,9 @@ class Post(Model):
     def get_full_url(self):
         return 'http://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
 
+    def __unicode__(self):
+        return self.title
+
     class Meta:
         verbose_name = _("post")
         verbose_name_plural = _("posts")
