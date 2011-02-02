@@ -47,6 +47,7 @@ USE_I18N = True
 SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
 MEDIA_ROOT = os.path.join(SITE_MEDIA_ROOT, 'media')
 STATIC_ROOT = os.path.join(SITE_MEDIA_ROOT, 'static')
+FILEBROWSER_DIRECTORY = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -54,6 +55,7 @@ STATIC_ROOT = os.path.join(SITE_MEDIA_ROOT, 'static')
 SITE_MEDIA_URL = '/'
 MEDIA_URL = posixpath.join(SITE_MEDIA_URL, 'media/')
 STATIC_URL = posixpath.join(SITE_MEDIA_URL, 'static/')
+FILEBROWSER_URL_FILEBROWSER_MEDIA = posixpath.join(STATIC_URL, 'filebrowser/')
 
 STATICFILES_DIRS = (
     os.path.join(ROOT_PATH, 'static'),
@@ -121,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.flatpages',
     'django.contrib.staticfiles',
+    'filebrowser',
     'south',
     #'hgwebproxy',
     'homepage',
