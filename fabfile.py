@@ -25,14 +25,18 @@ def run_syncdb():
     pass
 
 @runs_once
+def collect_static():
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py collectstatic --settings=%(settings)s" % env)
+    run("mkdir -p %(app_path)s/hp/site_media/media;" % env)
+
+@runs_once
 def run_migration():
-    #run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py migrate --settings=%(settings)s" % env)
-    pass
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py migrate --settings=%(settings)s" % env)
 
 @runs_once
 def compress_css():
     require("hosts", provided_by=[production])
-    run("source %(venv_path)s/bin/activate;rm -f %(app_path)s/hp/static/css/all.min.css;for FILE in %(app_path)s/hp/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/hp/static/css/*.tmp; do cat $FILE >> %(app_path)s/hp/static/css/all.min.css; done;rm -f %(app_path)s/hp/static/css/*.tmp" % env)
+    run("source %(venv_path)s/bin/activate;rm -f %(app_path)s/hp/site_media/static/css/all.min.css;for FILE in %(app_path)s/hp/site_media/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/hp/site_media/static/css/*.tmp; do cat $FILE >> %(app_path)s/hp/site_media/static/css/all.min.css; done;rm -f %(app_path)s/hp/site_media/static/css/*.tmp" % env)
 
 @runs_once
 def pull():
@@ -62,6 +66,7 @@ def deploy():
     update()
     put_settings()
     migrate_db()
+    collect_static()
     compress_css()
     reboot()
 

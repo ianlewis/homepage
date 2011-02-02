@@ -1,6 +1,7 @@
 # Django settings for homepage project.
 
 import os
+import posixpath
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -13,12 +14,16 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3', 'oracle'.
-DATABASE_NAME = os.path.join(ROOT_PATH, 'djangodb.sqlite')             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'djangodb.sqlite',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -39,17 +44,36 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(ROOT_PATH, 'static')
+SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
+MEDIA_ROOT = os.path.join(SITE_MEDIA_ROOT, 'media')
+STATIC_ROOT = os.path.join(SITE_MEDIA_ROOT, 'static')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/static/'
+SITE_MEDIA_URL = '/'
+MEDIA_URL = posixpath.join(SITE_MEDIA_URL, 'media/')
+STATIC_URL = posixpath.join(SITE_MEDIA_URL, 'static/')
+
+STATICFILES_DIRS = (
+    os.path.join(ROOT_PATH, 'static'),
+)
+
+STATICFILES_MEDIA_DIRNAMES = (
+    'media',
+    'static',
+)
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "homepage.finders.AppMediaDirectoriesFinder",
+)
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, 'admin/')
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 't%o@7x0*zc^r*4@=@*ky=m%_^its#b)t0f9m%fu88(vpt*&8-t'
@@ -66,12 +90,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
+    "django.core.context_processors.static",
     "django.core.context_processors.request",
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    'jogging.middleware.LoggingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'pagination.middleware.PaginationMiddleware',
@@ -96,6 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.comments',
     'django.contrib.flatpages',
+    'django.contrib.staticfiles',
     'south',
     #'hgwebproxy',
     'homepage',
@@ -104,7 +129,6 @@ INSTALLED_APPS = (
     'blog',
     'tagging',
     'disqus',
-    'jogging',
 )
 
 # Need this to get around a bugs in HttpResponseRedirect
@@ -158,17 +182,31 @@ PAGINATION_DEFAULT_WINDOW = 3
 DISQUS_API_KEY = ''
 DISQUS_WEBSITE_SHORTNAME = ''
 
-# jogging
-from jogging.handlers import DatabaseHandler
-import logging
-GLOBAL_LOG_LEVEL = logging.WARNING
-GLOBAL_LOG_HANDLERS = [DatabaseHandler()] # takes any Handler object that Python's logging takes
+# logging
 LOGGING = {
-    'django-lifestream': {
-        'handler': DatabaseHandler(),
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'null': {
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
+        },
+        'database': {
+            'level': 'ERROR',
+            'class': 'homepage.handlers.DatabaseHandler',
+        }
     },
-    'feedcache.cache': {
-        'handler': DatabaseHandler(),
+    'loggers': {
+        'django': { 
+            'handlers':['null'],
+            'propagate': True,
+            'level':'INFO', 
+        },
+        'django.request': {
+            'handlers': ['database'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
     }
 }
 
@@ -181,6 +219,7 @@ INTERNAL_IPS = (
 
 SOUTH_MIGRATION_MODULES = {
     "jogging": "migrations.jogging",
+    "homepage": "migrations.homepage",
     #"hgwebproxy": "migrations.hgwebproxy",
     "lifestream": "migrations.lifestream",
     "tagging": "migrations.tagging",

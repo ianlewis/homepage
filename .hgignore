@@ -13,6 +13,7 @@ build
 temp
 dist
 src
+site_media
 pip-log.txt
 settings_local.py
 settings_production.py

@@ -17,6 +17,7 @@ admin.autodiscover()
 urlpatterns = redirects.urlpatterns
 
 urlpatterns += patterns('',
+    (r'^admin/filebrowser/', include('filebrowser.urls')),
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -81,7 +82,9 @@ urlpatterns += patterns('',
 )
 
 if settings.DEBUG:
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()
     urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+        (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], 'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT}),
     )
