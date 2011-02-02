@@ -21,12 +21,11 @@ def install_prereqs():
 # Needed until South can support reusable apps transparently
 @runs_once
 def run_syncdb():
-    #run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py syncdb --settings=%(settings)s" % env)
-    pass
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py syncdb --settings=%(settings)s" % env)
 
 @runs_once
 def collect_static():
-    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py collectstatic --settings=%(settings)s" % env)
+    run("source %(venv_path)s/bin/activate;cd %(app_path)s/hp;python manage.py collectstatic --noinput --settings=%(settings)s" % env)
     run("mkdir -p %(app_path)s/hp/site_media/media;" % env)
 
 @runs_once
@@ -65,6 +64,7 @@ def deploy():
     pull()
     update()
     put_settings()
+    run_syncdb()
     migrate_db()
     collect_static()
     compress_css()
