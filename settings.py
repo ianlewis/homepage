@@ -200,15 +200,20 @@ LOGGING = {
         }
     },
     'loggers': {
+        '': { 
+            'handlers':['database'],
+            'propagate': True,
+            'level':'WARNING', 
+        },
         'django': { 
             'handlers':['null'],
-            'propagate': True,
+            'propagate': False,
             'level':'INFO', 
         },
         'django.request': {
             'handlers': ['database'],
-            'level': 'ERROR',
             'propagate': False,
+            'level': 'ERROR',
         },
     }
 }
