@@ -17,4 +17,4 @@ class SlidesharePlugin(FeedPlugin):
     # Get the flash media player url from the embed tag
     if "slideshare_embed" in entry:
         embed_match = re.search('<param name="movie" value="([^ "]*)"', entry["slideshare_embed"])
-        entry["media_player_attrs"]["url"] = embed_match.group(1)
+        entry["media_player"]["url"] = embed_match.group(1)
