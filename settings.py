@@ -139,29 +139,7 @@ INSTALLED_APPS = (
 APPEND_SLASH=False
 
 # django-lifestream
-VALID_ITEM_TAGS = (
-  'b',
-  'a',
-  'i',
-  'br',
-  'p',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'table',
-  'tbody',
-  'th',
-  'td',
-  'tr',
-  'img',
-  #'font',
-  'span',
-  #'div',
-  #'object'
-)
-
-PLUGINS = (
+LIFESTREAM_PLUGINS = (
   ('lifestream.plugins.FeedPlugin', 'Generic Feed'),
   ('lifestream.plugins.twitter.TwitterPlugin', 'Twitter Plugin'),
   ('lifestream.plugins.youtube.YoutubePlugin', 'Youtube Plugin'),
@@ -172,6 +150,8 @@ PLUGINS = (
   # ('vimeo', 'Vimeo'),
   # ('lastfm', 'last.fm'),
 )
+
+LIFESTREAM_FEED_TIMEOUT = 10
 
 # django-tagging
 FORCE_LOWERCASE_TAGS=True
