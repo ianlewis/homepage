@@ -1,6 +1,8 @@
 import datetime, logging
 import platform
 
+HOST = platform.uname()[1]
+
 class DatabaseHandler(logging.Handler):
     def emit(self, record):
         from homepage.models import Log

@@ -195,15 +195,15 @@ LOGGING = {
             'class':'django.utils.log.NullHandler',
         },
         'database': {
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'class': 'homepage.handlers.DatabaseHandler',
         }
     },
     'loggers': {
-        '': { 
+        '': {
             'handlers':['database'],
             'propagate': True,
-            'level':'WARNING', 
+            'level':'WARNING, 
         },
         'django': { 
             'handlers':['null'],
@@ -213,7 +213,7 @@ LOGGING = {
         'django.request': {
             'handlers': ['database'],
             'propagate': False,
-            'level': 'ERROR',
+            'level': 'WARNING',
         },
     }
 }
