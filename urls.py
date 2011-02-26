@@ -26,7 +26,7 @@ urlpatterns += patterns('',
     (r'^admin/', include(admin.site.urls)),
  
     (r'accounts/', include('django.contrib.auth.urls')),
-    (r'^hg/', include('hgwebproxy.urls')),
+    #(r'^hg/', include('hgwebproxy.urls')),
 )
 
 urlpatterns += blog_urls.urlpatterns
