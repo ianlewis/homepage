@@ -203,7 +203,7 @@ LOGGING = {
         '': {
             'handlers':['database'],
             'propagate': True,
-            'level':'WARNING, 
+            'level':'WARNING', 
         },
         'django': { 
             'handlers':['null'],
