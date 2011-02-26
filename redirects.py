@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^projects(?:/.*)?$', redirect_to, {'url': '/'}, name="projects_redirect"),
     #url(r'^en/about(?:/.*)?$', redirect_to, {'url': '/'}, name="en_about_redirect"),
     url(r'^jp/about(?:/.*)?$', redirect_to, {'url': '/en/about/'}, name="jp_about_redirect"),
+    url(r'^jp/aboutjp$', redirect_to, {'url': '/en/about/'}, name="jp_about_redirect2"),
 
     url(r'^feed/?$', redirect_to, {'url': '/feeds/recent'}),
 
