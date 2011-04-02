@@ -183,17 +183,17 @@ LOGGING = {
         '': {
             'handlers':['database'],
             'propagate': True,
-            'level':'WARNING', 
+            'level':'DEBUG' if DEBUG else 'WARNING', 
         },
         'django': { 
             'handlers':['null'],
             'propagate': False,
-            'level':'INFO', 
+            'level':'DEBUG' if DEBUG else 'INFO', 
         },
         'django.request': {
             'handlers': ['database'],
             'propagate': False,
-            'level': 'WARNING',
+            'level': 'DEBUG' if DEBUG else 'WARNING',
         },
     }
 }
