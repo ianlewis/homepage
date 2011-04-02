@@ -10,26 +10,15 @@
       {% else %}
       <link rel="stylesheet" href="{{ STATIC_URL }}css/all.min.css" type="text/css" media="screen">
       {% endif %}
-      <script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery-1.3.2.min.js"></script>
-      <script type="text/javascript">
-        STATIC_URL='{{ STATIC_URL }}';
-      </script>
       <meta name="keywords" content="Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド"> 
       <meta name="description" content="Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.">
       {% block extra_meta %}{% endblock %}
-      {% disqus_dev %}
       {% block rss %}{% endblock %}
       {% block javascript %}{% endblock %}
       {% block css %}{% endblock %}
       {% block other_head %}{% endblock %}
     </head>
     <body>
-      <!-- Japan Relief HelloBar -->
-      <script type="text/javascript" src="//www.hellobar.com/hellobar.js"></script>
-      <script type="text/javascript">
-      new HelloBar(1,9126);
-      </script>
-      
       <div class="main">
         <div class="header">
           {% block header %}
@@ -48,16 +37,27 @@
           {% block footer %}{% endblock %}
         </div>
       </div>
+      <script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery-1.3.2.min.js"></script>
+      <script type="text/javascript">
+        STATIC_URL='{{ STATIC_URL }}';
+      </script>
+      {% disqus_dev %}
+      <!-- Japan Relief HelloBar -->
+      <script type="text/javascript" src="//www.hellobar.com/hellobar.js"></script>
+      <script type="text/javascript">
+      new HelloBar(1,9126);
+      </script>
       {% block js_footer %}{% endblock %}
       <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2149299-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
       </script>
-      <script type="text/javascript">
-        try {
-          var pageTracker = _gat._getTracker("UA-2149299-1");
-          pageTracker._trackPageview();
-        } catch(err) {}
-      </script> 
     </body>
 </html>

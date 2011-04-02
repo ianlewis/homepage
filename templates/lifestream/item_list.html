@@ -1,9 +1,5 @@
 {% extends "lifestream/base.html" %}
-{% load utility_tags %}
-{% load lifestream_tags %}
-{% load pagination_tags %}
-{% load tagging_tags %} 
-{% load disqus_tags %}
+{% load utility_tags lifestream_tags pagination_tags tagging_tags disqus_tags %}
 
 {% block title %}Page {{ request.page }}{% endblock %}
 
@@ -79,5 +75,6 @@
 {% endblock %}
 
 {% block js_footer %}
+{{ block.super }}
 {% disqus_num_replies %}
 {% endblock %}

@@ -5,9 +5,22 @@
 {% if locale %}<meta http-equiv="content-language" content="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}">{% endif %}
 {% endblock %}
 
-{% block javascript %}
+{% block js_footer %}
+{{ block.super }}
 <script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery.lightbox-0.5.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/blog.js"></script>
+<script type="text/javascript">
+$(function() {
+  $('.blog-post').each(function() {
+    $(this).find("a[rel*=lightbox]").lightBox({
+      imageLoading: MEDIA_URL+'img/lightbox/lightbox-ico-loading.gif',
+      imageBtnClose: MEDIA_URL+'img/lightbox/lightbox-btn-close.gif',
+      imageBtnPrev: MEDIA_URL+'img/lightbox/lightbox-btn-prev.gif',
+      imageBtnNext: MEDIA_URL+'img/lightbox/lightbox-btn-next.gif',
+      imageBlank: MEDIA_URL+'img/lightbox/lightbox-blank.gif'
+    });
+  });
+});
+</script>
 {% endblock %}
 
 {% block header_right %}
