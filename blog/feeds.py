@@ -10,7 +10,13 @@ from tagging.models import Tag, TaggedItem
 
 class LatestBlogEntries(Feed):
     def link(self, obj):
-        return reverse('blog_page', kwargs={'locale':self.locale})
+        if isinstance(obj, Tag):
+            return reverse('blog_tag_page', kwargs={
+                'locale':self.locale,
+                'tag': obj.name,
+            })
+        else:
+            return reverse('blog_page', kwargs={'locale':self.locale})
 
     def items(self, obj):
         if isinstance(obj, Tag):
