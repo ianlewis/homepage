@@ -7,6 +7,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ROOT_PATH = os.path.dirname(__file__)
+PROJECT_PATH = os.path.dirname(ROOT_PATH)
 
 ADMINS = (
     #('', ''),
@@ -44,7 +45,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
+SITE_MEDIA_ROOT = os.path.join(PROJECT_PATH, 'site_media')
 MEDIA_ROOT = os.path.join(SITE_MEDIA_ROOT, 'media')
 STATIC_ROOT = os.path.join(SITE_MEDIA_ROOT, 'static')
 FILEBROWSER_DIRECTORY = ''
@@ -58,7 +59,7 @@ STATIC_URL = posixpath.join(SITE_MEDIA_URL, 'static/')
 FILEBROWSER_URL_FILEBROWSER_MEDIA = posixpath.join(STATIC_URL, 'filebrowser/')
 
 STATICFILES_DIRS = (
-    os.path.join(ROOT_PATH, 'static'),
+    os.path.join(PROJECT_PATH, 'static'),
 )
 
 STATICFILES_MEDIA_DIRNAMES = (
@@ -111,7 +112,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(ROOT_PATH, 'templates'),
+    os.path.join(PROJECT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
