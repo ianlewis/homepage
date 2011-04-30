@@ -13,7 +13,7 @@
   <div class="twitter-com-speech-tail-top"></div>
   <div class="bubble">
     {{ latest_tweet.content|safe|urlizetrunc:50|urlize_twitter }}
-    <div class="profile-link"><a href="http://twitter.com/IanMLewis"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow Ian on Twitter"/></a>{#<a href="{% url lifestream_domain_page "twitter.com" %}">More</a>#}</div>
+    <div class="profile-link"><a href="http://twitter.com/IanMLewis"><img src="{{ STATIC_URL }}img/twitter_follow_me.png" alt="Follow Ian on Twitter"/></a>{#<a href="{% url lifestream_domain_page "twitter.com" %}">More</a>#}</div>
     <div style="clear:both"></div>
   </div>
 </div>
