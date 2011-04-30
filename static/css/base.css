@@ -756,6 +756,10 @@ em {
     overflow: hidden;
 }
 
+.footer .djangomade {
+    text-align: right;
+}
+
 .clear {
     clear: both;
 }
