@@ -8,7 +8,7 @@ VENVDIR="$HOMEDIR/venvs/homepage"
 
 HOST="127.0.0.1"
 PORT=10023
-BASEDIR="$HOMEDIR/vhosts/sanca"
+BASEDIR="$HOMEDIR/vhosts/homepage"
 PIDFILE="$BASEDIR/tmp/gunicorn.pid"
 LOGFILE="$BASEDIR/logs/gunicorn.log"
 APPMODULE="production_wsgi:application"
