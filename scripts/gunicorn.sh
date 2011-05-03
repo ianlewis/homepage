@@ -1,6 +1,6 @@
 #!/bin/bash
 HOMEDIR="/var/www"
-VENVDIR="$HOMEDIR/venvs/sanca"
+VENVDIR="$HOMEDIR/venvs/homepage"
 
 # Load venv
 . $VENVDIR/bin/activate
