@@ -2,6 +2,8 @@
 
 from __future__ import with_statement 
 
+import os
+
 from fabric.api import *
 from fabric.decorators import runs_once
 
@@ -10,11 +12,11 @@ ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def _run_app_cmd(cmd):
     with prefix('source %(venv_path)s/bin/activate' % env):
         with cd('%(app_path)s/app' % env):
-            run(cmd)
+            sudo(cmd)
 
 @runs_once
 def reboot():
-    _run_app_cmd('%(app_path)s/apache2/bin/restart' % env)
+    _run_app_cmd('%(app_path)s/scripts/gunicorn.sh reload' % env)
 
 @runs_once
 def hg_pull():
@@ -36,7 +38,7 @@ def run_syncdb():
 @runs_once
 def collect_static():
     _run_app_cmd("python manage.py collectstatic --noinput --settings=%(settings)s" % env)
-    run("mkdir -p %(app_path)s/site_media/media;" % env)
+    sudo("mkdir -p %(app_path)s/site_media/media;" % env)
 
 @runs_once
 def run_migration():
@@ -67,7 +69,7 @@ def migrate_db():
 @runs_once
 def put_settings():
     require("hosts", provided_by=[production])
-    put("%s/app/settings_production.py" % ROOT_PATH, "%(app_path)/app/settings_local.py" % env)
+    put("%s/app/settings_production.py" % ROOT_PATH, "%(app_path)s/app/settings_local.py" % env, use_sudo=True)
 
 def deploy():
     require("hosts", provided_by=[production])
@@ -81,7 +83,7 @@ def deploy():
     reboot()
 
 def production():
-    env.user = 'root'
+    env.user = 'ubuntu'
     env.hosts = ['ec2-175-41-217-89.ap-northeast-1.compute.amazonaws.com']
     env.rev = 'aws' 
     env.settings = 'settings_local'
