@@ -2,7 +2,7 @@ import os
 import sys
 import site
 
-VHOST_PATH = '/var/www/vhost/homepage'
+VHOST_PATH = '/var/www/vhosts/homepage'
 VENV_PATH = '/var/www/venvs/homepage'
 PYTHON_PATH = os.path.join(VENV_PATH, 'lib', 'python2.5')
 
