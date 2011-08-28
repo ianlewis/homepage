@@ -34,6 +34,7 @@
         <div class="post-comment-link">
           <a class="disqus-link" href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a>
           &nbsp;
+          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org/"></g:plusone>
           <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ item.title }}" data-url="{{ item.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ item.lang }}">Tweet</a>
           <a href="http://b.hatena.ne.jp/entry/{{ item.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ item.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
         </div>
@@ -53,6 +54,15 @@
 {% disqus_num_replies %}
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Place this render call where appropriate -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
 {% endblock %}
 
 {% block footer %}
