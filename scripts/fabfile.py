@@ -16,7 +16,8 @@ def _run_app_cmd(cmd):
 
 @runs_once
 def reboot():
-    _run_app_cmd('%(app_path)s/scripts/gunicorn.sh reload' % env)
+    # Need to wait for gunicorn to daemonize
+    _run_app_cmd('%(app_path)s/scripts/gunicorn.sh reload && sleep 5' % env)
 
 @runs_once
 def hg_pull():
