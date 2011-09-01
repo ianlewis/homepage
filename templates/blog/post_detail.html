@@ -2,6 +2,9 @@
 {% load i18n tagging_tags blog_tags disqus_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
+{% block keywords %}{% tags_for_object object as item_tags %}{{ item_tags|join:" " }}{% endblock %}
+{% block description %}{% with object|to_html|striptags as description %}{{ description|slice:":150" }}{% if description|length > 150 %}...{% endif %}{% endwith %}{% endblock %}
+
 {% block blog_content %}
 {% tags_for_object object as item_tags %}
 <div class="blog-post">

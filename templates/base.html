@@ -10,8 +10,8 @@
       {% else %}
       <link rel="stylesheet" href="{{ STATIC_URL }}css/all.min.css" type="text/css" media="screen">
       {% endif %}
-      <meta name="keywords" content="Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド"> 
-      <meta name="description" content="Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.">
+      <meta name="keywords" content="{% block keywords %}Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド{% endblock %}"> 
+      <meta name="description" content="{% block description %}Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.{% endblock %}">
       {% block extra_meta %}{% endblock %}
       {% block rss %}{% endblock %}
       {% block javascript %}{% endblock %}
