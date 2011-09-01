@@ -86,7 +86,7 @@ def deploy():
 def production():
     env.user = 'ubuntu'
     env.hosts = ['ec2-175-41-217-89.ap-northeast-1.compute.amazonaws.com']
-    env.rev = 'aws' 
+    env.rev = 'default' 
     env.settings = 'settings_local'
     env.app_path = '/var/www/vhosts/homepage'
     env.venv_path = '/var/www/venvs/homepage'
