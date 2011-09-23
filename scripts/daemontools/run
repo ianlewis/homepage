@@ -7,7 +7,7 @@ VENVDIR=/var/www/venvs/homepage
 
 . $VENVDIR/bin/activate
 
-APP="wsgi_app:application"
+APP="production_wsgi:application"
 HOST=127.0.0.1
 PORT=10023
 PIDFILE=$BASEDIR/tmp/gunicorn.pid
