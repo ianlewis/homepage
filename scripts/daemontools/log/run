@@ -1,0 +1,4 @@
+#!/bin/sh
+exec env - PATH="/usr/local/bin:/usr/bin:/bin" \
+    multilog t n1024 s1048576 ./main \
+    '-*' '+*ver: status:*' =lstatus
