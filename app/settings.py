@@ -1,6 +1,7 @@
 # Django settings for homepage project.
 
 import os
+import sys
 import posixpath
 
 DEBUG = True
@@ -187,6 +188,18 @@ LOGGING = {
         'null': {
             'level':'DEBUG',
             'class':'django.utils.log.NullHandler',
+        },
+        'stderr': {
+            'level': 'ERROR',
+            'formatter': 'verbose',
+            'class':'logging.StreamHandler',
+            'stream': sys.stderr,
+        },
+        'stdout': {
+            'level': 'INFO',
+            'formatter': 'verbose',
+            'class': 'logging.StreamHandler', 
+            'stream': sys.stdout,
         },
     },
     'loggers': {
