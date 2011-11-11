@@ -36,6 +36,11 @@ em {
     font-style: italic;
 }
 
+.align-center img {
+    display: block;
+    margin: 0px auto;
+}
+
 .main {
     border: 1px solid black;
     width: 900px;
