@@ -650,6 +650,20 @@ img.align-center {
     overflow: auto;
 }
 
+#blog .note {
+    border: 1pt solid #E5E5E5;
+    margin: 10px 0;
+}
+#blog .note .admonition-title {
+    padding-left: 25px;
+    background: url("../img/icons/note.png") no-repeat scroll 5px -2px #F9F9FF;
+    font-weight: bold;
+}
+
+#blog .note p {
+    padding-left: 20px;
+}
+
 #flatpage {
     margin: 20px 0;
 }
