@@ -41,6 +41,13 @@ img.align-center {
     margin: 0px auto;
 }
 
+img.align-left {
+    float: left;
+}
+img.align-right {
+    float: right;
+}
+
 .main {
     border: 1px solid black;
     width: 900px;
