@@ -47,6 +47,9 @@ img.align-left {
 img.align-right {
     float: right;
 }
+.section {
+    clear: both;
+}
 
 .main {
     border: 1px solid black;
