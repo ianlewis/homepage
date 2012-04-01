@@ -1,3 +1,7 @@
+#:coding=utf-8:
+
+import re
+import html2text
 
 from django.template import Library
 from django.utils.safestring import mark_safe
@@ -102,3 +106,45 @@ def date_microformat(d):
         2009-02-09T17:54:41.181868-08:00 (mine)
     '''
     return d.isoformat()
+
+STRIKE_REPL_RE = re.compile("< *strike *>[^<]*</ *strike *>", re.IGNORECASE)
+def html_to_text(html):
+    """
+    HTMLを plain/text に変換する
+    """
+    h = html2text.HTML2Text()
+    h.ignore_links = True
+    h.ignore_images = True
+    h.ignore_emphasis = True
+    h.hide_strikethrough = True
+    # <strike>***</strike> テキストを削る 
+    text = STRIKE_REPL_RE.sub("", html)
+    # html2text を呼び出す
+    text = h.handle(text).replace("&nbsp_place_holder;", " ")
+    # 先頭と後続の空白を削る
+    return text.strip()
+
+def abbrev(s, num=255, end="..."):
+    """
+    >>> abbrev('spamspamspam', 6)
+    'spa...'
+    >>> abbrev('spamspamspam', 12)
+    'spamspamspam'
+    >>> abbrev('blahblahblah', 13)
+    'eggseggseg...'
+    >>> abbrev('eggseggseggs', 1)
+    'e'
+    >>> abbrev('eggseggseggs', 2, '.')
+    'e.'
+    """
+    index = num - len(end)
+    if len(s) > num:
+        s = (s[:index] + end) if index > 0 else s[:num]
+    return s
+
+def to_lead(obj):
+    if obj.lead:
+        return obj.lead
+    else:
+        return abbrev(html_to_text(to_html(obj)), 300, "[...]")
+register.filter("to_lead", to_lead)

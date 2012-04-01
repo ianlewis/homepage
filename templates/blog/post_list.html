@@ -22,7 +22,7 @@
         <div class="post-tags">{% for tag in item_tags %}<a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         <div class="post-body">
         {% if item.content %}
-          {{ item|to_html|safe }}
+        {{ item|to_lead|safe }} <a href="{{ item.get_absolute_url }}">Read More</a>
         {% else %}
           &nbsp;
         {% endif %}
