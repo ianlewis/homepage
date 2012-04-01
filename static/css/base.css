@@ -662,6 +662,7 @@ img.align-right {
 
 #blog .note {
     border: 1pt solid #E5E5E5;
+    background-color: #F9F9FF;
     margin: 10px 0;
 }
 #blog .note .admonition-title {
