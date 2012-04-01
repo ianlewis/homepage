@@ -1,9 +1,5 @@
 {% extends "lifestream/item_list.html" %}
-{% load utility_tags %}
-{% load lifestream_tags %}
-{% load pagination_tags %}
-{% load tagging_tags %}
-{% load blog_tags %}
+{% load utility_tags lifestream_tags pagination_tags tagging_tags blog_tags %}
 
 {% block title %}{% ifnotequal request.page 1 %}Page {{ request.page }}{% else %}Homepage{% endifnotequal %}{% endblock %}
 
@@ -13,11 +9,16 @@
   <div class="twitter-com-speech-tail-top"></div>
   <div class="bubble">
     {{ latest_tweet.content|safe|urlizetrunc:50|urlize_twitter }}
-    <div class="profile-link"><a href="http://twitter.com/IanMLewis"><img src="{{ STATIC_URL }}img/twitter_follow_me.png" alt="Follow Ian on Twitter"/></a>{#<a href="{% url lifestream_domain_page "twitter.com" %}">More</a>#}</div>
+    <div class="profile-link"><a href="https://twitter.com/IanMLewis" class="twitter-follow-button" data-show-count="false" data-size="large"></a></div>
     <div style="clear:both"></div>
   </div>
 </div>
 {% endif %}
+{% endblock %}
+
+{% block js_footer %}
+{{ block.super }}
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 {% endblock %}
 
 {% block top_content %}
