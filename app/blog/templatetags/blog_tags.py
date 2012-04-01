@@ -146,5 +146,6 @@ def to_lead(obj):
     if obj.lead:
         return obj.lead
     else:
-        return abbrev(html_to_text(to_html(obj)), 300, "[...]")
+        max_len = 300 if obj.locale == "jp" else 600
+        return abbrev(html_to_text(to_html(obj)), max_len, "[...]")
 register.filter("to_lead", to_lead)

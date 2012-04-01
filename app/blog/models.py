@@ -23,7 +23,7 @@ class Post(Model):
     author = ForeignKey(User, verbose_name=u"author")
     slug = SlugField(u"slug", max_length=50, unique=True, db_index=True)
     title = TextField(u"title")
-    lead = TextField(u"lead", blank=True, null=True, default=None, max_length=300)
+    lead = TextField(u"lead", blank=True, null=True, default=None, max_length=600)
     content = TextField(u"content")
     markup_type = models.CharField(max_length=10, choices=(
         ("html", "HTML"),
