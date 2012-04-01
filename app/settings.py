@@ -221,6 +221,7 @@ INTERNAL_IPS = (
 SOUTH_MIGRATION_MODULES = {
     "jogging": "migrations.jogging",
     "homepage": "migrations.homepage",
+    "blog": "migrations.blog",
     #"hgwebproxy": "migrations.hgwebproxy",
     "lifestream": "migrations.lifestream",
     "tagging": "migrations.tagging",
