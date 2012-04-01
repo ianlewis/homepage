@@ -589,14 +589,14 @@ img.align-right {
 
 #blog h1.post-title {
     font-size: 140%;
-    background: black;
-    color: white;
-    padding-left: 5px;
 }
 
-#blog h1.post-title a,#blog h1.post-title a:hover {
-    color: white;
-    text-decoration: none;
+#blog h1.post-title a {
+    color: black;
+}
+#blog h1.post-title a:hover {
+    text-decoration: underline;
+    color: #888;
 }
 
 #blog .post-tags {
@@ -633,7 +633,7 @@ img.align-right {
 
 #blog .post-body {
     font-size: 80%;
-    margin: 0 10px;
+    margin: 2em 10px 0 10px;
     overflow: hidden;
     clear: both;
 }
