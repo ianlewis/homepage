@@ -587,6 +587,11 @@ img.align-right {
     margin: 20px 0;
 }
 
+#blog .blog-post img {
+    padding: 5px;
+    border: 1px solid #EEE;
+}
+
 #blog h1.post-title {
     font-size: 140%;
 }
