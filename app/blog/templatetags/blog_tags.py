@@ -1,7 +1,9 @@
 #:coding=utf-8:
 
 import re
+import logging
 import html2text
+import HTMLParser
 
 from django.template import Library
 from django.utils.safestring import mark_safe
@@ -16,6 +18,8 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, TextLexer
 
 register = Library()
+
+logger = logging.getLogger(__name__)
 
 VARIANTS = {}
 
@@ -147,5 +151,14 @@ def to_lead(obj):
         return obj.lead
     else:
         max_len = 300 if obj.locale == "jp" else 600
-        return abbrev(html_to_text(to_html(obj)), max_len, "[...]")
+        html = to_html(obj)
+        try:
+            return abbrev(html_to_text(html), max_len, "[...]")
+        except HTMLParser.HTMLParseError,e:
+            logger.error('HTML Parse error: "%s" for text "%s"' % (
+                e,
+                html,
+            ))
+            return ""
+         
 register.filter("to_lead", to_lead)
