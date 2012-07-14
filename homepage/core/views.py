@@ -1,4 +1,5 @@
 #:coding=utf8:
+
 from django.http import HttpResponseRedirect 
 from django.views.generic.list_detail import object_list,object_detail
 from django.views.decorators.http import require_http_methods
@@ -6,39 +7,39 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 
 from tagging.views import tagged_object_list
-
-from blog.models import Post
 from lifestream.models import Item
+
+from homepage.blog.models import Post
 
 @require_http_methods(['GET', 'HEAD'])
 def main_page(request):
-  # Get latest English and Japanese post.
-  try:
-      en_post = Post.objects.published().filter(locale="en").latest("pub_date")
-  except Post.DoesNotExist:
-      en_post = None
-  try:
-      jp_post = Post.objects.published().filter(locale="jp").latest("pub_date")
-  except Post.DoesNotExist:
-      jp_post = None
+    # Get latest English and Japanese post.
+    try:
+        en_post = Post.objects.published().filter(locale="en").latest("pub_date")
+    except Post.DoesNotExist:
+        en_post = None
+    try:
+        jp_post = Post.objects.published().filter(locale="jp").latest("pub_date")
+    except Post.DoesNotExist:
+        jp_post = None
+    
+    try:
+        latest_tweet = Item.objects.published()\
+                           .filter(feed__domain="twitter.com")\
+                           .latest('date')
+    except Item.DoesNotExist:
+        latest_tweet = None
   
-  try:
-      latest_tweet = Item.objects.published()\
-                         .filter(feed__domain="twitter.com")\
-                         .latest('date')
-  except Item.DoesNotExist:
-      latest_tweet = None
-
-  return object_list(request, 
-      queryset = Item.objects.published().exclude(feed__domain="twitter.com"), 
-      template_name = "lifestream/main.html",
-      extra_context = {
-          'latest_tweet': latest_tweet,
-          "jp_post": jp_post,
-          "en_post": en_post,
-          'rss_feed_url': reverse('lifestream_feeds', kwargs={'url': "recent"}),
-      }
-  )
+    return object_list(request, 
+        queryset = Item.objects.published().exclude(feed__domain="twitter.com"), 
+        template_name = "lifestream/main.html",
+        extra_context = {
+            'latest_tweet': latest_tweet,
+            "jp_post": jp_post,
+            "en_post": en_post,
+            'rss_feed_url': reverse('lifestream_feeds', kwargs={'url': "recent"}),
+        }
+    )
 
 @require_http_methods(['GET', 'HEAD'])
 def domain_page(request, domain):

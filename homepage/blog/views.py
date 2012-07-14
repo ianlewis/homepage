@@ -1,12 +1,15 @@
-# Create your views here.
+#:coding=utf8:
+
 from django.views.generic.list_detail import object_list,object_detail
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.urlresolvers import reverse
-from django.http import Http404
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import never_cache
-from models import *
-from decorators import *
+
+from tagging.views import tagged_object_list
+
+from .models import Post
+from .decorators import feed_redirect
 
 @never_cache
 @staff_member_required
@@ -42,7 +45,6 @@ def blog_detail(request, slug, locale="en"):
 
 @require_http_methods(['GET', 'HEAD'])
 def tag_page(request, tag, locale="en"):
-    from tagging.views import tagged_object_list
     return tagged_object_list(
         request,
         queryset_or_model=Post.objects.published().filter(locale=locale),

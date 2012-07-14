@@ -2,8 +2,7 @@
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
-from tagging.models import *
-from django.db.models import *
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from tagging.fields import TagField
@@ -15,30 +14,30 @@ BLOG_LOCALES = (
     ('en', u'English'),
 )
 
-class PostManager(Manager):
+class PostManager(models.Manager):
     def published(self):
         return self.filter(pub_date__lt = datetime.now(), active=True)
 
-class Post(Model):
-    author = ForeignKey(User, verbose_name=u"author")
-    slug = SlugField(u"slug", max_length=50, unique=True, db_index=True)
-    title = TextField(u"title")
-    lead = TextField(u"lead", blank=True, null=True, default=None, max_length=600)
-    content = TextField(u"content")
+class Post(models.Model):
+    author = models.ForeignKey(User, verbose_name=u"author")
+    slug = models.SlugField(u"slug", max_length=50, unique=True, db_index=True)
+    title = models.TextField(u"title")
+    lead = models.TextField(u"lead", blank=True, null=True, default=None, max_length=600)
+    content = models.TextField(u"content")
     markup_type = models.CharField(max_length=10, choices=(
         ("html", "HTML"),
         ("rst", "reStructuredText"),
     ), default="html")
-    locale = CharField(u'locale', max_length=20, choices=BLOG_LOCALES, default="en", db_index=True)
+    locale = models.CharField(u'locale', max_length=20, choices=BLOG_LOCALES, default="en", db_index=True)
     tags = TagField()
 
-    active = BooleanField(u'published', default=False, db_index=True)
-    pub_date = DateTimeField(u'published', default=datetime.now, db_index=True)
-    create_date = DateTimeField(u'created', default=datetime.now)
+    active = models.BooleanField(u'published', default=False, db_index=True)
+    pub_date = models.DateTimeField(u'published', default=datetime.now, db_index=True)
+    create_date = models.DateTimeField(u'created', default=datetime.now)
    
     objects = PostManager()
 
-    @permalink
+    @models.permalink
     def get_absolute_url(self):
         return ('blog_detail', (), {
             'locale': self.locale,

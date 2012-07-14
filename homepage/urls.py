@@ -26,19 +26,18 @@ urlpatterns += patterns('',
     (r'^admin/', include(admin.site.urls)),
  
     (r'accounts/', include('django.contrib.auth.urls')),
-    #(r'^hg/', include('hgwebproxy.urls')),
 )
 
 urlpatterns += blog_urls.urlpatterns
 
 urlpatterns += patterns('',
-    url(r'^$', 'homepage.views.main_page', name='main_page'), 
-    url(r'^items/tag/(?P<tag>.+)$', 'homepage.views.tag_page', name='tag_page'),
+    url(r'^$', 'core.views.main_page', name='main_page'), 
+    url(r'^items/tag/(?P<tag>.+)$', 'core.views.tag_page', name='tag_page'),
 
-    url(r'^items/view/(?P<item_id>\d+)$', 'homepage.views.item_page', name='lifestream_item_page'),
-    url(r'^items/site/(?P<domain>.+)$', 'homepage.views.domain_page', name='lifestream_domain_page'),
+    url(r'^items/view/(?P<item_id>\d+)$', 'core.views.item_page', name='lifestream_item_page'),
+    url(r'^items/site/(?P<domain>.+)$', 'core.views.domain_page', name='lifestream_domain_page'),
 
-    url(r'^items/search$', 'homepage.views.search', name='lifestream_item_search'),
+    url(r'^items/search$', 'core.views.search', name='lifestream_item_search'),
 )
 
 class HomepageRecentItemsFeed(RecentItemsFeed):

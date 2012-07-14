@@ -1,8 +1,8 @@
 #:coding=utf-8:
 
-from lifestream.plugins import FeedPlugin
-
 from datetime import datetime
+
+from lifestream.plugins import FeedPlugin
 
 class GooglePlugin(FeedPlugin):
   

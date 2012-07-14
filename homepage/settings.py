@@ -71,7 +71,7 @@ STATICFILES_MEDIA_DIRNAMES = (
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "homepage.finders.AppMediaDirectoriesFinder",
+    "core.finders.AppMediaDirectoriesFinder",
 )
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -107,7 +107,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.transaction.TransactionMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'homepage.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -125,15 +125,18 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.flatpages',
     'django.contrib.staticfiles',
-    'filebrowser',
+
+    # Third party
     'south',
-    #'hgwebproxy',
-    'homepage',
+    'filebrowser',
     'pagination',
     'lifestream',
-    'blog',
     'tagging',
     'disqus',
+
+    # app
+    'homepage.core',
+    'homepage.blog',
 )
 
 # Need this to get around a bugs in HttpResponseRedirect
@@ -146,8 +149,8 @@ LIFESTREAM_PLUGINS = (
   ('lifestream.plugins.twitter.TwitterPlugin', 'Twitter Plugin'),
   ('lifestream.plugins.youtube.YoutubePlugin', 'Youtube Plugin'),
   ('lifestream.plugins.flickr.FlickrPlugin', 'Flickr Plugin'),
-  ('homepage.plugins.google.GooglePlugin', 'Google Plugin'),
-  ('homepage.plugins.slideshare.SlidesharePlugin', 'Slideshare Plugin'),
+  ('core.plugins.google.GooglePlugin', 'Google Plugin'),
+  ('core.plugins.slideshare.SlidesharePlugin', 'Slideshare Plugin'),
   # ('youtube', 'Youtube'),
   # ('vimeo', 'Vimeo'),
   # ('lastfm', 'last.fm'),
@@ -219,10 +222,8 @@ INTERNAL_IPS = (
 )
 
 SOUTH_MIGRATION_MODULES = {
-    "jogging": "migrations.jogging",
-    "homepage": "migrations.homepage",
+    "core": "migrations.core",
     "blog": "migrations.blog",
-    #"hgwebproxy": "migrations.hgwebproxy",
     "lifestream": "migrations.lifestream",
     "tagging": "migrations.tagging",
 }

@@ -1,3 +1,5 @@
+#:coding=utf-8:
+
 import os
 from django.contrib.staticfiles.finders import AppDirectoriesFinder
 from django.contrib.staticfiles.storage import AppStaticStorage

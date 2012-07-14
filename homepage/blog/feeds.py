@@ -1,12 +1,12 @@
 #:coding=utf8:
 
-from django.contrib.syndication.feeds import Feed
-from models import Post
-
+from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 
 from tagging.utils import parse_tag_input
 from tagging.models import Tag, TaggedItem
+
+from .models import Post
 
 class LatestBlogEntries(Feed):
     def link(self, obj):

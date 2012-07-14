@@ -1,8 +1,9 @@
 #:coding=utf8:
+
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from blog.models import Post
+from homepage.blog.models import Post
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "locale", "pub_date", "active")

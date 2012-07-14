@@ -1,6 +1,6 @@
 #:coding=utf8:
 
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, url
 from django.utils.http import urlquote
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseGone
 
