@@ -39,11 +39,9 @@ class LatestBlogEntries(Feed):
     def item_categories(self, item):
         return parse_tag_input(item.tags)
 
-    def get_object(self, bits):
-        if len(bits) > 1:
-            raise Tag.DoesNotExist
-        elif len(bits) == 1:
-            return Tag.objects.get(name=bits[0])
+    def get_object(self, request, tag=None):
+        if tag:
+            return Tag.objects.get(name=tag)
         else:
             return None
 

@@ -22,6 +22,8 @@ urlpatterns += patterns('homepage.blog.views',
 )
 
 urlpatterns += patterns('',
-    url(r'^feed/enfeed/$', LatestEnglishBlogEntries(), name='blog_feeds_en'),
-    url(r'^feed/jpfeed/$', LatestJapaneseBlogEntries(), name='blog_feeds_jp'),
+    url(r'^feed/enfeed/$', LatestEnglishBlogEntries(), name='blog_feed_en'),
+    url(r'^feed/enfeed/(?P<tag>.+)$', LatestEnglishBlogEntries(), name='blog_feed_en_tag'),
+    url(r'^feed/jpfeed/$', LatestJapaneseBlogEntries(), name='blog_feed_jp'),
+    url(r'^feed/jpfeed/(?P<tag>.+)$', LatestJapaneseBlogEntries(), name='blog_feed_jp_tag'),
 )

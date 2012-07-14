@@ -30,7 +30,7 @@ def blog_page(request, locale="en"):
         Post.objects.published().filter(locale=locale),
         extra_context={
             "locale":locale,
-            "rss_feed_url": reverse("blog_feeds", kwargs={"url": "%sfeed" % locale}),
+            "rss_feed_url": reverse("blog_feed_%s" % locale),
         },
     )
 
@@ -52,6 +52,6 @@ def tag_page(request, tag, locale="en"):
         template_name="blog/post_list.html",
         extra_context={
             'locale':locale,
-            "rss_feed_url": reverse("blog_feeds", kwargs={"url": "%sfeed/%s" % (locale, tag)}),
+            "rss_feed_url": reverse("blog_feed_%s" % locale, kwargs={"tag": tag}),
         },
     )
