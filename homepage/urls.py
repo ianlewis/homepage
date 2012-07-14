@@ -1,4 +1,6 @@
-from django.conf.urls.defaults import *
+#:coding=utf-8:
+
+from django.conf.urls.defaults import url, patterns, include
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -30,14 +32,14 @@ urlpatterns += patterns('',
 
 urlpatterns += blog_urls.urlpatterns
 
-urlpatterns += patterns('',
-    url(r'^$', 'core.views.main_page', name='main_page'), 
-    url(r'^items/tag/(?P<tag>.+)$', 'core.views.tag_page', name='tag_page'),
+urlpatterns += patterns('homepage.core.views',
+    url(r'^$', 'main_page', name='main_page'), 
+    url(r'^items/tag/(?P<tag>.+)$', 'tag_page', name='tag_page'),
 
-    url(r'^items/view/(?P<item_id>\d+)$', 'core.views.item_page', name='lifestream_item_page'),
-    url(r'^items/site/(?P<domain>.+)$', 'core.views.domain_page', name='lifestream_domain_page'),
+    url(r'^items/view/(?P<item_id>\d+)$', 'item_page', name='lifestream_item_page'),
+    url(r'^items/site/(?P<domain>.+)$', 'domain_page', name='lifestream_domain_page'),
 
-    url(r'^items/search$', 'core.views.search', name='lifestream_item_search'),
+    url(r'^items/search$', 'search', name='lifestream_item_search'),
 )
 
 class HomepageRecentItemsFeed(RecentItemsFeed):
@@ -71,13 +73,9 @@ class TaggedItemsFeed(RecentItemsFeed):
             raise Tag.DoesNotExist
         return Tag.objects.get(name=bits[0])
 
-feeds = {
-    'recent': HomepageRecentItemsFeed,
-    'tag': TaggedItemsFeed,
-}
-
 urlpatterns += patterns('',
-    url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds }, name='lifestream_feeds'), 
+    url(r'^feeds/recent/$', HomepageRecentItemsFeed(), name='lifestream_recent_feed'), 
+    url(r'^feeds/tag/(?P<tag>.*)/$', TaggedItemsFeed(), name='lifestream_tag_feed'), 
 )
 
 if settings.DEBUG:

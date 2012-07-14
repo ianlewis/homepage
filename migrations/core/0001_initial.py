@@ -17,7 +17,7 @@ class Migration(SchemaMigration):
             ('source', self.gf('django.db.models.fields.CharField')(max_length=128, blank=True)),
             ('host', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
         ))
-        db.send_create_signal('homepage', ['Log'])
+        db.send_create_signal('core', ['Log'])
 
 
     def backwards(self, orm):

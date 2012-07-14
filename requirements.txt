@@ -11,7 +11,7 @@ html2text==3.200.3
 
 -e svn+http://feedparser.googlecode.com/svn/trunk/feedparser@303#egg=feedparser
 -e git+git://github.com/wardi/django-filebrowser-no-grappelli.git@1b6bd7dff0abcc22babd#egg=filebrowser
--e hg+https://bitbucket.org/IanLewis/django-lifestream/@81ac8bf4584c#egg=lifestream
+-e hg+https://bitbucket.org/IanLewis/django-lifestream/@ccf9d0bf8771#egg=lifestream
 -e git+git://github.com/ericflo/django-pagination.git@1c414c8ed010359597b05dad1b41b65aeddfd1d7#egg=pagination
 -e svn+http://django-tagging.googlecode.com/svn/trunk@186#egg=django_tagging
 -e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus

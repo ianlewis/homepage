@@ -37,7 +37,7 @@ def main_page(request):
             'latest_tweet': latest_tweet,
             "jp_post": jp_post,
             "en_post": en_post,
-            'rss_feed_url': reverse('lifestream_feeds', kwargs={'url': "recent"}),
+            'rss_feed_url': reverse('lifestream_recent_feed'),
         }
     )
 
@@ -63,7 +63,7 @@ def tag_page(request, tag):
         queryset_or_model=Item.objects.published(),
         tag=tag,
         extra_context={
-            "rss_feed_url": reverse("lifestream_feeds", kwargs={"url": "tag/%s" % tag}),
+            "rss_feed_url": reverse("lifestream_tag_feeds", kwargs={"tag": tag}),
         }
     )
 

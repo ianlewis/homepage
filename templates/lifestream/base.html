@@ -17,14 +17,17 @@ $(function() {
     });
   }
 
-  //Flickr Images
-  $("div.lifestream-item-inner.flickr-com img").each(function() {
+  var imgfix = function() {
     var img = $(this);
     var w = img.width();
     var extra = -1 * (w - 214)/2;
     img.css("left", extra+"px");
-    // alert($(this).attr("src")+": "+$(this).width());
-  });
+  };
+
+  // Run imgfix right away since load may not work for cached images.
+  // Also run it when the load() event is fired. May not work reliably
+  // but it's better than nothing for now.
+  $("div.lifestream-item-inner.flickr-com img").each(imgfix).load(imgfix);
 });
 </script>
 {% endblock %}

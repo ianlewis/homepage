@@ -1,8 +1,6 @@
 #:coding=utf8:
 
 from south.db import db
-from django.db import models
-from blog.models import *
 
 class Migration:
     
