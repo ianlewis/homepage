@@ -71,7 +71,7 @@ STATICFILES_MEDIA_DIRNAMES = (
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "core.finders.AppMediaDirectoriesFinder",
+    "homepage.core.finders.AppMediaDirectoriesFinder",
 )
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -91,11 +91,11 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     'django.contrib.messages.context_processors.messages',
-    "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.request",
+    "homepage.core.context_processors.debug",
 )
 
 MIDDLEWARE_CLASSES = (

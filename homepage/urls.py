@@ -34,12 +34,12 @@ urlpatterns += blog_urls.urlpatterns
 
 urlpatterns += patterns('homepage.core.views',
     url(r'^$', 'main_page', name='main_page'), 
-    url(r'^items/tag/(?P<tag>.+)$', 'tag_page', name='tag_page'),
+    #url(r'^items/tag/(?P<tag>.+)$', 'tag_page', name='tag_page'),
 
-    url(r'^items/view/(?P<item_id>\d+)$', 'item_page', name='lifestream_item_page'),
-    url(r'^items/site/(?P<domain>.+)$', 'domain_page', name='lifestream_domain_page'),
+    #url(r'^items/view/(?P<item_id>\\d+)$', 'item_page', name='lifestream_item_page'),
+    #url(r'^items/site/(?P<domain>.+)$', 'domain_page', name='lifestream_domain_page'),
 
-    url(r'^items/search$', 'search', name='lifestream_item_search'),
+    #url(r'^items/search$', 'search', name='lifestream_item_search'),
 )
 
 class HomepageRecentItemsFeed(RecentItemsFeed):

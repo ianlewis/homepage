@@ -21,12 +21,11 @@ body {
 }
 
 .header .header-inner {
-    position: relative;
     margin: 0 auto;
     max-width: 800px;
 }
 .header .header-inner .profile-img {
-
+    display: inline;
 }
 
 .header .title {
@@ -39,14 +38,13 @@ body {
 }
 
 .header .about {
+    display: inline;
+    width: 100px;
     /* background: #FFFFCC; */
-    position: absolute;
-    top: 0;
-    left: 100px;
     color: #CCCCCC;
     /* width: 450px; */
     margin-left: 20px;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .header .search-box {
@@ -96,10 +94,53 @@ body {
 
 /* =========== Lifestream ============== */
 
-.content #lifestream {
+.content #index {
     margin-top: 1em;
 }
 
-.content #lifestream .blog-hero {
-    height: 160px;
+.content #index .blog-hero {
+    margin-bottom: 20px;
+}
+.content #index .blog-hero a {
+    display: block;
+    padding: 10px 19px;
+
+    text-align: center;
+    line-height: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    height: 200px;
+
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+       -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.content #index .blog-hero .blog-hero-flag {
+    height: 170px;
+}
+.content #index .blog-hero .blog-hero-inner {
+    /* 
+      160 (blog-hero height)
+    - 8 * 2 (blog-hero padding)
+    - 10 * 2 (blog-hero-inner padding)
+    - 1 * 2 (blog-hero border)
+    */
+    height: 130px; 
+    background-color: #f5f5f5;
+}
+
+.content #index .blog-hero:hover {
+  border-color: #0088cc;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+     -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+          box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+.content #index .blog-hero .blog-link-title {
+    font-size: 1.5em;
+    font-weight: bold;
 }

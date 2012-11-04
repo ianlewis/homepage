@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load utility_tags lifestream_tags pagination_tags tagging_tags blog_tags %}
+
+{% block content %}
+<div id="index">
+  <div class="blog-links">
+    <div class="row-fluid">
+      <div class="blog-hero span6">
+        <a href="{% url blog_page "en" %}">
+          <div class="blog-hero-flag">
+            <img src="{{ STATIC_URL }}img/usa_flag.png" /><br />
+          </div>
+          <div class="blog-hero-text">English Blog</div>
+        </a>
+      </div>
+
+      <div class="blog-hero span6">
+        <a href="{% url blog_page "jp" %}">
+          <div class="blog-hero-flag">
+            <img src="{{ STATIC_URL }}img/japan_flag.png" style="border: 1px solid #DDD;"/><br />
+          </div>
+          <div class="blog-hero-text">日本語ブログ</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-two-column row-fluid">
+    <div class="span6">
+      {% for post in en_posts %}
+      {{ post.title }}
+      {% endfor %}
+    </div>
+    <div class="span6">
+      {% for post in jp_posts %}
+      {{ post.title }}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

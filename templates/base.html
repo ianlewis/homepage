@@ -15,6 +15,7 @@
     {% endif %}
     <meta name="keywords" content="{% block keywords %}Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド{% endblock %}"> 
     <meta name="description" content="{% block description %}Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.{% endblock %}">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     {% block extra_meta %}{% endblock %}
     {% block rss %}{% endblock %}
     {% block javascript %}{% endblock %}
@@ -26,11 +27,16 @@
       <div class="header">
         {% block header %}
         <div class="header-inner container">
-          <div class="profile-img">
-            <a href="{% url main_page %}"><img src="{{ STATIC_URL }}img/profile.jpg" alt="Ian Lewis" height="90px" width="90px"></a>
-          </div>
-          <div class="about">
-              <span class="title"><a href="{% url main_page %}">Ian Lewis</a></span> is a web developer living in Tokyo Japan. His current interests are in <a href="http://www.djangoproject.com/">Django</a>, <a href="http://www.python.org/">python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>. <a class="profile-link" href="/en/about/">About Me...</a>
+            <table class="about">
+              <tbody>
+                <tr>
+                  <td style="width:90px;padding-right:20px;"><a href="{% url main_page %}"><img src="{{ STATIC_URL }}img/profile.jpg" alt="Ian Lewis" height="90px" width="90px"></a></td>
+                  <td>
+                    <span class="title"><a href="{% url main_page %}">Ian Lewis</a></span> is a web developer living in Tokyo Japan. His current interests are in <a href="http://www.djangoproject.com/">Django</a>, <a href="http://www.python.org/">python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>. <a class="profile-link" href="/en/about/">About Me...</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         {# TODO: search etc. #}
