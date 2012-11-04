@@ -25,8 +25,8 @@
 {% ifequal request.page 1 %}
 <div class="blog-links">
   {% if en_post %}
-  <div class="row">
-    <div class="well span4"
+  <div class="row-fluid">
+    <div class="blog-hero well span6"
          onclick="window.location='{% url blog_page "en" %}';"
          onmouseover="$(this).addClass('over');"
          onmouseout="$(this).removeClass('over');"
@@ -41,7 +41,7 @@
     {% endif %}
 
     {% if jp_post %}
-    <div class="well span4"
+    <div class="blog-hero well span6"
          onclick="window.location='{% url blog_page "jp" %}';"
          onmouseover="$(this).addClass('over');"
          onmouseout="$(this).removeClass('over');"

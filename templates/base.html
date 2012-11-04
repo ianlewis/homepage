@@ -22,10 +22,10 @@
     {% block other_head %}{% endblock %}
   </head>
   <body>
-    <div class="main container">
+    <div class="main">
       <div class="header">
         {% block header %}
-        <div class="header-inner">
+        <div class="header-inner container">
           <div class="profile-img">
             <a href="{% url main_page %}"><img src="{{ STATIC_URL }}img/profile.jpg" alt="Ian Lewis" height="90px" width="90px"></a>
           </div>
@@ -33,9 +33,7 @@
               <span class="title"><a href="{% url main_page %}">Ian Lewis</a></span> is a web developer living in Tokyo Japan. His current interests are in <a href="http://www.djangoproject.com/">Django</a>, <a href="http://www.python.org/">python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>. <a class="profile-link" href="/en/about/">About Me...</a>
           </div>
         </div>
-        <div class="span2">{#{% block header_right %}{% endblock %}#}</div>
-          {% block extra_header %}{% endblock %}
-        <div class="span2">&nbsp;</div>
+        {# TODO: search etc. #}
         {% endblock %}
       </div>
       <div class="content">

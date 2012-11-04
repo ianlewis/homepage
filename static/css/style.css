@@ -3,9 +3,7 @@ body {
     /* text-rendering: optimizeLegibility; */
 }
 
-.main {
-    max-width: 1000px;
-}
+/* =========== Header ============== */
 
 .header {
     color: white;
@@ -14,10 +12,18 @@ body {
     overflow: hidden;
 }
 
+/* To counteract bootstrap's margin on the <body> tag */
+@media (max-width: 767px) {
+    .header {
+        margin-right: -20px;
+        margin-left: -20px;
+    }
+}
+
 .header .header-inner {
     position: relative;
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 800px;
 }
 .header .header-inner .profile-img {
 
@@ -40,6 +46,7 @@ body {
     color: #CCCCCC;
     /* width: 450px; */
     margin-left: 20px;
+    font-size: 1.5em;
 }
 
 .header .search-box {
@@ -78,4 +85,21 @@ body {
 .header .search-box #search-button span {
     position: absolute;
     left: -9999999px;
+}
+
+/* =========== Content ============== */
+
+.content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* =========== Lifestream ============== */
+
+.content #lifestream {
+    margin-top: 1em;
+}
+
+.content #lifestream .blog-hero {
+    height: 160px;
 }
