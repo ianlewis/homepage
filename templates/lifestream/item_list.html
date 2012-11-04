@@ -14,11 +14,16 @@
 
   {% block top_content %}{% endblock %}
 
-  <div class="lifestream">
+  <div class="lifestream component">
     {% if page_obj.object_list %}
-      <ul class="lifestream-item-list">
-      {% for object in page_obj.object_list %}
-        {% render_item object %}
+      {% for object_batch in page_obj.object_list|batch:3 %}
+        <div class="row">
+          {% for object in object_batch %}
+          <div class="span3">
+          {% render_item object %}
+          </div>
+          {% endfor %}
+        </div>
       {% endfor %}
       </ul>
     {% else %}

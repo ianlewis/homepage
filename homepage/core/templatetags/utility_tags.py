@@ -6,9 +6,13 @@ from datetime import datetime,timedelta
 from django.utils.safestring import mark_safe
 from django.utils.translation import ngettext,ugettext_lazy as _
 from django.template.defaultfilters import stringfilter
-
 from django import template
+
+from homepage.core.utils import batch
+
 register = template.Library()
+
+register.filter(batch)
 
 @register.filter
 @stringfilter

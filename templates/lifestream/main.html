@@ -25,32 +25,34 @@
 {% ifequal request.page 1 %}
 <div class="blog-links">
   {% if en_post %}
-  <div class="english-blog blog-link" 
-       onclick="window.location='{% url blog_page "en" %}';"
-       onmouseover="$(this).addClass('over');"
-       onmouseout="$(this).removeClass('over');"
-  >
-    {% if en_post %}
-      <div class="blog-title">English Blog</div>
-      <div class="blog-link-title">{{ en_post.title }}</div>
-      <div class="blog-link-content">{{ en_post|to_html|striptags|truncate_chars:80|safe }}</div>
+  <div class="row">
+    <div class="well span4"
+         onclick="window.location='{% url blog_page "en" %}';"
+         onmouseover="$(this).addClass('over');"
+         onmouseout="$(this).removeClass('over');"
+    >
+      {% if en_post %}
+        <div class="blog-title">English Blog</div>
+        <div class="blog-link-title">{{ en_post.title }}</div>
+        <div class="blog-link-content">{{ en_post|to_html|striptags|truncate_chars:80|safe }}</div>
+      {% endif %}
+      <div class="more">Read More</div>
+    </div>
     {% endif %}
-    <div class="more">Read More</div>
-  </div>
-  {% endif %}
 
-  {% if jp_post %}
-  <div class="japanese-blog blog-link"
-       onclick="window.location='{% url blog_page "jp" %}';"
-       onmouseover="$(this).addClass('over');"
-       onmouseout="$(this).removeClass('over');"
-  >
     {% if jp_post %}
-      <div class="blog-title">日本語ブログ</div>
-      <div class="blog-link-title">{{ jp_post.title }}</div>
-      <div class="blog-link-content">{{ jp_post|to_html|striptags|truncate_chars:60|safe }}</div>
-    {% endif %}
-    <div class="more">もっと見る</div>
+    <div class="well span4"
+         onclick="window.location='{% url blog_page "jp" %}';"
+         onmouseover="$(this).addClass('over');"
+         onmouseout="$(this).removeClass('over');"
+    >
+      {% if jp_post %}
+        <div class="blog-title">日本語ブログ</div>
+        <div class="blog-link-title">{{ jp_post.title }}</div>
+        <div class="blog-link-content">{{ jp_post|to_html|striptags|truncate_chars:60|safe }}</div>
+      {% endif %}
+      <div class="more">もっと見る</div>
+    </div>
   </div>
   {% endif %}
 </div>
