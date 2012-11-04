@@ -1,5 +1,5 @@
 Django==1.4
-BeautifulSoup==3.1.0.1
+BeautifulSoup==3.2.0
 docutils>=0.5
 pygments>=1.0
 python-dateutil==1.5
