@@ -1,5 +1,5 @@
 body {
-    font-family: 'IPAexゴシック', 'IPAexGothic', 'TakaoExゴシック', 'TakaoExGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Helvetica', sans-serif;
+    /* font-family: 'IPAexゴシック', 'IPAexGothic', 'TakaoExゴシック', 'TakaoExGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Helvetica', sans-serif; */
     /* text-rendering: optimizeLegibility; */
 }
 
@@ -92,7 +92,7 @@ body {
     margin: 0 auto;
 }
 
-/* =========== Lifestream ============== */
+/* =========== Index ============== */
 
 .content #index {
     margin-top: 1em;
@@ -101,7 +101,7 @@ body {
 .content #index .blog-hero {
     margin-bottom: 20px;
 }
-.content #index .blog-hero a {
+.content #index .blog-hero .hero-inner {
     display: block;
     padding: 10px 19px;
 
@@ -109,18 +109,20 @@ body {
     line-height: 20px;
     font-size: 1.5em;
     font-weight: bold;
-    height: 200px;
+    /* height: 200px; */
 
     border: 1px solid #ddd;
+
     -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-            border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-       -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .content #index .blog-hero .blog-hero-flag {
-    height: 170px;
+    /* height: 170px; */
 }
 .content #index .blog-hero .blog-hero-inner {
     /* 
@@ -134,13 +136,33 @@ body {
 }
 
 .content #index .blog-hero:hover {
-  border-color: #0088cc;
-  -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-     -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-          box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    border-color: #0088cc;
+
+    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 }
 
 .content #index .blog-hero .blog-link-title {
     font-size: 1.5em;
     font-weight: bold;
+}
+
+/* =========== Blog List ============== */
+
+.content .blog-list ol {
+    list-style: none;
+    margin: 0;
+}
+.content .blog-list .blog-post {
+    padding: 10px;
+    margin-bottom: 20px;
+
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.content .blog-list .blog-post h3 a {
+    color: #333;
 }
