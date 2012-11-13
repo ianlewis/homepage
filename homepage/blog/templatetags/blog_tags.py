@@ -146,11 +146,12 @@ def abbrev(s, num=255, end="..."):
         s = (s[:index] + end) if index > 0 else s[:num]
     return s
 
-def to_lead(obj):
+def to_lead(obj, max_len=None):
     if obj.lead:
         return obj.lead
     else:
-        max_len = 300 if obj.locale == "jp" else 600
+        if not max_len:
+            max_len = 300 if obj.locale == "jp" else 600
         html = to_html(obj)
         try:
             return abbrev(html_to_text(html), max_len, "[...]")
