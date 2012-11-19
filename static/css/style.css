@@ -98,9 +98,6 @@ body {
     margin-top: 1em;
 }
 
-.content #index .blog-hero {
-    margin-bottom: 20px;
-}
 .content #index .blog-hero .hero-inner {
     display: block;
     padding: 10px 19px;
@@ -155,8 +152,8 @@ body {
     margin: 0;
 }
 .content .blog-list .blog-post {
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 1em;
+    margin-top: 2em;
 
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
