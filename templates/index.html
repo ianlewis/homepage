@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load utility_tags lifestream_tags pagination_tags tagging_tags blog_tags %}
+{% load utility_tags lifestream_tags pagination_tags tagging_tags blog_tags i18n %}
 
 {% block content %}
 <div id="index">
@@ -35,7 +35,7 @@
       <div class="blog-post clearfix">
         <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
         <div class="post-content">
-          <div class="post-date">{{ post.pub_date|date:"Y/m/d H:i" }}</div>
+          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
           {% if post.content %}
           <p>{{ post|to_lead:400 }}</p>
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
@@ -62,7 +62,7 @@
       <div class="blog-post clearfix">
         <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
         <div class="post-content">
-          <div class="post-date">{{ post.pub_date|date:"Y/m/d H:i" }}</div>
+          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
           {% if post.content %}
           <p>{{ post|to_lead:200 }}</p>
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">もっと読む&raquo;</a></p>

@@ -166,3 +166,10 @@ body {
 .content .blog-list .blog-post h3 a {
     color: #333;
 }
+.content .blog-list .blog-post h1 a {
+    color: #333;
+}
+
+#postlist.blog-list {
+    margin-top: 3em;
+}
