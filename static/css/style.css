@@ -167,7 +167,10 @@ body, p {
 }
 
 .content #index .blog-list .blog-post {
-    margin-top: 0;
+    margin: 0;
+}
+.content #index .blog-list .blog-post .post-content {
+    margin: 0;
 }
 .content #index .blog-list .blog-post::after {
     margin-top: 3em;
@@ -180,11 +183,13 @@ body, p {
     }
 }
 
-.content #blog-list .blog-list .post-content {
+/* =========== Blog Post ============== */
+
+.content .blog-post .post-content {
     margin: 2em 0;
 }
 
-.content .blog-list .blog-post {
+.content .blog-post {
     padding: 0 1em 1em 1em;
     margin-top: 2em;
 
@@ -195,7 +200,7 @@ body, p {
     */
 }
 
-.content .blog-list .blog-post::after {
+.content .blog-post::after {
     display: block;
     content: '';
     width: 100px;
@@ -206,11 +211,9 @@ body, p {
 }
 
 
-.content .blog-list .post-content p {
+.content .blog-post .post-content p {
     line-height: 1.5em;
 }
-
-/* =========== Blog Post ============== */
 
 .content .blog-post h3 a {
     color: #333;
