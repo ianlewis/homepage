@@ -174,9 +174,12 @@ body, p {
 }
 /* =========== Blog List ============== */
 
-.content #blog-list .blog-list {
-    margin: 0px 6em;
+@media (min-width: 767px) {
+    .content #blog-list .blog-list {
+        margin: 0px 6em;
+    }
 }
+
 .content #blog-list .blog-list .post-content {
     margin: 2em 0;
 }
