@@ -11,7 +11,7 @@
           <img src="{{ STATIC_URL }}img/usa_flag.png" /><br />
           <!--<div class="blog-hero-text">English Blog</div>-->
           <h2>English Blog</h2>
-          <p>For those of you from the English speaking world.</p>
+          <p>For those from the English speaking world.</p>
           <p><a class="btn btn-primary" href="{% url blog_page "en" %}">View all posts &raquo;</a></p>
         </div>
       </div>
@@ -22,7 +22,7 @@
           <img src="{{ STATIC_URL }}img/japan_flag.png" style="border: 1px solid #DDD;"/><br />
           <h2>日本語ブログ</h2>
           <p>日本語の世界の皆様はこちらへ</p>
-          <p><a class="btn btn-success" href="{% url blog_page "ja" %}">すべての記事を読む &raquo;</a></p>
+          <p><a class="btn btn-success" href="{% url blog_page "jp" %}">すべての記事を読む &raquo;</a></p>
         </div>
       </div>
     </div>
@@ -33,15 +33,15 @@
       {% for post in en_posts %}
       {% tags_for_object post as post_tags %}
       <div class="blog-post clearfix">
-        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-        <div class="post-content">
+        <div class="post-header">
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
           <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
-          {% if post.content %}
-          <p>{{ post|to_lead:400 }}</p>
+        </div>
+        <div class="post-content">
+          <p>{{ post|to_lead:200|default:"&nbsp;" }}</p>
+        </div>
+        <div class="post-footer">
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
-          {% else %}
-          <p>&nbsp;</p>
-          {% endif %}
           <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "en" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         </div>
         {% comment %}
@@ -60,15 +60,15 @@
       {% for post in jp_posts %}
       {% tags_for_object post as post_tags %}
       <div class="blog-post clearfix">
-        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-        <div class="post-content">
+        <div class="post-header">
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
           <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
-          {% if post.content %}
-          <p>{{ post|to_lead:200 }}</p>
+        </div>
+        <div class="post-content">
+          <p>{{ post|to_lead:100|default:"&nbsp;" }}</p>
+        </div>
+        <div class="post-footer">
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">もっと読む&raquo;</a></p>
-          {% else %}
-          <p>&nbsp;</p>
-          {% endif %}
           <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "jp" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         </div>
         {% comment %}

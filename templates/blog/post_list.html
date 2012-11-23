@@ -10,22 +10,23 @@
 {% endblock %}
 
 {% block blog_content %}
+<div id="blog-list">
   {% autopaginate object_list 10 %}
 
-  <div id="postlist" class="blog-list">
+  <div class="blog-list">
   {% if object_list %}
     {% for post in object_list %}
       {% tags_for_object post as post_tags %}
       <div class="blog-post clearfix">
-        <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-        <div class="post-content">
+        <div class="post-header">
+          <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
           <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
-          {% if post.content %}
-          <p>{{ post|to_lead:400 }}</p>
+        </div>
+        <div class="post-content">
+          <p>{{ post|to_lead:400|default:"&nbsp;" }}</p>
+        </div>
+        <div class="post-footer">
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
-          {% else %}
-          <p>&nbsp;</p>
-          {% endif %}
           <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "en" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         </div>
         {% comment %}
@@ -41,10 +42,11 @@
     {% endfor %}
   {% endif %}
   </div>
-<br/>
+  <br/>
 
 {% paginate %}
 
+</div>
 {% endblock %}
 
 {% block js_footer %}

@@ -149,7 +149,7 @@ def abbrev(s, num=255, end="..."):
 def to_lead(obj, max_len=None):
     if obj.lead:
         return obj.lead
-    else:
+    elif obj.content:
         if not max_len:
             max_len = 300 if obj.locale == "jp" else 600
         html = to_html(obj)
@@ -160,6 +160,7 @@ def to_lead(obj, max_len=None):
                 e,
                 html,
             ))
-            return ""
+    
+    return ""
          
 register.filter("to_lead", to_lead)
