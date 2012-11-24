@@ -148,19 +148,20 @@ def abbrev(s, num=255, end="..."):
 
 def to_lead(obj, max_len=None):
     if obj.lead:
-        return obj.lead
+        lead = obj.lead
     elif obj.content:
-        if not max_len:
-            max_len = 300 if obj.locale == "jp" else 600
         html = to_html(obj)
         try:
-            return abbrev(html_to_text(html), max_len, "[...]")
+            lead = html_to_text(html)
         except HTMLParser.HTMLParseError,e:
             logger.error('HTML Parse error: "%s" for text "%s"' % (
                 e,
                 html,
             ))
-    
-    return ""
+            return ""
+
+    if not max_len:
+        max_len = 300 if obj.locale == "jp" else 600
+    return abbrev(lead, max_len, "[...]")
          
 register.filter("to_lead", to_lead)

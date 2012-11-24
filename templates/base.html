@@ -53,6 +53,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery-1.3.2.min.js"></script>
     <script type="text/javascript">
       STATIC_URL='{{ STATIC_URL }}';
+      $('a[href="#"]').click(function(){return false;});
     </script>
     {% disqus_dev %}
     {% block js_footer %}{% endblock %}

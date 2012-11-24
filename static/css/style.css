@@ -7,6 +7,11 @@ body, p {
     font-size: 16px;
 }
 
+/* Fix optimizeLegibility brokenness with Japanese fonts */
+h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeSpeed;
+}
+
 /* =========== Header ============== */
 
 .header {
@@ -220,4 +225,109 @@ body, p {
 }
 .content .blog-post h1 a {
     color: #333;
+}
+
+.content .blog-post .post-content h1 {
+    margin-top: 2em;
+}
+.content .blog-post .post-content h2 {
+    margin: 1em 0 0.5em 0;
+}
+.content .blog-post .post-content h3 {
+    margin: 0.7em 0 0.35em 0;
+}
+.content .blog-post .post-content h4 {
+    margin: 0.5em 0 0.25em 0;
+}
+/* =========== Notes ============== */
+
+.note {
+    position: relative;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    background-color: white;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.admonition-title {
+    /* content: "Note"; */
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: whiteSmoke;
+    border: 1px solid #DDD;
+    color: #9DA0A4;
+    -webkit-border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px 0 4px 0;
+    border-radius: 4px 0 4px 0;
+}
+
+/* =========== Pagination ============== */
+
+.pagination {
+    text-align: center;
+}
+
+/* =========== About Page ============== */
+
+#flatpage {
+    margin: 20px 0;
+}
+
+#flatpage #about p {
+    margin: 10px 0;
+}
+
+#flatpage #about .profiles li {
+    /* display: inline; */
+    float: left;
+    margin-right: 5px;
+}
+
+#flatpage #about .profiles li a {
+    display: block;
+    height: 16px;
+    width: 16px;
+    text-indent: -30000px;
+    /* border: 1px solid #CCC; */
+}
+
+#flatpage #about .profiles li a {
+    background-image: url(../img/icon_externalsite.png);
+    background-repeat: no-repeat;
+    outline: none;
+}
+
+
+#flatpage #about .profiles li.twitter a {
+    background-position: 0 -650px;
+}
+#flatpage #about .profiles li.bitbucket a {
+    background-position: 0 -1751px;
+}
+#flatpage #about .profiles li.github a {
+    background-position: 0 -1516px;
+}
+#flatpage #about .profiles li.flickr a {
+    background-position: 0 -150px;
+}
+#flatpage #about .profiles li.lastfm a {
+    background-position: 0 -350px;
+}
+#flatpage #about .profiles li.facebook a {
+    background-position: 0 -1648px;
+}
+#flatpage #about .profiles li.delicious a {
+    background-position: 0 -1200px;
+}
+#flatpage #about .profiles li.linkedin a {
+    background-position: 0 -800px;
+}
+#flatpage #about .profiles li.friendfeed a {
+    background-position: 0 -1472px;
 }

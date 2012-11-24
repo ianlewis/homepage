@@ -30,7 +30,7 @@
 
   <div class="blog-two-column row-fluid blog-list">
     <div class="span6">
-      {% for post in en_posts %}
+      {% for post in en_posts|slice:":5" %}
       {% tags_for_object post as post_tags %}
       <div class="blog-post clearfix">
         <div class="post-header">
@@ -57,7 +57,7 @@
       {% endfor %}
     </div>
     <div class="span6">
-      {% for post in jp_posts %}
+      {% for post in jp_posts|slice:":5" %}
       {% tags_for_object post as post_tags %}
       <div class="blog-post clearfix">
         <div class="post-header">
