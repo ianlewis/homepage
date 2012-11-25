@@ -1,4 +1,4 @@
-Django==1.4
+Django==1.4.2
 BeautifulSoup==3.2.0
 docutils>=0.5
 pygments>=1.0
