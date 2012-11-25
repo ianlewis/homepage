@@ -96,13 +96,26 @@ h1, h2, h3, h4, h5, h6 {
 
 /* =========== Footer ============== */
 
-.footer {
-    color: white;
-    background: black;
-    padding: 10px;
-    overflow: hidden;
+footer:before {
+    display: block;
+    content: '';
+    width: 100px;
+    height: 1px;
+    margin: 80px auto 20px;
+    background-color: #EEE;
 }
 
+footer {
+    text-align: center;
+    /* width: 300px; */
+}
+
+footer p {
+    font-size: 12px;
+    line-height: 20px;
+    color: #999;
+    margin-top: 2em;
+}
 /* =========== Content ============== */
 
 .content {
@@ -267,7 +280,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content .blog-post .post-content img {
-    margin: 1em 0;
+    margin: 1em;
 
     padding: 10px;
     border: 1px solid #CCC;

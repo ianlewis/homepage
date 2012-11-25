@@ -16,11 +16,21 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': 'djangodb.sqlite',
+#        'USER': '',
+#        'PASSWORD': '',
+#        'HOST': '',
+#        'PORT': '',
+#    }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'djangodb.sqlite',
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ianlewis_hp',
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
