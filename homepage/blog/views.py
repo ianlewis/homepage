@@ -52,6 +52,6 @@ def tag_page(request, tag, locale="en"):
         template_name="blog/post_list.html",
         extra_context={
             'locale':locale,
-            "rss_feed_url": reverse("blog_feed_%s" % locale, kwargs={"tag": tag}),
+            "rss_feed_url": reverse("blog_feed_%s_tag" % locale, kwargs={"tag": tag}),
         },
     )

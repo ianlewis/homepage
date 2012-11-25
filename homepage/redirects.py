@@ -35,4 +35,7 @@ urlpatterns = patterns('',
 
     url(r'^en/(?P<tag_name>.+)\;', redirect_to, {'url': '/en/tag/%(tag_name)s'}),
     url(r'^jp/(?P<tag_name>.+)\;', redirect_to, {'url': '/jp/tag/%(tag_name)s'}),
+
+    # Old lifestream urls. 
+    url(r'^items/', redirect_to, {'url': '/'}),
 )

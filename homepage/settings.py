@@ -141,7 +141,6 @@ INSTALLED_APPS = (
     'south',
     'filebrowser',
     'pagination',
-    'lifestream',
     'tagging',
     'disqus',
 
@@ -153,21 +152,6 @@ INSTALLED_APPS = (
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
 APPEND_SLASH=False
-
-# django-lifestream
-LIFESTREAM_PLUGINS = (
-  ('lifestream.plugins.FeedPlugin', 'Generic Feed'),
-  ('lifestream.plugins.twitter.TwitterPlugin', 'Twitter Plugin'),
-  ('lifestream.plugins.youtube.YoutubePlugin', 'Youtube Plugin'),
-  ('lifestream.plugins.flickr.FlickrPlugin', 'Flickr Plugin'),
-  ('core.plugins.google.GooglePlugin', 'Google Plugin'),
-  ('core.plugins.slideshare.SlidesharePlugin', 'Slideshare Plugin'),
-  # ('youtube', 'Youtube'),
-  # ('vimeo', 'Vimeo'),
-  # ('lastfm', 'last.fm'),
-)
-
-LIFESTREAM_FEED_TIMEOUT = 10
 
 # django-tagging
 FORCE_LOWERCASE_TAGS=True
@@ -235,7 +219,6 @@ INTERNAL_IPS = (
 SOUTH_MIGRATION_MODULES = {
     "core": "migrations.core",
     "blog": "migrations.blog",
-    "lifestream": "migrations.lifestream",
     "tagging": "migrations.tagging",
 }
 
