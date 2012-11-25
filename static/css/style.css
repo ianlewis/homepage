@@ -62,8 +62,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header .search-box input {
-    -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
     
     background: #FFFFFF none repeat scroll 0 0;
     border: 1px solid #AAAAAA;
@@ -116,6 +116,30 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 1em;
 }
 
+.content #index .blog-hero {
+    border: 1px solid #ddd;
+
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
+       -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
+
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+}
+.content #index .blog-hero:hover {
+    border-color: #0088cc;
+
+    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+       -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+            box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
 .content #index .blog-hero .hero-inner {
     display: block;
     padding: 10px 19px;
@@ -125,16 +149,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.5em;
     font-weight: bold;
     /* height: 200px; */
-
-    border: 1px solid #ddd;
-
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .content #index .blog-hero .blog-hero-flag {
     /* height: 170px; */
@@ -150,13 +164,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #f5f5f5;
 }
 
-.content #index .blog-hero:hover {
-    border-color: #0088cc;
-
-    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-    -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-    box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-}
 
 .content #index .blog-hero .blog-link-title {
     font-size: 1.5em;
@@ -239,6 +246,37 @@ h1, h2, h3, h4, h5, h6 {
 .content .blog-post .post-content h4 {
     margin: 0.5em 0 0.25em 0;
 }
+
+.content .blog-post .post-content img.align-center {
+    display: block;
+    margin: 0 auto;
+}
+
+.content .blog-post .post-content img.align-left {
+    display: block;
+    float: left;
+    /* Add margin to separate from text on the right */
+    margin-right: 2em;
+}
+
+.content .blog-post .post-content img.align-right {
+    display: block;
+    float: right;
+    /* Add margin to separate from text on the left */
+    margin-left: 2em; 
+}
+
+.content .blog-post .post-content img {
+    margin: 1em 0;
+
+    padding: 10px;
+    border: 1px solid #CCC;
+
+    -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
+       -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
+}
+
 /* =========== Notes ============== */
 
 .note {
@@ -247,9 +285,10 @@ h1, h2, h3, h4, h5, h6 {
     padding: 39px 19px 14px;
     background-color: white;
     border: 1px solid #DDD;
+
     -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
 }
 .admonition-title {
     /* content: "Note"; */
@@ -262,9 +301,10 @@ h1, h2, h3, h4, h5, h6 {
     background-color: whiteSmoke;
     border: 1px solid #DDD;
     color: #9DA0A4;
+
     -webkit-border-radius: 4px 0 4px 0;
-    -moz-border-radius: 4px 0 4px 0;
-    border-radius: 4px 0 4px 0;
+       -moz-border-radius: 4px 0 4px 0;
+            border-radius: 4px 0 4px 0;
 }
 
 /* =========== Pagination ============== */
