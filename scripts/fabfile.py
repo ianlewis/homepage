@@ -45,7 +45,7 @@ def _annotate_hosts_with_ssh_config_info():
 
 def _run_app_cmd(cmd):
     with prefix('source %(venv_path)s/bin/activate' % env):
-        with cd('%(app_path)s/app' % env):
+        with cd('%(app_path)s/' % env):
             sudo(cmd, user=env.deploy_user)
 
 @roles('webservers')
@@ -101,8 +101,8 @@ def migrate_db():
 
 @roles('webservers')
 def put_settings():
-    put("%s/app/settings_production.py" % ROOT_PATH, "%(app_path)s/app/settings_local.py" % env, use_sudo=True)
-    sudo('chown %(deploy_user)s:%(deploy_user)s "%(app_path)s/app/settings_local.py"' % env)
+    put("%s/homepage/settings_production.py" % ROOT_PATH, "%(app_path)s/homepage/settings_local.py" % env, use_sudo=True)
+    sudo('chown %(deploy_user)s:%(deploy_user)s "%(app_path)s/homepage/settings_local.py"' % env)
 
 @roles('webservers')
 def deploy():
@@ -120,8 +120,8 @@ def production():
     env.roledefs.update({
         'webservers': ['www.ianlewis.org'],
     })
-    env.rev = 'default' 
-    env.settings = 'settings_local'
+    env.rev = 'bootstrap' 
+    env.settings = 'homepage.settings_local'
     env.app_path = '/var/www/vhosts/homepage'
     env.venv_path = '/var/www/venvs/homepage'
     env.service_path = '/etc/service/homepage'
