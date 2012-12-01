@@ -10,39 +10,43 @@
 {% endblock %}
 
 {% block blog_content %}
+<div id="blog-list">
   {% autopaginate object_list 10 %}
 
+  <div class="blog-list">
   {% if object_list %}
-    <ul>
-    {% for item in object_list %}
-      {% tags_for_object item as item_tags %}
-      <li class="blog-post">
-        <h1 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title|safe }}</a></h1>
-        <div class="post-date">{{ item.pub_date }}</div>
-        <div class="post-tags">{% for tag in item_tags %}<a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
-        <div class="post-body">
-        {% if item.content %}
-        {{ item|to_lead }} <a href="{{ item.get_absolute_url }}">Read More</a>
-        {% else %}
-          &nbsp;
-        {% endif %}
+    {% for post in object_list %}
+      {% tags_for_object post as post_tags %}
+      <div class="blog-post clearfix">
+        <div class="post-header">
+          <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
         </div>
+        <div class="post-content">
+          <p>{{ post|to_lead:400|default:"&nbsp;" }}</p>
+        </div>
+        <div class="post-footer">
+          <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
+          <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "en" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+        </div>
+        {% comment %}
         <div class="post-comment-link">
-          <a class="disqus-link" href="{{ item.get_absolute_url }}#disqus_thread">Send feedback</a>
+          <a class="disqus-link" href="{{ post.get_absolute_url }}#disqus_thread">Send feedback</a>
           &nbsp;
-          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ item.get_absolute_url }}"></g:plusone>
-          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ item.title }}" data-url="{{ item.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ item.lang }}">Tweet</a>
-          <a href="http://b.hatena.ne.jp/entry/{{ item.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ item.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ post.get_absolute_url }}"></g:plusone>
+          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ post.title }}" data-url="{{ post.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ post.lang }}">Tweet</a>
+          <a href="http://b.hatena.ne.jp/entry/{{ post.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ post.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
         </div>
-        <div class="clear"></div>
-      </li>
+        {% endcomment %}
+      </div>
     {% endfor %}
-    </ul>
   {% endif %}
-<br/>
+  </div>
+  <br/>
 
 {% paginate %}
 
+</div>
 {% endblock %}
 
 {% block js_footer %}
@@ -58,13 +62,4 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
   })();
 </script>
-{% endblock %}
-
-{% block footer %}
-<div class="tag-cloud">
-{% tag_cloud_for_model blog.post as post_tags with steps=20 min_count=4 distribution=log %}
-{% for post_tag in post_tags %}
-<a style="font-size: {{ post_tag.font_size|add:"10" }}px;" href="{% url blog_tag_page locale post_tag.name %}">{{ post_tag.name }}</a>&nbsp;&nbsp;
-{% endfor %}
-</div>
 {% endblock %}

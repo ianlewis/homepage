@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load utility_tags pagination_tags tagging_tags blog_tags i18n %}
+
+{% block content %}
+<div id="index">
+  <div class="blog-links">
+    <div class="row-fluid">
+      <div class="blog-hero span6">
+        <!--<a class="hero-inner" href="{% url blog_page "en" %}">-->
+        <div class="hero-inner">
+          <img src="{{ STATIC_URL }}img/usa_flag.png" /><br />
+          <!--<div class="blog-hero-text">English Blog</div>-->
+          <h2>English Blog</h2>
+          <p>For those from the English speaking world.</p>
+          <p><a class="btn btn-primary" href="{% url blog_page "en" %}">View all posts &raquo;</a></p>
+        </div>
+      </div>
+
+      <div class="blog-hero span6">
+        <!--<a class="hero-inner" href="{% url blog_page "jp" %}">-->
+        <div class="hero-inner">
+          <img src="{{ STATIC_URL }}img/japan_flag.png" style="border: 1px solid #DDD;"/><br />
+          <h2>日本語ブログ</h2>
+          <p>日本語の世界の皆様はこちらへ</p>
+          <p><a class="btn btn-success" href="{% url blog_page "jp" %}">すべての記事を読む &raquo;</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-two-column row-fluid blog-list">
+    <div class="span6">
+      {% for post in en_posts|slice:":5" %}
+      {% tags_for_object post as post_tags %}
+      <div class="blog-post clearfix">
+        <div class="post-header">
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
+        </div>
+        <div class="post-content">
+          <p>{{ post|to_lead:200|default:"&nbsp;" }}</p>
+        </div>
+        <div class="post-footer">
+          <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
+          <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "en" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+        </div>
+        {% comment %}
+        <div class="post-comment-link">
+          <a class="disqus-link" href="{{ post.get_absolute_url }}#disqus_thread">Send feedback</a>
+          &nbsp;
+          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ post.get_absolute_url }}"></g:plusone>
+          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ post.title }}" data-url="{{ post.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ post.lang }}">Tweet</a>
+          <a href="http://b.hatena.ne.jp/entry/{{ post.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ post.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        </div>
+        {% endcomment %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="span6">
+      {% for post in jp_posts|slice:":5" %}
+      {% tags_for_object post as post_tags %}
+      <div class="blog-post clearfix">
+        <div class="post-header">
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
+        </div>
+        <div class="post-content">
+          <p>{{ post|to_lead:100|default:"&nbsp;" }}</p>
+        </div>
+        <div class="post-footer">
+          <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">もっと読む&raquo;</a></p>
+          <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "jp" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+        </div>
+        {% comment %}
+        <div class="post-comment-link">
+          <a class="disqus-link" href="{{ post.get_absolute_url }}#disqus_thread">Send feedback</a>
+          &nbsp;
+          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ post.get_absolute_url }}"></g:plusone>
+          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ post.title }}" data-url="{{ post.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ post.lang }}">Tweet</a>
+          <a href="http://b.hatena.ne.jp/entry/{{ post.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ post.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        </div>
+        {% endcomment %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

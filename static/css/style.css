@@ -1,0 +1,386 @@
+body {
+    /* font-family: 'IPAexゴシック', 'IPAexGothic', 'TakaoExゴシック', 'TakaoExGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Helvetica', sans-serif; */
+    /* text-rendering: optimizeLegibility; */
+}
+
+body, p {
+    font-size: 16px;
+}
+
+/* Fix optimizeLegibility brokenness with Japanese fonts */
+h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeSpeed;
+}
+
+/* =========== Header ============== */
+
+.header {
+    color: white;
+    background: black;
+    padding: 10px;
+    overflow: hidden;
+}
+
+/* To counteract bootstrap's margin on the <body> tag */
+@media (max-width: 767px) {
+    .header {
+        margin-right: -20px;
+        margin-left: -20px;
+    }
+}
+
+.header .header-inner {
+    margin: 0 auto;
+    max-width: 800px;
+}
+.header .header-inner .profile-img {
+    display: inline;
+}
+
+.header .title {
+    font-size: 150%;
+}
+
+.header .title a,.header .title a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.header .about {
+    display: inline;
+    width: 100px;
+    /* background: #FFFFCC; */
+    color: #CCCCCC;
+    /* width: 450px; */
+    margin-left: 20px;
+    font-size: 1.3em;
+}
+
+.header .search-box {
+    float: right;
+    position: relative;
+}
+
+.header .search-box input {
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+    
+    background: #FFFFFF none repeat scroll 0 0;
+    border: 1px solid #AAAAAA;
+    color: #333333;
+    padding: 2px 5px;
+    width: 200px;
+    margin-right: 18px;
+}
+
+.header .search-box button {
+    background: transparent url(../img/icon_searchglass.png) no-repeat scroll 0 0;
+    border: 0 none;
+    cursor: pointer;
+
+    position: absolute;
+    right: 0px;
+    top: -1px;
+    height: 35px;
+    width: 35px;
+}
+
+.header .search-box button:hover {
+    background-position: 0 -36px;
+}
+
+.header .search-box #search-button span {
+    position: absolute;
+    left: -9999999px;
+}
+
+/* =========== Footer ============== */
+
+footer:before {
+    display: block;
+    content: '';
+    width: 100px;
+    height: 1px;
+    margin: 80px auto 20px;
+    background-color: #EEE;
+}
+
+footer {
+    text-align: center;
+    /* width: 300px; */
+}
+
+footer p {
+    font-size: 12px;
+    line-height: 20px;
+    color: #999;
+    margin-top: 2em;
+}
+/* =========== Content ============== */
+
+.content {
+    max-width: 800px;
+    margin: 2em auto;
+}
+
+/* =========== Index ============== */
+
+.content #index {
+    margin-top: 1em;
+}
+
+.content #index .blog-hero {
+    border: 1px solid #ddd;
+
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
+       -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
+
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+}
+.content #index .blog-hero:hover {
+    border-color: #0088cc;
+
+    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+       -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+            box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+.content #index .blog-hero .hero-inner {
+    display: block;
+    padding: 10px 19px;
+
+    text-align: center;
+    line-height: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    /* height: 200px; */
+}
+.content #index .blog-hero .blog-hero-flag {
+    /* height: 170px; */
+}
+.content #index .blog-hero .blog-hero-inner {
+    /* 
+      160 (blog-hero height)
+    - 8 * 2 (blog-hero padding)
+    - 10 * 2 (blog-hero-inner padding)
+    - 1 * 2 (blog-hero border)
+    */
+    height: 130px; 
+    background-color: #f5f5f5;
+}
+
+
+.content #index .blog-hero .blog-link-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.content #index .blog-list {
+    margin-top: 2em;
+}
+.content #index .blog-list ol {
+    list-style: none;
+    margin: 0;
+}
+
+.content #index .blog-list .blog-post {
+    margin: 0;
+}
+.content #index .blog-list .blog-post .post-content {
+    margin: 0;
+}
+.content #index .blog-list .blog-post::after {
+    margin-top: 3em;
+}
+/* =========== Blog List ============== */
+
+@media (min-width: 767px) {
+    .content #blog-list .blog-list {
+        margin: 0px 6em;
+    }
+}
+
+/* =========== Blog Post ============== */
+
+.content .blog-post .post-content {
+    margin: 2em 0;
+}
+
+.content .blog-post {
+    padding: 0 1em 1em 1em;
+    margin-top: 2em;
+
+    /*
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    */
+}
+
+.content .blog-post::after {
+    display: block;
+    content: '';
+    width: 100px;
+    height: 1px;
+    margin: 20px auto;
+    background-color: #EEE;
+    margin-top: 4em;
+}
+
+
+.content .blog-post .post-content p {
+    line-height: 1.5em;
+}
+
+.content .blog-post h3 a {
+    color: #333;
+}
+.content .blog-post h1 a {
+    color: #333;
+}
+
+.content .blog-post .post-content h1 {
+    margin-top: 2em;
+}
+.content .blog-post .post-content h2 {
+    margin: 1em 0 0.5em 0;
+}
+.content .blog-post .post-content h3 {
+    margin: 0.7em 0 0.35em 0;
+}
+.content .blog-post .post-content h4 {
+    margin: 0.5em 0 0.25em 0;
+}
+
+.content .blog-post .post-content img.align-center {
+    display: block;
+    margin: 0 auto;
+}
+
+.content .blog-post .post-content img.align-left {
+    display: block;
+    float: left;
+    /* Add margin to separate from text on the right */
+    margin-right: 2em;
+}
+
+.content .blog-post .post-content img.align-right {
+    display: block;
+    float: right;
+    /* Add margin to separate from text on the left */
+    margin-left: 2em; 
+}
+
+.content .blog-post .post-content img {
+    margin: 1em;
+
+    padding: 10px;
+    border: 1px solid #CCC;
+
+    -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
+       -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
+}
+
+/* =========== Notes ============== */
+
+.note {
+    position: relative;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    background-color: white;
+    border: 1px solid #DDD;
+
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+}
+.admonition-title {
+    /* content: "Note"; */
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: whiteSmoke;
+    border: 1px solid #DDD;
+    color: #9DA0A4;
+
+    -webkit-border-radius: 4px 0 4px 0;
+       -moz-border-radius: 4px 0 4px 0;
+            border-radius: 4px 0 4px 0;
+}
+
+/* =========== Pagination ============== */
+
+.pagination {
+    text-align: center;
+}
+
+/* =========== About Page ============== */
+
+#flatpage {
+    margin: 20px 0;
+}
+
+#flatpage #about p {
+    margin: 10px 0;
+}
+
+#flatpage #about .profiles li {
+    /* display: inline; */
+    float: left;
+    margin-right: 5px;
+}
+
+#flatpage #about .profiles li a {
+    display: block;
+    height: 16px;
+    width: 16px;
+    text-indent: -30000px;
+    /* border: 1px solid #CCC; */
+}
+
+#flatpage #about .profiles li a {
+    background-image: url(../img/icon_externalsite.png);
+    background-repeat: no-repeat;
+    outline: none;
+}
+
+
+#flatpage #about .profiles li.twitter a {
+    background-position: 0 -650px;
+}
+#flatpage #about .profiles li.bitbucket a {
+    background-position: 0 -1751px;
+}
+#flatpage #about .profiles li.github a {
+    background-position: 0 -1516px;
+}
+#flatpage #about .profiles li.flickr a {
+    background-position: 0 -150px;
+}
+#flatpage #about .profiles li.lastfm a {
+    background-position: 0 -350px;
+}
+#flatpage #about .profiles li.facebook a {
+    background-position: 0 -1648px;
+}
+#flatpage #about .profiles li.delicious a {
+    background-position: 0 -1200px;
+}
+#flatpage #about .profiles li.linkedin a {
+    background-position: 0 -800px;
+}
+#flatpage #about .profiles li.friendfeed a {
+    background-position: 0 -1472px;
+}

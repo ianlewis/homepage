@@ -8,27 +8,33 @@
 {% block blog_content %}
 {% tags_for_object object as item_tags %}
 <div class="blog-post">
-  <h1 class="post-title" itemprop="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
-  <div class="post-date">{{ object.pub_date }}</div>
-  <div class="post-tags">{% for tag in item_tags %}<a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
-  <div class="post-body">
-  {% if object.content %}
-    {{ object|to_html|safe }}
-  {% else %}
-    &nbsp;
-  {% endif %}
+  <div class="post-header">
+    <h1 itemprop="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
+    <div class="post-date">{{ object.pub_date|date:"DATE_FORMAT" }}</div>
   </div>
-  <div class="post-comment-link">
-    <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ object.get_absolute_url }}"></g:plusone>
-    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-text="{{ object.title }}" data-via="IanMLewis" data-lang="{{ object.lang }}">Tweet</a>
-
-    <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
-
+  <div class="post-content">
+    {{ object|to_html|default:"&nbsp;"|safe }}
   </div>
-  
-  {% disqus_show_comments %}
+  <div class="post-footer">
+    <div class="pull-right">
+      <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ object.get_absolute_url }}"></g:plusone>
+      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-text="{{ object.title }}" data-via="IanMLewis" data-lang="{{ object.lang }}">Tweet</a>
 
+      <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+
+    </div>
+    <div class="post-tags">{% for tag in item_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+  </div>
 </div>
+
+{% disqus_show_comments %}
+
+{% endblock %}
+
+{% block license %}
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by/2.1/jp/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.1/jp/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ object.title }}</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ian Lewis</span><br /> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.1/jp/deed.{% if object.lang = "ja" %}ja{% else %}en_US{% endif %}">Creative Commons Attribution 2.1 Japan License</a>.
+</p>
 {% endblock %}
 
 {% block js_footer %}

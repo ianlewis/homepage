@@ -3,6 +3,7 @@
 import os
 
 from fabric.api import cd, sudo, env, put
+from fabric.tasks import execute
 from fabric.decorators import roles
 from fabric.context_managers import prefix
 
@@ -45,12 +46,28 @@ def _annotate_hosts_with_ssh_config_info():
 
 def _run_app_cmd(cmd):
     with prefix('source %(venv_path)s/bin/activate' % env):
-        with cd('%(app_path)s/app' % env):
+        with cd('%(app_path)s/' % env):
             sudo(cmd, user=env.deploy_user)
+
+@roles('webservers')
+def delete_pyc():
+    u"""
+    pyc ファイルをすべて削除する
+    """
+
+    # migrations の pyc なども削除するため、 base_path で実行する
+    with cd("%(app_path)s" % env):
+        # -P 5 で平行で rm 実行する
+        # スペースがファイル名に入ると困るので、 -print0 でヌル文字で検索結果を区切る
+        # xargs の -0 オプションで、ヌルマジ区切りデータを読み込む
+
+        # daemontools ディレクトリに入らないように -name daemontools -prune を追加
+        sudo("""find . -name daemontools -prune -o -name "*.pyc" -print0 | xargs -r -P 5 -n 1 -0 rm""", user=env.deploy_user)
 
 @roles('webservers')
 def reboot():
     # Need to wait for gunicorn to daemonize
+    execute(delete_pyc)
     sudo('svc -t %(service_path)s' % env)
 
 @roles('webservers')
@@ -101,8 +118,8 @@ def migrate_db():
 
 @roles('webservers')
 def put_settings():
-    put("%s/app/settings_production.py" % ROOT_PATH, "%(app_path)s/app/settings_local.py" % env, use_sudo=True)
-    sudo('chown %(deploy_user)s:%(deploy_user)s "%(app_path)s/app/settings_local.py"' % env)
+    put("%s/homepage/settings_production.py" % ROOT_PATH, "%(app_path)s/homepage/settings_local.py" % env, use_sudo=True)
+    sudo('chown %(deploy_user)s:%(deploy_user)s "%(app_path)s/homepage/settings_local.py"' % env)
 
 @roles('webservers')
 def deploy():
@@ -112,7 +129,7 @@ def deploy():
     run_syncdb()
     migrate_db()
     collect_static()
-    compress_css()
+    #compress_css()
     reboot()
 
 def production():
@@ -120,8 +137,8 @@ def production():
     env.roledefs.update({
         'webservers': ['www.ianlewis.org'],
     })
-    env.rev = 'default' 
-    env.settings = 'settings_local'
+    env.rev = 'bootstrap' 
+    env.settings = 'homepage.settings_local'
     env.app_path = '/var/www/vhosts/homepage'
     env.venv_path = '/var/www/venvs/homepage'
     env.service_path = '/etc/service/homepage'

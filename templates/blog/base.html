@@ -28,30 +28,6 @@ $(function() {
 </script>
 {% endblock %}
 
-{% block header_right %}
-<form class="search-box" action="{% url lifestream_item_search %}">
-  <input type="text" name="q" value="{{ keywords }}" />
-  <button id="search-button" name="search" type="submit">
-    <span>Search</span>
-  </button> 
-  <input type="hidden" name="domain" value="ianlewis.org" />
-</form>
-{% endblock %}
-
-{% block extra_header %}
-{% if locale %}
-<div style="float:right;margin-top:20px;">
-<!-- Google Translate Element -->
-<div id="google_translate_element" style="display:block"></div><script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: "{{ locale }}"}, "google_translate_element");
-};</script>
-<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</div>
-{% endif %}
-{% endblock %}
-
-
 {% block content %}
 <div id="blog">
   {% block blog_content %}{% endblock %}
