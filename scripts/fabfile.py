@@ -137,7 +137,7 @@ def production():
     env.roledefs.update({
         'webservers': ['www.ianlewis.org'],
     })
-    env.rev = 'bootstrap' 
+    env.rev = 'default' 
     env.settings = 'homepage.settings_local'
     env.app_path = '/var/www/vhosts/homepage'
     env.venv_path = '/var/www/venvs/homepage'
