@@ -84,11 +84,6 @@ STATICFILES_FINDERS = (
     "homepage.core.finders.AppMediaDirectoriesFinder",
 )
 
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, 'admin/')
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 't%o@7x0*zc^r*4@=@*ky=m%_^its#b)t0f9m%fu88(vpt*&8-t'
 
