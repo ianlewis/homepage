@@ -3,6 +3,7 @@
 import os
 
 from fabric.api import cd, sudo, env, put
+from fabric.tasks import execute
 from fabric.decorators import roles
 from fabric.context_managers import prefix
 
@@ -49,8 +50,24 @@ def _run_app_cmd(cmd):
             sudo(cmd, user=env.deploy_user)
 
 @roles('webservers')
+def delete_pyc():
+    u"""
+    pyc ファイルをすべて削除する
+    """
+
+    # migrations の pyc なども削除するため、 base_path で実行する
+    with cd("%(app_path)s" % env):
+        # -P 5 で平行で rm 実行する
+        # スペースがファイル名に入ると困るので、 -print0 でヌル文字で検索結果を区切る
+        # xargs の -0 オプションで、ヌルマジ区切りデータを読み込む
+
+        # daemontools ディレクトリに入らないように -name daemontools -prune を追加
+        sudo("""find . -name daemontools -prune -o -name "*.pyc" -print0 | xargs -r -P 5 -n 1 -0 rm""", user=env.deploy_user)
+
+@roles('webservers')
 def reboot():
     # Need to wait for gunicorn to daemonize
+    execute(delete_pyc)
     sudo('svc -t %(service_path)s' % env)
 
 @roles('webservers')
@@ -112,7 +129,7 @@ def deploy():
     run_syncdb()
     migrate_db()
     collect_static()
-    compress_css()
+    #compress_css()
     reboot()
 
 def production():
