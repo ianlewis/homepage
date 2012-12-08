@@ -11,7 +11,8 @@ from django.utils.safestring import mark_safe
 from docutils import nodes
 from docutils.writers import html4css1
 from docutils.core import publish_parts
-from docutils.parsers.rst import directives
+from docutils.parsers.rst import directives, states
+from docutils.parsers.rst import DirectiveError
 
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
@@ -50,11 +51,38 @@ def lightbox_directive(name, arguments, options, content, lineno,
 
         Title
     """
+    align_h_values = ('left', 'center', 'right')
+    align_v_values = ('top', 'middle', 'bottom')
+    align_values = align_v_values + align_h_values
+
+    classes = []
+    if 'align' in options:
+        directives.choice(options['align'], align_values)
+
+        if isinstance(state, states.SubstitutionDef):
+            # Check for align_v_values.
+            if options['align'] not in align_v_values:
+                raise DirectiveError(3,
+                    'Error in "%s" directive: "%s" is not a valid value '
+                    'for the "align" option within a substitution '
+                    'definition.  Valid values for "align" are: "%s".'
+                    % (name, options['align'],
+                       '", "'.join(align_v_values)))
+        elif options['align'] not in align_h_values:
+            raise DirectiveError(3,
+                'Error in "%s" directive: "%s" is not a valid value for '
+                'the "align" option.  Valid values for "align" are: "%s".'
+                % (name, options['align'],
+                   '", "'.join(align_h_values)))
+
+        classes.append('align-%s' % options['align'])
+
     thumb_href = arguments[0]
     img_href = arguments[1]
     title = u" ".join(content)
 
-    html = '<div class="lightbox-img"><a title="%(title)s" rel="lightbox" href="%(img_href)s"><img src="%(thumb_href)s" title="%(title)s" alt=""/></a></div>' % {
+    html = '<a class="lightbox-img" title="%(title)s" rel="lightbox" href="%(img_href)s"><img %(classes)s src="%(thumb_href)s" title="%(title)s" alt=""/></a>' % {
+        "classes": 'class="%s"' % " ".join(classes) if classes else "",
         "title": title, 
         "img_href": img_href,
         "thumb_href": thumb_href,
