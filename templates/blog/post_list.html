@@ -27,7 +27,7 @@
         </div>
         <div class="post-footer">
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
-          <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page "en" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+          <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page post.locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         </div>
         {% comment %}
         <div class="post-comment-link">
