@@ -4,11 +4,9 @@ from django.conf.urls.defaults import url, patterns, include
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from blog import urls as blog_urls
-from tagging.models import Tag,TaggedItem
 
 import redirects
 
