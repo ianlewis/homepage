@@ -290,6 +290,20 @@ footer p {
             box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
 }
 
+.content .blog-post .post-content .section {
+  *zoom: 1;
+}
+
+.content .blog-post .post-content .section:before,
+.content .blog-post .post-content .section:after {
+  display: table;
+  content: "";
+}
+
+.content .blog-post .post-content .section:after {
+  clear: both;
+}
+
 /* =========== Notes ============== */
 
 .note {
