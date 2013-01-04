@@ -354,6 +354,7 @@ footer p {
     /* display: inline; */
     float: left;
     margin-right: 5px;
+    list-style: none;
 }
 
 #flatpage #about .profiles li a {
