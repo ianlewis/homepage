@@ -22,12 +22,16 @@ register = Library()
 
 logger = logging.getLogger(__name__)
 
-VARIANTS = {}
+def flag(argument):
+    if argument and argument.strip():
+        raise ValueError('no argument is allowed; "%s" supplied' % argument)
+    else:
+        return True
 
 def pygments_directive(name, arguments, options, content, lineno,
                        content_offset, block_text, state, state_machine):
     try:
-        lexer = get_lexer_by_name(arguments[0])
+        lexer = get_lexer_by_name(arguments[0], **options)
     except (ValueError, IndexError):
         # no lexer found - use the text one instead of an exception
         lexer = TextLexer()
@@ -35,7 +39,9 @@ def pygments_directive(name, arguments, options, content, lineno,
     return [nodes.raw("", parsed, format="html")]
 pygments_directive.arguments = (0, 1, False)
 pygments_directive.content = 1
-pygments_directive.options = dict([(key, directives.flag) for key in VARIANTS])
+pygments_directive.options = OPTIONS = {
+    'startinline': flag, # For PHP
+}
 
 directives.register_directive("sourcecode", pygments_directive)
 directives.register_directive("code-block", pygments_directive)
