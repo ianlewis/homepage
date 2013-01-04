@@ -40,6 +40,9 @@ pygments_directive.options = dict([(key, directives.flag) for key in VARIANTS])
 directives.register_directive("sourcecode", pygments_directive)
 directives.register_directive("code-block", pygments_directive)
 
+align_h_values = ('left', 'center', 'right')
+align_v_values = ('top', 'middle', 'bottom')
+align_values = align_v_values + align_h_values
 def lightbox_directive(name, arguments, options, content, lineno,
         content_offset, block_text, state, state_machine):
     """
@@ -51,10 +54,6 @@ def lightbox_directive(name, arguments, options, content, lineno,
 
         Title
     """
-    align_h_values = ('left', 'center', 'right')
-    align_v_values = ('top', 'middle', 'bottom')
-    align_values = align_v_values + align_h_values
-
     classes = ["lightbox-img"]
     if 'align' in options:
         directives.choice(options['align'], align_values)
@@ -88,9 +87,20 @@ def lightbox_directive(name, arguments, options, content, lineno,
         "thumb_href": thumb_href,
     }
     return [nodes.raw("", html, format="html")]
-lightbox_directive.arguments = (2, 2, False)
+lightbox_directive.arguments = (2, 0, False)
 lightbox_directive.content = 1
-lightbox_directive.options = dict([(key, directives.flag) for key in VARIANTS])
+lightbox_directive.options = {
+    'alt': directives.unchanged,
+    'height': directives.length_or_unitless,
+    'width': directives.length_or_percentage_or_unitless,
+    'scale': directives.percentage,
+        
+    'align': lambda argument: directives.choice(argument, align_values),
+    'name': directives.unchanged,
+    'target': directives.unchanged_required,
+    'class': directives.class_option,
+}
+
 
 directives.register_directive("lightbox", lightbox_directive)
 
