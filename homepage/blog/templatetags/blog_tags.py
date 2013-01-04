@@ -79,12 +79,14 @@ def lightbox_directive(name, arguments, options, content, lineno,
     thumb_href = arguments[0]
     img_href = arguments[1]
     title = u" ".join(content)
+    alt = options.get('alt', '')
 
-    html = '<a title="%(title)s" rel="lightbox" href="%(img_href)s"><img %(classes)s src="%(thumb_href)s" title="%(title)s" alt=""/></a>' % {
+    html = '<a title="%(title)s" rel="lightbox" href="%(img_href)s"><img %(classes)s src="%(thumb_href)s" title="%(title)s" alt="%(alt)s"/></a>' % {
         "classes": 'class="%s"' % " ".join(classes) if classes else "",
         "title": title, 
         "img_href": img_href,
         "thumb_href": thumb_href,
+        "alt": alt,
     }
     return [nodes.raw("", html, format="html")]
 lightbox_directive.arguments = (2, 0, False)
