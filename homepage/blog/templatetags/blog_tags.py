@@ -55,7 +55,7 @@ def lightbox_directive(name, arguments, options, content, lineno,
     align_v_values = ('top', 'middle', 'bottom')
     align_values = align_v_values + align_h_values
 
-    classes = []
+    classes = ["lightbox-img"]
     if 'align' in options:
         directives.choice(options['align'], align_values)
 
@@ -81,7 +81,7 @@ def lightbox_directive(name, arguments, options, content, lineno,
     img_href = arguments[1]
     title = u" ".join(content)
 
-    html = '<a class="lightbox-img" title="%(title)s" rel="lightbox" href="%(img_href)s"><img %(classes)s src="%(thumb_href)s" title="%(title)s" alt=""/></a>' % {
+    html = '<a title="%(title)s" rel="lightbox" href="%(img_href)s"><img %(classes)s src="%(thumb_href)s" title="%(title)s" alt=""/></a>' % {
         "classes": 'class="%s"' % " ".join(classes) if classes else "",
         "title": title, 
         "img_href": img_href,
