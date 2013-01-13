@@ -25,7 +25,7 @@
         <div class="post-content clearfix">
           {% thumbnail post.lead_image "200x150" crop="center" as thumb %}
           <p>
-            <img src="{{ thumb.url }}" class="align-left">
+            <a href="{{ post.get_absolute_url }}"><img src="{{ thumb.url }}" class="align-left"></a>
             {{ post|to_lead:400|default:"&nbsp;" }}
           </p>
           {% empty %}
