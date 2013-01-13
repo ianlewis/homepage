@@ -134,6 +134,7 @@ INSTALLED_APPS = (
 
     # Third party
     'south',
+    'sorl.thumbnail',
     'filebrowser',
     'pagination',
     'tagging',
@@ -189,7 +190,7 @@ LOGGING = {
             'stream': sys.stderr,
         },
         'stdout': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'formatter': 'verbose',
             'class': 'logging.StreamHandler', 
             'stream': sys.stdout,
@@ -204,6 +205,11 @@ LOGGING = {
     }
 }
 
+LOGGING['loggers'][''] = {
+    'handlers': ['stdout'],
+    'level': 'DEBUG',
+}
+
 #HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
 #HGPROXY_STATIC_URL = '/hgstatic/' 
 
@@ -212,9 +218,9 @@ INTERNAL_IPS = (
 )
 
 SOUTH_MIGRATION_MODULES = {
-    "core": "migrations.core",
     "blog": "migrations.blog",
     "tagging": "migrations.tagging",
+    "thumbnail": "migrations.thumbnail",
 }
 
 #try:

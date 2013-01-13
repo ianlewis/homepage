@@ -6,6 +6,9 @@ docutils>=0.5
 pygments>=1.0
 html2text==3.200.3
 
+# For lead thumbnails
+sorl-thumbnail==11.12
+
 # For thumbnails (Filebrowser)
 PIL==1.1.7
 

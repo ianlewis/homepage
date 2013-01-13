@@ -1,11 +1,15 @@
 #:coding=utf8:
 
+import uuid
+import os
+
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from tagging.fields import TagField
+from sorl.thumbnail import ImageField
 
 from datetime import datetime
 
@@ -23,6 +27,12 @@ class Post(models.Model):
     slug = models.SlugField(u"slug", max_length=50, unique=True, db_index=True)
     title = models.TextField(u"title")
     lead = models.TextField(u"lead", blank=True, null=True, default=None, max_length=600)
+    lead_image = ImageField(verbose_name="lead image", null=True, blank=True,
+        upload_to=lambda instance, filename: 'thumbs/%s%s' % (
+            uuid.uuid4().hex,
+            os.path.splitext(filename)[1].lower(),
+        ),
+    )
     content = models.TextField(u"content")
     markup_type = models.CharField(max_length=10, choices=(
         ("html", "HTML"),
