@@ -22,8 +22,8 @@
           <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
           <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
         </div>
-        <div class="post-content">
-          {% thumbnail post.lead_image "200" crop="center" as thumb %}
+        <div class="post-content clearfix">
+          {% thumbnail post.lead_image "200x150" crop="center" as thumb %}
           <p>
             <img src="{{ thumb.url }}" class="align-left">
             {{ post|to_lead:400|default:"&nbsp;" }}
