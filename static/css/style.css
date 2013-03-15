@@ -262,7 +262,7 @@ footer p {
 
 .content .blog-post .post-content img.align-center {
     display: block;
-    margin: 0 auto;
+    margin: 1em auto;
 }
 
 .content .blog-post .post-content img.align-left {
