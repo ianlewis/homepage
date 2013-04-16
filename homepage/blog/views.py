@@ -19,7 +19,10 @@ def blog_detail_preview(request, object_id):
     defaults = {
         "queryset": Post.objects.all(),
         "object_id": object_id,
-        "extra_context": {"locale": object.locale},
+        "extra_context": {
+            "locale": object.locale,
+            "is_preview": True,
+        },
     }
     return object_detail(request, **defaults)
 

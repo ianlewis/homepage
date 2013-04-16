@@ -40,6 +40,13 @@
 {% block js_footer %}
 {{ block.super }}
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<script type="text/javascript">
+twttr.events.bind('tweet', function(event) {
+  if (event) {
+    _gaq.push(['_trackSocial', 'twitter', 'tweet', undefined]);
+  }
+});
+</script>
 <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
 <script type="text/javascript">
   (function() {
