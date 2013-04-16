@@ -27,7 +27,9 @@
   </div>
 </div>
 
+{% if not is_preview %}
 {% disqus_show_comments %}
+{% endif %}
 
 {% endblock %}
 
