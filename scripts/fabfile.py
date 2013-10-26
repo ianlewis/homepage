@@ -9,40 +9,8 @@ from fabric.context_managers import prefix
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def _annotate_hosts_with_ssh_config_info():
-    """
-    ~/.ssh/config ファイルがあれば、設定を読み込む
-    """
-    from os.path import expanduser
-    from paramiko.config import SSHConfig
-
-    def hostinfo(host, config):
-        hive = config.lookup(host)
-        if 'hostname' in hive:
-            host = hive['hostname']
-        if 'user' in hive:
-            host = '%s@%s' % (hive['user'], host)
-        if 'port' in hive:
-            host = '%s:%s' % (host, hive['port'])
-        return host
-
-    try:
-        config_file = file(expanduser('~/.ssh/config'))
-    except IOError:
-        pass
-    else:
-        config = SSHConfig()
-        config.parse(config_file)
-        keys = [config.lookup(host).get('identityfile', None)
-            for host in env.hosts]
-        env.key_filename = [expanduser(key) for key in keys if key is not None]
-        env.hosts = [hostinfo(host, config) for host in env.hosts]
-
-        if env.roledefs:
-            for roledef, hosts in env.roledefs.items():
-                env.roledefs[roledef] = [hostinfo(host, config) for host in hosts]
-                keys = [config.lookup(host).get('identityfile', None) for host in hosts]
-                env.key_filename.extend([expanduser(key) for key in keys if key is not None])
+if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
+    env.use_ssh_config = True
 
 def _run_app_cmd(cmd):
     with prefix('source %(venv_path)s/bin/activate' % env):
@@ -142,5 +110,3 @@ def production():
     env.app_path = '/var/www/vhosts/homepage'
     env.venv_path = '/var/www/venvs/homepage'
     env.service_path = '/etc/service/homepage'
-
-    _annotate_hosts_with_ssh_config_info()
