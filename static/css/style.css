@@ -125,11 +125,8 @@ footer p {
 
 /* =========== Index ============== */
 
-.content #index {
-    margin-top: 1em;
-}
-
 .content #index .blog-hero {
+    margin-top: 1em;
     border: 1px solid #ddd;
 
     -webkit-border-radius: 4px;
