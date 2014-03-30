@@ -1,0 +1,26 @@
+-
+
+  hosts: all
+  sudo: True
+  tasks:
+
+    - name: Installs nginx web server
+      apt: pkg=nginx state=installed update_cache=true
+      notify:
+        - start nginx
+
+    - name: Installs python
+      apt: pkg=python state=installed update_cache=true
+
+    - name: Installs python 2.7
+      apt: pkg=python state=installed update_cache=true
+
+    - name: Installs python-pip
+      apt: pkg=python-pip state=installed update_cache=true
+
+    - name: Installs python-virtualenv
+      apt: pkg=python-virtualenv state=installed update_cache=true
+
+  handlers:
+    - name: start nginx
+      service: name=nginx state=started
