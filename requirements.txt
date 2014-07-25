@@ -14,7 +14,10 @@ PIL==1.1.7
 
 -e git://github.com/IanLewis/django-filebrowser-no-grappelli.git@c093f252c8#egg=filebrowser
 django-pagination==1.0.7
--e svn+http://django-tagging.googlecode.com/svn/trunk@186#egg=django_tagging
+
+# Not sure where the code is being maintained because the google code repo is old.
+django-tagging==0.3.2
+
 -e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
 
 # Production
