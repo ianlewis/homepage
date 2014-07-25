@@ -1,4 +1,4 @@
-Django==1.4.9
+Django==1.8.9
 South==0.7.6
 
 # For rendering blog posts
@@ -13,7 +13,7 @@ sorl-thumbnail==11.12
 PIL==1.1.7
 
 -e git://github.com/IanLewis/django-filebrowser-no-grappelli.git@c093f252c8#egg=filebrowser
--e git+git://github.com/ericflo/django-pagination.git@1c414c8ed010359597b05dad1b41b65aeddfd1d7#egg=pagination
+django-pagination==1.0.7
 -e svn+http://django-tagging.googlecode.com/svn/trunk@186#egg=django_tagging
 -e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
 
