@@ -18,7 +18,7 @@ django-pagination==1.0.7
 # Not sure where the code is being maintained because the google code repo is old.
 django-tagging==0.3.2
 
--e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
+django-disqus==0.4.3
 
 # Production
 gunicorn==0.14.2
