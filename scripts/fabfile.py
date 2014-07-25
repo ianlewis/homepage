@@ -1,6 +1,9 @@
 #:coding=utf8:
 
 import os
+import tempfile
+import subprocess
+import posixpath
 
 from fabric.api import cd, sudo, env, put
 from fabric.tasks import execute
@@ -12,9 +15,36 @@ ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
     env.use_ssh_config = True
 
+# Used for connecting to vagrant. Located here so that the file isn't closed
+# and deleted before fabric exits.
+_ssh_config = tempfile.NamedTemporaryFile()
+
+def _ensure_venv(path=None):
+    u"""
+    Create the virtualenv 
+    """
+    if path is None:
+        path = env.venv_path
+    ensure_dir(os.path.dirname(path))
+    context = {'venv_path': path}
+    sudo('if [ ! -d %(venv_path)s ]; then virtualenv %(venv_path)s; fi' % context, user=env.deploy_user)
+
+def ensure_dir(path, user=None):
+    if not user:
+        user = env.deploy_user
+    sudo('mkdir -p %(path)s && chown %(user)s:%(user)s %(path)s' % {'path': path, 'user': user})
+
+def _ensure_vhost():
+    u"""
+    Create the virtualhost directory if it doesn't exist.
+    """
+    ensure_dir(os.path.dirname(env.app_path))
+    sudo('if [ ! -d %(app_path)s ]; then cd `dirname %(app_path)s`; hg clone %(repo_url)s `basename %(app_path)s`; fi' % env, user=env.deploy_user)
+
 def _run_app_cmd(cmd):
+    _ensure_venv()
     with prefix('source %(venv_path)s/bin/activate' % env):
-        with cd('%(app_path)s/' % env):
+        with cd(env.app_path):
             sudo(cmd, user=env.deploy_user)
 
 @roles('webservers')
@@ -22,6 +52,7 @@ def delete_pyc():
     u"""
     pyc ファイルをすべて削除する
     """
+    _ensure_vhost()
 
     # migrations の pyc なども削除するため、 base_path で実行する
     with cd("%(app_path)s" % env):
@@ -40,16 +71,22 @@ def reboot():
 
 @roles('webservers')
 def hg_pull():
+    _ensure_vhost()
+
     with cd(env.app_path):
         sudo('hg pull -r %(rev)s' % env, user=env.deploy_user)
 
 @roles('webservers')
 def hg_update():
+    _ensure_vhost()
+
     with cd(env.app_path):
         sudo('hg update -C -r %(rev)s' % env, user=env.deploy_user)
 
 @roles('webservers')
 def install_prereqs():
+    _ensure_venv()
+    _ensure_vhost()
     sudo('pip install -E %(venv_path)s -r %(app_path)s/requirements.txt' % env, user=env.deploy_user)
 
 # Needed until South can support reusable apps transparently
@@ -59,6 +96,8 @@ def run_syncdb():
 
 @roles('webservers')
 def collect_static():
+    _ensure_vhost()
+
     _run_app_cmd("python manage.py collectstatic --noinput --settings=%(settings)s" % env)
     sudo("mkdir -p %(app_path)s/site_media/media;" % env)
 
@@ -68,6 +107,8 @@ def run_migration():
 
 @roles('webservers')
 def compress_css():
+    _ensure_vhost()
+
     sudo("rm -f %(app_path)s/site_media/static/css/all.min.css;for FILE in %(app_path)s/site_media/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/site_media/static/css/*.tmp; do cat $FILE >> %(app_path)s/site_media/static/css/all.min.css; done;rm -f %(app_path)s/site_media/static/css/*.tmp" % env, user=env.deploy_user)
 
 @roles('webservers')
@@ -86,6 +127,8 @@ def migrate_db():
 
 @roles('webservers')
 def put_settings():
+    _ensure_vhost()
+
     put("%s/homepage/settings_production.py" % ROOT_PATH, "%(app_path)s/homepage/settings_local.py" % env, use_sudo=True)
     sudo('chown %(deploy_user)s:%(deploy_user)s "%(app_path)s/homepage/settings_local.py"' % env)
 
@@ -100,7 +143,30 @@ def deploy():
     #compress_css()
     reboot()
 
+def local():
+    """
+    Local environment with vagrant
+    """
+    # Setup the ssh config so that fabric connects to vagrant.
+    env.repo_url = "https://IanLewis@bitbucket.org/IanLewis/homepage"
+    env.ssh_config_path = _ssh_config.name
+    env.use_ssh_config = True
+
+    os.system("vagrant ssh-config --host local >> %s" % env.ssh_config_path)
+
+    env.use_ssh_config = True
+    env.deploy_user = 'www-data'
+    env.roledefs.update({
+        'webservers': ['local'], # so that it matches the vagrant ssh-config
+    })
+    env.rev = 'default' 
+    env.settings = 'homepage.settings_local'
+    env.app_path = '/var/www/vhosts/homepage'
+    env.venv_path = '/var/www/venvs/homepage'
+    env.service_path = '/etc/service/homepage'
+
 def production():
+    env.repo_url = "https://IanLewis@bitbucket.org/IanLewis/homepage"
     env.deploy_user = 'www-data'
     env.roledefs.update({
         'webservers': ['www.ianlewis.org'],

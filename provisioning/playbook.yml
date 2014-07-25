@@ -1,6 +1,6 @@
--
+---
 
-  hosts: all
+- hosts: all
   sudo: True
   tasks:
 
@@ -9,11 +9,11 @@
       notify:
         - start nginx
 
-    - name: Installs python
-      apt: pkg=python state=installed update_cache=true
-
     - name: Installs python 2.7
       apt: pkg=python state=installed update_cache=true
+
+    - name: Installs python-dev
+      apt: pkg=python-dev state=installed update_cache=true
 
     - name: Installs python-pip
       apt: pkg=python-pip state=installed update_cache=true
@@ -21,6 +21,27 @@
     - name: Installs python-virtualenv
       apt: pkg=python-virtualenv state=installed update_cache=true
 
+    - name: Installs mercurial
+      apt: pkg=mercurial state=installed update_cache=true
+
+    - name: Installs git 
+      apt: pkg=git state=installed update_cache=true
+
+    - name: Installs subversion
+      apt: pkg=subversion state=installed update_cache=true
+
+    - name: Installs libmysqlclient-dev
+      apt: pkg=libmysqlclient-dev state=installed update_cache=true
+
+    - name: Installs libmemcached-dev
+      apt: pkg=libmemcached-dev state=installed update_cache=true
+
+    - name: Installs libjpeg-dev
+      apt: pkg=libjpeg-dev state=installed update_cache=true
+
+    - name: Installs zlib1g-dev
+      apt: pkg=zlib1g-dev state=installed update_cache=true
+        
   handlers:
     - name: start nginx
       service: name=nginx state=started
