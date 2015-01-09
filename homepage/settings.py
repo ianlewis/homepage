@@ -116,9 +116,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'homepage.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, 'templates'),
 )
 
@@ -147,14 +144,14 @@ INSTALLED_APPS = (
 
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 # django-tagging
-FORCE_LOWERCASE_TAGS=True
+FORCE_LOWERCASE_TAGS = True
 
 # django-pagination
 PAGINATION_DEFAULT_PAGINATION = 9
-PAGINATION_INVALID_PAGE_RAISES_404 = True 
+PAGINATION_INVALID_PAGE_RAISES_404 = True
 PAGINATION_DEFAULT_WINDOW = 3
 
 # django-disqus
@@ -180,19 +177,19 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
         },
         'stderr': {
             'level': 'ERROR',
             'formatter': 'verbose',
-            'class':'logging.StreamHandler',
+            'class': 'logging.StreamHandler',
             'stream': sys.stderr,
         },
         'stdout': {
             'level': 'DEBUG',
             'formatter': 'verbose',
-            'class': 'logging.StreamHandler', 
+            'class': 'logging.StreamHandler',
             'stream': sys.stdout,
         },
     },
@@ -200,7 +197,7 @@ LOGGING = {
         'django.request': {
             'handlers': ['mail_admins'],
             'propagate': False,
-            'level':'WARNING',
+            'level': 'WARNING',
         },
     }
 }
@@ -211,10 +208,10 @@ LOGGING['loggers'][''] = {
 }
 
 #HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
-#HGPROXY_STATIC_URL = '/hgstatic/' 
+#HGPROXY_STATIC_URL = '/hgstatic/'
 
 INTERNAL_IPS = (
-    '127.0.0.1',        
+    '127.0.0.1',
 )
 
 SOUTH_MIGRATION_MODULES = {
