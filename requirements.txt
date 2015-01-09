@@ -1,4 +1,4 @@
-Django==1.8.9
+Django==1.4.17
 South==0.7.6
 
 # For rendering blog posts
