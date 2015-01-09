@@ -24,4 +24,3 @@ django-disqus==0.4.3
 gunicorn==0.14.2
 MySQL-python==1.2.3
 pylibmc==1.1.1
-meinheld==0.4.13
