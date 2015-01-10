@@ -158,7 +158,7 @@ CACHES = {
 ROOT_URLCONF = 'homepage.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, 'templates'),
+    os.path.join(ROOT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -254,7 +254,7 @@ INTERNAL_IPS = (
 )
 
 SOUTH_MIGRATION_MODULES = {
-    "blog": "migrations.blog",
-    "tagging": "migrations.tagging",
-    "thumbnail": "migrations.thumbnail",
+    "blog": "homepage.migrations.blog",
+    "tagging": "homepage.migrations.tagging",
+    "thumbnail": "homepage.migrations.thumbnail",
 }
