@@ -1,0 +1,19 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+DEBUG=False
+DB_ENGINE=mysql
+DB_HOST="{{ app_mysql_host }}"
+DB_PORT="{{ app_mysql_port }}"
+DB_NAME="{{ mysql_db[0].name }}"
+DB_USER="{{ mysql_users[0].name }}"
+DB_PASSWORD="{{ mysql_users[0].pass }}"
+{% if app_secret_key %}
+SECRET_KEY="{{ app_secret_key }}"
+{% endif %}
+USE_PAGE_CACHE=False
+USE_MEMCACHED=False
+{% if app_disqus_api_key %}
+DISQUS_API_KEY="{{ app_disqus_api_key }}"
+{% endif %}
+{% if app_disqus_website_shortname %}
+DISQUS_WEBSITE_SHORTNAME="{{ app_disqus_website_shortname }}"
+{% endif %}

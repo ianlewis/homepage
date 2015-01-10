@@ -24,3 +24,7 @@ django-disqus==0.4.3
 gunicorn==0.14.2
 MySQL-python==1.2.3
 pylibmc==1.1.1
+
+# For development
+# ansible==1.8.2
+# fabric==1.10.1

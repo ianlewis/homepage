@@ -116,6 +116,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
+USE_X_FORWARDED_HOST = True
+
 # Setup page caching.
 # TODO: Use nginx or varnish?
 USE_PAGE_CACHE = env_var('USE_PAGE_CACHE', bool, default=not DEBUG)

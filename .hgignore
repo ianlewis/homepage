@@ -14,10 +14,10 @@ build
 temp
 dist
 src
-site_media
+provisioning/credentials
+homepage/site_media
 pip-log.txt
-settings_local.py
-settings_production.py
+
 google*.html
 y_key_*.html
 all.min.css

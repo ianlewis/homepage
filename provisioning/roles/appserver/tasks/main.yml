@@ -1,0 +1,26 @@
+- apt: update_cache=yes
+  sudo: True
+
+- name: Install packages required by app server
+  action: apt pkg={{ item }} state=present
+  sudo: True
+  with_items:
+    - python
+    - python-dev
+    - python-pip
+    - python-virtualenv
+    - mercurial
+    - git
+    - subversion
+    - libmysqlclient-dev
+    - libmemcached-dev
+    - libjpeg-dev
+    - zlib1g-dev
+
+- name: Install environment
+  sudo: True
+  template: src=environment.j2 dest=/etc/environment
+
+- name: Install start script
+  sudo: True
+  template: src=start_homepage.sh.j2 dest=/usr/local/bin/start_homepage.sh
