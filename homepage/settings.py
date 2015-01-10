@@ -134,11 +134,11 @@ USE_MEMCACHED = env_var('USE_MEMCACHED', bool, default=not DEBUG)
 if USE_MEMCACHED:
     _cache_backend = 'django.core.cache.backends.memcached.PyLibMCCache'
     _cache_location = env_var('MEMCACHED_HOSTS', csv_list,
-                              default='127.0.0.1:11211')
+                              default=['127.0.0.1:11211'])
 else:
     # NOTE: Default is local memory cache.
     _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
-    _cache_location = ''
+    _cache_location = ''  # Not used by LocMemCache
 
 CACHES = {
     'default': {
