@@ -245,7 +245,7 @@ LOGGING = {
 
 LOGGING['loggers'][''] = {
     'handlers': ['stdout'],
-    'level': 'DEBUG',
+    'level': 'DEBUG' if DEBUG else 'INFO',
 }
 
 INTERNAL_IPS = (
