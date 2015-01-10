@@ -1,0 +1,5 @@
+include setup.py README.md MANIFEST.in LICENSE AUTHORS
+recursive-include homepage/templates *
+recursive-include homepage/site_media *
+recursive-include homepage/static *
+global-exclude *~
