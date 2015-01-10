@@ -1,4 +1,4 @@
-Django==1.4.9
+Django==1.4.17
 South==0.7.6
 
 # For rendering blog posts
@@ -10,15 +10,17 @@ html2text==3.200.3
 sorl-thumbnail==11.12
 
 # For thumbnails (Filebrowser)
-Pillow==2.3.1
+Pillow==2.5.1
 
 -e git://github.com/IanLewis/django-filebrowser-no-grappelli.git@c093f252c8#egg=filebrowser
--e git+git://github.com/ericflo/django-pagination.git@1c414c8ed010359597b05dad1b41b65aeddfd1d7#egg=pagination
--e svn+http://django-tagging.googlecode.com/svn/trunk@186#egg=django_tagging
--e git+git://github.com/arthurk/django-disqus.git@4f34feec99362e61a52745835298cbe7eb3abd49#egg=disqus
+django-pagination==1.0.7
+
+# Not sure where the code is being maintained because the google code repo is old.
+django-tagging==0.3.2
+
+django-disqus==0.4.3
 
 # Production
 gunicorn==0.14.2
 MySQL-python==1.2.3
 pylibmc==1.1.1
-meinheld==0.4.13

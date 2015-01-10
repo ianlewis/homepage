@@ -4,49 +4,44 @@ import os
 import sys
 import posixpath
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+from homepage.conf import env_var, email_csv, csv_list
 
 ROOT_PATH = os.path.dirname(__file__)
 PROJECT_PATH = os.path.dirname(ROOT_PATH)
 
-ADMINS = (
-    #('', ''),
-)
+DEBUG = env_var('DEBUG', bool, default=False)
+TEMPLATE_DEBUG = env_var('TEMPLATE_DEBUG', bool, default=DEBUG)
 
-MANAGERS = ADMINS
+ADMINS = env_var('ADMINS', email_csv, default=())
+MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
+
+_db_engine = env_var('DB_ENGINE', default='sqlite3')
+if _db_engine == 'sqlite3':
+    _db_name = env_var('DB_NAME', default='djangodb.sqlite')
+else:
+    _db_name = env_var('DB_NAME')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'djangodb.sqlite',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.%s' % _db_engine,
+        'NAME': _db_name,
+        'USER': env_var('DB_USER', default=''),
+        'PASSWORD': env_var('DB_PASSWORD', default=''),
+        'HOST': env_var('DB_HOST', default=''),
+        'PORT': env_var('DB_PORT', default=''),
     }
 }
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'ianlewis_hp',
-#        'USER': 'root',
-#        'PASSWORD': '',
-#        'HOST': '',
-#        'PORT': '',
-#    }
-#}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Asia/Tokyo'
+TIME_ZONE = env_var('TIME_ZONE', default='Asia/Tokyo')
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = env_var('LANGUAGE_CODE', default='en-us')
 
 SITE_ID = 1
 
@@ -85,13 +80,22 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 't%o@7x0*zc^r*4@=@*ky=m%_^its#b)t0f9m%fu88(vpt*&8-t'
+if not DEBUG:
+    # NOTE: Secret key is required in debug mode.
+    SECRET_KEY = env_var('SECRET_KEY')
+else:
+    SECRET_KEY = env_var('SECRET_KEY', default='snake-oil')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+
+if not DEBUG:
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
+    )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -113,12 +117,47 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
+# Setup page caching.
+# TODO: Use nginx or varnish?
+USE_PAGE_CACHE = env_var('USE_PAGE_CACHE', bool, default=not DEBUG)
+if USE_PAGE_CACHE:
+    MIDDLEWARE_CLASSES = (
+        'homepage.core.middleware.GoogleAnalyticsStripCookieMiddleware',
+        'django.middleware.cache.UpdateCacheMiddleware',
+    ) + MIDDLEWARE_CLASSES + (
+        'django.middleware.cache.FetchFromCacheMiddleware',
+    )
+
+    CACHE_MIDDLEWARE_ALIAS = 'page_cache'
+
+
+USE_MEMCACHED = env_var('USE_MEMCACHED', bool, default=not DEBUG)
+if USE_MEMCACHED:
+    _cache_backend = 'django.core.cache.backends.memcached.PyLibMCCache'
+    _cache_location = env_var('MEMCACHED_HOSTS', csv_list,
+                              default='127.0.0.1:11211')
+else:
+    # NOTE: Default is local memory cache.
+    _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
+    _cache_location = ''
+
+CACHES = {
+    'default': {
+        'BACKEND': _cache_backend,
+        'LOCATION': _cache_location,
+    },
+    'page_cache': {
+        'BACKEND': _cache_backend,
+        'LOCATION': _cache_location,
+        'KEY_PREFIX': 'page_cache1',
+        'TIMEOUT': 600,
+    }
+}
+
+
 ROOT_URLCONF = 'homepage.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, 'templates'),
 )
 
@@ -147,19 +186,19 @@ INSTALLED_APPS = (
 
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 # django-tagging
-FORCE_LOWERCASE_TAGS=True
+FORCE_LOWERCASE_TAGS = True
 
 # django-pagination
 PAGINATION_DEFAULT_PAGINATION = 9
-PAGINATION_INVALID_PAGE_RAISES_404 = True 
+PAGINATION_INVALID_PAGE_RAISES_404 = True
 PAGINATION_DEFAULT_WINDOW = 3
 
 # django-disqus
-DISQUS_API_KEY = ''
-DISQUS_WEBSITE_SHORTNAME = ''
+DISQUS_API_KEY = env_var('DISQUS_API_KEY', default='')
+DISQUS_WEBSITE_SHORTNAME = env_var('DISQUS_WEBSITE_SHORTNAME', default='')
 
 # logging
 LOGGING = {
@@ -180,19 +219,19 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
         },
         'stderr': {
             'level': 'ERROR',
             'formatter': 'verbose',
-            'class':'logging.StreamHandler',
+            'class': 'logging.StreamHandler',
             'stream': sys.stderr,
         },
         'stdout': {
             'level': 'DEBUG',
             'formatter': 'verbose',
-            'class': 'logging.StreamHandler', 
+            'class': 'logging.StreamHandler',
             'stream': sys.stdout,
         },
     },
@@ -200,7 +239,7 @@ LOGGING = {
         'django.request': {
             'handlers': ['mail_admins'],
             'propagate': False,
-            'level':'WARNING',
+            'level': 'WARNING',
         },
     }
 }
@@ -210,11 +249,8 @@ LOGGING['loggers'][''] = {
     'level': 'DEBUG',
 }
 
-#HGPROXY_REPO_LIST_REQUIRES_LOGIN = True
-#HGPROXY_STATIC_URL = '/hgstatic/' 
-
 INTERNAL_IPS = (
-    '127.0.0.1',        
+    '127.0.0.1',
 )
 
 SOUTH_MIGRATION_MODULES = {
@@ -222,9 +258,3 @@ SOUTH_MIGRATION_MODULES = {
     "tagging": "migrations.tagging",
     "thumbnail": "migrations.thumbnail",
 }
-
-#try:
-#    import feedparser
-#    feedparser._debug = DEBUG
-#except ImportError:
-#    pass
