@@ -248,9 +248,7 @@ LOGGING['loggers'][''] = {
     'level': 'DEBUG' if DEBUG else 'INFO',
 }
 
-INTERNAL_IPS = (
-    '127.0.0.1',
-)
+INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 
 SOUTH_MIGRATION_MODULES = {
     "blog": "homepage.migrations.blog",
