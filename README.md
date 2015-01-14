@@ -3,7 +3,21 @@ Homepage
 
 This is my homepage/blog.
 
-## Google Cloud Platform Setup
+# Development
+
+Create a virtualenv
+
+    $ mkvirtualenv homepage
+
+Install the development requirements
+
+    $ python setup.py develop
+
+Run the development server in debug mode
+
+    $ python manage.py runserver
+
+# Google Cloud Platform Setup
 
 *Copied from [Vagrant provider for GCE README)[https://github.com/mitchellh/vagrant-google]*.
 

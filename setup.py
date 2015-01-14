@@ -30,6 +30,38 @@ class SdistWithBuildStatic(sdist):
         self.run_command('build_static')
         return sdist.run(self)
 
+install_requires = [
+    'Django==1.4.17',
+    'South==0.7.6',
+
+    # For rendering blog posts
+    'docutils>=0.5',
+    'pygments>=1.0',
+    'html2text==3.200.3',
+
+    # For thumbnails
+    'Pillow==2.5.1',
+    'sorl-thumbnail==11.12',
+
+    # Filebrowser admin.
+    'django-filebrowser-no-grappelli==3.5.7',
+
+    # Pagination
+    'django-pagination==1.0.7',
+
+    # Not sure where the code is being maintained because
+    # the google code repo is old.
+    # TODO: Replace.
+    'django-tagging==0.3.2',
+
+    # Comments
+    'django-disqus==0.4.3',
+
+    # Production
+    'gunicorn==0.14.2',
+    'MySQL-python==1.2.3',
+    'pylibmc==1.1.1',
+]
 
 setup(
     name="homepage",
@@ -41,7 +73,8 @@ setup(
     keywords="django homepage blog",
     url="http://www.ianlewis.org/",
     packages=find_packages(),
-    long_description="",  # TODO: Readme
+    long_description=open('README.md').read(),
+    install_requires=install_requires,
     cmdclass={
         'build_static': BuildStatic,
         'sdist': SdistWithBuildStatic,
