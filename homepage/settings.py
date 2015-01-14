@@ -205,7 +205,7 @@ DISQUS_WEBSITE_SHORTNAME = env_var('DISQUS_WEBSITE_SHORTNAME', default='')
 # logging
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '[%(asctime)s][%(name)s] %(levelname)s %(message)s',
@@ -238,17 +238,16 @@ LOGGING = {
         },
     },
     'loggers': {
+        '': {
+            'handlers': ['stdout'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['stderr', 'mail_admins'],
             'propagate': False,
-            'level': 'WARNING',
+            'level': 'ERROR',
         },
     }
-}
-
-LOGGING['loggers'][''] = {
-    'handlers': ['stdout'],
-    'level': 'DEBUG' if DEBUG else 'INFO',
 }
 
 INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
