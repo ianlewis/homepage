@@ -1,0 +1,58 @@
+; supervisor config file.
+;
+; For more information on the config file, please see:
+; http://supervisord.org/configuration.html
+;
+; Notes:
+;  - Shell expansion ("~" or "$HOME") is not supported.  Environment
+;    variables can be expanded using this syntax: "%(ENV_HOME)s".
+;  - Comments must have a leading space: "a=b ;comment" not "a=b;comment".
+
+[unix_http_server]
+file=/var/run/supervisor/supervisord.sock   ; (the path to the socket file)
+;chmod=0700                 ; socket file mode (default 0700)
+;chown=nobody:nogroup       ; socket file uid:gid owner
+;username=user              ; (default is no username (open server))
+;password=123               ; (default is no password (open server))
+
+;[inet_http_server]         ; inet (TCP) server disabled by default
+;port=127.0.0.1:9001        ; (ip_address:port specifier, *:port for all iface)
+;username=user              ; (default is no username (open server))
+;password=123               ; (default is no password (open server))
+
+[supervisord]
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+logfile_maxbytes=50MB        ; (max main logfile bytes b4 rotation;default 50MB)
+logfile_backups=10           ; (num of main logfile rotation backups;default 10)
+loglevel=info                ; (log level;default info; others: debug,warn,trace)
+pidfile=/var/run/supervisor/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+nodaemon=false               ; (start in foreground if true;default false)
+minfds=1024                  ; (min. avail startup file descriptors;default 1024)
+minprocs=200                 ; (min. avail process descriptors;default 200)
+;umask=022                   ; (process file creation umask;default 022)
+user={{ supervisord_user }}  ; (default is current user, required if root)
+;identifier=supervisor       ; (supervisord identifier, default is 'supervisor')
+;directory=/tmp              ; (default is not to cd during start)
+;nocleanup=true              ; (don't clean up tempfiles at start;default false)
+;childlogdir=/tmp            ; ('AUTO' child log dir, default $TEMP)
+;environment=KEY="value"     ; (key value pairs to add to environment)
+;strip_ansi=false            ; (strip ansi escape codes in logs; def. false)
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor/supervisord.sock
+
+[program:homepage]
+directory=/var/www/
+command=/var/www/venvs/homepage/bin/homepage start 127.0.0.1:{{ app_port }}
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile={{ app_log_file }}
+stderr_logfile={{ app_error_log_file }}
+environment=DEBUG=False,DB_ENGINE=mysql,DB_HOST="{{ app_mysql_host }}",DB_PORT="{{ app_mysql_port }}",DB_NAME="{{ mysql_db[0].name }}",DB_USER="{{ mysql_users[0].name }}",DB_PASSWORD="{{ mysql_users[0].pass }}",MEDIA_ROOT=/var/www/media{% if app_secret_key %},SECRET_KEY="{{ app_secret_key }}"{% endif %},USE_PAGE_CACHE=False,USE_MEMCACHED=False{% if app_disqus_api_key %},DISQUS_API_KEY="{{ app_disqus_api_key }}"{% endif %}{% if app_disqus_website_shortname %},DISQUS_WEBSITE_SHORTNAME="{{ app_disqus_website_shortname }}"{% endif %}

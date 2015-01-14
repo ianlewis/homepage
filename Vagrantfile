@@ -15,16 +15,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
     config.vm.network "private_network", ip: "192.168.33.10"
-     
-    # Provision using ansible
-    config.vm.provision "ansible" do |ansible|
-        ansible.playbook = "provisioning/site.yml"
-        ansible.groups = {
-            "webservers" => ["default"],
-            "appservers" => ["default"],
-            "dbservers" => ["default"],
-            "cacheservers" => ["default"],
-            "local:children" => ["webservers", "appservers", "dbservers", "cacheservers"],
-        }
-    end
 end

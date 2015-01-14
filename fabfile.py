@@ -1,178 +1,224 @@
 #:coding=utf8:
 
 import os
+import time
 import tempfile
-import subprocess
-import posixpath
 
-from fabric.api import cd, sudo, env, put
+from fabric.api import local as localexec, sudo, env, put, run
 from fabric.tasks import execute
-from fabric.decorators import roles
+from fabric.decorators import roles, task, runs_once
 from fabric.context_managers import prefix
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
+env.venv_path = '/var/www/venvs/homepage'
+env.deploy_user = 'www-data'
+
+if env.ssh_config_path and os.path.isfile(
+        os.path.expanduser(env.ssh_config_path)):
     env.use_ssh_config = True
 
-# Used for connecting to vagrant. Located here so that the file isn't closed
-# and deleted before fabric exits.
+# Used for connecting to vagrant or google cloud. Located here
+# so that the file isn't closed and deleted before fabric exits.
 _ssh_config = tempfile.NamedTemporaryFile()
 
-def _ensure_venv(path=None):
-    u"""
-    Create the virtualenv 
+
+def virtualenv(path=None):
+    sudo('mkdir -p `dirname %(venv_path)s`' % env)
+    sudo('chown %(deploy_user)s:%(deploy_user)s `dirname %(venv_path)s`' % env)
+
+    sudo('if [ ! -d %(venv_path)s ];then '
+         '  virtualenv %(venv_path)s;'
+         'fi' % env, user=env.deploy_user)
+    return prefix('source %(venv_path)s/bin/activate' % env)
+
+
+@task
+@roles('webservers', 'appservers', 'dbservers', 'cacheservers')
+def restart():
     """
-    if path is None:
-        path = env.venv_path
-    ensure_dir(os.path.dirname(path))
-    context = {'venv_path': path}
-    sudo('if [ ! -d %(venv_path)s ]; then virtualenv %(venv_path)s; fi' % context, user=env.deploy_user)
-
-def ensure_dir(path, user=None):
-    if not user:
-        user = env.deploy_user
-    sudo('mkdir -p %(path)s && chown %(user)s:%(user)s %(path)s' % {'path': path, 'user': user})
-
-def _ensure_vhost():
-    u"""
-    Create the virtualhost directory if it doesn't exist.
+    Restart the application.
     """
-    ensure_dir(os.path.dirname(env.app_path))
-    sudo('if [ ! -d %(app_path)s ]; then cd `dirname %(app_path)s`; hg clone %(repo_url)s `basename %(app_path)s`; fi' % env, user=env.deploy_user)
+    sudo('supervisorctl restart homepage')
 
-def _run_app_cmd(cmd):
-    _ensure_venv()
-    with prefix('source %(venv_path)s/bin/activate' % env):
-        with cd(env.app_path):
-            sudo(cmd, user=env.deploy_user)
 
-@roles('webservers')
-def delete_pyc():
-    u"""
-    pyc ファイルをすべて削除する
-    """
-    _ensure_vhost()
-
-    # migrations の pyc なども削除するため、 base_path で実行する
-    with cd("%(app_path)s" % env):
-        # -P 5 で平行で rm 実行する
-        # スペースがファイル名に入ると困るので、 -print0 でヌル文字で検索結果を区切る
-        # xargs の -0 オプションで、ヌルマジ区切りデータを読み込む
-
-        # daemontools ディレクトリに入らないように -name daemontools -prune を追加
-        sudo("""find . -name daemontools -prune -o -name "*.pyc" -print0 | xargs -r -P 5 -n 1 -0 rm""", user=env.deploy_user)
-
-@roles('webservers')
-def reboot():
-    # Need to wait for gunicorn to daemonize
-    execute(delete_pyc)
-    sudo('svc -t %(service_path)s' % env)
-
-@roles('webservers')
-def hg_pull():
-    _ensure_vhost()
-
-    with cd(env.app_path):
-        sudo('hg pull -r %(rev)s' % env, user=env.deploy_user)
-
-@roles('webservers')
-def hg_update():
-    _ensure_vhost()
-
-    with cd(env.app_path):
-        sudo('hg update -C -r %(rev)s' % env, user=env.deploy_user)
-
-@roles('webservers')
-def install_prereqs():
-    _ensure_venv()
-    _ensure_vhost()
-    sudo('pip install -E %(venv_path)s -r %(app_path)s/requirements.txt' % env, user=env.deploy_user)
-
-# Needed until South can support reusable apps transparently
-@roles('webservers')
-def run_syncdb():
-    _run_app_cmd("python manage.py syncdb --settings=%(settings)s" % env)
-
-@roles('webservers')
-def collect_static():
-    _ensure_vhost()
-
-    _run_app_cmd("python manage.py collectstatic --noinput --settings=%(settings)s" % env)
-    sudo("mkdir -p %(app_path)s/site_media/media;" % env)
-
-@roles('webservers')
-def run_migration():
-    _run_app_cmd("python manage.py migrate --settings=%(settings)s" % env)
-
-@roles('webservers')
-def compress_css():
-    _ensure_vhost()
-
-    sudo("rm -f %(app_path)s/site_media/static/css/all.min.css;for FILE in %(app_path)s/site_media/static/css/*.css; do csstidy $FILE --template=highest $FILE.tmp; done;for FILE in %(app_path)s/site_media/static/css/*.tmp; do cat $FILE >> %(app_path)s/site_media/static/css/all.min.css; done;rm -f %(app_path)s/site_media/static/css/*.tmp" % env, user=env.deploy_user)
-
-@roles('webservers')
-def pull():
-    hg_pull()
-    hg_update()
-
-@roles('webservers')
+@task
+@roles('webservers', 'appservers', 'dbservers', 'cacheservers')
 def update():
-    install_prereqs() 
+    """
+    Update the application.
+    """
+    name = localexec("python setup.py --name", capture=True)
+    version = localexec("python setup.py --version", capture=True)
+    localexec("python setup.py sdist")
 
-@roles('webservers')
+    tmp_path = run("mktemp --suffix=.tar.gz")
+    put("dist/%s-%s.tar.gz" % (name, version), tmp_path, mode=0755)
+
+    with virtualenv():
+        sudo('pip install %s' % tmp_path, user=env.deploy_user)
+
+
+@task
+@runs_once
+@roles('webservers', 'appservers', 'dbservers', 'cacheservers')
 def migrate_db():
-    #run_syncdb() 
-    run_migration()
+    """
+    Migrate the database.
+    """
+    with virtualenv():
+        sudo("homepage migrate", user=env.deploy_user)
 
-@roles('webservers')
-def put_settings():
-    _ensure_vhost()
 
-    put("%s/homepage/settings_production.py" % ROOT_PATH, "%(app_path)s/homepage/settings_local.py" % env, use_sudo=True)
-    sudo('chown %(deploy_user)s:%(deploy_user)s "%(app_path)s/homepage/settings_local.py"' % env)
-
-@roles('webservers')
+@task
+@roles('appservers')
 def deploy():
-    pull()
-    update()
-    put_settings()
-    run_syncdb()
-    migrate_db()
-    collect_static()
-    #compress_css()
-    reboot()
+    """
+    Deploy the latest version of the app
+    """
+    execute(update)
+    execute(migrate_db)
+    execute(restart)
 
+
+@task
+@roles('webservers', 'appservers', 'dbservers', 'cacheservers')
+def up():
+    """
+    Bring up the environment.
+    """
+    env.create_func()
+
+
+def _gcloud_create():
+    # Create instance.
+    localexec(
+        'gcloud compute --project "%(project_id)s" instances create "%(environ)s" '  # NOQA
+        '--zone "%(zone)s" '
+        '--machine-type "f1-micro" '
+        '--network "default" '
+        '--maintenance-policy "MIGRATE" '
+        '--scopes "https://www.googleapis.com/auth/devstorage.read_only" '
+        '--tags "http-server" "https-server" '
+        '--image "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1404-trusty-v20141212" '  # NOQA
+        '--no-boot-disk-auto-delete '
+        '--boot-disk-type "pd-standard" '
+        '--boot-disk-device-name "%(environ)s"' % env
+    )
+
+    # Sleep to wait for ssh to be availabe.
+    time.sleep(15)
+
+
+@runs_once
+def _local_create():
+    localexec("vagrant up --no-provision")
+
+
+@task
+@runs_once
+def provision():
+    """
+    Provision the environment.
+    """
+    # Write an inventory to use with ansible.
+    _inventory = tempfile.NamedTemporaryFile()
+    for name, hosts in env.roledefs.items():
+        _inventory.write("[%(name)s]\n%(hosts)s\n\n" % {
+            'name': name,
+            'hosts': "\n".join(hosts),
+        })
+    _inventory.write("[%(environ)s:children]\n" % env)
+    for name in env.roledefs:
+        _inventory.write("%s\n" % name)
+    _inventory.flush()
+
+    localexec(
+        'PYTHONUNBUFFERED=1 '
+        'ANSIBLE_HOST_KEY_CHECKING=false '
+        'ANSIBLE_SSH_ARGS=\'-F %(ssh_config_path)s -o UserKnownHostsFile=/dev/null -o ControlMaster=auto -o ControlPersist=60s\' '  # NOQA
+        'ansible-playbook '
+        '--private-key=%(ssh_key_path)s '  # NOQA
+        '--user=%(user)s '
+        '--connection=ssh '
+        '--limit=\'%(environ)s\' '
+        '--inventory-file=%(inventory)s '
+        'provisioning/site.yml' % {
+            'environ': env.environ,
+            'user': env.user,
+            'ssh_config_path': env.ssh_config_path,
+            'ssh_key_path': env.ssh_key_path,
+            'inventory': _inventory.name,
+        }
+    )
+
+
+@task
 def local():
     """
-    Local environment with vagrant
+    Local environment
     """
+    env.environ = 'local'
+
     # Setup the ssh config so that fabric connects to vagrant.
-    env.repo_url = "https://IanLewis@bitbucket.org/IanLewis/homepage"
+    env.user = 'vagrant'
     env.ssh_config_path = _ssh_config.name
     env.use_ssh_config = True
+    env.ssh_key_path = '~/.vagrant.d/insecure_private_key'
 
-    os.system("vagrant ssh-config --host local >> %s" % env.ssh_config_path)
+    # Get the vagrant ssh config
+    os.system("vagrant ssh-config --host local.virtualbox >> %s"
+              % env.ssh_config_path)
 
-    env.use_ssh_config = True
-    env.deploy_user = 'www-data'
     env.roledefs.update({
-        'webservers': ['local'], # so that it matches the vagrant ssh-config
+        'webservers': ['local.virtualbox'],  # matches the vagrant ssh-config
+        'appservers': ['local.virtualbox'],
+        'dbservers': ['local.virtualbox'],
+        'cacheservers': ['local.virtualbox'],
     })
-    env.rev = 'default' 
-    env.settings = 'homepage.settings_local'
-    env.app_path = '/var/www/vhosts/homepage'
-    env.venv_path = '/var/www/venvs/homepage'
-    env.service_path = '/etc/service/homepage'
 
+    env.create_func = _local_create
+
+
+@task
+def staging():
+    """
+    Staging environment
+    """
+    env.environ = "staging"
+    _gcloud()
+
+
+@task
 def production():
-    env.repo_url = "https://IanLewis@bitbucket.org/IanLewis/homepage"
-    env.deploy_user = 'www-data'
+    """
+    Production environment
+    """
+    env.environ = "production"
+    _gcloud()
+
+
+def _gcloud():
+    # TODO: gcloud ssh config
+    env.ssh_key_path = '~/.ssh/google_compute_engine'
+
+    env.project_id = os.environ.get('GOOGLE_PROJECT_ID')
+    env.zone = os.environ.get('COMPUTE_ENGINE_ZONE')
+
+    # So that it matches ssh config file as created by
+    # gcloud compute config-ssh
+    host = '%s.%s.%s' % (
+        env.environ,
+        env.zone,
+        env.project_id,
+    )
+
+    # These roles match the ansible groups
     env.roledefs.update({
-        'webservers': ['www.ianlewis.org'],
+        'webservers': [host],
+        'appservers': [host],
+        'dbservers': [host],
+        'cacheservers': [host],
     })
-    env.rev = 'default' 
-    env.settings = 'homepage.settings_local'
-    env.app_path = '/var/www/vhosts/homepage'
-    env.venv_path = '/var/www/venvs/homepage'
-    env.service_path = '/etc/service/homepage'
+
+    env.create_func = _gcloud_create
