@@ -3,6 +3,7 @@
 from distutils.core import Command
 from setuptools import setup, find_packages
 from setuptools.command.sdist import sdist
+from setuptools.command.develop import develop
 
 
 class BuildStatic(Command):
@@ -25,10 +26,17 @@ class BuildStatic(Command):
         call_command('collectstatic', interactive=False)
 
 
+class DevelopWithBuildStatic(develop):
+    def install_for_development(self):
+        self.run_command('build_static')
+        return develop.install_for_development(self)
+
+
 class SdistWithBuildStatic(sdist):
     def run(self):
         self.run_command('build_static')
         return sdist.run(self)
+
 
 install_requires = [
     'Django==1.4.17',
@@ -78,6 +86,7 @@ setup(
     include_package_data=True,  # Include static files, templates, etc.
     cmdclass={
         'build_static': BuildStatic,
+        'develop': DevelopWithBuildStatic,
         'sdist': SdistWithBuildStatic,
     },
     entry_points={
