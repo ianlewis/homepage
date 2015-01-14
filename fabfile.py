@@ -4,7 +4,7 @@ import os
 import time
 import tempfile
 
-from fabric.api import local as localexec, sudo, env, put, run
+from fabric.api import local as localexec, sudo, env, put, run, settings
 from fabric.tasks import execute
 from fabric.decorators import roles, task, runs_once
 from fabric.context_managers import prefix
@@ -114,8 +114,10 @@ def _gcloud_create():
 def _local_create():
     localexec("vagrant up --no-provision")
 
-    # Sleep to wait for ssh to be available.
-    time.sleep(15)
+    # Need to get the vagrant ssh config after
+    # booting the instance.
+    localexec("vagrant ssh-config --host local.virtualbox >> %s"
+              % env.ssh_config_path)
 
 
 @task
@@ -155,6 +157,8 @@ def provision():
         }
     )
 
+# TODO: halt, destroy commands.
+
 
 @task
 def local():
@@ -170,8 +174,9 @@ def local():
     env.ssh_key_path = '~/.vagrant.d/insecure_private_key'
 
     # Get the vagrant ssh config
-    os.system("vagrant ssh-config --host local.virtualbox >> %s"
-              % env.ssh_config_path)
+    with settings(warn_only=True):
+        localexec("vagrant ssh-config --host local.virtualbox >> %s"
+                  % env.ssh_config_path)
 
     env.roledefs.update({
         'webservers': ['local.virtualbox'],  # matches the vagrant ssh-config
