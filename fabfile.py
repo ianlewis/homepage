@@ -114,6 +114,9 @@ def _gcloud_create():
 def _local_create():
     localexec("vagrant up --no-provision")
 
+    # Sleep to wait for ssh to be availabe.
+    time.sleep(15)
+
 
 @task
 @runs_once
