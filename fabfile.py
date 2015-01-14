@@ -106,7 +106,7 @@ def _gcloud_create():
         '--boot-disk-device-name "%(environ)s"' % env
     )
 
-    # Sleep to wait for ssh to be availabe.
+    # Sleep to wait for ssh to be available.
     time.sleep(15)
 
 
@@ -114,7 +114,7 @@ def _gcloud_create():
 def _local_create():
     localexec("vagrant up --no-provision")
 
-    # Sleep to wait for ssh to be availabe.
+    # Sleep to wait for ssh to be available.
     time.sleep(15)
 
 
@@ -122,7 +122,7 @@ def _local_create():
 @runs_once
 def provision():
     """
-    Provision the environment.
+    Provision the environment using ansible.
     """
     # Write an inventory to use with ansible.
     _inventory = tempfile.NamedTemporaryFile()
@@ -159,7 +159,7 @@ def provision():
 @task
 def local():
     """
-    Local environment
+    Local Vagrant environment
     """
     env.environ = 'local'
 
@@ -186,7 +186,7 @@ def local():
 @task
 def staging():
     """
-    Staging environment
+    Google Compute Engine staging environment
     """
     env.environ = "staging"
     _gcloud()
@@ -195,7 +195,7 @@ def staging():
 @task
 def production():
     """
-    Production environment
+    Google Compute Engine production environment
     """
     env.environ = "production"
     _gcloud()
