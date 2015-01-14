@@ -17,6 +17,10 @@
     - libjpeg-dev
     - zlib1g-dev
 
+- name: Install environment
+  sudo: True
+  template: src=environment.sh.j2 dest=/etc/profile.d/environment.sh
+
 - name: Create supervisord group
   sudo: True
   group: name={{supervisord_group}} state=present
