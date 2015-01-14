@@ -19,7 +19,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Provision using ansible
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "provisioning/site.yml"
-        # ansible.inventory_path = "provisioning/local"
         ansible.groups = {
             "webservers" => ["default"],
             "appservers" => ["default"],
