@@ -46,6 +46,11 @@ setup(
         'build_static': BuildStatic,
         'sdist': SdistWithBuildStatic,
     },
+    entry_points={
+        'console_scripts': [
+            'homepage = homepage.runner:main',
+        ],
+    },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",

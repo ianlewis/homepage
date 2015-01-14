@@ -173,6 +173,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Third party
+    'gunicorn',
     'south',
     'sorl.thumbnail',
     'filebrowser',
