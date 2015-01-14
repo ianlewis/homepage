@@ -15,6 +15,8 @@ def start(args):
         "bind": args.bind,
         "workers": args.workers,
         "timeout": args.timeout,
+        "daemon": args.daemon,
+        "pidfile": args.pidfile,
     })
 
 
@@ -28,7 +30,7 @@ def migrate(args):
 def main():
     parser = argparse.ArgumentParser(description='The Homepage App')
 
-    subparsers = parser.add_subparsers(help="sub-command help")
+    subparsers = parser.add_subparsers(help="Sub-command help")
 
     start_parser = subparsers.add_parser('start', help="Run the app server.")
 
@@ -41,6 +43,13 @@ def main():
     start_parser.add_argument('--timeout', '-t', dest='timeout', type=int,
                               default=30, help="Workers silent for more than "
                               "this many seconds are killed and restarted.")
+    start_parser.add_argument('--pid', '-d', dest='pidfile',
+                              default='/var/run/homepage/homepage.pid',
+                              help="A filename to use for the PID file.")
+    start_parser.add_argument('--daemon', '-D', action='store_true',
+                              dest='daemon', default=False,
+                              help=" Daemonize the process..")
+
     start_parser.set_defaults(func=start)
 
     migrate_parser = subparsers.add_parser('migrate',
