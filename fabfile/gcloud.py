@@ -58,7 +58,8 @@ def config_ssh(warn_only=False):
                   '--ssh-key-file %(ssh_key_path)s' % env)
     # NOTE: Remove the cached ssh config data.
     if '_ssh_config' in env:
-        del env._ssh_config
+        # NOTE: env is a dict so del env._ssh_config doesn't work
+        del env['_ssh_config']
 
 
 def create():
