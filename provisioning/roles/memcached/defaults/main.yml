@@ -1,0 +1,9 @@
+---
+
+memcached_daemonize: true
+memcached_user: nobody
+memcached_log_file: /var/log/memcached
+memcached_port: 11211
+memcached_ip: 127.0.0.1
+memcached_max_memory: 64  # 64 Megabytes
+memcached_max_connections: 1024

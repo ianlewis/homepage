@@ -68,12 +68,12 @@ install_requires = [
     # Production
     'gunicorn==0.14.2',
     'MySQL-python==1.2.3',
-    'pylibmc==1.1.1',
+    'pylibmc==1.4.1',
 ]
 
 setup(
     name="homepage",
-    version="0.0.6",
+    version="0.0.7",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",

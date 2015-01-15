@@ -12,7 +12,8 @@ export MEDIA_ROOT=/var/www/media
 export SECRET_KEY="{{ app_secret_key }}"
 {% endif %}
 export USE_PAGE_CACHE=False
-export USE_MEMCACHED=False
+export USE_MEMCACHED=True
+export MEMCACHED_HOSTS=127.0.0.1:11211
 {% if app_disqus_api_key %}
 export DISQUS_API_KEY="{{ app_disqus_api_key }}"
 {% endif %}

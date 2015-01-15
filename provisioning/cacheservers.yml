@@ -1,2 +1,4 @@
 ---
-# TODO: Memcached hosts
+- hosts: webservers
+  roles:
+    - memcached
