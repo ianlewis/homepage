@@ -56,6 +56,9 @@ def config_ssh(warn_only=False):
                   '--project %(project_id)s '
                   '--ssh-config-file %(ssh_config_path)s '
                   '--ssh-key-file %(ssh_key_path)s' % env)
+    # NOTE: Remove the cached ssh config data.
+    if '_ssh_config' in env:
+        del env._ssh_config
 
 
 def create():

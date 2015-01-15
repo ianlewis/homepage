@@ -43,6 +43,10 @@ def config_ssh(warn_only=False):
         localexec("vagrant ssh-config --host local.virtualbox >> %s"
                   % env.ssh_config_path)
 
+    # NOTE: Remove the cached ssh config data.
+    if '_ssh_config' in env:
+        del env._ssh_config
+
 
 @runs_once
 def create():
