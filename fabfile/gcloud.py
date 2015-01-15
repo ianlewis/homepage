@@ -109,12 +109,15 @@ def halt():
     )
 
 
-def destroy():
+def destroy(force=False):
     """
     Delete the Google Cloud Instance.
     """
+    options = ""
+    if force:
+        options = "--quiet"
     # NOTE: Interactive
     localexec(
-        'gcloud compute --project "%(project_id)s" instances delete "%(environ)s" '  # NOQA
-        '--zone "%(zone)s"' % env
+        ('gcloud compute --project "%(project_id)s" instances delete "%(environ)s" '  # NOQA
+         '--zone "%(zone)s" ' + options) % env
     )

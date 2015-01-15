@@ -47,11 +47,11 @@ def halt():
 
 @task
 @roles('webservers', 'appservers', 'dbservers', 'cacheservers')
-def destroy():
+def destroy(force=False):
     """
     Destroy the VMs.
     """
-    env.destroy_func()
+    env.destroy_func(force=force)
 
 
 @task

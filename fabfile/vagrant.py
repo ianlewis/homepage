@@ -74,10 +74,13 @@ def halt():
 
 
 @runs_once
-def destroy():
+def destroy(force=False):
     """
     Destroy all vagrant machines.
     """
+    options = ""
+    if force:
+        options = "--force"
     # TODO: Currenly runs_once because vagrant destroy deletes all
     # machines. Only bring up a single machine here?
-    localexec("vagrant destroy")  # NOTE: Interactive
+    localexec("vagrant destroy " + options)  # NOTE: Interactive
