@@ -68,7 +68,6 @@ def create():
         '--scopes "https://www.googleapis.com/auth/devstorage.read_only" '
         '--tags "http-server" "https-server" '
         '--image "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1404-trusty-v20141212" '  # NOQA
-        '--no-boot-disk-auto-delete '
         '--boot-disk-type "pd-standard" '
         '--boot-disk-device-name "%(environ)s"' % env
     )
@@ -82,10 +81,21 @@ def create():
 
 
 def halt():
-    # TODO
-    error("Not implemented yet.")
+    """
+    Stop the Google Cloud Instance
+    """
+    localexec(
+        'gcloud compute --project "%(project_id)s" instances stop "%(environ)s" '  # NOQA
+        '--zone "%(zone)s"' % env
+    )
 
 
 def destroy():
-    # TODO
-    error("Not implemented yet.")
+    """
+    Delete the Google Cloud Instance.
+    """
+    # NOTE: Interactive
+    localexec(
+        'gcloud compute --project "%(project_id)s" instances delete "%(environ)s" '  # NOQA
+        '--zone "%(zone)s"' % env
+    )
