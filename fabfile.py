@@ -39,8 +39,7 @@ def virtualenv(path=None):
 @task
 def ssh(host=None):
     """
-    Open an interactive shell to a host. If multiple hosts are defined then
-    a host argument must be specified.
+    Open an interactive shell to a host.
     """
     hosts = list(set(h for r in env.roledefs.values() for h in r))
     if len(hosts) == 1:
