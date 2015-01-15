@@ -37,11 +37,16 @@ def virtualenv(path=None):
 
 
 @task
-def ssh():
+def ssh(host=None):
     """
     Open an interactive shell to a host. If multiple hosts are defined then
     a host argument must be specified.
     """
+    hosts = list(set(h for r in env.roledefs.values() for h in r))
+    if len(hosts) == 1:
+        # If there is only one host then use that host. Otherwise prompt
+        # for a host.
+        env.host_string = hosts[0]
     open_shell()
 
 
@@ -194,7 +199,7 @@ def local():
         'webservers': ['local.virtualbox'],  # matches the vagrant ssh-config
         'appservers': ['local.virtualbox'],
         'dbservers': ['local.virtualbox'],
-        'cacheservers': ['hoge', 'local.virtualbox'],
+        'cacheservers': ['local.virtualbox'],
     })
 
     env.create_func = _local_create
