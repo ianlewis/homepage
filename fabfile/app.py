@@ -50,7 +50,7 @@ def virtualenv(path=None):
 
 
 @task
-@roles('webservers', 'appservers', 'dbservers', 'cacheservers')
+@roles('appservers')
 def restart():
     """
     Restart the application.
