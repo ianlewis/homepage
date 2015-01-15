@@ -4,7 +4,10 @@ import os
 import time
 import tempfile
 
-from fabric.api import local as localexec, sudo, env, put, run, settings
+from fabric.api import (
+    local as localexec, sudo, env,
+    put, run, settings, open_shell,
+)
 from fabric.tasks import execute
 from fabric.decorators import roles, task, runs_once
 from fabric.context_managers import prefix
@@ -31,6 +34,15 @@ def virtualenv(path=None):
          '  virtualenv %(venv_path)s;'
          'fi' % env, user=env.deploy_user)
     return prefix('source %(venv_path)s/bin/activate' % env)
+
+
+@task
+def ssh():
+    """
+    Open an interactive shell to a host. If multiple hosts are defined then
+    a host argument must be specified.
+    """
+    open_shell()
 
 
 @task
@@ -182,7 +194,7 @@ def local():
         'webservers': ['local.virtualbox'],  # matches the vagrant ssh-config
         'appservers': ['local.virtualbox'],
         'dbservers': ['local.virtualbox'],
-        'cacheservers': ['local.virtualbox'],
+        'cacheservers': ['hoge', 'local.virtualbox'],
     })
 
     env.create_func = _local_create
