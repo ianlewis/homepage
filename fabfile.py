@@ -41,11 +41,20 @@ def ssh(host=None):
     """
     Open an interactive shell to a host.
     """
-    hosts = list(set(h for r in env.roledefs.values() for h in r))
+    if env.hosts:
+        hosts = env.hosts
+    else:
+        hosts = list(set(h for r in env.roledefs.values() for h in r))
     if len(hosts) == 1:
         # If there is only one host then use that host. Otherwise prompt
         # for a host.
         env.host_string = hosts[0]
+    else:
+        print("Valid hosts are:")
+        print("")
+        for host in hosts:
+            print(host)
+        print("")
     open_shell()
 
 
