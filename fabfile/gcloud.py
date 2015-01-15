@@ -4,7 +4,8 @@ import os
 import time
 import tempfile
 
-from fabric.api import env, local as localexec, settings
+from fabric.api import env, local as localexec, settings, hide
+from fabric.colors import green
 
 
 # Used for connecting to google cloud instances. Located here
@@ -58,23 +59,37 @@ def config_ssh(warn_only=False):
 
 
 def create():
-    # Create instance.
-    # TODO: Skip creation if the instance is already created.
-    localexec(
-        'gcloud compute --project "%(project_id)s" instances create "%(environ)s" '  # NOQA
-        '--zone "%(zone)s" '
-        '--machine-type "f1-micro" '
-        '--network "default" '
-        '--maintenance-policy "MIGRATE" '
-        '--scopes "https://www.googleapis.com/auth/devstorage.read_only" '
-        '--tags "http-server" "https-server" '
-        '--image "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1404-trusty-v20141212" '  # NOQA
-        '--boot-disk-type "pd-standard" '
-        '--boot-disk-device-name "%(environ)s"' % env
-    )
+    # Check if the instance already exists
+    exists = False
+    with hide('stdout', 'stderr'):
+        with settings(warn_only=True):
+            result = localexec(
+                'gcloud compute --project "%(project_id)s" instances describe "%(environ)s" '  # NOQA
+                '--zone "%(zone)s" ' % env
+            )
+            exists = result.return_code == 0
 
-    # Sleep to wait for ssh to be available.
-    time.sleep(15)
+    # Skip creation if the instance is already created.
+    if exists:
+        print(green("Instance already created."))
+    else:
+        # Create instance.
+        print(green("Creating instance."))
+        localexec(
+            'gcloud compute --project "%(project_id)s" instances create "%(environ)s" '  # NOQA
+            '--zone "%(zone)s" '
+            '--machine-type "f1-micro" '
+            '--network "default" '
+            '--maintenance-policy "MIGRATE" '
+            '--scopes "https://www.googleapis.com/auth/devstorage.read_only" '
+            '--tags "http-server" "https-server" '
+            '--image "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1404-trusty-v20141212" '  # NOQA
+            '--boot-disk-type "pd-standard" '
+            '--boot-disk-device-name "%(environ)s"' % env
+        )
+
+        # Sleep to wait for ssh to be available.
+        time.sleep(15)
 
     # Need to get the Google Cloud ssh config after
     # booting the instance.
