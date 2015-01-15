@@ -5,7 +5,6 @@ import time
 import tempfile
 
 from fabric.api import env, local as localexec, settings
-from fabric.utils import error
 
 
 # Used for connecting to google cloud instances. Located here
@@ -18,6 +17,7 @@ def init_env(name):
     env.environ = name
 
     env.ssh_config_path = _ssh_config.name
+    env.use_ssh_config = True
     env.ssh_key_path = os.environ.get('COMPUTE_ENGINE_SSH_KEY_FILE',
                                       '~/.ssh/google_compute_engine')
 
@@ -59,6 +59,7 @@ def config_ssh(warn_only=False):
 
 def create():
     # Create instance.
+    # TODO: Skip creation if the instance is already created.
     localexec(
         'gcloud compute --project "%(project_id)s" instances create "%(environ)s" '  # NOQA
         '--zone "%(zone)s" '
