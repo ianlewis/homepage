@@ -1,16 +1,9 @@
 #:coding=utf8:
 
-import os
-import time
 import tempfile
 
-from fabric.api import (
-    local as localexec, sudo, env,
-    put, run, settings, open_shell,
-)
-from fabric.tasks import execute
-from fabric.decorators import roles, task, runs_once
-from fabric.context_managers import prefix
+from fabric.api import local as localexec, env
+from fabric.decorators import runs_once
 
 
 @runs_once
@@ -43,6 +36,7 @@ def provision():
         '--connection=ssh '
         '--limit=\'%(environ)s\' '
         '--inventory-file=%(inventory)s '
+        '--ask-vault-pass '
         'provisioning/site.yml' % {
             'environ': env.environ,
             'user': env.user,
