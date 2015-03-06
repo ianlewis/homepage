@@ -4,7 +4,7 @@ import pipes
 
 from fabric.api import (
     env, task, roles,
-    prefix, local as localexec, sudo, run, execute,
+    prefix, local as localexec, run, execute,
     put, runs_once, settings,
 )
 
@@ -55,7 +55,7 @@ def restart():
     """
     Restart the application.
     """
-    sudo('supervisorctl restart homepage')
+    run_su('supervisorctl restart homepage')
 
 
 @task
