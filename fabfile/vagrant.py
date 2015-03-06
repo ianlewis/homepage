@@ -4,6 +4,7 @@ import tempfile
 
 from fabric.api import local as localexec, env, settings
 from fabric.decorators import runs_once
+from fabric.colors import green
 
 
 # Used for connecting to vagrant machines. Located here
@@ -54,6 +55,7 @@ def create():
     """
     Create a vagrant instance.
     """
+    print(green("Creating instance."))
 
     # TODO: Currenly runs_once because vagrant up brings up all
     # machines. Only bring up a single machine here?
@@ -69,6 +71,8 @@ def halt():
     """
     Halt all vagrant machines.
     """
+    print(green("Stopping instance."))
+
     # TODO: Currenly runs_once because vagrant halt stops all
     # machines. Only bring up a single machine here?
     localexec("vagrant halt")
@@ -79,6 +83,8 @@ def destroy(force=False):
     """
     Destroy all vagrant machines.
     """
+    print(green("Deleting instance."))
+
     options = ""
     if force:
         options = "--force"
