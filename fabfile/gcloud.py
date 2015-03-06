@@ -4,8 +4,11 @@ import os
 import time
 import tempfile
 
-from fabric.api import env, local as localexec, settings, hide
-from fabric.colors import green
+import ConfigParser
+from StringIO import StringIO
+
+from fabric.api import env, local as localexec, settings, hide, abort
+from fabric.colors import green, cyan
 
 
 # Used for connecting to google cloud instances. Located here
@@ -14,16 +17,41 @@ _ssh_config = tempfile.NamedTemporaryFile()
 
 
 def init_env(name):
-    # Defaults to Google Cloud SDK default location.
+    """
+    Initialize the Google Cloud Platform environment.
+    """
     env.environ = name
 
     env.ssh_config_path = _ssh_config.name
     env.use_ssh_config = True
+
+    # Defaults to Google Cloud SDK default location.
     env.ssh_key_path = os.environ.get('COMPUTE_ENGINE_SSH_KEY_FILE',
                                       '~/.ssh/google_compute_engine')
+    env.project_id = None
+    env.zone = 'us-central1-b'
 
-    env.project_id = os.environ.get('GOOGLE_PROJECT_ID')
-    env.zone = os.environ.get('COMPUTE_ENGINE_ZONE')
+    parser = ConfigParser.SafeConfigParser()
+    try:
+        # Read the gcloud SDK config.
+        # NOTE: (unset) causes parse errors so replace it with empty values.
+        config_file = StringIO(localexec("gcloud config list --all",
+                                         capture=True).replace("(unset)", "="))
+        parser.readfp(config_file)
+        env.project_id = parser.get('core', 'project')
+        env.zone = parser.get('compute', 'zone') or env.zone
+    except ConfigParser.Error:
+        pass
+
+    if not env.project_id:
+        abort("Could not detect Google Cloud Platform project.  "
+              "Set the default project using \n"
+              "'gcloud config set project <PROJECT>'")
+
+    print("")
+    print("Project: %s" % cyan(env.project_id))
+    print("Zone: %s" % cyan(env.zone))
+    print("")
 
     # So that it matches ssh config file as created by
     # gcloud compute config-ssh
@@ -104,6 +132,8 @@ def halt():
     """
     Stop the Google Cloud Instance
     """
+    print(green("Stopping instance."))
+
     localexec(
         'gcloud compute --project "%(project_id)s" instances stop "%(environ)s" '  # NOQA
         '--zone "%(zone)s"' % env
@@ -114,6 +144,8 @@ def destroy(force=False):
     """
     Delete the Google Cloud Instance.
     """
+    print(green("Deleting instance."))
+
     options = ""
     if force:
         options = "--quiet"
