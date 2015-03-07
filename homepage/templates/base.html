@@ -1,20 +1,16 @@
-{% load disqus_tags %}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+{% load compress disqus_tags %}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
 <html{% block html_attrs %}{% endblock %}>
   <head>
     <title>{% block title %}Homepage{% endblock %} - Ian Lewis</title>
-    {#{% if debug %}#}
+    {% compress css %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css" type="text/css" media="screen">
-    <!--<link rel="stylesheet" href="{{ STATIC_URL }}css/base.css" type="text/css" media="screen">-->
     <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/highlight.css" type="text/css" media="screen" />
-    {% comment %}
-    {% else %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/all.min.css" type="text/css" media="screen">
-    {% endif %}
-    {% endcomment %}
+    {% endcompress %}
+
     <meta name="keywords" content="{% block keywords %}Ian Lewis, イアン・ルイス, Tokyo, 東京, Japan,日本, Django, Python, BeProud, ビープラウド{% endblock %}"> 
     <meta name="description" content="{% block description %}Ian Lewis is a web developer living in Tokyo Japan. His current interests are in Django, python, cloud computing, alternative databases, and rapid web application development.{% endblock %}">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">

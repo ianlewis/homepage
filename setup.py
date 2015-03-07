@@ -3,7 +3,6 @@
 from distutils.core import Command
 from setuptools import setup, find_packages
 from setuptools.command.sdist import sdist
-from setuptools.command.develop import develop
 
 
 class BuildStatic(Command):
@@ -24,12 +23,6 @@ class BuildStatic(Command):
         os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
         from django.core.management import call_command
         call_command('collectstatic', interactive=False)
-
-
-class DevelopWithBuildStatic(develop):
-    def install_for_development(self):
-        self.run_command('build_static')
-        return develop.install_for_development(self)
 
 
 class SdistWithBuildStatic(sdist):
@@ -65,6 +58,9 @@ install_requires = [
     # Comments
     'django-disqus==0.4.3',
 
+    # Static file compression.
+    'django-compressor==1.4',
+
     # Production
     'gunicorn==0.14.2',
     'MySQL-python==1.2.3',
@@ -86,7 +82,6 @@ setup(
     include_package_data=True,  # Include static files, templates, etc.
     cmdclass={
         'build_static': BuildStatic,
-        'develop': DevelopWithBuildStatic,
         'sdist': SdistWithBuildStatic,
     },
     entry_points={
