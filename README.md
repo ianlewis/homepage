@@ -19,31 +19,27 @@ Run the development server in debug mode
 
 # Local Setup
 
-TODO: Clean this up
-
-1. Install vagrant
-1. Install ansible
+For local setup you will need to have vagrant installed.
 
 # Google Cloud Platform Setup
 
-TODO: Clean this up
-
-1. Create a project
-1. Install the Google Cloud Platform SDK
-1. TODO
+For Google Cloud Platform you will need to create a project, and 
+install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
 
 ## Setup
 
-Set the required environment variables for the project that you got from the
-Google Cloud Platform Setup.
+Set the required config for the project. You can get the project ID from the
+Google Cloud Platform console.
 
-    $ export GOOGLE_PROJECT_ID=my-project
-    $ export COMPUTE_ENGINE_ZONE=asia-east-1b
+    $ gcloud config set project <PROJECT>
 
-You can also set the username and path to the ssh key location if you aren't
+You can set the zone you run the app in.
+
+    $ gcloud config set compute/zone asia-east1-b
+
+You can also set the path to the ssh key location if you aren't
 using the default set up by the Google Cloud SDK.
 
-    $ export COMPUTE_ENGINE_SSH_USERNAME=ian
     $ export COMPUTE_ENGINE_SSH_KEY_PATH=~/.ssh/id_rsa
 
 # Provisioning
@@ -51,18 +47,28 @@ using the default set up by the Google Cloud SDK.
 You can start an instance in your local Vagrant or Google Cloud after setting
 up the project.
 
-    $ fab <environment> up provision deploy
+You will need to have ansible installed. Install it using pip:
+
+    $ pip install ansible
+
+You can then provision and deploy the app:
+
+    $ fab env.<environment> vm.up vm.provision app.deploy
 
 ## Environments
 
 There are three environments that you can provision; local,
 staging, and production.
 
-The local environment is run locally using vagrant.
+The 'local' environment is run locally using vagrant.
 
-    $ fab local up provision
+    $ fab env.local vm.up vm.provision
 
-The staging and production environments use Google Compute Engine. You can
+The 'staging' and 'production' environments use Google Compute Engine. You can
 create and provision and instance just as easily as you can locally.
 
-    $ fab staging up provision
+    $ fab env.staging vm.up vm.provision
+
+You can ssh into the created VM easily:
+
+    $ fab env.<environment> vm.ssh
