@@ -47,19 +47,23 @@ nginx_sites:
     location1:
       name: "~ ^/(robots\\.txt|favicon\\.ico)$"
       root: "/var/www/venvs/homepage/lib/python2.7/site-packages/homepage/site_media/static/extra"
+      expires: "1d"
 
     location2:
       name: "~ ^/(img|css|js|lib|files|filebrowser)/"
       root: "/var/www/venvs/homepage/lib/python2.7/site-packages/homepage/site_media/static"
+      expires: "365d"
 
     location3:
-        name: "/media"
-        # TODO: Make media directory a variable
-        alias: "/var/www/media"
+      name: "/media"
+      # TODO: Make media directory a variable
+      alias: "/var/www/media"
+      expires: "365d"
 
     location4:
       name: "/static"
       alias: "/var/www/venvs/homepage/lib/python2.7/site-packages/homepage/site_media/static"
+      expires: "365d"
 
     location5: 
       name: "/"
