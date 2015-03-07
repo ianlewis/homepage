@@ -5,9 +5,11 @@ from django.contrib.auth.models import User
 
 from homepage.blog.models import Post
 
+
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "locale", "pub_date", "active")
-    list_filter = ("active","locale")
+    list_display = ("id", "title", "locale", "markup_type", "pub_date",
+                    "active")
+    list_filter = ("active", "locale", "markup_type")
     list_display_links = ("id", "title")
     search_fields = ("title", "content")
     prepopulated_fields = {"slug": ("title",)}
