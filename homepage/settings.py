@@ -7,7 +7,6 @@ import posixpath
 from homepage.conf import env_var, email_csv, csv_list
 
 ROOT_PATH = os.path.dirname(__file__)
-PROJECT_PATH = os.path.dirname(ROOT_PATH)
 
 DEBUG = env_var('DEBUG', bool, default=False)
 TEMPLATE_DEBUG = env_var('TEMPLATE_DEBUG', bool, default=DEBUG)
@@ -51,7 +50,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-SITE_MEDIA_ROOT = os.path.join(PROJECT_PATH, 'site_media')
+SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
 MEDIA_ROOT = os.path.join(SITE_MEDIA_ROOT, 'media')
 STATIC_ROOT = os.path.join(SITE_MEDIA_ROOT, 'static')
 FILEBROWSER_DIRECTORY = ''
@@ -65,7 +64,7 @@ STATIC_URL = posixpath.join(SITE_MEDIA_URL, 'static/')
 FILEBROWSER_URL_FILEBROWSER_MEDIA = posixpath.join(STATIC_URL, 'filebrowser/')
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static'),
+    os.path.join(ROOT_PATH, 'static'),
 )
 
 STATICFILES_MEDIA_DIRNAMES = (
@@ -117,6 +116,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
+USE_X_FORWARDED_HOST = True
+
 # Setup page caching.
 # TODO: Use nginx or varnish?
 USE_PAGE_CACHE = env_var('USE_PAGE_CACHE', bool, default=not DEBUG)
@@ -135,11 +136,11 @@ USE_MEMCACHED = env_var('USE_MEMCACHED', bool, default=not DEBUG)
 if USE_MEMCACHED:
     _cache_backend = 'django.core.cache.backends.memcached.PyLibMCCache'
     _cache_location = env_var('MEMCACHED_HOSTS', csv_list,
-                              default='127.0.0.1:11211')
+                              default=['127.0.0.1:11211'])
 else:
     # NOTE: Default is local memory cache.
     _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
-    _cache_location = ''
+    _cache_location = ''  # Not used by LocMemCache
 
 CACHES = {
     'default': {
@@ -158,7 +159,7 @@ CACHES = {
 ROOT_URLCONF = 'homepage.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, 'templates'),
+    os.path.join(ROOT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -172,6 +173,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Third party
+    'gunicorn',
     'south',
     'sorl.thumbnail',
     'filebrowser',
@@ -203,7 +205,7 @@ DISQUS_WEBSITE_SHORTNAME = env_var('DISQUS_WEBSITE_SHORTNAME', default='')
 # logging
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '[%(asctime)s][%(name)s] %(levelname)s %(message)s',
@@ -236,25 +238,22 @@ LOGGING = {
         },
     },
     'loggers': {
+        '': {
+            'handlers': ['stdout'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['stderr', 'mail_admins'],
             'propagate': False,
-            'level': 'WARNING',
+            'level': 'ERROR',
         },
     }
 }
 
-LOGGING['loggers'][''] = {
-    'handlers': ['stdout'],
-    'level': 'DEBUG',
-}
-
-INTERNAL_IPS = (
-    '127.0.0.1',
-)
+INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 
 SOUTH_MIGRATION_MODULES = {
-    "blog": "migrations.blog",
-    "tagging": "migrations.tagging",
-    "thumbnail": "migrations.thumbnail",
+    "blog": "homepage.migrations.blog",
+    "tagging": "homepage.migrations.tagging",
+    "thumbnail": "homepage.migrations.thumbnail",
 }
