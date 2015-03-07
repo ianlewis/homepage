@@ -127,6 +127,9 @@ def create():
     # booting the instance.
     config_ssh()
 
+    # TODO: Create HTTP/HTTPS firewall rules.
+    # TODO: Create Cloud DNS records?
+
 
 def halt():
     """
