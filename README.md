@@ -17,57 +17,49 @@ Run the development server in debug mode
 
     $ python manage.py runserver
 
-# Local Setup
+# Deploying the App Locally
 
-For local setup you will need to have vagrant installed.
+You can provision a VM locally with vagrant and deploy to it.
 
-# Google Cloud Platform Setup
+1. Install vagrant
+1. Install ansible:
 
-For Google Cloud Platform you will need to create a project, and 
-install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
+        $ pip install ansible
 
-## Setup
+1. Deploy and provision the app:
 
-Set the required config for the project. You can get the project ID from the
-Google Cloud Platform console.
+        $ fab env.local vm.up vm.provision app.deploy
 
-    $ gcloud config set project <PROJECT>
+1. You should then be able to access the app at http://192.168.33.10/
 
-You can set the zone you run the app in.
+# Deploy Staging or Production
 
-    $ gcloud config set compute/zone asia-east1-b
+You can deploy staging, and production environments to Google Cloud Platform.
+
+1. Install [ansible](http://www.ansible.com/):
+
+        $ pip install ansible
+
+1. Install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
+1. Create a project in the [Google Cloud Platform console](http://console.developers.google.com/).
+1. Set the id of your new project:
+
+        $ gcloud config set project <PROJECT>
+
+1. Set the zone you want the app to run in:
+
+        $ gcloud config set compute/zone asia-east1-b
+
+1. Deploy and provision the app:
+
+        $ fab env.staging vm.up vm.provision app.deploy
 
 You can also set the path to the ssh key location if you aren't
 using the default set up by the Google Cloud SDK.
 
     $ export COMPUTE_ENGINE_SSH_KEY_PATH=~/.ssh/id_rsa
 
-# Provisioning
-
-You can start an instance in your local Vagrant or Google Cloud after setting
-up the project.
-
-You will need to have ansible installed. Install it using pip:
-
-    $ pip install ansible
-
-You can then provision and deploy the app:
-
-    $ fab env.<environment> vm.up vm.provision app.deploy
-
-## Environments
-
-There are three environments that you can provision; local,
-staging, and production.
-
-The 'local' environment is run locally using vagrant.
-
-    $ fab env.local vm.up vm.provision
-
-The 'staging' and 'production' environments use Google Compute Engine. You can
-create and provision and instance just as easily as you can locally.
-
-    $ fab env.staging vm.up vm.provision
+# SSH
 
 You can ssh into the created VM easily:
 
