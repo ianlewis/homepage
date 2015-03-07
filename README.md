@@ -22,6 +22,10 @@ Run the development server in debug mode
 You can provision a VM locally with vagrant and deploy to it.
 
 1. Install vagrant
+1. Install Fabric:
+
+        $ pip install fabric
+
 1. Install ansible:
 
         $ pip install ansible
@@ -36,12 +40,16 @@ You can provision a VM locally with vagrant and deploy to it.
 
 You can deploy staging, and production environments to Google Cloud Platform.
 
+1. Install Fabric:
+
+        $ pip install fabric
+
 1. Install [ansible](http://www.ansible.com/):
 
         $ pip install ansible
 
-1. Create a project in the [Google Cloud Platform console](http://console.developers.google.com/).
 1. Install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
+1. Create a project in the [Google Cloud Platform console](http://console.developers.google.com/).
 1. Authenticate the Google Cloud Platform SDK:
 
         $ gcloud auth login
