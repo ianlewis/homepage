@@ -40,8 +40,12 @@ You can deploy staging, and production environments to Google Cloud Platform.
 
         $ pip install ansible
 
-1. Install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
 1. Create a project in the [Google Cloud Platform console](http://console.developers.google.com/).
+1. Install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
+1. Authenticate the Google Cloud Platform SDK:
+
+        $ gcloud auth login
+
 1. Set the id of your new project:
 
         $ gcloud config set project <PROJECT>
