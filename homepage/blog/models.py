@@ -35,16 +35,17 @@ class Post(models.Model):
     )
     content = models.TextField(u"content")
     markup_type = models.CharField(max_length=10, choices=(
-        ("html", "HTML"),
+        ("md", "Markdown"),
         ("rst", "reStructuredText"),
-    ), default="html")
+        ("html", "HTML"),
+    ), default="md")
     locale = models.CharField(u'locale', max_length=20, choices=BLOG_LOCALES, default="en", db_index=True)
     tags = TagField()
 
     active = models.BooleanField(u'published', default=False, db_index=True)
     pub_date = models.DateTimeField(u'published', default=datetime.now, db_index=True)
     create_date = models.DateTimeField(u'created', default=datetime.now)
-   
+
     objects = PostManager()
 
     @models.permalink

@@ -39,6 +39,7 @@ install_requires = [
     'docutils>=0.5',
     'pygments>=1.0',
     'html2text==3.200.3',
+    'Markdown==2.6',
 
     # For thumbnails
     'Pillow==2.5.1',
@@ -69,7 +70,7 @@ install_requires = [
 
 setup(
     name="homepage",
-    version="0.0.9",
+    version="0.0.10",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
