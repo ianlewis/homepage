@@ -26,8 +26,6 @@ urlpatterns = patterns('',
     url(r'^jp/about(?:/.*)?$', redirect_to, {'url': '/en/about/'}, name="jp_about_redirect"),
     url(r'^jp/aboutjp$', redirect_to, {'url': '/en/about/'}, name="jp_about_redirect2"),
 
-    url(r'^feed/?$', redirect_to, {'url': '/feeds/recent'}),
-
     # Legacy urls for the blog
     url(r'^index.php/(?P<locale>\w{2})/?$', redirect_to, {'url': '/%(locale)s/' }),
     url(r'^index.php$', redirect_to, {'url': '/en/'}),
