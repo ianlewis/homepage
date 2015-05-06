@@ -51,8 +51,8 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
-MEDIA_ROOT = os.path.join(SITE_MEDIA_ROOT, 'media')
-STATIC_ROOT = os.path.join(SITE_MEDIA_ROOT, 'static')
+MEDIA_ROOT = env_var('MEDIA_ROOT', default=os.path.join(SITE_MEDIA_ROOT, 'media'))
+STATIC_ROOT = env_var('STATIC_ROOT', default=os.path.join(SITE_MEDIA_ROOT, 'static'))
 FILEBROWSER_DIRECTORY = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
