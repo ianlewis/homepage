@@ -36,15 +36,6 @@
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
           <div class="post-tags">{% for tag in post_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page post.locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         </div>
-        {% comment %}
-        <div class="post-comment-link">
-          <a class="disqus-link" href="{{ post.get_absolute_url }}#disqus_thread">Send feedback</a>
-          &nbsp;
-          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ post.get_absolute_url }}"></g:plusone>
-          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ post.title }}" data-url="{{ post.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ post.lang }}">Tweet</a>
-          <a href="http://b.hatena.ne.jp/entry/{{ post.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ post.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
-        </div>
-        {% endcomment %}
       </div>
     {% endfor %}
   {% endif %}
@@ -54,19 +45,4 @@
 {% paginate %}
 
 </div>
-{% endblock %}
-
-{% block js_footer %}
-{{ block.super }}
-{% disqus_num_replies %}
-<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-<script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
 {% endblock %}
