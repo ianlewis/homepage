@@ -78,4 +78,14 @@ nginx_sites:
       proxy_read_timeout: "90" 
       proxy_pass: "http://localhost:{{ app_port }}"
 
+ - server:
+    # Server to redirect naked domain to www.ianlewis.org
+    file_name: homepage-redirect
+    listen: 80
+    server_name: ianlewis.org
+
+    location1: 
+      name: "/"
+      return: "301 $scheme://www.ianlewis.org$request_uri"
+
 # TODO: Add default host?
