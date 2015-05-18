@@ -13,6 +13,15 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ("id", "title")
     search_fields = ("title", "content")
     prepopulated_fields = {"slug": ("title",)}
+    actions = ['publish', 'unpublish']
+
+    def publish(modeladmin, request, queryset):
+        queryset.update(active=True)
+    publish.short_description = "Publish selected posts"
+
+    def unpublish(modeladmin, request, queryset):
+        queryset.update(active=False)
+    unpublish.short_description = "Un-publish selected posts"
 
     def get_form(self, request, obj=None, **kwargs):
         '''
