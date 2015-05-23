@@ -1,0 +1,11 @@
+apiVersion: v1beta3
+kind: Pod
+metadata:
+  name: migrate
+  labels: 
+    name: migrate
+spec: 
+   containers: 
+    - image: 
+      name: migrate
+      command: homepage migrate

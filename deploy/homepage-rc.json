@@ -1,0 +1,40 @@
+{
+   "kind":"ReplicationController",
+   "apiVersion":"v1beta3",
+   "metadata":{
+      "name":"homepage",
+      "labels":{
+         "name":"homepage",
+         "version": "0.0.16"
+      }
+   },
+   "spec":{
+      "replicas": 3,
+      "selector":{
+         "name":"homepage",
+         "version": "0.0.16"
+      },
+      "template":{
+         "metadata":{
+            "labels":{
+               "name":"homepage",
+               "version": "0.0.16"
+            }
+         },
+         "spec":{
+            "containers":[
+               {
+                  "name":"homepage",
+                  "image":"",
+                  "ports":[
+                     {
+                        "containerPort":80,
+                        "protocol":"TCP"
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   }
+}
