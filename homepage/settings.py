@@ -14,11 +14,11 @@ TEMPLATE_DEBUG = env_var('TEMPLATE_DEBUG', bool, default=DEBUG)
 ADMINS = env_var('ADMINS', email_csv, default=())
 MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
 
-_db_engine = env_var('DB_ENGINE', default='sqlite3')
+_db_engine = env_var('DB_ENGINE', default='sqlite3' if DEBUG else 'mysql')
 if _db_engine == 'sqlite3':
     _db_name = env_var('DB_NAME', default='djangodb.sqlite')
 else:
-    _db_name = env_var('DB_NAME')
+    _db_name = env_var('DB_NAME', default="homepage")
 
 DATABASES = {
     'default': {
@@ -51,8 +51,10 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
-MEDIA_ROOT = env_var('MEDIA_ROOT', default=os.path.join(SITE_MEDIA_ROOT, 'media'))
-STATIC_ROOT = env_var('STATIC_ROOT', default=os.path.join(SITE_MEDIA_ROOT, 'static'))
+MEDIA_ROOT = env_var('MEDIA_ROOT',
+                     default=os.path.join(SITE_MEDIA_ROOT, 'media'))
+STATIC_ROOT = env_var('STATIC_ROOT',
+                      default=os.path.join(SITE_MEDIA_ROOT, 'static'))
 FILEBROWSER_DIRECTORY = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -109,7 +111,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
-    "django.core.context_processors.request",
+    "django.core.context_processors.rewhere command bashquest",
     "homepage.core.context_processors.debug",
 )
 
