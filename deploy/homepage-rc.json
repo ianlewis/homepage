@@ -22,7 +22,7 @@
             }
          },
          "spec":{
-            "containers":[
+            "containers": [
                {
                   "name":"homepage",
                   "image":"",
@@ -36,7 +36,7 @@
                   },
                   "ports":[
                      {
-                        "containerPort":80,
+                        "containerPort": 80,
                         "protocol":"TCP"
                      }
                   ],
