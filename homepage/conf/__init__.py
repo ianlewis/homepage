@@ -1,6 +1,7 @@
 #:coding=utf-8:
 
 import os
+import os.path
 import re
 import csv
 from StringIO import StringIO
@@ -9,15 +10,18 @@ from django.core.exceptions import ImproperlyConfigured
 
 
 def env_var(name, value_type=str, **kwargs):
-    if name not in os.environ and 'default' not in kwargs:
-        raise ImproperlyConfigured("The %s environment variable "
-                                   "is required." % name)
-
     value = os.environ.get(name, None)
     if value is None:
-        # If the environment variable is not set and a default
-        # was provided then return it.
-        return kwargs['default']
+        settings_dir = os.environ.get('ENV_DIR', None)
+        if settings_dir and os.path.isfile(os.path.join(settings_dir, name)):
+            with open(os.path.join(settings_dir, name)) as settings_file:
+                value = settings_file.read()
+        elif 'default' in kwargs:
+            # If the environment variable is not set and a default
+            # was provided then return it.
+            return kwargs['default']
+        else:
+            raise ImproperlyConfigured("The %s setting is required." % name)
 
     try:
         if value_type == bool:
@@ -25,7 +29,7 @@ def env_var(name, value_type=str, **kwargs):
         else:
             value = value_type(value)
     except ValueError, e:
-        raise ImproperlyConfigured('The %s environment variable is '
+        raise ImproperlyConfigured('The %s setting is '
                                    'invalid: "%s".' % (name, e))
     return value
 

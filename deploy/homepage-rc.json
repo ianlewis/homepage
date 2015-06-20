@@ -26,12 +26,34 @@
                {
                   "name":"homepage",
                   "image":"",
+                  "env" {
+                    "DEBUG": "False",
+                    "DB_HOST": "mysql",
+                    "MEDIA_ROOT": "/var/www/media",
+                    "USE_MEMCACHED": "False",
+                    "MEMCACHED_HOSTS": "memcached:11211",
+                    "ENV_DIR": "/etc/secrets"
+                  },
                   "ports":[
                      {
                         "containerPort":80,
                         "protocol":"TCP"
                      }
+                  ],
+                  "volumeMounts": [
+                     {
+                        "name": "secret-volume",
+                        "mountPath": "/etc/secrets"
+                     }
                   ]
+               }
+            ],
+            "volumes": [
+               {
+                  "name": "secret-volume",
+                  "secret": {
+                     "secretName": "homepage-secret"
+                  }
                }
             ]
          }
