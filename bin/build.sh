@@ -12,3 +12,6 @@ cp deploy/Dockerfile dist/image/
 docker build -t homepage dist/image/
 # Tag with the appropriate version
 docker tag homepage gcr.io/ianlewis-org/homepage:v${VERSION}
+
+# Export to Container Registry
+gcloud preview docker push gcr.io/ianlewis-org/homepage:v${VERSION}
