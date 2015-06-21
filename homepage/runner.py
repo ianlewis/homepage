@@ -44,7 +44,7 @@ def main():
                               default=30, help="Workers silent for more than "
                               "this many seconds are killed and restarted.")
     start_parser.add_argument('--pid', '-d', dest='pidfile',
-                              default='/var/run/homepage/homepage.pid',
+                              default=None,
                               help="A filename to use for the PID file.")
     start_parser.add_argument('--daemon', '-D', action='store_true',
                               dest='daemon', default=False,
