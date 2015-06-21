@@ -14,5 +14,6 @@ kubectl create -f deploy/mysql/mysql-service.yaml --namespace=${NAMESPACE}
 # kubectl create -f deploy/memcached/memcached.yaml
 # kubectl create -f deploy/memcached/memcached-service.yaml
 
+kubectl create -f deploy/homepage-secret.yaml --namespace=${NAMESPACE}
 kubectl create -f deploy/homepage-rc.yaml --namespace=${NAMESPACE}
 kubectl create -f deploy/homepage-service.yaml --namespace=${NAMESPACE}
