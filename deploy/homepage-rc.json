@@ -1,40 +1,58 @@
 {
-   "kind":"ReplicationController",
-   "apiVersion":"v1beta3",
-   "metadata":{
-      "name":"homepage",
-      "labels":{
-         "name":"homepage",
-         "version": "0.0.16"
+   "kind": "ReplicationController",
+   "apiVersion": "v1beta3",
+   "metadata": {
+      "name": "homepage-0.0.21",
+      "labels": {
+         "name": "homepage",
+         "version": "0.0.21"
       }
    },
    "spec":{
       "replicas": 3,
-      "selector":{
-         "name":"homepage",
-         "version": "0.0.16"
+      "selector": {
+         "name": "homepage",
+         "version": "0.0.21"
       },
       "template":{
          "metadata":{
             "labels":{
-               "name":"homepage",
-               "version": "0.0.16"
+               "name": "homepage",
+               "version": "0.0.21"
             }
          },
          "spec":{
             "containers": [
                {
-                  "name":"homepage",
-                  "image":"",
-                  "env" {
-                    "DEBUG": "False",
-                    "DB_HOST": "mysql",
-                    "MEDIA_ROOT": "/var/www/media",
-                    "USE_MEMCACHED": "False",
-                    "MEMCACHED_HOSTS": "memcached:11211",
-                    "ENV_DIR": "/etc/secrets"
-                  },
-                  "ports":[
+                  "name": "homepage",
+                  "image": "gcr.io/ianlewis-org/homepage:0.0.21",
+                  "env": [
+                    {
+                      "name": "DEBUG",
+                      "value": "False"
+                    },
+                    {
+                      "name": "DB_HOST",
+                      "value": "mysql"
+                    },
+                    {
+                      "name": "MEDIA_ROOT",
+                      "value": "/var/www/media"
+                    },
+                    {
+                      "name": "USE_MEMCACHED",
+                      "value": "False"
+                    },
+                    {
+                      "name": "MEMCACHED_HOSTS",
+                      "value": "memcached:11211"
+                    },
+                    {
+                      "name": "ENV_DIR",
+                      "value": "/etc/secrets"
+                    }
+                  ],
+                  "ports": [
                      {
                         "containerPort": 80,
                         "protocol":"TCP"
