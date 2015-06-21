@@ -11,7 +11,7 @@ mv dist/homepage-${VERSION}.tar.gz dist/image/homepage.tar.gz
 cp deploy/Dockerfile dist/image/
 docker build -t homepage dist/image/
 # Tag with the appropriate version
-docker tag homepage gcr.io/ianlewis-org/homepage:v${VERSION}
+docker tag homepage gcr.io/ianlewis-org/homepage:${VERSION}
 
 # Export to Container Registry
-gcloud preview docker push gcr.io/ianlewis-org/homepage:v${VERSION}
+gcloud docker push gcr.io/ianlewis-org/homepage:${VERSION}
