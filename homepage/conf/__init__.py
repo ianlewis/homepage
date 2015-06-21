@@ -13,8 +13,10 @@ def env_var(name, value_type=str, **kwargs):
     value = os.environ.get(name, None)
     if value is None:
         settings_dir = os.environ.get('ENV_DIR', None)
-        if settings_dir and os.path.isfile(os.path.join(settings_dir, name)):
-            with open(os.path.join(settings_dir, name)) as settings_file:
+        filename = name.lower().replace("_", "-")
+        if (settings_dir and
+                os.path.isfile(os.path.join(settings_dir, filename))):
+            with open(os.path.join(settings_dir, filename)) as settings_file:
                 value = settings_file.read()
         elif 'default' in kwargs:
             # If the environment variable is not set and a default
