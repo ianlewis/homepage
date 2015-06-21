@@ -1,0 +1,44 @@
+apiVersion: v1beta3
+kind: ReplicationController
+metadata:
+  name: homepage-0.0.21-0
+  labels:
+    name: homepage
+    version: 0.0.21-0
+spec:
+  replicas: 3
+  selector:
+    name: homepage
+    version: 0.0.21-0
+  template:
+    metadata:
+      labels:
+        name: homepage
+        version: 0.0.21-0
+    spec:
+      containers:
+        - name: homepage
+          image: gcr.io/ianlewis-org/homepage:0.0.21
+          env:
+            - name: DEBUG
+              value: 'False'
+            - name: DB_HOST
+              value: mysql
+            - name: MEDIA_ROOT
+              value: /var/www/media
+            - name: USE_MEMCACHED
+              value: 'False'
+            - name: MEMCACHED_HOSTS
+              value: memcached:11211
+            - name: ENV_DIR
+              value: /etc/secrets
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /etc/secrets
+      volumes: 
+        - name: secret-volume
+          secret:
+            secretName: homepage-secret
