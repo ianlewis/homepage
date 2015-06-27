@@ -59,11 +59,12 @@ install_requires = [
     # Comments
     'django-disqus==0.4.3',
 
-    # Static file compression.
-    'django-compressor==1.4',
+    # Static files
+    'dj-static==0.0.6',
 
     # Production
-    'gunicorn==0.14.2',
+    # 'gunicorn==0.14.2',
+    'meinheld==0.5.7',
     'MySQL-python==1.2.3',
     'pylibmc==1.4.1',
 ]

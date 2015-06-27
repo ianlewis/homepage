@@ -4,7 +4,6 @@ from django.conf.urls.defaults import url, patterns, include
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.conf import settings
 
 from blog import urls as blog_urls
 from filebrowser.sites import site
@@ -34,13 +33,3 @@ urlpatterns += patterns(
     'homepage.core.views',
     url(r'^$', 'main_page', name='main_page'),
 )
-
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += patterns(
-        '',
-        (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:],
-         'django.views.static.serve',
-         {'document_root': settings.MEDIA_ROOT}),
-    )
