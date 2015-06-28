@@ -17,3 +17,7 @@ kubectl create -f deploy/mysql/mysql-service.yaml --namespace=${NAMESPACE}
 kubectl create -f deploy/homepage-secret.yaml --namespace=${NAMESPACE}
 kubectl create -f deploy/homepage-rc.yaml --namespace=${NAMESPACE}
 kubectl create -f deploy/homepage-service.yaml --namespace=${NAMESPACE}
+
+# Create the MySQL Database
+# kubectl exec mysql --namespace=${NAMESPACE} -- bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' | mysql -u root --password=yourpassword"
+# kubectl create -f deploy/homepage-migrate-pod.yaml --namespace=${NAMESPACE}
