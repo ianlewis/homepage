@@ -23,14 +23,7 @@
           <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
         </div>
         <div class="post-content clearfix">
-          {% thumbnail post.lead_image "200x150" crop="center" as thumb %}
-          <p>
-            <a href="{{ post.get_absolute_url }}"><img src="{{ thumb.url }}" class="align-left"></a>
-            {{ post|to_lead:400|default:"&nbsp;" }}
-          </p>
-          {% empty %}
-            <p>{{ post|to_lead:400|default:"&nbsp;" }}</p>
-          {% endthumbnail %}
+          <p>{{ post|to_lead:400|default:"&nbsp;" }}</p>
         </div>
         <div class="post-footer">
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
