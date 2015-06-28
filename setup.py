@@ -45,9 +45,6 @@ install_requires = [
     'Pillow==2.5.1',
     'sorl-thumbnail==11.12',
 
-    # Filebrowser admin.
-    'django-filebrowser-no-grappelli==3.5.7',
-
     # Pagination
     'django-pagination==1.0.7',
 

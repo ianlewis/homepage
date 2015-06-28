@@ -6,7 +6,6 @@ from django.conf.urls.defaults import url, patterns, include
 from django.contrib import admin
 
 from blog import urls as blog_urls
-from filebrowser.sites import site
 
 import redirects
 
@@ -16,7 +15,6 @@ urlpatterns = redirects.urlpatterns
 
 urlpatterns += patterns(
     '',
-    (r'^admin/filebrowser/', include(site.urls)),
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
     # to INSTALLED_APPS to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
