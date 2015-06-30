@@ -1,30 +1,30 @@
-apiVersion: v1beta3
+apiVersion: v1
 kind: Pod
 metadata:
   name: homepage-migrate
   labels: 
     name: homepage-migrate
-    version: '0.0.21'
+    version: 0.0.22
 spec:
   containers:
     - name: homepage-migrate
-      image: 'gcr.io/ianlewis-org/homepage:0.0.21'
+      image: gcr.io/ianlewis-org/homepage:0.0.22
       command: 
         - homepage
         - migrate
       env:
-        - name: 'DEBUG'
+        - name: DEBUG
           value: 'False'
-        - name: 'DB_HOST'
+        - name: DB_HOST
           value: mysql
-        - name: 'MEDIA_ROOT'
-          value: '/var/www/media'
-        - name: 'USE_MEMCACHED'
+        - name: MEDIA_ROOT
+          value: /var/www/media
+        - name: USE_MEMCACHED
           value: 'False'
-        - name: 'MEMCACHED_HOSTS'
-          value: 'memcached:11211'
-        - name: 'ENV_DIR'
-          value: '/etc/secrets'
+        - name: MEMCACHED_HOSTS
+          value: memcached:11211
+        - name: ENV_DIR
+          value: /etc/secrets
       ports:
         - containerPort: 80
           protocol: TCP

@@ -1,13 +1,14 @@
-apiVersion: v1beta3
+apiVersion: v1
 kind: Service
 metadata: 
   labels: 
     name: homepage
-  name: homepage
-spec: 
+    version: "1"
+  name: homepage-v1
+spec:
   ports:
     - port: 80
       targetPort: 8000
   selector: 
     name: homepage
-  createExternalLoadBalancer: true
+  type: LoadBalancer
