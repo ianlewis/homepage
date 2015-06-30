@@ -57,6 +57,7 @@ install_requires = [
     'django-disqus==0.4.3',
 
     # Static files
+    'django-compressor==1.4',
     'dj-static==0.0.6',
 
     # Production
@@ -68,7 +69,7 @@ install_requires = [
 
 setup(
     name="homepage",
-    version="0.0.23",
+    version="0.0.24",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
