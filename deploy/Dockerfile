@@ -6,4 +6,4 @@ RUN mkdir -p /homepage
 COPY homepage.tar.gz /homepage/
 RUN pip install /homepage/homepage.tar.gz
 
-CMD [ "homepage", "start", "0.0.0.0:8000"]
+CMD [ "homepage", "start", "--addr", "0.0.0.0", "--port", "8000" ]
