@@ -227,10 +227,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
         'null': {
             'level': 'DEBUG',
             'class': 'django.utils.log.NullHandler',
@@ -254,7 +250,7 @@ LOGGING = {
             'level': 'DEBUG' if DEBUG else 'INFO',
         },
         'django.request': {
-            'handlers': ['stderr', 'mail_admins'],
+            'handlers': ['stderr'],
             'propagate': False,
             'level': 'ERROR',
         },
