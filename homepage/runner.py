@@ -5,7 +5,6 @@ import argparse
 
 
 def _call_command(name, options=None):
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
     from django.core.management import call_command
     call_command(name, **(options or {}))
 
@@ -24,11 +23,23 @@ def migrate(args):
     })
 
 
+def createsuperuser(args):
+    from django.contrib.auth.models import User
+    User.objects.create_superuser(
+        username=args.username,
+        email=args.email,
+        password=args.password,
+    )
+
+
 def main():
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
+
     parser = argparse.ArgumentParser(description='The Homepage App')
 
     subparsers = parser.add_subparsers(help="Sub-command help")
 
+    # start
     start_parser = subparsers.add_parser('start', help="Run the app server.")
 
     start_parser.add_argument('--addr', default='0.0.0.0',
@@ -36,11 +47,28 @@ def main():
     start_parser.add_argument('--port', default=8000, type=int,
                               help="Port to bind to")
 
+    # migrate
     start_parser.set_defaults(func=start)
 
     migrate_parser = subparsers.add_parser('migrate',
                                            help="Migrate the database.")
     migrate_parser.set_defaults(func=migrate)
+
+    # createsuperuser
+    createsuperuser_parser = subparsers.add_parser('createsuperuser',
+                                                   help="Create a superuser.")
+
+    createsuperuser_parser.add_argument('--username', default='admin',
+                                        help="Specifies the username for the"
+                                             "superuser.")
+    createsuperuser_parser.add_argument('--email', default='admin@example.com',
+                                        help="Specifies the email address for "
+                                             "the superuser.")
+    createsuperuser_parser.add_argument('--password', default='admin',
+                                        help="Specifies the password for the "
+                                             "superuser.")
+
+    createsuperuser_parser.set_defaults(func=createsuperuser)
 
     args = parser.parse_args()
     args.func(args)

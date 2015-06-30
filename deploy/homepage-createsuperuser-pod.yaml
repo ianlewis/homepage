@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: homepage-migrate
+  labels: 
+    name: homepage-migrate
+    version: 0.0.24
+spec:
+  containers:
+    - name: homepage-migrate
+      image: gcr.io/ianlewis-org/homepage:0.0.24
+      command: 
+        - homepage
+        - createsuperuser
+      env:
+        - name: DEBUG
+          value: 'False'
+        - name: DB_HOST
+          value: mysql
+        - name: MEDIA_ROOT
+          value: /var/www/media
+        - name: USE_MEMCACHED
+          value: 'False'
+        - name: MEMCACHED_HOSTS
+          value: memcached:11211
+        - name: ENV_DIR
+          value: /etc/secrets
+      ports:
+        - containerPort: 80
+          protocol: TCP
+      volumeMounts:
+        - name: secret-volume
+          mountPath: '/etc/secrets'
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: homepage-secret
+  restartPolicy: Never
