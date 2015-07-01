@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: homepage-migrate
+  name: homepage-createsuperuser
   labels: 
-    name: homepage-migrate
+    name: homepage-createsuperuser
     version: 0.0.25
 spec:
   containers:
-    - name: homepage-migrate
+    - name: homepage-createsuperuser
       image: gcr.io/ianlewis-org/homepage:0.0.25
       command: 
         - homepage
