@@ -43,14 +43,14 @@ install_requires = [
 
     # For thumbnails
     'Pillow==2.5.1',
+    # TODO: Remove. If removed perhaps migrations won't work?
     'sorl-thumbnail==11.12',
 
     # Pagination
     'django-pagination==1.0.7',
 
-    # Not sure where the code is being maintained because
-    # the google code repo is old.
-    # TODO: Replace.
+    # TODO: Remove. Replace with something else.
+    # Currently a blocker for upgrading Django from 1.4
     'django-tagging==0.3.2',
 
     # Comments
@@ -61,7 +61,6 @@ install_requires = [
     'dj-static==0.0.6',
 
     # Production
-    # 'gunicorn==0.14.2',
     'meinheld==0.5.7',
     'MySQL-python==1.2.3',
     'pylibmc==1.4.1',
