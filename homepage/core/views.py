@@ -3,6 +3,7 @@
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import cache_page
+from django.contrib.staticfiles.views import serve
 
 from django.shortcuts import render
 
@@ -38,3 +39,9 @@ def robots(request):
     See: https://en.wikipedia.org/wiki/Robots_exclusion_standard
     """
     return HttpResponse(config.robots_txt, content_type='text/plain')
+
+
+@require_http_methods(['GET', 'HEAD'])
+@cache_page(60 * 15)
+def favicon(request):
+    return serve(request, 'extra/favicon.ico')
