@@ -50,11 +50,6 @@ install_requires = [
     # Pagination
     'django-pagination==1.0.7',
 
-    # Not sure where the code is being maintained because
-    # the google code repo is old.
-    # TODO: Replace.
-    'django-tagging==0.3.2',
-
     # Comments
     'django-disqus==0.4.3',
 
@@ -69,7 +64,7 @@ install_requires = [
 
 setup(
     name="homepage",
-    version="0.0.26",
+    version="0.0.27",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
