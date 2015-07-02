@@ -29,5 +29,6 @@ urlpatterns += blog_urls.urlpatterns
 
 urlpatterns += patterns(
     'homepage.core.views',
+    url(r'robots.txt', 'robots', name='robots'),
     url(r'^$', 'main_page', name='main_page'),
 )

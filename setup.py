@@ -50,6 +50,9 @@ install_requires = [
     # Pagination
     'django-pagination==1.0.7',
 
+    # Settings
+    'django-constance[database]==1.0.1',
+
     # Comments
     'django-disqus==0.4.3',
 

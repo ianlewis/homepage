@@ -184,6 +184,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Third party
+    'constance',
+    'constance.backends.database',
     'compressor',
     'south',
     'pagination',
@@ -193,6 +195,12 @@ INSTALLED_APPS = (
     'homepage.core',
     'homepage.blog',
 )
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'robots_txt': ("User-agent: *\nDisallow: /",
+                   'The contents of robots.txt.'),
+}
 
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
@@ -255,4 +263,5 @@ INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 
 SOUTH_MIGRATION_MODULES = {
     "blog": "homepage.migrations.blog",
+    "database": "constance.backends.database.south_migrations",
 }
