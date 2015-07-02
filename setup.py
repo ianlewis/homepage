@@ -32,7 +32,7 @@ class SdistWithBuildStatic(sdist):
 
 
 install_requires = [
-    'Django==1.4.17',
+    'Django==1.4.20',
     'South==0.7.6',
 
     # For rendering blog posts
@@ -64,7 +64,7 @@ install_requires = [
 
 setup(
     name="homepage",
-    version="0.0.29",
+    version="0.0.30",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
