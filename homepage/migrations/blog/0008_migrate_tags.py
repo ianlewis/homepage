@@ -5,44 +5,44 @@ from south.v2 import DataMigration
 from django.db import models
 
 class Migration(DataMigration):
-    depends_on = (
-        ("tagging", "0001_initial"),
-    )
+    # depends_on = (
+    #     ("tagging", "0001_initial"),
+    # )
 
     def forwards(self, orm):
         "Write your forwards methods here."
         # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
-        from tagging.models import TaggedItem
+        # from tagging.models import TaggedItem
 
-        ContentType = orm['contenttypes.ContentType']
-        BlogPost = orm['blog.post']
-        BlogTag = orm['blog.tag']
+        # ContentType = orm['contenttypes.ContentType']
+        # BlogPost = orm['blog.post']
+        # BlogTag = orm['blog.tag']
 
-        content_type, created = ContentType.objects.get_or_create(
-            app_label='blog',
-            model='post',
-            defaults={'name': 'post'},
-        )
+        # content_type, created = ContentType.objects.get_or_create(
+        #     app_label='blog',
+        #     model='post',
+        #     defaults={'name': 'post'},
+        # )
 
-        tagged_post_items = TaggedItem.objects.filter(
-            content_type=content_type,
-        ).select_related('tag')
+        # tagged_post_items = TaggedItem.objects.filter(
+        #     content_type=content_type,
+        # ).select_related('tag')
 
-        for item in tagged_post_items:
-            try:
-                post = BlogPost.objects.get(pk=item.object_id)
-            except BlogPost.DoesNotExist:
-                post = None
-                pass
+        # for item in tagged_post_items:
+        #     try:
+        #         post = BlogPost.objects.get(pk=item.object_id)
+        #     except BlogPost.DoesNotExist:
+        #         post = None
+        #         pass
 
-            if post:
-                tag, created = BlogTag.objects.get_or_create(name=item.tag.name)
-                post.tags.add(tag)
+        #     if post:
+        #         tag, created = BlogTag.objects.get_or_create(name=item.tag.name)
+        #         post.tags.add(tag)
 
     def backwards(self, orm):
         "Write your backwards methods here."
-        BlogTag = orm['blog.tag']
-        BlogTag.objects.all().delete()
+        # BlogTag = orm['blog.tag']
+        # BlogTag.objects.all().delete()
 
     models = {
         'auth.group': {
