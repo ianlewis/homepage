@@ -125,20 +125,6 @@ MIDDLEWARE_CLASSES = (
 
 USE_X_FORWARDED_HOST = True
 
-# Setup page caching.
-# TODO: Use nginx or varnish?
-USE_PAGE_CACHE = env_var('USE_PAGE_CACHE', bool, default=not DEBUG)
-if USE_PAGE_CACHE:
-    MIDDLEWARE_CLASSES = (
-        'homepage.core.middleware.GoogleAnalyticsStripCookieMiddleware',
-        'django.middleware.cache.UpdateCacheMiddleware',
-    ) + MIDDLEWARE_CLASSES + (
-        'django.middleware.cache.FetchFromCacheMiddleware',
-    )
-
-    CACHE_MIDDLEWARE_ALIAS = 'page_cache'
-
-
 USE_MEMCACHED = env_var('USE_MEMCACHED', bool, default=not DEBUG)
 if USE_MEMCACHED:
     _cache_backend = 'django.core.cache.backends.memcached.PyLibMCCache'
@@ -153,12 +139,6 @@ CACHES = {
     'default': {
         'BACKEND': _cache_backend,
         'LOCATION': _cache_location,
-    },
-    'page_cache': {
-        'BACKEND': _cache_backend,
-        'LOCATION': _cache_location,
-        'KEY_PREFIX': 'page_cache1',
-        'TIMEOUT': 600,
     },
     'compress': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
