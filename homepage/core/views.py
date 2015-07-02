@@ -47,4 +47,5 @@ def favicon(request):
     """
     Returns the favicon
     """
-    return serve(request, 'extra/favicon.ico')
+    # We specify the path here so insecure should be ok.
+    return serve(request, 'extra/favicon.ico', insecure=True)
