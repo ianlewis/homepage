@@ -1,0 +1,32 @@
+Django==1.4.20
+South==0.7.6
+
+# For rendering blog posts
+docutils>=0.5
+pygments>=1.0
+html2text==3.200.3
+Markdown==2.6
+
+# For thumbnails
+Pillow==2.5.1
+
+# Filebrowser admin.
+django-filebrowser-no-grappelli==3.5.7
+
+# Pagination
+django-pagination==1.0.7
+
+# Settings
+django-constance[database]==1.0.1
+
+# Comments
+django-disqus==0.4.3
+
+# Static files
+django-compressor==1.4
+dj-static==0.0.6
+
+# Production
+meinheld==0.5.7
+MySQL-python==1.2.3
+pylibmc==1.4.1
