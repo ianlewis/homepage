@@ -32,7 +32,7 @@ class SdistWithBuildStatic(sdist):
 
 
 install_requires = [
-    'Django==1.4.17',
+    'Django==1.4.20',
     'South==0.7.6',
 
     # For rendering blog posts
@@ -43,15 +43,12 @@ install_requires = [
 
     # For thumbnails
     'Pillow==2.5.1',
-    # TODO: Remove. If removed perhaps migrations won't work?
-    'sorl-thumbnail==11.12',
+
+    # Filebrowser admin.
+    'django-filebrowser-no-grappelli==3.5.7',
 
     # Pagination
     'django-pagination==1.0.7',
-
-    # TODO: Remove. Replace with something else.
-    # Currently a blocker for upgrading Django from 1.4
-    'django-tagging==0.3.2',
 
     # Comments
     'django-disqus==0.4.3',
@@ -68,7 +65,7 @@ install_requires = [
 
 setup(
     name="homepage",
-    version="0.0.25",
+    version="0.0.30",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",

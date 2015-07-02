@@ -114,7 +114,7 @@ def create():
             '--network "default" '
             '--maintenance-policy "MIGRATE" '
             '--scopes "https://www.googleapis.com/auth/devstorage.read_only" '
-            '--tags "http-server" "https-server" '
+            '--tags "http-server,https-server" '
             '--image "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1404-trusty-v20141212" '  # NOQA
             '--boot-disk-type "pd-standard" '
             '--boot-disk-device-name "%(environ)s"' % env

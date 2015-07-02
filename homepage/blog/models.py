@@ -5,14 +5,28 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from tagging.fields import TagField
-
 from datetime import datetime
 
 BLOG_LOCALES = (
     ('jp', u'日本語'),
     ('en', u'English'),
 )
+
+
+class Tag(models.Model):
+    """
+    A tag
+    """
+    name = models.CharField(_('name'), max_length=50, unique=True,
+                            db_index=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = _('tag')
+        verbose_name_plural = _('tags')
+
+    def __unicode__(self):
+        return self.name
 
 
 class PostManager(models.Manager):
@@ -34,7 +48,8 @@ class Post(models.Model):
     ), default="md")
     locale = models.CharField(u'locale', max_length=20, choices=BLOG_LOCALES,
                               default="en", db_index=True)
-    tags = TagField()
+
+    tags = models.ManyToManyField(Tag)
 
     active = models.BooleanField(u'published', default=False, db_index=True)
     pub_date = models.DateTimeField(u'published', default=datetime.now,

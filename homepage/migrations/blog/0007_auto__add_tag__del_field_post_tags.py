@@ -8,17 +8,36 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'Post.lead_image'
-        db.delete_column('blog_post', 'lead_image')
+        # Adding model 'Tag'
+        db.create_table('blog_tag', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50, db_index=True)),
+        ))
+        db.send_create_signal('blog', ['Tag'])
+
+        # Deleting field 'Post.tags'
+        db.delete_column('blog_post', 'tags')
+
+        # Adding M2M table for field tags on 'Post'
+        db.create_table('blog_post_tags', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('post', models.ForeignKey(orm['blog.post'], null=False)),
+            ('tag', models.ForeignKey(orm['blog.tag'], null=False))
+        ))
+        db.create_unique('blog_post_tags', ['post_id', 'tag_id'])
 
 
     def backwards(self, orm):
-        # Adding field 'Post.lead_image'
-        db.add_column('blog_post', 'lead_image',
-                      # Comment out sorl.thumbnail as it's not included anymore.
-                      # self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
-                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
+        # Deleting model 'Tag'
+        db.delete_table('blog_tag')
+
+        # Adding field 'Post.tags'
+        db.add_column('blog_post', 'tags',
+                      self.gf('tagging.fields.TagField')(default=''),
                       keep_default=False)
+
+        # Removing M2M table for field tags on 'Post'
+        db.delete_table('blog_post_tags')
 
 
     models = {
@@ -63,8 +82,13 @@ class Migration(SchemaMigration):
             'markup_type': ('django.db.models.fields.CharField', [], {'default': "'md'", 'max_length': '10'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'db_index': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            'tags': ('tagging.fields.TagField', [], {}),
+            'tags': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['blog.Tag']", 'symmetrical': 'False'}),
             'title': ('django.db.models.fields.TextField', [], {})
+        },
+        'blog.tag': {
+            'Meta': {'ordering': "('name',)", 'object_name': 'Tag'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50', 'db_index': 'True'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},

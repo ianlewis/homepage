@@ -186,9 +186,7 @@ INSTALLED_APPS = (
     # Third party
     'compressor',
     'south',
-    'sorl.thumbnail',
     'pagination',
-    'tagging',
     'disqus',
 
     # app
@@ -200,13 +198,10 @@ INSTALLED_APPS = (
 # for non-ascii urls and flatpages
 APPEND_SLASH = False
 
-# django-tagging
-FORCE_LOWERCASE_TAGS = True
-
 # django-pagination
 PAGINATION_DEFAULT_PAGINATION = 9
 PAGINATION_INVALID_PAGE_RAISES_404 = True
-PAGINATION_DEFAULT_WINDOW = 3
+PAGINATION_DEFAULT_WINDOW = 1
 
 # django-disqus
 DISQUS_API_KEY = env_var('DISQUS_API_KEY', default='')
@@ -260,6 +255,4 @@ INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 
 SOUTH_MIGRATION_MODULES = {
     "blog": "homepage.migrations.blog",
-    "tagging": "homepage.migrations.tagging",
-    "thumbnail": "homepage.migrations.thumbnail",
 }

@@ -1,12 +1,11 @@
 {% extends "blog/base.html" %}
-{% load i18n tagging_tags blog_tags disqus_tags %}
+{% load i18n blog_tags disqus_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
-{% block keywords %}{% tags_for_object object as item_tags %}{{ item_tags|join:" " }}{% endblock %}
+{% block keywords %}{{ object.tags.all|join:" " }}{% endblock %}
 {% block description %}{% with object|to_html|striptags as description %}{{ description|slice:":150" }}{% if description|length > 150 %}...{% endif %}{% endwith %}{% endblock %}
 
 {% block blog_content %}
-{% tags_for_object object as item_tags %}
 <div class="blog-post">
   <div class="post-header">
     <h1 itemprop="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
@@ -23,7 +22,7 @@
       <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
 
     </div>
-    <div class="post-tags">{% for tag in item_tags %}<i class="icon-tag"></i> <a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+    <div class="post-tags">{% for tag in object.tags.all %}<i class="icon-tag"></i> <a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
   </div>
 </div>
 

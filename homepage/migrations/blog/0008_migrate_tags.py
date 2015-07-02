@@ -1,25 +1,48 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-
-class Migration(SchemaMigration):
+class Migration(DataMigration):
+    # depends_on = (
+    #     ("tagging", "0001_initial"),
+    # )
 
     def forwards(self, orm):
-        # Deleting field 'Post.lead_image'
-        db.delete_column('blog_post', 'lead_image')
+        "Write your forwards methods here."
+        # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
+        # from tagging.models import TaggedItem
 
+        # ContentType = orm['contenttypes.ContentType']
+        # BlogPost = orm['blog.post']
+        # BlogTag = orm['blog.tag']
+
+        # content_type, created = ContentType.objects.get_or_create(
+        #     app_label='blog',
+        #     model='post',
+        #     defaults={'name': 'post'},
+        # )
+
+        # tagged_post_items = TaggedItem.objects.filter(
+        #     content_type=content_type,
+        # ).select_related('tag')
+
+        # for item in tagged_post_items:
+        #     try:
+        #         post = BlogPost.objects.get(pk=item.object_id)
+        #     except BlogPost.DoesNotExist:
+        #         post = None
+        #         pass
+
+        #     if post:
+        #         tag, created = BlogTag.objects.get_or_create(name=item.tag.name)
+        #         post.tags.add(tag)
 
     def backwards(self, orm):
-        # Adding field 'Post.lead_image'
-        db.add_column('blog_post', 'lead_image',
-                      # Comment out sorl.thumbnail as it's not included anymore.
-                      # self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
-                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
-                      keep_default=False)
-
+        "Write your backwards methods here."
+        # BlogTag = orm['blog.tag']
+        # BlogTag.objects.all().delete()
 
     models = {
         'auth.group': {
@@ -63,8 +86,13 @@ class Migration(SchemaMigration):
             'markup_type': ('django.db.models.fields.CharField', [], {'default': "'md'", 'max_length': '10'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'db_index': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            'tags': ('tagging.fields.TagField', [], {}),
+            'tags': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['blog.Tag']", 'symmetrical': 'False'}),
             'title': ('django.db.models.fields.TextField', [], {})
+        },
+        'blog.tag': {
+            'Meta': {'ordering': "('name',)", 'object_name': 'Tag'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50', 'db_index': 'True'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -76,3 +104,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['blog']
+    symmetrical = True

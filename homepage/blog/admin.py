@@ -3,13 +3,18 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from homepage.blog.models import Post
+from homepage.blog.models import Tag, Post
+
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name",)
 
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "locale", "markup_type", "pub_date",
                     "active")
     list_filter = ("active", "locale", "markup_type")
+    filter_horizontal = ('tags',)
     list_display_links = ("id", "title")
     search_fields = ("title", "content")
     prepopulated_fields = {"slug": ("title",)}
@@ -37,4 +42,5 @@ class PostAdmin(admin.ModelAdmin):
             f.queryset = User.objects.filter(pk=request.user.pk)
         return form
 
+admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)

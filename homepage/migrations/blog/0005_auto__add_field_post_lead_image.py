@@ -10,7 +10,9 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Post.lead_image'
         db.add_column('blog_post', 'lead_image',
-                      self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
+                      # Comment out sorl.thumbnail as it's not included anymore.
+                      # self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
+                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
                       keep_default=False)
 
 
@@ -57,7 +59,9 @@ class Migration(SchemaMigration):
             'create_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'lead': ('django.db.models.fields.TextField', [], {'default': 'None', 'max_length': '600', 'null': 'True', 'blank': 'True'}),
-            'lead_image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            # Comment out sorl.thumbnail as it's not included anymore.
+            # 'lead_image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'lead_image': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'locale': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '20', 'db_index': 'True'}),
             'markup_type': ('django.db.models.fields.CharField', [], {'default': "'html'", 'max_length': '10'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'db_index': 'True'}),
