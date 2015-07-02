@@ -65,7 +65,7 @@ install_requires = [
 
 setup(
     name="homepage",
-    version="0.0.30",
+    version="0.1.0",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
