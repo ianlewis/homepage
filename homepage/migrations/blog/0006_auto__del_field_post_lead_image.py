@@ -15,7 +15,9 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Adding field 'Post.lead_image'
         db.add_column('blog_post', 'lead_image',
-                      self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
+                      # Comment out sorl.thumbnail as it's not included anymore.
+                      # self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, null=True, blank=True),
+                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
                       keep_default=False)
 
 
