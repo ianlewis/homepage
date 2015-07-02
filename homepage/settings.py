@@ -248,6 +248,8 @@ SOUTH_MIGRATION_MODULES = {
 }
 
 ALLOWED_HOSTS = [
+    'ianlewis.org',
     'www.ianlewis.org',
+    'staging.ianlewis.org',
     'www.staging.ianlewis.org',
 ]
