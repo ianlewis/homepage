@@ -245,3 +245,8 @@ SOUTH_MIGRATION_MODULES = {
     "blog": "homepage.migrations.blog",
     "database": "constance.backends.database.south_migrations",
 }
+
+ALLOWED_HOSTS = [
+    'www.ianlewis.org',
+    'www.staging.ianlewis.org',
+]
