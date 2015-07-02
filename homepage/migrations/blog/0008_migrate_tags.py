@@ -29,14 +29,20 @@ class Migration(DataMigration):
         ).select_related('tag')
 
         for item in tagged_post_items:
-            post = BlogPost.objects.get(pk=item.object_id)
-            tag, created = BlogTag.objects.get_or_create(name=item.tag.name)
-            post.tags.add(tag)
+            try:
+                post = BlogPost.objects.get(pk=item.object_id)
+            except BlogPost.DoesNotExist:
+                post = None
+                pass
+
+            if post:
+                tag, created = BlogTag.objects.get_or_create(name=item.tag.name)
+                post.tags.add(tag)
 
     def backwards(self, orm):
         "Write your backwards methods here."
         BlogTag = orm['blog.tag']
-        BlogTag.objects.delete()
+        BlogTag.objects.all().delete()
 
     models = {
         'auth.group': {
