@@ -1,3 +1,0 @@
-User-Agent: *
-Disallow: /files/
-Disallow: /dump/

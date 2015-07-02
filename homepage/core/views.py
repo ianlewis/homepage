@@ -44,4 +44,7 @@ def robots(request):
 @require_http_methods(['GET', 'HEAD'])
 @cache_page(60 * 15)
 def favicon(request):
+    """
+    Returns the favicon
+    """
     return serve(request, 'extra/favicon.ico')
