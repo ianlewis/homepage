@@ -49,7 +49,7 @@ class Post(models.Model):
     locale = models.CharField(u'locale', max_length=20, choices=BLOG_LOCALES,
                               default="en", db_index=True)
 
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     active = models.BooleanField(u'published', default=False, db_index=True)
     pub_date = models.DateTimeField(u'published', default=datetime.now,
