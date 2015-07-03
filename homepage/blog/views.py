@@ -62,6 +62,9 @@ class TagPage(ListView):
         return context
 
     def get_queryset(self):
-        return Post.objects.published().filter(tags__name=self.kwargs['tag'])
+        return Post.objects.published().filter(
+            locale=self.kwargs['locale'],
+            tags__name=self.kwargs['tag'],
+        )
 
 tag_page = TagPage.as_view()
