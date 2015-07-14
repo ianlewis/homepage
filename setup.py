@@ -43,7 +43,7 @@ with open(os.path.join(BASE_PATH, 'requirements.txt')) as requirements:
 
 setup(
     name="homepage",
-    version="0.1.10",
+    version="0.1.11",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
