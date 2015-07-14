@@ -9,11 +9,16 @@ def _call_command(name, options=None):
     call_command(name, **(options or {}))
 
 
+# def start(args):
+#     from meinheld import server
+#     from homepage.wsgi import application
+#     server.listen((args.addr, args.port))
+#     server.run(application)
+
 def start(args):
-    from meinheld import server
+    from waitress import serve
     from homepage.wsgi import application
-    server.listen((args.addr, args.port))
-    server.run(application)
+    serve(application, host=args.addr, port=args.port)
 
 
 def migrate(args):

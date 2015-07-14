@@ -27,6 +27,7 @@ django-compressor==1.4
 dj-static==0.0.6
 
 # Production
-meinheld==0.5.7
+# meinheld==0.5.7
+waitress==0.8.9
 MySQL-python==1.2.3
 pylibmc==1.4.1
