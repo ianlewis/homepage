@@ -49,7 +49,6 @@
         {% block license %}
         <p>&copy; 2012. Ian Lewis.</p>
         {% endblock %}
-        {#<div class="djangomade"><a href="http://www.djangoproject.com/"><img src="{{ STATIC_URL }}img/djangomade124x25.gif" title="Made with Django" alt=""/></a></div>#}
       </div>
     </footer>
     <script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery-1.3.2.min.js"></script>
@@ -59,7 +58,7 @@
     </script>
     {% disqus_dev %}
     {% block js_footer %}{% endblock %}
-    {% if not debug %}
+    {% if not debug and not request.user.is_staff %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-2149299-1']);
