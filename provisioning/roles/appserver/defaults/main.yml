@@ -1,7 +1,0 @@
----
-
-app_port: 8000
-supervisord_user: supervisord
-supervisord_group: "{{supervisord_user}}"
-app_log_file: /var/log/homepage/homepage.log
-app_error_log_file: /var/log/homepage/homepage.error.log

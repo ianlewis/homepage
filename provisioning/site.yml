@@ -1,5 +1,0 @@
----
-- include: webservers.yml
-- include: appservers.yml
-- include: dbservers.yml
-- include: cacheservers.yml

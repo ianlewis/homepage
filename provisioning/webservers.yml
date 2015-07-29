@@ -1,5 +1,0 @@
----
-
-- hosts: webservers
-  roles:
-    - { role: nginx, sudo: yes }

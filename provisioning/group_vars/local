@@ -1,5 +1,0 @@
-# vim: ft=yaml
-
-app_secret_key: "snake-oil"
-app_disqus_api_key: ""
-app_disqus_website_shortname: ""
