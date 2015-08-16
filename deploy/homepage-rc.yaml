@@ -31,7 +31,7 @@ spec:
             - name: MEMCACHED_HOSTS
               value: memcached:11211
             - name: HTTPS
-              value: on
+              value: "on"
             - name: ENV_DIR
               value: /etc/secrets
           ports:
