@@ -92,6 +92,10 @@ if not DEBUG:
 else:
     SECRET_KEY = env_var('SECRET_KEY', default='snake-oil')
 
+# Set session and csrf cookies so they are only sent over a secure connection.
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
