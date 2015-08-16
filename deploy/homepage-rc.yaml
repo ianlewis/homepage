@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: homepage-0.1.12-0
+  name: homepage-0.1.13-1
   labels:
     name: homepage
-    version: 0.1.12-0
+    version: 0.1.13-1
 spec:
   replicas: 2
   selector:
     name: homepage
-    version: 0.1.12-0
+    version: 0.1.13-1
   template:
     metadata:
       labels:
         name: homepage
-        version: 0.1.12-0
+        version: 0.1.13-1
     spec:
       containers:
         - name: homepage
-          image: gcr.io/ianlewis-org/homepage:0.1.12
+          image: gcr.io/ianlewis-org/homepage:0.1.13
           env:
             - name: DEBUG
               value: 'False'
@@ -33,12 +33,22 @@ spec:
             - name: ENV_DIR
               value: /etc/secrets
           ports:
-            - containerPort: 8000
-              protocol: TCP
+            - containerPort: 8080
           volumeMounts:
             - name: secret-volume
               mountPath: /etc/secrets
+        - name: webfront
+          image: gcr.io/ianlewis-org/webfront:1.0.3
+          ports:
+            - containerPort: 8000
+            - containerPort: 8001
+          volumeMounts:
+            - name: webfront-secrets
+              mountPath: /conf
       volumes: 
         - name: secret-volume
           secret:
             secretName: homepage-secret
+        - name: webfront-secrets
+          secret:
+            secretName: webfront-secret  

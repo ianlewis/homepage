@@ -9,4 +9,4 @@ RUN pip install -r /homepage/requirements.txt
 COPY homepage.tar.gz /homepage/
 RUN pip install /homepage/homepage.tar.gz
 
-CMD [ "homepage", "start", "--addr", "0.0.0.0", "--port", "8000" ]
+CMD [ "homepage", "start", "--addr", "0.0.0.0", "--port", "8080" ]
