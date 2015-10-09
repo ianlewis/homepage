@@ -16,7 +16,7 @@ rsync --checksum requirements.txt dist/image/
 cp deploy/Dockerfile dist/image/
 docker build -t homepage dist/image/
 # Tag with the appropriate version
-docker tag homepage gcr.io/ianlewis-org/homepage:${VERSION}
+docker tag homepage asia.gcr.io/ianlewis-org/homepage:${VERSION}
 
 # Export to Container Registry
-gcloud docker push gcr.io/ianlewis-org/homepage:${VERSION}
+gcloud docker push asia.gcr.io/ianlewis-org/homepage:${VERSION}
