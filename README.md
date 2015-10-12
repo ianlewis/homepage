@@ -5,48 +5,38 @@ This is my homepage/blog.
 
 # Development
 
-Create a virtualenv
+1. Create a virtualenv
 
-    $ mkvirtualenv homepage
+        $ mkvirtualenv homepage
 
-Install the development requirements
+1. Install the development requirements
 
-    $ python setup.py develop
+        $ python setup.py develop
 
-Run the development server in debug mode
+1. Run initial migrations
 
-    $ python manage.py runserver
+        $ DEBUG=true homepage migrate
 
-# Deploying the App Locally
+1. Create an "admin" superuser with password "admin"
 
-You can provision a VM locally with vagrant and deploy to it.
+        $ DEBUG=true homepage createsuperuser
 
-1. Install vagrant
-1. Install Fabric:
+1. Run the development server in debug mode.
 
-        $ pip install fabric
+        $ DEBUG=true python manage.py runserver
 
-1. Install ansible:
+   You can also run the production webserver in debug mode but it won't reload
+   when code is updated.
 
-        $ pip install ansible
-
-1. Deploy and provision the app:
-
-        $ fab env.local vm.up vm.provision app.deploy
-
-1. You should then be able to access the app at http://192.168.33.10/
+        $ DEBUG=true homepage start
 
 # Deploy Staging or Production
 
 You can deploy staging, and production environments to Google Cloud Platform.
+There are a number of scripts for deploying to [Google Container
+Engine](https://cloud.google.com/container-engine/).
 
-1. Install Fabric:
-
-        $ pip install fabric
-
-1. Install [ansible](http://www.ansible.com/):
-
-        $ pip install ansible
+## Create and Setup a Cloud Platform Project
 
 1. Install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
 1. Create a project in the [Google Cloud Platform console](http://console.developers.google.com/).
@@ -62,17 +52,87 @@ You can deploy staging, and production environments to Google Cloud Platform.
 
         $ gcloud config set compute/zone asia-east1-b
 
-1. Deploy and provision the app:
+1. Create a Container Engine Cluster. You may need to specify other options,
+   such as the size of the cluster, VM type etc.
 
-        $ fab env.staging vm.up vm.provision app.deploy
+        $ gcloud container clusters create homepage-cluster
 
-You can also set the path to the ssh key location if you aren't
-using the default set up by the Google Cloud SDK.
+## Create the Environment
 
-    $ export COMPUTE_ENGINE_SSH_KEY_PATH=~/.ssh/id_rsa
+1. Create namespaces for staging and production.
 
-# SSH
+        $ kubectl create -f deploy/homepage-staging-ns.yaml
+        $ kubectl create -f deploy/homepage-staging-prod.yaml
 
-You can ssh into the created VM easily:
+1. Create secrets for each environment. The secrets file should something like
+   the file below. Each value should be encoded in base64. See the [secrets
+   doc](http://kubernetes.io/v1.0/docs/user-guide/secrets.html) for more info.
 
-    $ fab env.<environment> vm.ssh
+        ```
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: homepage-secret
+        data:
+          secret-key: ...
+          disqus-api-key: ...
+          disqus-website-shortname: ...
+          db-user: ...
+          db-password: ...
+        ```
+
+1. Deploy the secrets to the cluster.
+
+        $ kubectl create -f staging-secrets.yaml --namespace=homepage-staging
+        $ kubectl create -f prod-secrets.yaml --namespace=homepage-prod
+
+## Build the Docker Images
+
+There is a handy build script in the `bin` directory you can run to build
+and push the app image.
+
+    $ ./bin/build.sh
+
+This script will build a Python package for the app, build a Docker image, and
+push it to [Google Container Registry](https://cloud.google.com/container-registry/).
+
+## Deploy the Application
+
+1. Deploy the database.
+
+        $ kubectl create -f deploy/mysql/mysql.yaml --namespace=<namespace> 
+        $ kubectl create -f deploy/mysql/mysql-service.yaml --namespace=<namespace> 
+
+1. Deploy the homepage app.
+
+        $ kubectl create -f deploy/homepage-rc.yaml --namespace=<namespace>
+        $ kubectl create -f deploy/homepage-service.yaml --namespace=<namespace>
+
+## Creating the MySQL database
+
+You can create the MySQL database by running the "CREATE DATABASE" query inside the mysql database container after it's running.
+
+    $ kubectl exec mysql --namespace=<namespace> -- bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' | mysql -u root --password=yourpassword"
+
+# Running Migrations
+
+Migrations are run in staging or production by running a pod in Container
+Engine.
+
+    $ kubectl create -f deploy/homepage-migrate-pod.yaml --namespace=<namespace>
+
+The pod will be created with the name "homepage-migrate". Since it exits
+normally, in order to preserve info and logs, Container Engine keeps the pod
+around. In order to run the migration again, you need clean up by deleting the
+previous pod.
+
+    $ kubectl delete pod homepage-migrate --namespace=<namespace>
+
+# Creating Superusers
+
+Creating superusers is done by running a pod in Container Engine.
+
+    $ kubectl create -f deploy/homepage-createsuperuser-pod.yaml --namespace=<namespace>
+
+This will create a superuser with the username and password "admin". You will
+need to login and update the password of this user immediately after creation.
