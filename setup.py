@@ -43,7 +43,7 @@ with open(os.path.join(BASE_PATH, 'requirements.txt')) as requirements:
 
 setup(
     name="homepage",
-    version="0.1.14",
+    version="0.1.15",
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
@@ -65,7 +65,9 @@ setup(
     },
     classifiers=[
         "Development Status :: 3 - Alpha",
+        "Programming Language :: Python :: 2.7"
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+        "Framework :: Django :: 1.4",
         "License :: OSI Approved :: MIT License",
     ],
 )
