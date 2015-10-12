@@ -11,6 +11,8 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
+        # TODO: tagging was removed. Commented out to avoid import error.
+
         # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
         # from tagging.models import TaggedItem
 
@@ -41,6 +43,7 @@ class Migration(DataMigration):
 
     def backwards(self, orm):
         "Write your backwards methods here."
+        raise RuntimeError("Not supported.")
         # BlogTag = orm['blog.tag']
         # BlogTag.objects.all().delete()
 

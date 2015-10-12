@@ -29,16 +29,7 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         # Deleting model 'Tag'
-        db.delete_table('blog_tag')
-
-        # Adding field 'Post.tags'
-        db.add_column('blog_post', 'tags',
-                      self.gf('tagging.fields.TagField')(default=''),
-                      keep_default=False)
-
-        # Removing M2M table for field tags on 'Post'
-        db.delete_table('blog_post_tags')
-
+        raise RuntimeError("Backing out migration not supported.")
 
     models = {
         'auth.group': {

@@ -63,7 +63,8 @@ class Migration(SchemaMigration):
             'markup_type': ('django.db.models.fields.CharField', [], {'default': "'md'", 'max_length': '10'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'db_index': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            'tags': ('tagging.fields.TagField', [], {}),
+            # TODO: tagging was removed. Commented out to avoid import error.
+            # 'tags': ('tagging.fields.TagField', [], {}),
             'title': ('django.db.models.fields.TextField', [], {})
         },
         'contenttypes.contenttype': {

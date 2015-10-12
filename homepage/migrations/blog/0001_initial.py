@@ -15,7 +15,8 @@ class Migration:
             ('content', orm['blog.Post:content']),
             ('markup_type', orm['blog.Post:markup_type']),
             ('locale', orm['blog.Post:locale']),
-            ('tags', orm['blog.Post:tags']),
+            # TODO: tagging was removed. Commented out to avoid import error.
+            # ('tags', orm['blog.Post:tags']),
             ('active', orm['blog.Post:active']),
             ('pub_date', orm['blog.Post:pub_date']),
             ('create_date', orm['blog.Post:create_date']),
@@ -69,7 +70,8 @@ class Migration:
             'markup_type': ('django.db.models.fields.CharField', [], {'default': "'html'", 'max_length': '10'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'unique': 'True', 'db_index': 'True'}),
-            'tags': ('tagging.fields.TagField', [], {}),
+            # TODO: tagging was removed. Commented out to avoid import error.
+            # 'tags': ('tagging.fields.TagField', [], {}),
             'title': ('django.db.models.fields.TextField', [], {})
         },
         'contenttypes.contenttype': {
