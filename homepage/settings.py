@@ -251,11 +251,8 @@ SOUTH_MIGRATION_MODULES = {
     "database": "constance.backends.database.south_migrations",
 }
 
-# TODO: Fixme
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = [
-#     'ianlewis.org',
-#     'www.ianlewis.org',
-#     'staging.ianlewis.org',
-#     'www.staging.ianlewis.org',
-# ]
+# Allow any subdomain of ianlewis.org
+ALLOWED_HOSTS = [
+    '.ianlewis.org',
+    '.ianlewis.org.',
+]
