@@ -4,11 +4,11 @@ metadata:
   name: homepage-migrate
   labels: 
     name: homepage-migrate
-    version: 0.1.15
+    version: 0.1.16
 spec:
   containers:
     - name: homepage-migrate
-      image: asia.gcr.io/ianlewis-org/homepage:0.1.15
+      image: asia.gcr.io/ianlewis-org/homepage:0.1.16
       command: 
         - homepage
         - migrate
