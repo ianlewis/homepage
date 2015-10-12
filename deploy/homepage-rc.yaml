@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: homepage-0.1.15-0
+  name: homepage-0.1.15-1
   labels:
     name: homepage
-    version: 0.1.15-0
+    version: 0.1.15-1
 spec:
   replicas: 2
   selector:
     name: homepage
-    version: 0.1.15-0
+    version: 0.1.15-1
   template:
     metadata:
       labels:
         name: homepage
-        version: 0.1.15-0
+        version: 0.1.15-1
     spec:
       containers:
         - name: homepage
