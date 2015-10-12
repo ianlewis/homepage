@@ -19,7 +19,8 @@
       <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ object.get_absolute_url }}"></g:plusone>
       <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-text="{{ object.title }}" data-via="IanMLewis" data-related="IanMLewis" data-lang="{{ object.lang }}">Tweet</a>
 
-      <a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+      {# NOTE: Hatena's cert for b.hatena.ne.jp is bad. #}
+      {#}<a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>#}
 
     </div>
     <div class="post-tags">{% for tag in object.tags.all %}<i class="icon-tag"></i> <a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
@@ -49,7 +50,8 @@ twttr.events.bind('tweet', function(event) {
   }
 });
 </script>
-<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+{# NOTE: Hatena's cert for b.hatena.ne.jp is bad. #}
+{#<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>#}
 <script type="text/javascript">
   (function() {
     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
