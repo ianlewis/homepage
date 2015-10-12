@@ -10,18 +10,11 @@ syntax: glob
 *.db
 *.sqlite
 *.egg-info
-.vagrant
 build
-temp
 dist
 src
-provisioning/credentials
 homepage/site_media
 pip-log.txt
-
-google*.html
-y_key_*.html
-all.min.css
 
 syntax: regexp
 .*\#.*\#$ 
