@@ -1,0 +1,3 @@
+[submodule "proxy/nghttp2"]
+	path = proxy/nghttp2
+	url = https://github.com/tatsuhiro-t/nghttp2.git
