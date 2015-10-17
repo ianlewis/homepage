@@ -76,14 +76,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     "homepage.core.finders.AppMediaDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 )
-
-COMPRESS_ENABLED = env_var('COMPRESS_ENABLED', default=not DEBUG)
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
-]
 
 # Make this unique, and don't share it with anybody.
 if not DEBUG:
@@ -145,12 +138,7 @@ CACHES = {
         'BACKEND': _cache_backend,
         'LOCATION': _cache_location,
     },
-    'compress': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'TIMEOUT': 2000,
-    }
 }
-COMPRESS_CACHE_BACKEND = 'compress'
 
 
 ROOT_URLCONF = 'homepage.urls'
@@ -171,7 +159,6 @@ INSTALLED_APPS = (
     # Third party
     'constance',
     'constance.backends.database',
-    'compressor',
     'south',
     'pagination',
     'disqus',

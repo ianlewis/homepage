@@ -23,7 +23,6 @@ django-constance[database]==1.0.1
 django-disqus==0.4.3
 
 # Static files
-django-compressor==1.4
 dj-static==0.0.6
 
 # Production

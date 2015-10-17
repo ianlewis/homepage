@@ -22,5 +22,6 @@ RUN cd /tmp/nginx_build/nginx-1.9.5 && make && make install
 
 RUN rm -rf /tmp/nginx_build
 
+RUN mkdir -p /tmp/nginx && chown -R nobody:root /tmp/nginx
 ADD nginx.conf /nginx.conf
 CMD ["/usr/local/nginx/sbin/nginx", "-c", "/nginx.conf", "-g", "daemon off;"]
