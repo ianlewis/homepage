@@ -4,7 +4,7 @@ metadata:
   labels: 
     name: homepage
     version: "1"
-  name: homepage-v2
+  name: homepage-v3
 spec:
   ports:
     - name: http
@@ -12,7 +12,7 @@ spec:
       targetPort: 8000
     - name: http2
       port: 443
-      targetPort: 8001
+      targetPort: 3000
   selector: 
     name: homepage
   type: LoadBalancer
