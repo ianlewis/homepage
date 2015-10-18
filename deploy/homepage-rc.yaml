@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: homepage-0.1.18-5
+  name: homepage-0.1.18-19
   labels:
     name: homepage
-    version: 0.1.18-5
+    version: 0.1.18-19
 spec:
   replicas: 2
   selector:
     name: homepage
-    version: 0.1.18-5
+    version: 0.1.18-19
   template:
     metadata:
       labels:
         name: homepage
-        version: 0.1.18-5
+        version: 0.1.18-19
     spec:
       containers:
         - name: homepage
@@ -42,7 +42,7 @@ spec:
         # nginx with mod_pagespeed
         # nginx handles HTTP requests directly and redirects them to HTTPS
         - name: nginx 
-          image: asia.gcr.io/ianlewis-org/nginx:1.9.5-pagespeed-1.9.32.10-12
+          image: asia.gcr.io/ianlewis-org/nginx:1.9.5-pagespeed-1.9.32.10-26
           ports:
             - containerPort: 8000
             - containerPort: 8001
