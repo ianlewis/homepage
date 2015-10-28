@@ -12,7 +12,7 @@ spec:
       targetPort: 8000
     - name: http2
       port: 443
-      targetPort: 3000
+      targetPort: 8001
   selector: 
     name: homepage
   type: LoadBalancer
