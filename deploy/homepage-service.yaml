@@ -3,8 +3,8 @@ kind: Service
 metadata: 
   labels: 
     name: homepage
-    version: "1"
-  name: homepage-v3
+    version: "2"
+  name: homepage-v2
 spec:
   ports:
     - name: http
