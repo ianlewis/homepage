@@ -38,9 +38,15 @@ def createsuperuser(args):
 
 
 def main():
+    import homepage
+
     os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
 
     parser = argparse.ArgumentParser(description='The Homepage App')
+
+    parser.add_argument('--version', action='version',
+                        version=homepage.__version__,
+                        help="Print the version number and exit.")
 
     subparsers = parser.add_subparsers(help="Sub-command help")
 
