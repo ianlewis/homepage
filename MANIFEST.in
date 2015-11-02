@@ -1,4 +1,4 @@
-include setup.py README.md requirements.txt MANIFEST.in LICENSE AUTHORS
+include setup.py README.md requirements.txt MANIFEST.in LICENSE AUTHORS homepage/VERSION
 recursive-include homepage/templates *
 recursive-include homepage/site_media *
 recursive-include homepage/static *
