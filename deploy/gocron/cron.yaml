@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: gocron-1
+  labels:
+    name: gocron
+    version: "1"
+spec:
+  replicas: 1
+  selector:
+    name: gocron
+  template:
+    metadata:
+      labels:
+        name: gocron
+    spec:
+      containers: 
+        - name: cron
+          image: asia.gcr.io/ianlewis-org/gocron:1
+          resources:
+            limits:
+              memory: 50Mi
+              cpu: 50m
