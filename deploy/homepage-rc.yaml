@@ -70,10 +70,10 @@ spec:
             limits:
               memory: 10Mi
               cpu: 200m
-      volumes: 
+      volumes:
         - name: secret-volume
           secret:
             secretName: homepage-secret
         - name: webfront-secrets
           secret:
-            secretName: webfront-secret  
+            secretName: webfront-secret
