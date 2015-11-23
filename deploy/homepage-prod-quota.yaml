@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: quota
+spec:
+  hard:
+    memory: 4Gi
+    cpu: 3
+    pods: 10
+    resourcequotas: 1

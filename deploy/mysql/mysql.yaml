@@ -27,6 +27,13 @@ spec:
             - name: mysql-persistent-storage
               # mount path within the container
               mountPath: /var/lib/mysql
+          resources:
+            requests:
+              memory: 500Mi
+              cpu: 150m
+            limits:
+              memory: 750Mi
+              cpu: 300m
       volumes:
         - name: mysql-persistent-storage
           gcePersistentDisk:

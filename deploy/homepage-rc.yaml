@@ -1,20 +1,19 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: homepage-0.1.19-1
+  name: homepage-0.1.19-2
   labels:
     name: homepage
-    version: 0.1.19-1
+    version: 0.1.19-2
 spec:
-  replicas: 2
   selector:
     name: homepage
-    version: 0.1.19-1
+    version: 0.1.19-2
   template:
     metadata:
       labels:
         name: homepage
-        version: 0.1.19-1
+        version: 0.1.19-2
     spec:
       containers:
         - name: homepage
@@ -49,6 +48,13 @@ spec:
           volumeMounts:
             - name: secret-volume
               mountPath: /etc/secrets
+          resources:
+            requests:
+              memory: 75Mi
+              cpu: 100m
+            limits:
+              memory: 128Mi
+              cpu: 300m
         - name: webfront
           image: asia.gcr.io/ianlewis-org/webfront:1.0.3
           ports:
@@ -57,6 +63,13 @@ spec:
           volumeMounts:
             - name: webfront-secrets
               mountPath: /conf
+          resources:
+            requests:
+              memory: 5Mi
+              cpu: 100m
+            limits:
+              memory: 10Mi
+              cpu: 200m
       volumes: 
         - name: secret-volume
           secret:
