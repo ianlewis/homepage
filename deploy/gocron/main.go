@@ -3,6 +3,8 @@
 package main
 
 import (
+	"bufio"
+	"regexp"
 	"flag"
 	"log"
 	"os/exec"
@@ -10,11 +12,13 @@ import (
 	"os"
 	"strings"
 	"io/ioutil"
+
 	"github.com/robfig/cron"
 )
 
 var (
 	debugMode = flag.Bool("debug", false, "Enable debug logging.")
+	configPath = flag.String("conf", "/crontab", "Path to the crontab config.")
 )
 
 var (
@@ -50,6 +54,48 @@ func createCmdFunc(cmd string, args []string) func() {
 	}
 }
 
+// Parses the config file and starts the server.
+func startCron() error {
+	c, err := os.Open(*configPath)
+	if err != nil {
+		return err
+	}
+	defer c.Close()
+
+	server := cron.New()
+
+	scanner := bufio.NewScanner(c)
+
+	r := regexp.MustCompile("\\s")
+
+	for scanner.Scan() {
+		line := r.Split(strings.Trim(scanner.Text(), " \t"), -1)
+
+		var sched, cmd string
+		var args []string
+		if strings.HasPrefix(line[0], "@every") {
+			sched = strings.Join(line[:2], " ")
+			cmd = line[2]
+			args = line[3:]
+		} else if strings.HasPrefix(line[0], "@") {
+			sched = line[0]
+			cmd = line[1]
+			args = line[2:]
+		} else {
+			sched = strings.Join(line[:5], " ")
+			cmd = line[5]
+			args = line[6:]
+		}
+
+		// Make the schedule have minute not second resolution.
+		server.AddFunc("0 " + sched, createCmdFunc(cmd, args))
+	}
+
+	server.Start()
+
+	return nil
+}
+
 func main() {
 	flag.Parse()
 
@@ -60,12 +106,10 @@ func main() {
 
 	initLogging(debug, os.Stdout, os.Stdout, os.Stderr, os.Stderr)
 
-	server := cron.New()
-
-	// Add necessary cron jobs here.
-	server.AddFunc("@daily", createCmdFunc("/kubectl", []string{"create", "-f", "backup.yaml"}))
-
-	server.Start()
+	err := startCron()
+	if err != nil {
+		Error.Fatal("Could not start cron:", err)
+	}
 
 	select{}
 }

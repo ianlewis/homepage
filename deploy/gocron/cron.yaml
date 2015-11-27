@@ -19,5 +19,12 @@ spec:
           image: asia.gcr.io/ianlewis-org/gocron:1
           resources:
             limits:
-              memory: 50Mi
               cpu: 50m
+              memory: 50Mi
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /conf
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: cron-secrets
