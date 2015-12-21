@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: homepage-0.1.19-2
+  name: homepage-0.1.20-2
   labels:
     name: homepage
-    version: 0.1.19-2
+    version: 0.1.20-2
 spec:
   selector:
     name: homepage
-    version: 0.1.19-2
+    version: 0.1.20-2
   template:
     metadata:
       labels:
         name: homepage
-        version: 0.1.19-2
+        version: 0.1.20-2
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:0.1.19
+          image: asia.gcr.io/ianlewis-org/homepage:0.1.20
           # defines the health checking
           livenessProbe:
             # an http probe
@@ -54,7 +54,7 @@ spec:
               cpu: 100m
             limits:
               memory: 128Mi
-              cpu: 300m
+              cpu: 200m
         - name: webfront
           image: asia.gcr.io/ianlewis-org/webfront:1.0.3
           ports:
@@ -65,12 +65,17 @@ spec:
               mountPath: /conf
           resources:
             requests:
-              memory: 5Mi
-              cpu: 100m
-            limits:
               memory: 10Mi
+<<<<<<< HEAD
               cpu: 200m
       volumes:
+=======
+              cpu: 25m 
+            limits:
+              memory: 25Mi
+              cpu: 50m
+      volumes: 
+>>>>>>> master
         - name: secret-volume
           secret:
             secretName: homepage-secret

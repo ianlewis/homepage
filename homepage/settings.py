@@ -114,6 +114,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.request",
+    "constance.context_processors.config",
     "homepage.core.context_processors.debug",
 )
 
@@ -185,7 +186,9 @@ INSTALLED_APPS = (
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'robots_txt': ("User-agent: *\nDisallow: /",
-                   'The contents of robots.txt.'),
+                   "The contents of robots.txt."),
+    'header_profile_img_url': ("/static/img/profile_sm.jpg",
+                               "The URL for the profile image in the header."),
 }
 
 # Need this to get around a bugs in HttpResponseRedirect

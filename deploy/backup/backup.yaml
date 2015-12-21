@@ -15,6 +15,10 @@ spec:
       volumeMounts:
         - name: secret-volume
           mountPath: '/etc/secrets'
+      resources:
+        limits:
+          memory: 128Mi
+          cpu: 200m
   volumes:
     - name: secret-volume
       secret:
