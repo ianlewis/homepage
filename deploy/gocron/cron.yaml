@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: gocron-1
+  name: gocron-5
   labels:
     name: gocron
-    version: "1"
+    version: "5"
 spec:
   replicas: 1
   selector:
@@ -16,11 +16,15 @@ spec:
     spec:
       containers: 
         - name: cron
-          image: asia.gcr.io/ianlewis-org/gocron:1
+          image: asia.gcr.io/ianlewis-org/gocron:5
+          command: ["./gocron"]
+          args: 
+            - "-conf=/conf/crontab"
+            - "-debug"
           resources:
             limits:
               cpu: 50m
-              memory: 50Mi
+              memory: 25Mi
           volumeMounts:
             - name: secret-volume
               mountPath: /conf
