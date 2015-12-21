@@ -66,16 +66,11 @@ spec:
           resources:
             requests:
               memory: 10Mi
-<<<<<<< HEAD
-              cpu: 200m
-      volumes:
-=======
               cpu: 25m 
             limits:
               memory: 25Mi
               cpu: 50m
       volumes: 
->>>>>>> master
         - name: secret-volume
           secret:
             secretName: homepage-secret
