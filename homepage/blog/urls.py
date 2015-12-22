@@ -1,24 +1,26 @@
 #:coding=utf8:
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 from homepage.blog.feeds import (
     LatestEnglishBlogEntries,
     LatestJapaneseBlogEntries,
 )
 
+from homepage.redirects import redirect_to
+
 urlpatterns = patterns(
     'django.views.generic.simple',
 
     # Old tag url redirect
-    url(r'^(?P<locale>jp|en)/(?P<tag>[^/]+);$', 'redirect_to',
+    url(r'^(?P<locale>jp|en)/(?P<tag>[^/]+);$', redirect_to,
         {'url': '/%(locale)s/tag/%(tag)s'}, name='old_blog_tag_page'),
 )
 
 urlpatterns += patterns(
     'homepage.blog.views',
 
-    url(r'^admin/blog/post/(?P<object_id>[0-9]+)/preview$',
+    url(r'^admin/blog/post/(?P<pk>[0-9]+)/preview$',
         'blog_detail_preview', name='blog_detail_preview'),
 
     url(r'^(?P<locale>jp|en)/tag/(?P<tag>.+)$',

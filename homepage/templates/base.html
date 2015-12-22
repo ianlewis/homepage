@@ -1,4 +1,4 @@
-{% load compress disqus_tags %}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+{% load compress %}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
 <html{% block html_attrs %}{% endblock %}>
   <head>
@@ -28,9 +28,9 @@
             <table class="about">
               <tbody>
                 <tr>
-                  <td style="width:90px;vertical-align:top;padding-right:20px;padding-top:0.5em;"><a href="{% url main_page %}"><img src="{{ config.header_profile_img_url }}" alt="Ian Lewis"></a></td>
+                  <td style="width:90px;vertical-align:top;padding-right:20px;padding-top:0.5em;"><a href="{% url "main_page" %}"><img src="{{ config.header_profile_img_url }}" alt="Ian Lewis"></a></td>
                   <td style="vertical-align:top;padding-top:0.5em;">
-                    <span class="title"><a href="{% url main_page %}">Ian Lewis</a></span> is a web developer living in Tokyo Japan. His current interests are in <a href="http://golang.org/">Go</a>, <a href="http://www.python.org/">Python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>. <br /><a class="profile-link" href="/en/about/">About Me...</a>
+                    <span class="title"><a href="{% url "main_page" %}">Ian Lewis</a></span> is a web developer living in Tokyo Japan. His current interests are in <a href="http://golang.org/">Go</a>, <a href="http://www.python.org/">Python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>. <br /><a class="profile-link" href="/en/about/">About Me...</a>
                   </td>
                 </tr>
               </tbody>
@@ -44,7 +44,7 @@
         {% block content %}{% endblock %}
       </div>
       <footer>
-        <a href="{% url main_page %}">Home</a> | <a href="/en/about/">About</a> | <a href="https://plus.google.com/103970721692220852299/?rel=author">Google+</a>
+        <a href="{% url "main_page" %}">Home</a> | <a href="/en/about/">About</a> | <a href="https://plus.google.com/103970721692220852299/?rel=author">Google+</a>
 
         {% block license %}
         <p>&copy; 2012. Ian Lewis.</p>
@@ -56,7 +56,6 @@
       STATIC_URL='{{ STATIC_URL }}';
       $('a[href="#"]').click(function(){return false;});
     </script>
-    {% disqus_dev %}
     {% block js_footer %}{% endblock %}
     {% if not debug and not request.user.is_staff %}
     <script type="text/javascript">

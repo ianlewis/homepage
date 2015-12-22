@@ -1,53 +1,63 @@
 #:coding=utf8:
 
 from django.views.generic.list import ListView
-from django.views.generic.list_detail import object_list, object_detail
+from django.views.generic.detail import DetailView
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import never_cache
 
-from .models import Post
-from .decorators import feed_redirect
+from homepage.blog.models import Post
+from homepage.blog.decorators import feed_redirect
 
 
-@never_cache
-@staff_member_required
-@require_http_methods(['GET', 'HEAD'])
-def blog_detail_preview(request, object_id):
-    object = Post.objects.get(pk=object_id)
-    defaults = {
-        "queryset": Post.objects.all(),
-        "object_id": object_id,
-        "extra_context": {
-            "locale": object.locale,
-            "is_preview": True,
-        },
-    }
-    return object_detail(request, **defaults)
+class BlogDetail(DetailView):
+    model = Post
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(BlogDetail, self).get_context_data(**kwargs)
+    #     context['locale'] = self.kwargs['locale']
+    #     return context
+
+    def get_queryset(self):
+        return Post.objects.published().filter(
+            locale=self.kwargs['locale'],
+        )
+
+blog_detail = require_http_methods(['GET', 'HEAD'])(BlogDetail.as_view())
 
 
-@require_http_methods(['GET', 'HEAD'])
-@feed_redirect
-def blog_page(request, locale="en"):
-    return object_list(
-        request,
-        Post.objects.published().filter(locale=locale),
-        extra_context={
-            "locale": locale,
-            "rss_feed_url": reverse("blog_feed_%s" % locale),
-        },
+class BlogDetailPreview(BlogDetail):
+    def get_queryset(self):
+        return Post.objects.all()
+
+
+blog_detail_preview = never_cache(
+    staff_member_required(
+        require_http_methods(['GET', 'HEAD'])(
+            BlogDetailPreview.as_view(),
+        )
     )
+)
 
 
-@require_http_methods(['GET', 'HEAD'])
-def blog_detail(request, slug, locale="en"):
-    defaults = {
-        "queryset": Post.objects.published().filter(locale=locale),
-        "slug": slug,
-        "extra_context": {"locale": locale},
-    }
-    return object_detail(request, **defaults)
+class BlogPage(ListView):
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogPage, self).get_context_data(**kwargs)
+        locale = self.kwargs['locale']
+        context['rss_feed_url'] = reverse("blog_feed_%s" % locale)
+        return context
+
+    def get_queryset(self):
+        return Post.objects.published().filter(
+            locale=self.kwargs['locale'],
+        )
+
+blog_page = require_http_methods(['GET', 'HEAD'])(
+    feed_redirect(BlogPage.as_view()),
+)
 
 
 class TagPage(ListView):

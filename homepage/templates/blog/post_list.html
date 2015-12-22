@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load utility_tags pagination_tags blog_tags disqus_tags %} 
+{% load utility_tags pagination_tags blog_tags %} 
 
 {% block title %}Ian's Blog{% endblock %}
 
@@ -26,7 +26,7 @@
         </div>
         <div class="post-footer">
           <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
-          <div class="post-tags">{% for tag in post.tags.all %}<i class="icon-tag"></i> <a href="{% url blog_tag_page post.locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+          <div class="post-tags">{% for tag in post.tags.all %}<i class="icon-tag"></i> <a href="{% url "blog_tag_page" post.locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
         </div>
       </div>
     {% endfor %}

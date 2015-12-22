@@ -116,6 +116,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "constance.context_processors.config",
     "homepage.core.context_processors.debug",
+    "homepage.core.context_processors.disqus",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -123,7 +124,8 @@ MIDDLEWARE_CLASSES = (
     'homepage.core.middleware.HostRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
+    # TODO: Transaction handling
+    # 'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'pagination.middleware.PaginationMiddleware',
@@ -132,15 +134,18 @@ MIDDLEWARE_CLASSES = (
 
 USE_X_FORWARDED_HOST = True
 
-USE_MEMCACHED = env_var('USE_MEMCACHED', bool, default=not DEBUG)
-if USE_MEMCACHED:
-    _cache_backend = 'django.core.cache.backends.memcached.PyLibMCCache'
-    _cache_location = env_var('MEMCACHED_HOSTS', csv_list,
-                              default=['127.0.0.1:11211'])
-else:
-    # NOTE: Default is local memory cache.
-    _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
-    _cache_location = ''  # Not used by LocMemCache
+# USE_MEMCACHED = env_var('USE_MEMCACHED', bool, default=not DEBUG)
+# if USE_MEMCACHED:
+#     _cache_backend = 'django.core.cache.backends.memcached.PyLibMCCache'
+#     _cache_location = env_var('MEMCACHED_HOSTS', csv_list,
+#                               default=['127.0.0.1:11211'])
+# else:
+#     # NOTE: Default is local memory cache.
+#     _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
+#     _cache_location = ''  # Not used by LocMemCache
+
+_cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
+_cache_location = ''  # Not used by LocMemCache
 
 CACHES = {
     'default': {
@@ -174,9 +179,7 @@ INSTALLED_APPS = (
     'constance',
     'constance.backends.database',
     'compressor',
-    'south',
     'pagination',
-    'disqus',
 
     # app
     'homepage.core',
@@ -250,13 +253,8 @@ LOGGING = {
 
 INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 
-SOUTH_MIGRATION_MODULES = {
-    "blog": "homepage.migrations.blog",
-    "database": "constance.backends.database.south_migrations",
-}
-
 # Allow any subdomain of ianlewis.org
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = env_var('ALLOWED_HOSTS', csv_list, default=[
     '.ianlewis.org',
     '.ianlewis.org.',
-]
+])
