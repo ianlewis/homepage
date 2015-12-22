@@ -241,7 +241,8 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['stdout'],
-            'level': 'DEBUG' if DEBUG else 'INFO',
+            'level': env_var('LOG_LEVEL',
+                             default='DEBUG' if DEBUG else 'INFO'),
         },
         'django.request': {
             'handlers': ['stderr'],
