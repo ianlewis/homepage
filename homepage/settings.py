@@ -75,7 +75,6 @@ STATICFILES_MEDIA_DIRNAMES = (
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "homepage.core.finders.AppMediaDirectoriesFinder",
     "compressor.finders.CompressorFinder",
 )
 
