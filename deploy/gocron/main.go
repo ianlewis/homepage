@@ -44,7 +44,7 @@ func createCmdFunc(cmd string, args []string) func() {
 	return func() {
 		c := exec.Command(cmd, args...)
 		Info.Println("Running:", cmd, strings.Join(args, " "))
-		o, err := c.Output()
+		o, err := c.CombinedOutput()
 		if len(o) > 0 {
 			Debug.Println(string(o))
 		}
