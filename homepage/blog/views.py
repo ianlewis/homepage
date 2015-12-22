@@ -14,10 +14,10 @@ from homepage.blog.decorators import feed_redirect
 class BlogDetail(DetailView):
     model = Post
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(BlogDetail, self).get_context_data(**kwargs)
-    #     context['locale'] = self.kwargs['locale']
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(BlogDetail, self).get_context_data(**kwargs)
+        context['locale'] = self.kwargs['locale']
+        return context
 
     def get_queryset(self):
         return Post.objects.published().filter(
@@ -47,6 +47,7 @@ class BlogPage(ListView):
     def get_context_data(self, **kwargs):
         context = super(BlogPage, self).get_context_data(**kwargs)
         locale = self.kwargs['locale']
+        context['locale'] = locale
         context['rss_feed_url'] = reverse("blog_feed_%s" % locale)
         return context
 
@@ -67,6 +68,8 @@ class TagPage(ListView):
         context = super(TagPage, self).get_context_data(**kwargs)
         locale = self.kwargs['locale']
         tag = self.kwargs['tag']
+        context['locale'] = locale
+        context['tag'] = tag
         context['rss_feed_url'] = reverse("blog_feed_%s_tag" % locale,
                                           kwargs={"tag": tag})
         return context
