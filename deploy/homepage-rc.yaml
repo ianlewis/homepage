@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: homepage-0.1.20-2
+  name: homepage-0.2.1-0
   labels:
     name: homepage
-    version: 0.1.20-2
+    version: 0.2.1-0
 spec:
   selector:
     name: homepage
-    version: 0.1.20-2
+    version: 0.2.1-0
   template:
     metadata:
       labels:
         name: homepage
-        version: 0.1.20-2
+        version: 0.2.1-0
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:0.1.20
+          image: asia.gcr.io/ianlewis-org/homepage:0.2.1
           # defines the health checking
           livenessProbe:
             # an http probe
@@ -49,11 +49,8 @@ spec:
             - name: secret-volume
               mountPath: /etc/secrets
           resources:
-            requests:
-              memory: 75Mi
-              cpu: 100m
             limits:
-              memory: 128Mi
+              memory: 256Mi
               cpu: 200m
         - name: webfront
           image: asia.gcr.io/ianlewis-org/webfront:1.0.3
@@ -64,12 +61,9 @@ spec:
             - name: webfront-secrets
               mountPath: /conf
           resources:
-            requests:
-              memory: 10Mi
-              cpu: 25m 
             limits:
               memory: 25Mi
-              cpu: 50m
+              cpu: 25m 
       volumes: 
         - name: secret-volume
           secret:
