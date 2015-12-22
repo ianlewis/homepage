@@ -22,8 +22,8 @@ def start(args):
 
 
 def migrate(args):
-    _call_command('syncdb', {
-        'migrate': True,
+    _call_command('migrate', {
+        'fake': args.fake,
         'interactive': False,
     })
 
@@ -63,6 +63,10 @@ def main():
 
     migrate_parser = subparsers.add_parser('migrate',
                                            help="Migrate the database.")
+    migrate_parser.add_argument('--fake', action='store_true',
+                                dest='fake', default=False,
+                                help='Mark migrations as run without actually '
+                                     'running them.')
     migrate_parser.set_defaults(func=migrate)
 
     # createsuperuser
