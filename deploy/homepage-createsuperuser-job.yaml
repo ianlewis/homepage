@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Job
+metadata:
+  name: homepage-createsuperuser
+spec:
+  selector:
+    matchLabels: 
+      name: homepage-createsuperuser
+      version: 0.2.0-0
+  template:
+    metadata:
+      name: homepage-createsuperuser
+      labels:
+        name: homepage-createsuperuser
+        version: 0.2.0-0
+    spec:
+      containers:
+        - name: homepage-createsuperuser
+          image: asia.gcr.io/ianlewis-org/homepage:0.2.0
+          command: ["homepage", "createsuperuser"]
+          env:
+            - name: DEBUG
+              value: 'False'
+            - name: DB_HOST
+              value: mysql
+            - name: MEDIA_ROOT
+              value: /var/www/media
+            - name: USE_MEMCACHED
+              value: 'False'
+            - name: MEMCACHED_HOSTS
+              value: memcached:11211
+            - name: ENV_DIR
+              value: /etc/secrets
+          volumeMounts:
+            - name: secret-volume
+              mountPath: '/etc/secrets'
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 100m
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: homepage-secret
+      restartPolicy: Never
