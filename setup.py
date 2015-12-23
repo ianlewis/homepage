@@ -6,9 +6,6 @@ from distutils.core import Command
 from setuptools import setup, find_packages
 from setuptools.command.sdist import sdist
 
-import django
-from django.core.management import call_command
-
 BASE_PATH = os.path.dirname(__file__)
 
 
@@ -25,6 +22,9 @@ class BuildStatic(Command):
         # Run the collectstatic django command.
         # NOTE: Enable debug mode so it doesn't complain about required
         #       settings like SECRET_KEY.
+        import django
+        from django.core.management import call_command
+
         os.environ['DEBUG'] = 'True'
         os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
         django.setup()
