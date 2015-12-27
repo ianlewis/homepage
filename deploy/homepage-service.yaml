@@ -3,8 +3,8 @@ kind: Service
 metadata: 
   labels: 
     name: homepage
-    version: "2"
-  name: homepage-v2
+    version: "3"
+  name: homepage-v3
 spec:
   ports:
     - name: http
@@ -15,4 +15,4 @@ spec:
       targetPort: 8001
   selector: 
     name: homepage
-  type: LoadBalancer
+  type: NodePort
