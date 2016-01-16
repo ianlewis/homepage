@@ -6,17 +6,17 @@ spec:
   selector:
     matchLabels: 
       name: homepage-createsuperuser
-      version: 0.2.1-0
+      version: 0.2.2-0
   template:
     metadata:
       name: homepage-createsuperuser
       labels:
         name: homepage-createsuperuser
-        version: 0.2.1-0
+        version: 0.2.2-0
     spec:
       containers:
         - name: homepage-createsuperuser
-          image: asia.gcr.io/ianlewis-org/homepage:0.2.1
+          image: asia.gcr.io/ianlewis-org/homepage:0.2.2
           command: ["homepage", "createsuperuser"]
           env:
             - name: DEBUG
