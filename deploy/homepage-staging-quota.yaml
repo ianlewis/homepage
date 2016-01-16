@@ -5,6 +5,6 @@ metadata:
 spec:
   hard:
     memory: 2Gi
-    cpu: 1500m
+    cpu: 1
     pods: 10
     resourcequotas: 1

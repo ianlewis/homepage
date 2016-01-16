@@ -29,8 +29,8 @@ spec:
               mountPath: /var/lib/mysql
           resources:
             limits:
-              memory: 750Mi
-              cpu: 150m
+              memory: 600Mi
+              cpu: 100m
       volumes:
         - name: mysql-persistent-storage
           gcePersistentDisk:

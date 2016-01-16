@@ -50,8 +50,8 @@ spec:
               mountPath: /etc/secrets
           resources:
             limits:
-              memory: 256Mi
-              cpu: 200m
+              memory: 100Mi
+              cpu: 50m
         - name: nginx
           image: asia.gcr.io/ianlewis-org/nginx:1.9.9-3
           ports:
@@ -62,8 +62,8 @@ spec:
               mountPath: /secrets
           resources:
             limits:
-              memory: 50Mi
-              cpu: 25m 
+              memory: 10Mi
+              cpu: 10m 
       volumes: 
         - name: secret-volume
           secret:
