@@ -1,26 +1,34 @@
-apiVersion: v1
-kind: Pod
+apiVersion: extensions/v1beta1
+kind: Job
 metadata:
   name: homepage-backup
-  labels: 
-    name: homepage-backup
 spec: 
-  containers: 
-    - resources:
-      image: asia.gcr.io/ianlewis-org/homepage-backup:v8
+  selector:
+    matchLabels:
       name: homepage-backup
-      env:
-        - name: BOTO_CONFIG
-          value: '/etc/secrets/gsutil-config'
-      volumeMounts:
+      version: v8
+  template:
+    metadata:
+      name: homepage-backup
+      labels:
+        name: homepage-backup
+        version: v8
+    spec:
+      containers: 
+        - image: asia.gcr.io/ianlewis-org/homepage-backup:v8
+          name: homepage-backup
+          env:
+            - name: BOTO_CONFIG
+              value: '/etc/secrets/gsutil-config'
+          volumeMounts:
+            - name: secret-volume
+              mountPath: '/etc/secrets'
+          resources:
+            limits:
+              memory: 100Mi
+              cpu: 50m
+      volumes:
         - name: secret-volume
-          mountPath: '/etc/secrets'
-      resources:
-        limits:
-          memory: 128Mi
-          cpu: 200m
-  volumes:
-    - name: secret-volume
-      secret:
-        secretName: homepage-backup-secret
-  restartPolicy: Never
+          secret:
+            secretName: homepage-backup-secret
+      restartPolicy: Never

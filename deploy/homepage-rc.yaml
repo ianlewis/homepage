@@ -70,4 +70,4 @@ spec:
             secretName: homepage-secret
         - name: webfront-secrets
           secret:
-            secretName: webfront-secret  
+            secretName: webfront-secret
