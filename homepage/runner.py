@@ -3,32 +3,37 @@
 import os
 import argparse
 
+import django
+from django.core.management import call_command
 
-def _call_command(name, options=None):
-    from django.core.management import call_command
-    call_command(name, **(options or {}))
+from waitress import serve
 
+from homepage import __version__ as VERSION
+from homepage.wsgi import application
 
-# def start(args):
-#     from meinheld import server
-#     from homepage.wsgi import application
-#     server.listen((args.addr, args.port))
-#     server.run(application)
 
 def start(args):
-    from waitress import serve
-    from homepage.wsgi import application
+    """
+    Starts the homepage application server.
+    """
     serve(application, host=args.addr, port=args.port)
 
 
 def migrate(args):
-    _call_command('syncdb', {
-        'migrate': True,
-        'interactive': False,
-    })
+    """
+    Runs migrations for the homepage server.
+    """
+    call_command(
+        'migrate',
+        fake=args.fake,
+        interactive=False,
+    )
 
 
 def createsuperuser(args):
+    """
+    Creates a superuser.
+    """
     from django.contrib.auth.models import User
     User.objects.create_superuser(
         username=args.username,
@@ -38,14 +43,14 @@ def createsuperuser(args):
 
 
 def main():
-    import homepage
-
     os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
+
+    django.setup()
 
     parser = argparse.ArgumentParser(description='The Homepage App')
 
     parser.add_argument('--version', action='version',
-                        version=homepage.__version__,
+                        version=VERSION,
                         help="Print the version number and exit.")
 
     subparsers = parser.add_subparsers(help="Sub-command help")
@@ -63,6 +68,10 @@ def main():
 
     migrate_parser = subparsers.add_parser('migrate',
                                            help="Migrate the database.")
+    migrate_parser.add_argument('--fake', action='store_true',
+                                dest='fake', default=False,
+                                help='Mark migrations as run without actually '
+                                     'running them.')
     migrate_parser.set_defaults(func=migrate)
 
     # createsuperuser

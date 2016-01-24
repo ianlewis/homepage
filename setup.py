@@ -22,9 +22,12 @@ class BuildStatic(Command):
         # Run the collectstatic django command.
         # NOTE: Enable debug mode so it doesn't complain about required
         #       settings like SECRET_KEY.
+        import django
+        from django.core.management import call_command
+
         os.environ['DEBUG'] = 'True'
         os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
-        from django.core.management import call_command
+        django.setup()
         call_command('collectstatic', interactive=False)
 
 

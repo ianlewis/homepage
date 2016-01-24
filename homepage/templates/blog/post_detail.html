@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load i18n blog_tags disqus_tags %}
+{% load i18n blog_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block keywords %}{{ object.tags.all|join:" " }}{% endblock %}
@@ -23,12 +23,25 @@
       {#}<a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>#}
 
     </div>
-    <div class="post-tags">{% for tag in object.tags.all %}<i class="icon-tag"></i> <a href="{% url blog_tag_page locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+    <div class="post-tags">{% for tag in object.tags.all %}<i class="icon-tag"></i> <a href="{% url "blog_tag_page" locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
   </div>
 </div>
 
 {% if not is_preview %}
-{% disqus_show_comments %}
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* <![CDATA[ */
+	var disqus_shortname = '{{ disqus_shortname }}';
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+/* ]]> */
+</script>
+<noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="//disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 {% endif %}
 
 {% endblock %}
