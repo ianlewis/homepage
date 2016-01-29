@@ -4,39 +4,39 @@ package main
 
 import (
 	"bufio"
-	"regexp"
 	"flag"
-	"log"
-	"os/exec"
 	"io"
-	"os"
-	"strings"
 	"io/ioutil"
+	"log"
+	"os"
+	"os/exec"
+	"regexp"
+	"strings"
 
 	"github.com/robfig/cron"
 )
 
 var (
-	debugMode = flag.Bool("debug", false, "Enable debug logging.")
+	debugMode  = flag.Bool("debug", false, "Enable debug logging.")
 	configPath = flag.String("conf", "/crontab", "Path to the crontab config.")
 )
 
 var (
-    Debug   *log.Logger
-    Info    *log.Logger
-    Warning *log.Logger
-    Error   *log.Logger
-    Fatal   *log.Logger
+	Debug   *log.Logger
+	Info    *log.Logger
+	Warning *log.Logger
+	Error   *log.Logger
+	Fatal   *log.Logger
 )
 
 // Initializes logging. Logging is done to stdout (< ERROR) and sterr (>= ERROR)
 // Fatal error messages should use Fatal.Fatal()
 func initLogging(d, i, w, e, f io.Writer) {
-    Debug = log.New(d, "[DEBUG] ", log.Ldate|log.Ltime|log.Lshortfile)
-    Info = log.New(i,   "[INFO]  ", log.Ldate|log.Ltime|log.Lshortfile)
-    Warning = log.New(w, "[WARN]  ", log.Ldate|log.Ltime|log.Lshortfile)
-    Error = log.New(e, "[ERROR] ", log.Ldate|log.Ltime|log.Lshortfile)
-    Fatal = log.New(f, "[FATAL] ", log.Ldate|log.Ltime|log.Lshortfile)
+	Debug = log.New(d, "[DEBUG] ", log.Ldate|log.Ltime|log.Lshortfile)
+	Info = log.New(i, "[INFO]  ", log.Ldate|log.Ltime|log.Lshortfile)
+	Warning = log.New(w, "[WARN]  ", log.Ldate|log.Ltime|log.Lshortfile)
+	Error = log.New(e, "[ERROR] ", log.Ldate|log.Ltime|log.Lshortfile)
+	Fatal = log.New(f, "[FATAL] ", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 // Creates a function that runs a command.
@@ -91,7 +91,7 @@ func startCron() error {
 		}
 
 		// Make the schedule have minute not second resolution.
-		server.AddFunc("0 " + sched, createCmdFunc(cmd, args))
+		server.AddFunc("0 "+sched, createCmdFunc(cmd, args))
 	}
 
 	server.Start()
@@ -114,5 +114,5 @@ func main() {
 		Error.Fatal("Could not start cron:", err)
 	}
 
-	select{}
+	select {}
 }
