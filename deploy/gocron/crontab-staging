@@ -1,1 +1,1 @@
-*/10 * * * * ./kubectl create -f /conf/backup.yaml --namespace=homepage-staging
+*/10 * * * * /kubectl create -f /conf/backup.yaml --namespace=homepage-prod
