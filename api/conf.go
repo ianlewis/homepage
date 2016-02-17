@@ -1,18 +1,18 @@
 package main
 
 import (
-    "os"
-    "strings"
-    "bytes"
-    "io/ioutil"
+	"bytes"
+	"io/ioutil"
+	"os"
+	"strings"
 
-    "bitbucket.org/IanLewis/ianlewis-api/logging"
+	"github.com/IanLewis/homepage/api/logging"
 )
 
 // Read configuration from a Kubernetes secrets compatible
 // envdir directory or from environment variables.
 func getConfig(key, def string) string {
-    val := os.Getenv(key)
+	val := os.Getenv(key)
 	if val != "" {
 		return val
 	}
