@@ -18,7 +18,7 @@ import (
 	"github.com/rs/cors"
 )
 
-var VERSION = "0.6.1"
+var VERSION = "0.6.3"
 
 // Command line options used when starting the server.
 var (
@@ -77,7 +77,7 @@ type Profile struct {
 var PeopleMap = map[string]Resource{
 	"ian": {
 		Id:   "ian",
-		Type: "api.ianlewis.org/person",
+		Type: "ianlewis.org/person",
 		Links: map[string]string{
 			"self":    "/people/ian",
 			"twitter": "https://twitter.com/IanMLewis",
@@ -97,7 +97,7 @@ var PeopleMap = map[string]Resource{
 	},
 	"reiko": {
 		Id:   "reiko",
-		Type: "api.ianlewis.org/person",
+		Type: "ianlewis.org/person",
 		Links: map[string]string{
 			"self": "/people/reiko",
 		},
@@ -116,7 +116,7 @@ var PeopleMap = map[string]Resource{
 	},
 	"jin": {
 		Id:   "jin",
-		Type: "api.ianlewis.org/person",
+		Type: "ianlewis.org/person",
 		Links: map[string]string{
 			"self":    "/people/jin",
 			"twitter": "https://twitter.com/Jin_tmanchester",
