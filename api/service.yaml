@@ -11,4 +11,4 @@ spec:
       targetPort: 8080
   selector: 
     name: ianlewis-api
-  type: LoadBalancer
+  type: NodePort
