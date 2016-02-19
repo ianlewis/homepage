@@ -18,14 +18,14 @@ import (
 	"github.com/rs/cors"
 )
 
-var VERSION = "0.5"
+var VERSION = "0.6.1"
 
 // Command line options used when starting the server.
 var (
 	addr         = flag.String("addr", getConfig("ADDRESS", ":8080"), "The address to bind the api server to.")
-	healthAddr   = flag.String("health-addr", getConfig("HEALTH_ADDRESS", ":9090"), "The address to bind the health service to.")
 	certFile     = flag.String("cert", getConfig("API_SERVER_CRT", ""), "HTTPS certificate file")
 	keyFile      = flag.String("key", getConfig("API_SERVER_KEY", ""), "HTTPS key file")
+	baseUrl      = flag.String("base-url", getConfig("API_SERVER_BASE_URL", ""), "Base URL of the api server")
 	debugMode    = flag.Bool("debug", false, "Enable debug mode.")
 	printVersion = flag.Bool("version", false, "Print the version and exit.")
 )
@@ -182,7 +182,7 @@ func main() {
 	r := mux.NewRouter().StrictSlash(true)
 
 	// Print a list of urls as hyperlinks.
-	r.Handle("/", apiHandler(handlers.MethodHandler{
+	r.Handle(*baseUrl+"/", apiHandler(handlers.MethodHandler{
 		"GET": http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			enc := json.NewEncoder(w)
 			enc.Encode(&struct {
@@ -200,7 +200,7 @@ func main() {
 	}))
 
 	// An API handler to get basic info about me.
-	r.Handle("/people/", apiHandler(handlers.MethodHandler{
+	r.Handle(*baseUrl+"/people/", apiHandler(handlers.MethodHandler{
 		"GET": http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			enc := json.NewEncoder(w)
 
@@ -217,7 +217,7 @@ func main() {
 		}),
 	}))
 
-	r.Handle("/people/{id}", apiHandler(handlers.MethodHandler{
+	r.Handle(*baseUrl+"/people/{id}", apiHandler(handlers.MethodHandler{
 		"GET": http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			enc := json.NewEncoder(w)
 			vars := mux.Vars(r)
@@ -231,19 +231,8 @@ func main() {
 		}),
 	}))
 
-	// Start the health service.
-	go func() {
-		logging.Info.Printf("Health service listening on %s...", *addr)
-		r := mux.NewRouter()
-		r.HandleFunc("/healthz", healthHandler)
-		r.HandleFunc("/version", versionHandler)
-		s := &http.Server{
-			Addr:    *healthAddr,
-			Handler: r,
-		}
-		log.Fatal(s.ListenAndServe())
-
-	}()
+	r.HandleFunc("/_status/healthz", healthHandler)
+	r.HandleFunc("/_status/version", versionHandler)
 
 	logging.Info.Printf("API service listening on %s...", *addr)
 

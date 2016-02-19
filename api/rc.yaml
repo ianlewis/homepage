@@ -1,34 +1,32 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: ianlewis-api-0.1.1-0
+  name: ianlewis-api-0.6.1-0
   labels:
     name: ianlewis-api
-    version: 0.1.1-0
+    version: 0.6.1-0
 spec:
   replicas: 1
   selector:
     name: ianlewis-api
-    version: 0.1.1-0
+    version: 0.6.1-0
   template:
     metadata:
       labels:
         name: ianlewis-api
-        version: 0.1.1-0
+        version: 0.6.1-0
     spec:
       containers:
         - name: ianlewis-api
-          image: asia.gcr.io/ianlewis-org/ianlewis-api:0.1.1
+          image: asia.gcr.io/ianlewis-org/ianlewis-api:0.6.1
           env:
-            - name: API_SERVER_CRT
-              value: /conf/api-server-crt
-            - name: API_SERVER_KEY
-              value: /conf/api-server-key
+            - name: API_SERVER_BASE_URL
+              value: /api
           livenessProbe:
             # an http probe
             httpGet:
-              path: /healthz
-              port: 9090
+              path: /_status/healthz
+              port: 8080
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -36,8 +34,6 @@ spec:
             - name: certs
               mountPath: /etc/ssl/certs
               readOnly: true
-            - name: secret-volume
-              mountPath: /conf
           resources:
             limits:
               memory: 25Mi
@@ -46,6 +42,3 @@ spec:
         - name: certs
           hostPath:
             path: /etc/ssl/certs
-        - name: secret-volume
-          secret:
-            secretName: api-server-secret

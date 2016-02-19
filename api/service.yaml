@@ -3,11 +3,11 @@ kind: Service
 metadata: 
   labels: 
     name: ianlewis-api 
-    version: "3"
-  name: ianlewis-api-v3
+    version: "4"
+  name: ianlewis-api-v4
 spec:
   ports:
-    - port: 443
+    - port: 8080
       targetPort: 8080
   selector: 
     name: ianlewis-api
