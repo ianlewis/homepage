@@ -1,9 +1,8 @@
-Homepage
-------------------
+# Homepage
 
 This is my homepage/blog.
 
-# Development
+## Development
 
 1. Create a virtualenv
 
@@ -30,13 +29,13 @@ This is my homepage/blog.
 
         $ DEBUG=true homepage start
 
-# Deploy Staging or Production
+## Deploy Staging or Production
 
 You can deploy staging, and production environments to Google Cloud Platform.
 There are a number of scripts for deploying to [Google Container
 Engine](https://cloud.google.com/container-engine/).
 
-## Create and Setup a Cloud Platform Project
+### Create and Setup a Cloud Platform Project
 
 1. Install the [Google Cloud Platform SDK](https://cloud.google.com/sdk/).
 1. Create a project in the [Google Cloud Platform console](http://console.developers.google.com/).
@@ -57,7 +56,7 @@ Engine](https://cloud.google.com/container-engine/).
 
         $ gcloud container clusters create homepage-cluster
 
-## Create the Environment
+### Create the Environment
 
 1. Create namespaces for staging and production.
 
@@ -84,9 +83,11 @@ Engine](https://cloud.google.com/container-engine/).
 1. Deploy the secrets to the cluster.
 
         $ kubectl create -f staging-secrets.yaml --namespace=homepage-staging
+        $ kubectl create -f webfront-secrets-staging.yaml --namespace=homepage-staging
         $ kubectl create -f prod-secrets.yaml --namespace=homepage-prod
+        $ kubectl create -f webfront-secrets-prod.yaml --namespace=homepage-prod
 
-## Build the Docker Images
+### Build the Docker Images
 
 There is a handy build script in the `bin` directory you can run to build
 and push the app image.
@@ -96,7 +97,7 @@ and push the app image.
 This script will build a Python package for the app, build a Docker image, and
 push it to [Google Container Registry](https://cloud.google.com/container-registry/).
 
-## Deploy the Application
+### Deploy the Application
 
 1. Deploy the database.
 
@@ -108,13 +109,13 @@ push it to [Google Container Registry](https://cloud.google.com/container-regist
         $ kubectl create -f deploy/homepage-rc.yaml --namespace=<namespace>
         $ kubectl create -f deploy/homepage-service.yaml --namespace=<namespace>
 
-## Creating the MySQL database
+### Creating the MySQL database
 
 You can create the MySQL database by running the "CREATE DATABASE" query inside the mysql database container after it's running.
 
     $ kubectl exec mysql --namespace=<namespace> -- bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' | mysql -u root --password=yourpassword"
 
-# Running Migrations
+## Running Migrations
 
 Migrations are run in staging or production by running a pod in Container
 Engine.
@@ -128,7 +129,7 @@ previous pod.
 
     $ kubectl delete pod homepage-migrate --namespace=<namespace>
 
-# Creating Superusers
+## Creating Superusers
 
 Creating superusers is done by running a pod in Container Engine.
 
