@@ -18,7 +18,7 @@ import (
 	"github.com/rs/cors"
 )
 
-var VERSION = "0.6.3"
+var VERSION = "0.6.4"
 
 // Command line options used when starting the server.
 var (
@@ -139,11 +139,6 @@ var PeopleMap = map[string]Resource{
 // apiHandler wraps the given handler with standard
 // middleware for serving API requests.
 func apiHandler(h http.Handler) http.Handler {
-	h = handlers.CombinedLoggingHandler(logging.LogWriter{logging.Info}, h)
-
-	// Support GZip Compression
-	h = handlers.CompressHandler(h)
-
 	// Support CORS (Allow all origins)
 	c := cors.New(cors.Options{
 		// Allows requests from browsers (API is read-only).
@@ -236,9 +231,15 @@ func main() {
 
 	logging.Info.Printf("API service listening on %s...", *addr)
 
+	// Add handler middleware for logging.
+	h := handlers.CombinedLoggingHandler(logging.LogWriter{logging.Info}, r)
+
+	// Support GZip Compression
+	h = handlers.CompressHandler(h)
+
 	s := &http.Server{
 		Addr:    *addr,
-		Handler: r,
+		Handler: h,
 	}
 	if *certFile != "" && *keyFile != "" {
 		log.Fatal(s.ListenAndServeTLS(*certFile, *keyFile))
