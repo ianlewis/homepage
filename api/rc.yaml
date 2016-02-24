@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: ianlewis-api-0.6.4-0
+  name: ianlewis-api-0.6.5-0
   labels:
     name: ianlewis-api
-    version: 0.6.4-0
+    version: 0.6.5-0
 spec:
   replicas: 1
   selector:
     name: ianlewis-api
-    version: 0.6.4-0
+    version: 0.6.5-0
   template:
     metadata:
       labels:
         name: ianlewis-api
-        version: 0.6.4-0
+        version: 0.6.5-0
     spec:
       containers:
         - name: ianlewis-api
-          image: asia.gcr.io/ianlewis-org/ianlewis-api:0.6.4
+          image: asia.gcr.io/ianlewis-org/ianlewis-api:0.6.5
           env:
             - name: API_SERVER_BASE_URL
               value: /api
