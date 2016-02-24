@@ -18,7 +18,7 @@ import (
 	"github.com/rs/cors"
 )
 
-var VERSION = "0.6.4"
+var VERSION = "0.6.5"
 
 // Command line options used when starting the server.
 var (
@@ -74,67 +74,7 @@ type Profile struct {
 	Birthday time.Time `json:"birthday"`
 }
 
-var PeopleMap = map[string]Resource{
-	"ian": {
-		Id:   "ian",
-		Type: "ianlewis.org/person",
-		Links: map[string]string{
-			"self":    "/people/ian",
-			"twitter": "https://twitter.com/IanMLewis",
-		},
-		Attributes: Profile{
-			Name: struct {
-				GivenNames []string `json:"given_names"`
-				FamilyName string   `json:"family_name"`
-			}{
-				[]string{"Ian", "Matthew"},
-				"Lewis",
-			},
-			// 1981/10/29 22:01 EST
-			// 1981/10/30 03:01 UTC
-			Birthday: time.Unix(373284060, 0),
-		},
-	},
-	"reiko": {
-		Id:   "reiko",
-		Type: "ianlewis.org/person",
-		Links: map[string]string{
-			"self": "/people/reiko",
-		},
-		Attributes: Profile{
-			Name: struct {
-				GivenNames []string `json:"given_names"`
-				FamilyName string   `json:"family_name"`
-			}{
-				[]string{"Reiko"},
-				"Lewis",
-			},
-			// 1977/04/24 00:00 JST
-			// 1977/10/23 15:00 UTC
-			Birthday: time.Unix(230655600, 0),
-		},
-	},
-	"jin": {
-		Id:   "jin",
-		Type: "ianlewis.org/person",
-		Links: map[string]string{
-			"self":    "/people/jin",
-			"twitter": "https://twitter.com/Jin_tmanchester",
-		},
-		Attributes: Profile{
-			Name: struct {
-				GivenNames []string `json:"given_names"`
-				FamilyName string   `json:"family_name"`
-			}{
-				[]string{"Jin"},
-				"Lewis",
-			},
-			// 2009/04/23 00:00 JST
-			// 2009/04/22 15:00 UTC
-			Birthday: time.Unix(1240412400, 0),
-		},
-	},
-}
+var PeopleMap map[string]Resource
 
 // apiHandler wraps the given handler with standard
 // middleware for serving API requests.
@@ -157,6 +97,70 @@ func versionHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(VERSION))
 }
 
+func initPeopleMap() {
+	PeopleMap = map[string]Resource{
+		"ian": {
+			Id:   "ian",
+			Type: "ianlewis.org/person",
+			Links: map[string]string{
+				"self":    *baseUrl + "/people/ian",
+				"twitter": "https://twitter.com/IanMLewis",
+			},
+			Attributes: Profile{
+				Name: struct {
+					GivenNames []string `json:"given_names"`
+					FamilyName string   `json:"family_name"`
+				}{
+					[]string{"Ian", "Matthew"},
+					"Lewis",
+				},
+				// 1981/10/29 22:01 EST
+				// 1981/10/30 03:01 UTC
+				Birthday: time.Unix(373284060, 0),
+			},
+		},
+		"reiko": {
+			Id:   "reiko",
+			Type: "ianlewis.org/person",
+			Links: map[string]string{
+				"self": *baseUrl + "/people/reiko",
+			},
+			Attributes: Profile{
+				Name: struct {
+					GivenNames []string `json:"given_names"`
+					FamilyName string   `json:"family_name"`
+				}{
+					[]string{"Reiko"},
+					"Lewis",
+				},
+				// 1977/04/24 00:00 JST
+				// 1977/10/23 15:00 UTC
+				Birthday: time.Unix(230655600, 0),
+			},
+		},
+		"jin": {
+			Id:   "jin",
+			Type: "ianlewis.org/person",
+			Links: map[string]string{
+				"self":    *baseUrl + "/people/jin",
+				"twitter": "https://twitter.com/Jin_tmanchester",
+			},
+			Attributes: Profile{
+				Name: struct {
+					GivenNames []string `json:"given_names"`
+					FamilyName string   `json:"family_name"`
+				}{
+					[]string{"Jin"},
+					"Lewis",
+				},
+				// 2009/04/23 00:00 JST
+				// 2009/04/22 15:00 UTC
+				Birthday: time.Unix(1240412400, 0),
+			},
+		},
+	}
+}
+
 // The main function for the API server.
 func main() {
 	flag.Parse()
@@ -174,6 +178,8 @@ func main() {
 
 	logging.InitLogging(debug, os.Stdout, os.Stdout, os.Stderr, os.Stderr)
 
+	initPeopleMap()
+
 	r := mux.NewRouter().StrictSlash(true)
 
 	// Print a list of urls as hyperlinks.
@@ -188,7 +194,7 @@ func main() {
 					"version": "1.0",
 				},
 				map[string]string{
-					"people": "/people/",
+					"people": *baseUrl + "/people/",
 				},
 			})
 		}),
