@@ -116,9 +116,9 @@ Engine](https://cloud.google.com/container-engine/).
 There is a handy build script in the `bin` directory you can run to build
 and push the app image.
 
-    ```shell
-    $ ./bin/build.sh
-    ```
+```shell
+$ ./bin/build.sh
+```
 
 This script will build a Python package for the app, build a Docker image, and
 push it to [Google Container Registry](https://cloud.google.com/container-registry/).
@@ -144,7 +144,9 @@ push it to [Google Container Registry](https://cloud.google.com/container-regist
 You can create the MySQL database by running the "CREATE DATABASE" query inside the mysql database container after it's running.
 
 ```shell
-$ kubectl exec mysql --namespace=<namespace> -- bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' | mysql -u root --password=yourpassword"
+$ kubectl exec mysql --namespace=<namespace> -- \
+    bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' \
+    | mysql -u root --password=yourpassword"
 ```
 
 ## Running Migrations
