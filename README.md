@@ -82,7 +82,7 @@ Engine](https://cloud.google.com/container-engine/).
 
     ```shell
     $ kubectl create -f deploy/homepage-staging-ns.yaml
-    $ kubectl create -f deploy/homepage-staging-prod.yaml
+    $ kubectl create -f deploy/homepage-prod-ns.yaml
     ```
 
 1. Create secrets for each environment. The secrets file should something like
