@@ -4,6 +4,8 @@ metadata:
   name: mysql
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -31,5 +33,5 @@ spec:
         - name: mysql-persistent-storage
           gcePersistentDisk:
             # This GCE PD must already exist.
-            pdName: mysql-disk-staging
+            pdName: mysql-disk-prod
             fsType: ext4
