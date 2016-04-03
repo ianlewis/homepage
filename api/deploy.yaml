@@ -1,24 +1,21 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
-  name: ianlewis-api-0.6.5-0
-  labels:
-    name: ianlewis-api
-    version: 0.6.5-0
+  name: ianlewis-api
 spec:
-  replicas: 1
-  selector:
-    name: ianlewis-api
-    version: 0.6.5-0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 20%
+      maxSurge: 10%
   template:
     metadata:
       labels:
         name: ianlewis-api
-        version: 0.6.5-0
     spec:
       containers:
         - name: ianlewis-api
-          image: asia.gcr.io/ianlewis-org/ianlewis-api:0.6.5
+          image: asia.gcr.io/ianlewis-org/ianlewis-api:0.6.7
           env:
             - name: API_SERVER_BASE_URL
               value: /api
@@ -26,6 +23,11 @@ spec:
             # an http probe
             httpGet:
               path: /_status/healthz
+              port: 8080
+          readinessProbe:
+            # an http probe
+            httpGet:
+              path: /_status/readiness
               port: 8080
           ports:
             - containerPort: 8080

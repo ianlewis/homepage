@@ -18,7 +18,7 @@ import (
 	"github.com/rs/cors"
 )
 
-var VERSION = "0.6.6"
+var VERSION = "0.6.7"
 
 // Command line options used when starting the server.
 var (
@@ -90,7 +90,13 @@ func apiHandler(h http.Handler) http.Handler {
 	return handlers.CombinedLoggingHandler(logging.LogWriter{logging.Info}, c.Handler(h))
 }
 
+// Probe that returns if the app is running.
 func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
+}
+
+// Probe that returns that we are ready to serve requests.
+func readinessHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Check dependent services.
 	w.Write([]byte("OK"))
 }
@@ -235,6 +241,7 @@ func main() {
 	}))
 
 	r.HandleFunc("/_status/healthz", healthHandler)
+	r.HandleFunc("/_status/readiness", readinessHandler)
 	r.HandleFunc("/_status/version", versionHandler)
 
 	logging.Info.Printf("API service listening on %s...", *addr)
