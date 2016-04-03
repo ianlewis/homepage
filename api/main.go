@@ -18,7 +18,7 @@ import (
 	"github.com/rs/cors"
 )
 
-var VERSION = "0.6.5"
+var VERSION = "0.6.6"
 
 // Command line options used when starting the server.
 var (
@@ -85,7 +85,9 @@ func apiHandler(h http.Handler) http.Handler {
 		AllowedHeaders: []string{"Accept", "X-Requested-With"},
 		Debug:          *debugMode,
 	})
-	return c.Handler(h)
+
+	// Add handler middleware for logging.
+	return handlers.CombinedLoggingHandler(logging.LogWriter{logging.Info}, c.Handler(h))
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
@@ -237,11 +239,8 @@ func main() {
 
 	logging.Info.Printf("API service listening on %s...", *addr)
 
-	// Add handler middleware for logging.
-	h := handlers.CombinedLoggingHandler(logging.LogWriter{logging.Info}, r)
-
 	// Support GZip Compression
-	h = handlers.CompressHandler(h)
+	h := handlers.CompressHandler(r)
 
 	s := &http.Server{
 		Addr:    *addr,
