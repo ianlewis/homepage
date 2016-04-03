@@ -3,6 +3,11 @@ kind: Deployment
 metadata:
   name: homepage
 spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 20%
+      maxSurge: 10%
   template:
     metadata:
       labels:
@@ -10,12 +15,21 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:0.2.2
+          image: asia.gcr.io/ianlewis-org/homepage:0.2.3
           # defines the health checking
           livenessProbe:
             # an http probe
             httpGet:
               path: /_status/healthz
+              port: 8080
+            # length of time to wait for a pod to initialize
+            # after pod startup, before applying health checking
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            # an http probe
+            httpGet:
+              path: /_status/readiness
               port: 8080
             # length of time to wait for a pod to initialize
             # after pod startup, before applying health checking

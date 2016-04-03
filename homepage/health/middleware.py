@@ -14,12 +14,25 @@ class HealthMiddleware(object):
 
     def process_request(self, request):
         if request.method == "GET":
-            if request.path == "/_status/healthz":
+            if request.path == "/_status/readiness":
+                return self.readiness(request)
+            elif request.path == "/_status/healthz":
                 return self.healthz(request)
             elif request.path == "/_status/version":
                 return self.version(request)
 
     def healthz(self, request):
+        """
+        Returns that the server is alive.
+        """
+        return HttpResponse("OK")
+
+    def readiness(self, request):
+        """
+        Returns if the server is ready
+        to serve traffic. All dependencies,
+        like databases, shoud be available.
+        """
         try:
             from django.db import connection
             cursor = connection.cursor()
