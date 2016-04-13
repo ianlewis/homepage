@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Job
+metadata:
+  name: renew-certs
+spec: 
+  selector:
+    matchLabels:
+      name: renew-certs
+      version: "1"
+  template:
+    metadata:
+      name: renew-certs
+      labels:
+        name: renew-certs
+        version: "1"
+    spec:
+      containers: 
+        - image: asia.gcr.io/ianlewis-org/renew-certs:2
+          name: renew-certs
+          env:
+            - name: GCE_PROJECT
+              value: 'ianlewis-org'
+            - name: EMAIL
+              value: "ianmlewis@gmail.com"
+            - name: DOMAIN_OPTS
+              value: "-d www.ianlewis.org -d api.ianlewis.org"
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: secret-volume
+              mountPath: '/etc/secrets'
+          resources:
+            limits:
+              memory: 100Mi
+              cpu: 50m
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: renew-certs
+      restartPolicy: Never
