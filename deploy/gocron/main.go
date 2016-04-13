@@ -45,10 +45,10 @@ func createCmdFunc(cmd string, args []string) func() {
 		c := exec.Command(cmd, args...)
 		Info.Println("Running:", cmd, strings.Join(args, " "))
 		o, err := c.CombinedOutput()
-		if len(o) > 0 {
-			Debug.Println(string(o))
-		}
 		if err != nil {
+			if len(o) > 0 {
+				Debug.Println(string(o))
+			}
 			Error.Println(err)
 			return
 		}

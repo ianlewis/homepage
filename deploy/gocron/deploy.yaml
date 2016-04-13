@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gocron
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: gocron
+    spec:
+      containers: 
+        - name: cron
+          image: asia.gcr.io/ianlewis-org/gocron:8
+          command: ["/gocron"]
+          args: 
+            - "-conf=/conf/crontab"
+            - "-debug"
+          resources:
+            limits:
+              cpu: 50m
+              memory: 25Mi
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /conf
+            - name: certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: cron-secrets
+        - name: certs
+          hostPath:
+            path: /etc/ssl/certs
