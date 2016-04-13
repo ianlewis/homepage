@@ -16,9 +16,6 @@ spec:
       containers:
         - name: ianlewis-api
           image: asia.gcr.io/ianlewis-org/ianlewis-api:0.6.7
-          env:
-            - name: API_SERVER_BASE_URL
-              value: /api
           livenessProbe:
             # an http probe
             httpGet:
