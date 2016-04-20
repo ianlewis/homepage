@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: renew-certs-config
+  namespace: homepage-prod
+data:
+  gce-project: ianlewis-org 
+  email: ianmlewis@gmail.com
+  domain-opts: -d www.ianlewis.org -d api.ianlewis.org

@@ -6,24 +6,33 @@ spec:
   selector:
     matchLabels:
       name: renew-certs
-      version: "1"
+      version: "4"
   template:
     metadata:
       name: renew-certs
       labels:
         name: renew-certs
-        version: "1"
+        version: "4"
     spec:
       containers: 
-        - image: asia.gcr.io/ianlewis-org/renew-certs:2
+        - image: asia.gcr.io/ianlewis-org/renew-certs:5
           name: renew-certs
           env:
             - name: GCE_PROJECT
-              value: 'ianlewis-org'
+              valueFrom:
+                configMapKeyRef:
+                  name: renew-certs-config
+                  key: gce-project
             - name: EMAIL
-              value: "ianmlewis@gmail.com"
+              valueFrom:
+                configMapKeyRef:
+                  name: renew-certs-config
+                  key: email
             - name: DOMAIN_OPTS
-              value: "-d www.ianlewis.org -d api.ianlewis.org"
+              valueFrom:
+                configMapKeyRef:
+                  name: renew-certs-config
+                  key: domain-opts
             - name: NAMESPACE
               valueFrom:
                 fieldRef:
@@ -31,6 +40,8 @@ spec:
           volumeMounts:
             - name: secret-volume
               mountPath: '/etc/secrets'
+            - name: lego-disk
+              mountPath: '/etc/lego'
           resources:
             limits:
               memory: 100Mi
@@ -39,4 +50,9 @@ spec:
         - name: secret-volume
           secret:
             secretName: renew-certs
+        - name: lego-disk
+          gcePersistentDisk:
+            # This GCE PD must already exist.
+            pdName: lego-disk
+            fsType: ext4
       restartPolicy: Never

@@ -16,6 +16,7 @@ set -e
 # md5sum
 
 export GOOGLE_APPLICATION_CREDENTIALS=/etc/secrets/key.json
+export LEGOPATH=/etc/lego/.lego
 
 echo "Authenticating Google SDK"
 gcloud auth activate-service-account `cat /etc/secrets/service-account` --key-file /etc/secrets/key.json
@@ -23,7 +24,11 @@ gcloud config set project ${GCE_PROJECT}
 
 # Renew the certificates
 echo "Renewing certificates..."
-/lego --path="/.lego" --email=${EMAIL} ${DOMAIN_OPTS} --dns="gcloud" --accept-tos run
+if [ -d "${LEGOPATH}" ]; then
+    /lego --path=${LEGOPATH} --email=${EMAIL} ${DOMAIN_OPTS} --dns="gcloud" --accept-tos renew
+else
+    /lego --path=${LEGOPATH} --email=${EMAIL} ${DOMAIN_OPTS} --dns="gcloud" --accept-tos run
+fi
 echo "Renewal successful."
 
 # Get old cert name
@@ -32,11 +37,11 @@ OLDCERT=`gcloud compute target-https-proxies describe ${NAMESPACE}-https | grep 
 echo "Got current cert: ${OLDCERT}..."
 
 # Determine a certificate name based on a hash of the content.
-CERTNAME=homepage-`md5sum -b /.lego/certificates/*.crt | awk '{print $1}'`
+CERTNAME=homepage-`md5sum -b ${LEGOPATH}/certificates/*.crt | awk '{print $1}'`
 
 echo "Creating new cert: ${CERTNAME}..."
 # Create the a new ssl certificate using gcloud
-gcloud compute ssl-certificates create ${CERTNAME} --certificate /.lego/certificates/*.crt --private-key /.lego/certificates/*.key
+gcloud compute ssl-certificates create ${CERTNAME} --certificate ${LEGOPATH}/certificates/*.crt --private-key ${LEGOPATH}/certificates/*.key
 
 echo "Updating target-https-proxies..."
 # Update target-https-proxies to use the new certificate
