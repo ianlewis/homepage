@@ -11,25 +11,35 @@ spec:
     spec:
       containers: 
         - name: cron
-          image: asia.gcr.io/ianlewis-org/gocron:8
+          image: asia.gcr.io/ianlewis-org/gocron:10
           command: ["/gocron"]
           args: 
-            - "-conf=/conf/crontab"
+            - "-conf=/conf/crontab/crontab"
             - "-debug"
           resources:
             limits:
               cpu: 50m
               memory: 25Mi
           volumeMounts:
-            - name: secret-volume
-              mountPath: /conf
+            - name: crontab-volume
+              mountPath: /conf/crontab
+            - name: backup-volume
+              mountPath: /conf/backup
+            - name: renew-certs-volume
+              mountPath: /conf/renew-certs
             - name: certs
               mountPath: /etc/ssl/certs
               readOnly: true
       volumes:
-        - name: secret-volume
-          secret:
-            secretName: cron-secrets
+        - name: crontab-volume
+          configMap:
+            name: crontab
+        - name: backup-volume
+          configMap:
+            name: backup-job
+        - name: renew-certs-volume
+          configMap:
+            name: renew-certs-job
         - name: certs
           hostPath:
             path: /etc/ssl/certs

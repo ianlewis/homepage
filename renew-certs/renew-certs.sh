@@ -34,7 +34,11 @@ echo "Renewal successful."
 # Get old cert name
 echo "Getting current cert"
 OLDCERT=`gcloud compute target-https-proxies describe ${NAMESPACE}-https | grep https://www.googleapis.com/compute/v1/projects/ianlewis-org/global/sslCertificates/ | awk '{print $2}'`
-echo "Got current cert: ${OLDCERT}..."
+if [ "${OLDCERT}" != "" ]; then
+    echo "Got current cert: ${OLDCERT}..."
+else
+    echo "No current cert."
+fi
 
 # Determine a certificate name based on a hash of the content.
 CERTNAME=homepage-`md5sum -b ${LEGOPATH}/certificates/*.crt | awk '{print $1}'`
@@ -49,12 +53,13 @@ gcloud compute target-https-proxies update ${NAMESPACE}-https --ssl-certificate 
 echo "target-https-proxies updated."
 
 # Wait a bit to allow it to propagate.
-echo "Waiting for new cert to propagate..."
+echo "Waiting 60s for new cert to propagate..."
 sleep 60
 
 # Delete the old certificate.
-echo "Deleting old certificate: ${OLDCERT}..."
-gcloud compute ssl-certificates delete ${OLDCERT}
-echo "Done."
+if [ "${OLDCERT}" != "" ]; then
+    echo "Deleting old certificate: ${OLDCERT}..."
+    gcloud -q compute ssl-certificates delete ${OLDCERT}
+fi
 
-# TODO: Revoke old cert?
+echo "Done."

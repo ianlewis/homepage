@@ -1,3 +1,0 @@
-# Create secrets
-
-    $ python create_secrets.py crontab-staging > crontab-staging-secrets.yaml

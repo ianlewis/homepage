@@ -57,6 +57,36 @@ func createCmdFunc(cmd string, args []string) func() {
 	}
 }
 
+// See: https://gist.github.com/jmervine/d88c75329f98e09f5c87
+func safeSplit(s string) []string {
+	split := strings.Split(s, " ")
+
+	var result []string
+	var inquote string
+	var block string
+	for _, i := range split {
+		if inquote == "" {
+			if strings.HasPrefix(i, "'") || strings.HasPrefix(i, "\"") {
+				inquote = string(i[0])
+				block = strings.TrimPrefix(i, inquote) + " "
+			} else {
+				result = append(result, i)
+			}
+		} else {
+			if !strings.HasSuffix(i, inquote) {
+				block += i + " "
+			} else {
+				block += strings.TrimSuffix(i, inquote)
+				inquote = ""
+				result = append(result, block)
+				block = ""
+			}
+		}
+	}
+
+	return result
+}
+
 // Parses the config file and starts the server.
 func startCron() error {
 	c, err := os.Open(*configPath)
@@ -72,22 +102,43 @@ func startCron() error {
 	r := regexp.MustCompile("\\s")
 
 	for scanner.Scan() {
-		line := r.Split(strings.Trim(scanner.Text(), " \t"), -1)
+		line := scanner.Text()
+		tempParts := r.Split(strings.Trim(line, " \t"), -1)
 
 		var sched, cmd string
 		var args []string
-		if strings.HasPrefix(line[0], "@every") {
-			sched = strings.Join(line[:2], " ")
-			cmd = line[2]
-			args = line[3:]
-		} else if strings.HasPrefix(line[0], "@") {
-			sched = line[0]
-			cmd = line[1]
-			args = line[2:]
+		if strings.HasPrefix(tempParts[0], "@every") {
+			// This time only split 3 parts.
+			// @every day <command>
+			tempParts := r.Split(strings.Trim(line, " \t"), 3)
+			sched = strings.Join(tempParts[:2], " ")
+			parts := safeSplit(tempParts[2])
+			cmd = parts[0]
+			args = parts[1:]
+		} else if strings.HasPrefix(tempParts[0], "@") {
+			// Only split into 2 parts.
+			// @daily <command>
+			tempParts := r.Split(strings.Trim(line, " \t"), 2)
+			sched = tempParts[0]
+			parts := safeSplit(tempParts[1])
+			cmd = parts[0]
+			args = parts[1:]
 		} else {
-			sched = strings.Join(line[:5], " ")
-			cmd = line[5]
-			args = line[6:]
+			// Split into 6 parts
+			// * * * * * <command>
+			tempParts := r.Split(strings.Trim(line, " \t"), 6)
+			sched = strings.Join(tempParts[:5], " ")
+			parts := safeSplit(tempParts[5])
+			cmd = parts[0]
+			args = parts[1:]
+		}
+
+		if *debugMode {
+			argsDebug := ""
+			for _, a := range args {
+				argsDebug += "- " + a + "\n"
+			}
+			Debug.Printf("Adding:\n\nschedule: %s\ncmd: %s\nargs:\n%s", sched, cmd, argsDebug)
 		}
 
 		// Make the schedule have minute not second resolution.

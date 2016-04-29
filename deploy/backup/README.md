@@ -17,6 +17,14 @@ Tag and push the image:
     $ docker tag homepage-backup asia.gcr.io/ianlewis-org/homepage-backup:v1
     $ gcloud docker push asia.gcr.io/ianlewis-org/homepage-backup:v1
 
+## Create the Secrets
+
+    python create_secrets.py | kubectl create -f -
+
+## Create the ConfigMap
+
+    kubectl create configmap backup-conf --from-literal=bucket.name=<bucket-name>
+
 ## Run the job
 
     $ kubectl create -f backup.yaml
