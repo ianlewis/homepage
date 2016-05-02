@@ -6,4 +6,5 @@ metadata:
 data:
   gce-project: ianlewis-org 
   email: ianmlewis@gmail.com
-  domain-opts: -d www.staging.ianlewis.org -d api.staging.ianlewis.org
+  zone: ianlewis-org
+  domains: www.staging.ianlewis.org api.staging.ianlewis.org

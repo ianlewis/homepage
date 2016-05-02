@@ -9,7 +9,8 @@ set -e
 # Required environment variables
 # GCE_PROJECT: GCP Project id
 # EMAIL: Let's Encrypt account email address
-# DOMAIN_OPTS: Domains to renew (e.g. -d www.example.com -d www.example2.com
+# ZONE: The Cloud DNS Zone name
+# DOMAINS: Space delimited list of domains to renew (e.g. www.example.com www.example2.com test.example.com)
 # NAMESPACE: The kubernetes namespace
 
 # Required:
@@ -21,6 +22,30 @@ export LEGOPATH=/etc/lego/.lego
 echo "Authenticating Google SDK"
 gcloud auth activate-service-account `cat /etc/secrets/service-account` --key-file /etc/secrets/key.json
 gcloud config set project ${GCE_PROJECT}
+
+# Cleanup.
+EXE_TRANS=""
+gcloud dns record-sets transaction start --zone=${ZONE}
+for DOMAIN in ${DOMAINS}
+do
+    gcloud dns record-sets transaction start --zone=${ZONE}
+    TEMP=`gcloud dns record-sets list --zone ianlewis-org --type=TXT --name=_acme-challenge.${DOMAIN} | grep _acme-challenge.${DOMAIN}`
+    if [ ${TEMP} != "" ]; then
+        gcloud dns record-sets remove --zone=${ZONE} --type=TXT --name=_acme-challenge.${DOMAIN}
+        EXE_TRANS=1
+    fi
+done
+if [ ${EXE_TRANS} != "" ]; then
+    gcloud dns record-sets transaction execute --zone=${ZONE}
+else 
+    gcloud dns record-sets transaction abort --zone=${ZONE}
+fi
+
+DOMAIN_OPTS=""
+for DOMAIN in ${DOMAINS}
+do
+    DOMAIN_OPTS=${DOMAIN_OPTS}+" -d ${DOMAIN}"
+done
 
 # Renew the certificates
 echo "Renewing certificates..."

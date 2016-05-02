@@ -6,16 +6,16 @@ spec:
   selector:
     matchLabels:
       name: renew-certs-job-name-placeholder
-      version: "6"
+      version: "8"
   template:
     metadata:
       name: renew-certs-job-name-placeholder
       labels:
         name: renew-certs-job-name-placeholder
-        version: "6"
+        version: "8"
     spec:
       containers: 
-        - image: asia.gcr.io/ianlewis-org/renew-certs:6
+        - image: asia.gcr.io/ianlewis-org/renew-certs:8
           name: renew-certs
           env:
             - name: GCE_PROJECT
@@ -28,11 +28,16 @@ spec:
                 configMapKeyRef:
                   name: renew-certs-config
                   key: email
-            - name: DOMAIN_OPTS
+            - name: ZONE
               valueFrom:
                 configMapKeyRef:
                   name: renew-certs-config
-                  key: domain-opts
+                  key: zone
+            - name: DOMAINS
+              valueFrom:
+                configMapKeyRef:
+                  name: renew-certs-config
+                  key: domains
             - name: NAMESPACE
               valueFrom:
                 fieldRef:
