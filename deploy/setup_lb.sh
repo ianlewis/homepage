@@ -19,7 +19,7 @@ ADDRESS_NAME=www-staging-ianlewis-org
 
 # ----------------------
 
-GCE_PROJECT=ianlewis-org   # used by lego
+export GCE_PROJECT=ianlewis-org   # used by lego
 WWW_HOST=www.${HOST}
 API_HOST=api.${HOST}
 CERT_FILE=${HOME}/.lego/certificates/${WWW_HOST}.crt
@@ -44,7 +44,7 @@ gcloud dns record-sets transaction execute --zone=${DNS_ZONE}
 # Wait for transaction to finish.
 sleep 30
 
-lego --email="ianmlewis@gmail.com" -d ${WWW_HOST} -d ${API_HOST} --dns="gcloud" run
+lego --email="ianmlewis@gmail.com" -d ${WWW_HOST} -d ${API_HOST} --dns="gcloud" --accept-tos run
 
 gcloud compute ssl-certificates create ${ADDRESS_NAME} --certificate ${CERT_FILE} --private-key ${KEY_FILE}
 
