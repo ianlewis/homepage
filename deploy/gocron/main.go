@@ -105,6 +105,11 @@ func startCron() error {
 		line := scanner.Text()
 		tempParts := r.Split(strings.Trim(line, " \t"), -1)
 
+		// Skip commented out lines
+		if strings.HasPrefix(tempParts[0], "#") {
+			continue
+		}
+
 		var sched, cmd string
 		var args []string
 		if strings.HasPrefix(tempParts[0], "@every") {
