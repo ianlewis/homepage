@@ -1,7 +1,7 @@
-# Makefile to build aggre_mod and related packages
+# Makefile to build renew-certs and related packages
 
 PROJECT=$(shell gcloud config list project | awk 'FNR==2 { print $$3 }')
-VERSION=8
+VERSION=17
 
 all: image
 

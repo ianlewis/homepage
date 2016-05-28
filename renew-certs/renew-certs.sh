@@ -16,11 +16,25 @@ set -e
 # Required:
 # md5sum
 
-export GOOGLE_APPLICATION_CREDENTIALS=/etc/secrets/key.json
-export LEGOPATH=/etc/lego/.lego
+export GOOGLE_SECRETS_PATH=/etc/secrets/google
+export GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_SECRETS_PATH}/key.json
+export LEGO_SECRET_ARCHIVE=/etc/secrets/lego/lego-certs.tar.gz
+export LEGOPATH=/etc/lego
+
+echo "Running renewal script"
+echo "Project: ${GCE_PROJECT}"
+echo "Email: ${EMAIL}"
+echo "Zone: ${ZONE}"
+echo "Domains: ${DOMAINS}"
+echo "Namespace: ${NAMESPACE}"
+echo
+
+# Extract LEGO secrets
+mkdir -p $LEGOPATH
+tar xf $LEGO_SECRET_ARCHIVE -C $LEGOPATH
 
 echo "Authenticating Google SDK"
-gcloud auth activate-service-account `cat /etc/secrets/service-account` --key-file /etc/secrets/key.json
+gcloud auth activate-service-account `cat ${GOOGLE_SECRETS_PATH}/service-account` --key-file ${GOOGLE_APPLICATION_CREDENTIALS}
 gcloud config set project ${GCE_PROJECT}
 
 # Cleanup.
@@ -28,14 +42,16 @@ EXE_TRANS=""
 gcloud dns record-sets transaction start --zone=${ZONE}
 for DOMAIN in ${DOMAINS}
 do
-    gcloud dns record-sets transaction start --zone=${ZONE}
-    TEMP=`gcloud dns record-sets list --zone ianlewis-org --type=TXT --name=_acme-challenge.${DOMAIN} | grep _acme-challenge.${DOMAIN}`
-    if [ ${TEMP} != "" ]; then
-        gcloud dns record-sets remove --zone=${ZONE} --type=TXT --name=_acme-challenge.${DOMAIN}
+    DNSDATA=`gcloud dns record-sets list --zone=${ZONE} --type=TXT --name=_acme-challenge.${DOMAIN}. | grep _acme-challenge.${DOMAIN}. | awk '{ print $3 " " $4 }'`
+    if [ "${DNSDATA}" != "" ]; then
+        DNSARRAY=($DNSDATA)
+        TTL=${DNSARRAY[0]}
+        DATA=${DNSARRAY[1]}
+        gcloud dns record-sets transaction remove ${DATA} --zone=${ZONE} --type=TXT --ttl=${TTL} --name=_acme-challenge.${DOMAIN}.
         EXE_TRANS=1
     fi
 done
-if [ ${EXE_TRANS} != "" ]; then
+if [ "${EXE_TRANS}" != "" ]; then
     gcloud dns record-sets transaction execute --zone=${ZONE}
 else 
     gcloud dns record-sets transaction abort --zone=${ZONE}
@@ -44,7 +60,7 @@ fi
 DOMAIN_OPTS=""
 for DOMAIN in ${DOMAINS}
 do
-    DOMAIN_OPTS=${DOMAIN_OPTS}+" -d ${DOMAIN}"
+    DOMAIN_OPTS="${DOMAIN_OPTS} -d ${DOMAIN}"
 done
 
 # Renew the certificates
@@ -58,7 +74,7 @@ echo "Renewal successful."
 
 # Get old cert name
 echo "Getting current cert"
-OLDCERT=`gcloud compute target-https-proxies describe ${NAMESPACE}-https | grep https://www.googleapis.com/compute/v1/projects/ianlewis-org/global/sslCertificates/ | awk '{print $2}'`
+OLDCERT=`gcloud compute target-https-proxies describe ${NAMESPACE}-https | grep https://www.googleapis.com/compute/v1/projects/${GCE_PROJECT}/global/sslCertificates/ | awk '{print $2}'`
 if [ "${OLDCERT}" != "" ]; then
     echo "Got current cert: ${OLDCERT}..."
 else

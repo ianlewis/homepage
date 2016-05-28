@@ -3,19 +3,20 @@ kind: Job
 metadata:
   name: renew-certs-job-name-placeholder
 spec: 
+  activeDeadlineSeconds: 600
   selector:
     matchLabels:
       name: renew-certs-job-name-placeholder
-      version: "8"
+      version: "17"
   template:
     metadata:
       name: renew-certs-job-name-placeholder
       labels:
         name: renew-certs-job-name-placeholder
-        version: "8"
+        version: "17"
     spec:
       containers: 
-        - image: asia.gcr.io/ianlewis-org/renew-certs:8
+        - image: asia.gcr.io/ianlewis-org/renew-certs:17
           name: renew-certs
           env:
             - name: GCE_PROJECT
@@ -43,21 +44,19 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           volumeMounts:
-            - name: secret-volume
-              mountPath: '/etc/secrets'
-            - name: lego-disk
-              mountPath: '/etc/lego'
+            - name: google-secrets
+              mountPath: '/etc/secrets/google'
+            - name: lego-secrets
+              mountPath: '/etc/secrets/lego'
           resources:
             limits:
               memory: 100Mi
               cpu: 50m
       volumes:
-        - name: secret-volume
+        - name: google-secrets
           secret:
             secretName: renew-certs
-        - name: lego-disk
-          gcePersistentDisk:
-            # This GCE PD must already exist.
-            pdName: lego-disk
-            fsType: ext4
+        - name: lego-secrets
+          secret:
+            secretName: lego-certs
       restartPolicy: Never
