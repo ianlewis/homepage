@@ -14,3 +14,19 @@ Once the certificate is renewed. The new generated certificate is uploaded as an
 ssl-certificate on Google Cloud and I update the HTTP load balancer with the new cert.
 
 See the [renew-certs.sh](renew-certs.sh) script for details.
+
+# Secrets
+
+The renew-certs job requires two secrets google-secrets and lego-secrets. The
+google-secrets secret is used to authenticate with Google Cloud APIs. It contains
+two keys:
+
+1. service-account: Contains the service account email address.
+1. key.json: The service account key
+
+The lego-secrets secret holds lego account info for Let's Encrypt. It contains
+on key:
+
+1. lego-certs.tar.gz: A tar gzipped archive of the lego config directory that can be
+   passed to the lego --path option. This is used so that we can renew using the same
+   Let's Encrypt account as was used to create the certificate.
