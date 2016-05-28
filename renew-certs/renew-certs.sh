@@ -14,6 +14,7 @@ set -e
 # NAMESPACE: The kubernetes namespace
 
 # Required:
+# gcloud
 # md5sum
 
 export GOOGLE_SECRETS_PATH=/etc/secrets/google
@@ -37,7 +38,9 @@ echo "Authenticating Google SDK"
 gcloud auth activate-service-account `cat ${GOOGLE_SECRETS_PATH}/service-account` --key-file ${GOOGLE_APPLICATION_CREDENTIALS}
 gcloud config set project ${GCE_PROJECT}
 
-# Cleanup.
+# Cleanup old DNS entries.
+# If the script has previously failed, the DNS challenge entries will remain
+# and subsequent runs of lego will fail. So we need to delete old entries here.
 EXE_TRANS=""
 gcloud dns record-sets transaction start --zone=${ZONE}
 for DOMAIN in ${DOMAINS}
@@ -57,13 +60,14 @@ else
     gcloud dns record-sets transaction abort --zone=${ZONE}
 fi
 
+# Parse the domains list into domain options for lego.
 DOMAIN_OPTS=""
 for DOMAIN in ${DOMAINS}
 do
     DOMAIN_OPTS="${DOMAIN_OPTS} -d ${DOMAIN}"
 done
 
-# Renew the certificates
+# Renew the certificates. This solves the DNS challenges by creating DNS entries using CloudDNS.
 echo "Renewing certificates..."
 if [ -d "${LEGOPATH}" ]; then
     /lego --path=${LEGOPATH} --email=${EMAIL} ${DOMAIN_OPTS} --dns="gcloud" --accept-tos renew
@@ -81,7 +85,7 @@ else
     echo "No current cert."
 fi
 
-# Determine a certificate name based on a hash of the content.
+# Determine a unique certificate name based on a hash of the content.
 CERTNAME=homepage-`md5sum -b ${LEGOPATH}/certificates/*.crt | awk '{print $1}'`
 
 echo "Creating new cert: ${CERTNAME}..."
@@ -94,6 +98,7 @@ gcloud compute target-https-proxies update ${NAMESPACE}-https --ssl-certificate 
 echo "target-https-proxies updated."
 
 # Wait a bit to allow it to propagate.
+# This is mainly to make sure that deleting the old certificate will succeed.
 echo "Waiting 60s for new cert to propagate..."
 sleep 60
 
