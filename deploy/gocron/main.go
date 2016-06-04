@@ -132,7 +132,8 @@ func startCron() error {
 			// Split into 6 parts
 			// * * * * * <command>
 			tempParts := r.Split(strings.Trim(line, " \t"), 6)
-			sched = strings.Join(tempParts[:5], " ")
+			// Make the schedule have minute not second resolution.
+			sched = "0 " + strings.Join(tempParts[:5], " ")
 			parts := safeSplit(tempParts[5])
 			cmd = parts[0]
 			args = parts[1:]
@@ -146,8 +147,7 @@ func startCron() error {
 			Debug.Printf("Adding:\n\nschedule: %s\ncmd: %s\nargs:\n%s", sched, cmd, argsDebug)
 		}
 
-		// Make the schedule have minute not second resolution.
-		server.AddFunc("0 "+sched, createCmdFunc(cmd, args))
+		server.AddFunc(sched, createCmdFunc(cmd, args))
 	}
 
 	server.Start()

@@ -11,7 +11,7 @@ spec:
     spec:
       containers: 
         - name: cron
-          image: asia.gcr.io/ianlewis-org/gocron:11
+          image: asia.gcr.io/ianlewis-org/gocron:12
           command: ["/gocron"]
           args: 
             - "-conf=/conf/crontab/crontab"
