@@ -38,8 +38,33 @@ spec:
           env:
             - name: DEBUG
               value: 'False'
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: secret-key
             - name: DB_HOST
               value: mysql
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: db-password
+            - name: DISQUS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: disqus-api-key
+            - name: DISQUS_WEBSITE_SHORTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: disqus-website-shortname
             - name: MEDIA_ROOT
               value: /var/www/media
             - name: USE_MEMCACHED
@@ -48,13 +73,8 @@ spec:
               value: memcached:11211
             - name: HTTPS
               value: "on"
-            - name: ENV_DIR
-              value: /etc/secrets
           ports:
             - containerPort: 8080
-          volumeMounts:
-            - name: secret-volume
-              mountPath: /etc/secrets
           resources:
             limits:
               memory: 100Mi
@@ -72,9 +92,6 @@ spec:
               memory: 10Mi
               cpu: 10m 
       volumes: 
-        - name: secret-volume
-          secret:
-            secretName: homepage-secret
         - name: webfront-secrets
           secret:
             secretName: webfront-secret
