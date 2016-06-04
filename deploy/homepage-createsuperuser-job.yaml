@@ -6,23 +6,38 @@ spec:
   selector:
     matchLabels: 
       name: homepage-createsuperuser
-      version: 0.2.2-0
+      version: 0.2.3-0
   template:
     metadata:
       name: homepage-createsuperuser
       labels:
         name: homepage-createsuperuser
-        version: 0.2.2-0
+        version: 0.2.3-0
     spec:
       containers:
         - name: homepage-createsuperuser
-          image: asia.gcr.io/ianlewis-org/homepage:0.2.2
+          image: asia.gcr.io/ianlewis-org/homepage:0.2.3
           command: ["homepage", "createsuperuser"]
           env:
             - name: DEBUG
               value: 'False'
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: secret-key
             - name: DB_HOST
               value: mysql
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: db-admin-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: db-admin-password
             - name: MEDIA_ROOT
               value: /var/www/media
             - name: USE_MEMCACHED
@@ -31,15 +46,8 @@ spec:
               value: memcached:11211
             - name: ENV_DIR
               value: /etc/secrets
-          volumeMounts:
-            - name: secret-volume
-              mountPath: '/etc/secrets'
           resources:
             limits:
               memory: 100Mi
               cpu: 50m
-      volumes:
-        - name: secret-volume
-          secret:
-            secretName: homepage-secret
       restartPolicy: Never
