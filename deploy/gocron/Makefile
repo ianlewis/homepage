@@ -1,4 +1,4 @@
-# Makefile to build aggre_mod and related packages
+# Makefile to build gocron image
 
 PROJECT=$(shell gcloud config list project | awk 'FNR==2 { print $$3 }')
 VERSION=$(shell cat VERSION)
