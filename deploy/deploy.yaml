@@ -80,7 +80,7 @@ spec:
               memory: 100Mi
               cpu: 50m
         - name: nginx
-          image: asia.gcr.io/ianlewis-org/nginx:1.9.9-3
+          image: asia.gcr.io/ianlewis-org/nginx:1.11.1-0
           ports:
             - containerPort: 8000
             - containerPort: 8001
