@@ -15,10 +15,16 @@ ssl-certificate on Google Cloud and I update the HTTP load balancer with the new
 
 See the [renew-certs.sh](renew-certs.sh) script for details.
 
+# Config
+
+The renew-certs job requires a ConfigMap named renew-certs-config.
+
+    kubectl create -f prod-config.yaml
+
 # Secrets
 
-The renew-certs job requires two secrets google-secrets and lego-certs. The
-google-secrets secret is used to authenticate with Google Cloud APIs. It contains
+The renew-certs job requires two secrets renew-certs and lego-certs. The
+renew-certs secret is used to authenticate with Google Cloud APIs. It contains
 two keys:
 
 1. service-account: Contains the service account email address.
