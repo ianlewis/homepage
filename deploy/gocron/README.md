@@ -2,6 +2,12 @@
 
 This directory contains the gocron app. This app implements scheduled jobs.
 
+## Get kubectl 
+
+Download the kubectl binary:
+
+    $ curl -O https://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl
+
 ## Building
 
 Build the image:
