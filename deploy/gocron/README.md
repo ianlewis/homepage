@@ -17,7 +17,6 @@ Tag and push the image:
 
     kubectl create configmap crontab --from-file=prod/crontab
     kubectl create configmap backup-job --from-file=../backup/job.yaml
-    kubectl create configmap renew-certs-job --from-file=../../renew-certs/job.yaml
 
 ## Deploy
 

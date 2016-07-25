@@ -11,7 +11,7 @@ spec:
     spec:
       containers: 
         - name: cron
-          image: asia.gcr.io/ianlewis-org/gocron:12
+          image: asia.gcr.io/ianlewis-org/gocron:13
           command: ["/gocron"]
           args: 
             - "-conf=/conf/crontab/crontab"
@@ -25,8 +25,6 @@ spec:
               mountPath: /conf/crontab
             - name: backup-volume
               mountPath: /conf/backup
-            - name: renew-certs-volume
-              mountPath: /conf/renew-certs
             - name: certs
               mountPath: /etc/ssl/certs
               readOnly: true
@@ -37,9 +35,6 @@ spec:
         - name: backup-volume
           configMap:
             name: backup-job
-        - name: renew-certs-volume
-          configMap:
-            name: renew-certs-job
         - name: certs
           hostPath:
             path: /etc/ssl/certs
