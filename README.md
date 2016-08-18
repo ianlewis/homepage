@@ -41,11 +41,11 @@ This is my homepage/blog.
     $ DEBUG=true homepage start
     ```
 
-## Deploy Staging or Production
+## Deploy the App
 
-You can deploy staging, and production environments to Google Cloud Platform.
-There are a number of scripts for deploying to [Google Container
-Engine](https://cloud.google.com/container-engine/).
+This application is deployed on [Google Container
+Engine](https://cloud.google.com/container-engine/), however, any Kubernetes
+cluster would do.
 
 ### Create and Setup a Cloud Platform Project
 
@@ -78,16 +78,13 @@ Engine](https://cloud.google.com/container-engine/).
 
 ### Create the Environment
 
-1. Create namespaces for staging and production.
+I recommend you have a namespace for staging and one for production
+but YMMV.
 
-    ```shell
-    $ kubectl create -f deploy/homepage-staging-ns.yaml
-    $ kubectl create -f deploy/homepage-prod-ns.yaml
-    ```
-
-1. Create secrets for each environment. The secrets file should something like
+1. Create secrets for the homepage app. The secrets file should something like
    the file below. Each value should be encoded in base64. See the [secrets
-   doc](http://kubernetes.io/v1.0/docs/user-guide/secrets.html) for more info.
+   doc](http://kubernetes.io/docs/user-guide/secrets/walkthrough/) for more info.
+   Save the file to homepage-secrets.yaml.
 
     ```yaml
     apiVersion: v1
@@ -102,13 +99,23 @@ Engine](https://cloud.google.com/container-engine/).
       db-password: ...
     ```
 
+1. Create secrets for the web frontend nginx.
+
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: webfront-secret
+    data:
+      webfront-crt: ...
+      webfront-key: ...
+    ```
+
 1. Deploy the secrets to the cluster.
 
     ```shell
-    $ kubectl create -f staging-secrets.yaml --namespace=homepage-staging
-    $ kubectl create -f webfront-secrets-staging.yaml --namespace=homepage-staging
-    $ kubectl create -f prod-secrets.yaml --namespace=homepage-prod
-    $ kubectl create -f webfront-secrets-prod.yaml --namespace=homepage-prod
+    $ kubectl create -f homepage-secrets.yaml
+    $ kubectl create -f webfront-secrets.yaml
     ```
 
 ### Build the Docker Images
@@ -128,15 +135,15 @@ push it to [Google Container Registry](https://cloud.google.com/container-regist
 1. Deploy the database.
 
     ```shell
-    $ kubectl create -f deploy/mysql/mysql.yaml --namespace=<namespace> 
-    $ kubectl create -f deploy/mysql/mysql-service.yaml --namespace=<namespace> 
+    $ kubectl create -f deploy/mysql/deploy.yaml
+    $ kubectl create -f deploy/mysql/service.yaml
     ```
 
 1. Deploy the homepage app.
 
     ```shell
-    $ kubectl create -f deploy/homepage-rc.yaml --namespace=<namespace>
-    $ kubectl create -f deploy/homepage-service.yaml --namespace=<namespace>
+    $ kubectl create -f deploy/deploy.yaml
+    $ kubectl create -f deploy/service.yaml
     ```
 
 ### Creating the MySQL database
@@ -144,35 +151,28 @@ push it to [Google Container Registry](https://cloud.google.com/container-regist
 You can create the MySQL database by running the "CREATE DATABASE" query inside the mysql database container after it's running.
 
 ```shell
-$ kubectl exec mysql --namespace=<namespace> -- \
+$ MYSQL_POD=$(kubectl get pods -o jsonpath='{.items[0].metadata.name}' --selector=name=mysql)
+$ kubectl exec $MYSQL_POD -it -- \
     bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' \
-    | mysql -u root --password=yourpassword"
+    | mysql -u root -p"
 ```
 
 ## Running Migrations
 
-Migrations are run in staging or production by running a pod in Container
-Engine.
+Migrations are run by running a Job using the Kubernetes
+[Jobs API](http://kubernetes.io/docs/user-guide/jobs/).
 
 ```shell
-$ kubectl create -f deploy/homepage-migrate-pod.yaml --namespace=<namespace>
-```
-
-The pod will be created with the name "homepage-migrate". Since it exits
-normally, in order to preserve info and logs, Container Engine keeps the pod
-around. In order to run the migration again, you need clean up by deleting the
-previous pod.
-
-```shell
-$ kubectl delete pod homepage-migrate --namespace=<namespace>
+$ kubectl create -f deploy/homepage-migrate-job.yaml
 ```
 
 ## Creating Superusers
 
-Creating superusers is done by running a pod in Container Engine.
+Creating superusers is done by running a Job using the Kubernetes
+[Jobs API](http://kubernetes.io/docs/user-guide/jobs/).
 
 ```shell
-$ kubectl create -f deploy/homepage-createsuperuser-pod.yaml --namespace=<namespace>
+$ kubectl create -f deploy/homepage-createsuperuser-pod.yaml
 ```
 
 This will create a superuser with the username and password "admin". You will
