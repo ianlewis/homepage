@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: camlistored
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: camlistored
+    spec:
+      containers: 
+        - name: camlistored
+          image: gcr.io/ianlewis-org/camlistored:108f4b7-1
+          args:
+            - "-configfile=/conf/server-config.json"
+          ports: 
+            - containerPort: 3179
+              name: camlistored
+          volumeMounts:
+            - name: camlistore-blobs
+              mountPath: /blobs
+            - name: camlistore-server-config
+              mountPath: /conf
+            - name: camlistore-tls-certs
+              mountPath: /certs
+          resources:
+            limits:
+              memory: 600Mi
+              cpu: 200m
+      volumes:
+        - name: camlistore-blobs
+          persistentVolumeClaim:
+            claimName: camlistore-blobs
+        - name: camlistore-server-config
+          secret:
+            secretName: camlistore-server-config
+        - name: camlistore-tls-certs
+          secret:
+            secretName: camlistore-tls-certs
