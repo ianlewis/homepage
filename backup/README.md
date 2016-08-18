@@ -19,12 +19,18 @@ Tag and push the image:
 
 ## Create the Secrets
 
-    python create_secrets.py | kubectl create -f -
+```shell
+$ kubectl create secret generic homepage-backup-secret --from-file=gsutil.conf
+```
 
 ## Create the ConfigMap
 
-    kubectl create configmap backup-conf --from-literal=bucket.name=<bucket-name>
+```shell
+$ kubectl create configmap backup-conf --from-literal=bucket.name=<bucket-name>
+```
 
 ## Run the job
 
-    $ kubectl create -f backup.yaml
+```shell
+$ kubectl create -f job.yaml
+```

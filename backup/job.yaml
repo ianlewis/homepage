@@ -19,7 +19,7 @@ spec:
           name: homepage-backup
           env:
             - name: BOTO_CONFIG
-              value: '/etc/backup/gsutil-config'
+              value: '/etc/backup/gsutil.conf'
             - name: BUCKET
               valueFrom:
                 configMapKeyRef:
