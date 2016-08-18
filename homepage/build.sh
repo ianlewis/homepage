@@ -13,7 +13,7 @@ mv dist/homepage-${VERSION}.tar.gz dist/image/homepage.tar.gz
 # on in the dist directory.
 rsync --checksum requirements.txt dist/image/
 
-cp deploy/Dockerfile dist/image/
+cp Dockerfile dist/image/
 docker build -t homepage dist/image/
 # Tag with the appropriate version
 docker tag homepage asia.gcr.io/ianlewis-org/homepage:${VERSION}

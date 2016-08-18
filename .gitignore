@@ -13,7 +13,7 @@ syntax: glob
 build
 dist
 src
-homepage/site_media
+homepage/homepage/site_media
 pip-log.txt
 
 syntax: regexp
