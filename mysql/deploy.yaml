@@ -34,7 +34,5 @@ spec:
               cpu: 100m
       volumes:
         - name: mysql-persistent-storage
-          gcePersistentDisk:
-            # This GCE PD must already exist.
-            pdName: mysql-disk-prod
-            fsType: ext4
+          persistentVolumeClaim:
+            claimName: mysql-data
