@@ -45,7 +45,14 @@ mirror them to Google Cloud Storage.
 
 # Set up mysql
 
-Create the database. Use the right password.
+I'm using mysql for [indexing](https://camlistore.org/doc/overview) of
+Camlistore objects. You can use other storage backends as well.
+
+This depends on having [MySQL](../mysql/) set up so do that first.
+
+Create the database. Use the right password. I'm using the `camtool` utility
+to initialize the necessary databases. You will need to build the utility
+by following the [Camlistore getting started guide](https://camlistore.org/download).
 
 ```shell
 $ kubectl port-forward mysql 3306:3306 &
@@ -81,14 +88,26 @@ kubectl exec mysql -ti -- \
 
 # Create gpg secring
 
-TODO
+Camlistore uses a key in a secret gpg keyring to sign objects that are created.
+
+I created a keyring using gpg.
 
 ```shell
-# tip: first list your keys in GPG
-gpg -K --keyid-format long --with-colons --with-fingerprint
+$ gpg --gen-key
+...
+$ cp ~/.gnupg/secring.gpg .
+```
 
-# then export the one you want (look next to `fpr`)
-gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
+You will also need to add the key identity to the server-conf.json.
+It's the string shown as BBBBBBBB below.
+
+```shell
+$ gpg --list-key
+/home/ian/.gnupg/pubring.gpg
+----------------------------
+pub   AAAAA/BBBBBBBB 2016-08-18
+uid                  Ian Lewis <ianlewis@example.com>
+sub   CCCCC/DDDDDDDD 2016-08-18
 ```
 
 # Create secrets
@@ -102,7 +121,8 @@ $ kubectl create secret generic camlistore-server-config \
     --from-file=identity-secring.gpg
 ```
 
-Create the HTTPS certs secret.
+Create the HTTPS certs secret. We all use https right?
+
 ```shell
 $ kubectl create secret generic camlistore-tls-certs \
     --from-file=tls.crt \
