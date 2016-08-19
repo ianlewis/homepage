@@ -12,7 +12,7 @@ This repo holds a number of apps that run in my personal
 - [Backup](backup/) - MySQL database backups.
 - [Cron](cron/) - A simple cron server that can run Kubernetes Jobs
 - [nginx](nginx/) - Nginx frontend for the homepage/blog
-- [renew-certs](renew-certs/) - An attepts at automatic certificate renewal
+- [renew-certs](renew-certs/) - An attempt at automatic certificate renewal
 
 # Creating a Cluster
 
