@@ -3,16 +3,13 @@ kind: Service
 metadata: 
   labels: 
     name: homepage
-    version: "3"
-  name: homepage-v3
+    version: "4"
+  name: homepage
 spec:
   ports:
     - name: http
       port: 80
       targetPort: 8000
-    - name: http2
-      port: 443
-      targetPort: 8001
   selector: 
     name: homepage
   type: NodePort

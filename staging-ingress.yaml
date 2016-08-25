@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: homepage
+spec:
+  tls:
+    - secretName: homepage-ingress-tls
+  rules:
+    - host: www.staging.ianlewis.org
+      http:
+        paths:
+          - backend:
+              serviceName: homepage
+              servicePort: 80
+    - host: api.staging.ianlewis.org
+      http:
+        paths:
+          - backend:
+              serviceName: ianlewis-api
+              servicePort: 80
+    - host: forwarder.staging.ianlewis.org
+      http:
+        paths:
+          - backend:
+              serviceName: twilio-forwarder
+              servicePort: 80

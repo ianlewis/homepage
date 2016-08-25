@@ -1,7 +1,7 @@
 # Makefile to build nginx image
 
 PROJECT=$(shell gcloud config list project | awk 'FNR==2 { print $$3 }')
-VERSION=1.11.1-0
+VERSION=1.11.1-3
 
 all: image
 

@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+   name: twilio-forwarder
+   labels:
+      name: twilio-forwarder
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    name: twilio-forwarder
+  type: NodePort
