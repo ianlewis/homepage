@@ -27,9 +27,12 @@ spec:
             - name: camlistore-tls-certs
               mountPath: /certs
           resources:
+            requests:
+              memory: 300Mi
+              cpu: 200m
             limits:
               memory: 600Mi
-              cpu: 200m
+              cpu: 500m
       volumes:
         - name: camlistore-blobs
           persistentVolumeClaim:

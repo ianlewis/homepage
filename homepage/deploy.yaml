@@ -77,7 +77,7 @@ spec:
             - containerPort: 8080
           resources:
             limits:
-              memory: 100Mi
+              memory: 150Mi
               cpu: 50m
         - name: nginx
           image: asia.gcr.io/ianlewis-org/nginx:1.11.1-0
