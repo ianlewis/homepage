@@ -2,6 +2,19 @@
 
 This is my homepage/blog.
 
+
+## Prerequisites
+
+1. Python 2.7
+1. MySQL Client
+
+   You need to have a mysql client installed. Usually that means installing
+   the right package.
+
+    ```shell
+    $ apt-get install -y libmysqlclient-dev
+    ```
+
 ## Development
 
 1. Create a virtualenv
