@@ -108,7 +108,7 @@ There is a handy build script in the `bin` directory you can run to build
 and push the app image.
 
 ```shell
-$ ./bin/build.sh
+$ ./build.sh
 ```
 
 This script will build a Python package for the app, build a Docker image, and
