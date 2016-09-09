@@ -57,6 +57,7 @@
       $('a[href="#"]').click(function(){return false;});
     </script>
     {% block js_footer %}{% endblock %}
+    {% block analytics %}
     {% if not debug and not request.user.is_staff %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -70,5 +71,6 @@
       })();
     </script>
     {% endif %}
+    {% endblock %}
   </body>
 </html>
