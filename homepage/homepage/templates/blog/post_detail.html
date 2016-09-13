@@ -7,6 +7,9 @@
 
 {% block blog_content %}
 <div class="blog-post">
+  {% if request.user.is_staff %}
+  <p class="pull-right"><a class="btn" href="{% url "admin:blog_post_change" post.id %}"><i class="icon-edit"></i> Edit</a></p>
+  {% endif %}
   <div class="post-header">
     <h1 itemprop="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
     <div class="post-date">{{ object.pub_date|date:"DATE_FORMAT" }}</div>
