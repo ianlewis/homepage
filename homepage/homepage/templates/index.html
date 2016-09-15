@@ -8,7 +8,9 @@
       <div class="mdl-cell mdl-cell--3-col"></div>
       <div class="mdl-cell mdl-cell--6-col">
         <div class="center">
-          <img src="https://storage.googleapis.com/static.ianlewis.org/prod/img/me2.jpg" style="max-width: 100%; max-height:200px;border-radius:100px;" /> 
+          {% with "me.jpg me2.jpg me3.jpg me4.jpg" as img_str %}
+            <img src="{{ STATIC_URL }}/img/{{ img_str.split|random }}" style="max-width: 100%; max-height:200px;border-radius:100px;" /> 
+          {% endwith %}
         </div>
       </div>
       <div class="mdl-cell mdl-cell--3-col"></div>
