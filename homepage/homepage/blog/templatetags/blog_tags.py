@@ -250,3 +250,25 @@ def to_lead(obj, max_len=None):
     return abbrev(lead, max_len, "[...]")
 
 register.filter("to_lead", to_lead)
+
+class AnchorParser(HTMLParser.HTMLParser):
+    def __init__(self):
+        HTMLParser.HTMLParser.__init__(self)
+        self.img = None
+
+    def handle_starttag(self, tag, attrs):
+        if not self.img and tag == 'img':
+            for name, val in attrs:
+                if name == 'src':
+                    self.img = val
+
+def first_image(html):
+    """
+    Parses out the first image from the given
+    html.
+    """
+    parser = AnchorParser()
+    parser.feed(html)
+    return parser.img
+
+register.filter("first_image", first_image)

@@ -1,324 +1,190 @@
-body {
-    /* font-family: 'IPAexゴシック', 'IPAexGothic', 'TakaoExゴシック', 'TakaoExGothic', 'VL ゴシック', 'VL Gothic', 'さざなみゴシック', 'Sazanami Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ ゴシック', 'MS Gothic', 'Helvetica', sans-serif; */
-    /* text-rendering: optimizeLegibility; */
+.no-margin {
+    margin: 0;
 }
 
-body, p {
-    font-size: 16px;
+.no-padding {
+    padding: 0;
 }
 
-/* Fix optimizeLegibility brokenness with Japanese fonts */
-h1, h2, h3, h4, h5, h6 {
-    text-rendering: optimizeSpeed;
+.flex {
+    display: flex;
 }
 
-/* =========== Header ============== */
-
-.header {
-    color: white;
-    background: black;
-    padding: 10px;
-    overflow: hidden;
-}
-
-/* To counteract bootstrap's margin on the <body> tag */
-@media (max-width: 767px) {
-    .header {
-        margin-right: -20px;
-        margin-left: -20px;
-    }
-}
-
-.header .header-inner {
-    margin: 0 auto;
-    max-width: 800px;
-}
-.header .header-inner .profile-img {
-    display: inline;
-}
-
-.header .title {
-    font-size: 150%;
-}
-
-.header .title a,.header .title a:hover {
-    color: white;
-    text-decoration: none;
-}
-
-.header .about {
-    display: inline;
-    width: 100px;
-    /* background: #FFFFCC; */
-    color: #CCCCCC;
-    /* width: 450px; */
-    margin-left: 20px;
-    font-size: 1.3em;
-}
-
-.header .search-box {
-    float: right;
-    position: relative;
-}
-
-.header .search-box input {
-    -webkit-border-radius: 10px;
-       -moz-border-radius: 10px;
-    
-    background: #FFFFFF none repeat scroll 0 0;
-    border: 1px solid #AAAAAA;
-    color: #333333;
-    padding: 2px 5px;
-    width: 200px;
-    margin-right: 18px;
-}
-
-.header .search-box button {
-    background: transparent url(../img/icon_searchglass.png) no-repeat scroll 0 0;
-    border: 0 none;
-    cursor: pointer;
-
-    position: absolute;
-    right: 0px;
-    top: -1px;
-    height: 35px;
-    width: 35px;
-}
-
-.header .search-box button:hover {
-    background-position: 0 -36px;
-}
-
-.header .search-box #search-button span {
-    position: absolute;
-    left: -9999999px;
-}
-
-/* =========== Footer ============== */
-
-footer:before {
-    display: block;
-    content: '';
-    width: 100px;
-    height: 1px;
-    margin: 80px auto 20px;
-    background-color: #EEE;
-}
-
-footer {
+.text-center {
     text-align: center;
-    /* width: 300px; */
 }
 
-footer p {
-    font-size: 12px;
-    line-height: 20px;
-    color: #999;
-    margin-top: 2em;
+.bg-ribbon {
+    width: 100%;
+    height: 40vh;    
+    background-color: rgb(63,81,133);
+    flex-shrink: 0;
 }
-/* =========== Content ============== */
 
 .content {
-    max-width: 800px;
-    margin: 2em auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: -35vh;
+    flex-shrink: 0;
 }
 
-/* =========== Index ============== */
-
-.content #index .blog-hero {
-    margin-top: 1em;
-    border: 1px solid #ddd;
-
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-            border-radius: 4px;
-
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
-       -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.075);
-
-    -webkit-transition: all 0.2s ease-in-out;
-       -moz-transition: all 0.2s ease-in-out;
-         -o-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-}
-.content #index .blog-hero:hover {
-    border-color: #0088cc;
-
-    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-       -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-            box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-}
-
-.content #index .blog-hero .hero-inner {
+.edit-btn {
+    position: fixed;
     display: block;
-    padding: 10px 19px;
+    right: 0;
+    bottom: 0;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    z-index: 900;
+}
 
+/*
+.edit-btn {
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+*/
+
+.hero {
+    max-width:1200px;
+    margin: 0 auto;
+}
+
+.hero-card {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.hero-card .mdl-cell {
     text-align: center;
-    line-height: 20px;
-    font-size: 1.5em;
-    font-weight: bold;
-    /* height: 200px; */
 }
-.content #index .blog-hero .blog-hero-flag {
-    /* height: 170px; */
+
+.hero-cell {
+    margin-left: 0;
+    margin-right: 0;
 }
-.content #index .blog-hero .blog-hero-inner {
-    /* 
-      160 (blog-hero height)
-    - 8 * 2 (blog-hero padding)
-    - 10 * 2 (blog-hero-inner padding)
-    - 1 * 2 (blog-hero border)
-    */
-    height: 130px; 
+
+.hero-post {
+    /* max-width: 450px; */
+    margin: 0 auto;
+}
+
+.hero-post .mdl-card {
+    width: 100%;
+}
+
+.hero-post .mdl-card__title {
+    padding-bottom: 0;
+}
+
+.hero-post .mdl-card__title h4 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.hero-post .mdl-card__media {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: flex-end;
+    box-sizing: border-box;
+}
+
+.post-detail {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 80px 56px;
+    margin-bottom: 80px;
+}
+
+.post-detail .title {
+    margin-top: -20px;
+}
+
+
+/* ========= Post Content ========= */
+
+.post-content img {
+    max-width: 100%;
+}
+
+.post-content pre {
+    display: block;
+    padding: 8.5px;
+    margin: 0 0 9px;
+    font-size: 12.025px;
+    line-height: 18px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre;
+    white-space: pre-wrap;
     background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.15);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 
-
-.content #index .blog-hero .blog-link-title {
-    font-size: 1.5em;
-    font-weight: bold;
+/* Adds a grey bar to the left of the blockquote
+   much like bootstrap */
+.post-content blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 18px;
+    border-left: 5px solid #eee;
 }
 
-.content #index .blog-list {
-    margin-top: 2em;
-}
-.content #index .blog-list ol {
-    list-style: none;
-    margin: 0;
-}
-
-.content #index .blog-list .blog-post {
-    margin: 0;
-}
-.content #index .blog-list .blog-post .post-content {
-    margin: 0;
-}
-.content #index .blog-list .blog-post::after {
-    margin-top: 3em;
-}
-/* =========== Blog List ============== */
-
-@media (min-width: 767px) {
-    .content #blog-list .blog-list {
-        margin: 0px 6em;
-    }
+.post-content blockquote p {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22.5px;
 }
 
-/* =========== Blog Post ============== */
-
-.content .blog-post .post-content {
-    margin: 2em 0;
+/* This blockquote before & after removes quotes
+   around blockquotes that MDL adds. */
+.post-content blockquote::before {
+    position: static;
+    left: 0;
+    content: "";
 }
 
-.content .blog-post {
-    padding: 0 1em 1em 1em;
-    margin-top: 2em;
-
-    /*
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    */
+.post-content blockquote::after {
+    content: "";
+    margin-left: 0;
 }
 
-.content .blog-post::after {
+/* Alignment classes used by images in
+   blog posts */
+.post-content .align-center {
     display: block;
-    content: '';
-    width: 100px;
-    height: 1px;
-    margin: 20px auto;
-    background-color: #EEE;
-    margin-top: 4em;
+    margin: 0 auto;
 }
 
-
-.content .blog-post .post-content p {
-    line-height: 1.5em;
-}
-
-.content .blog-post h3 a {
-    color: #333;
-}
-.content .blog-post h1 a {
-    color: #333;
-}
-
-.content .blog-post .post-content h1 {
-    margin-top: 2em;
-}
-.content .blog-post .post-content h2 {
-    margin: 1em 0 0.5em 0;
-}
-.content .blog-post .post-content h3 {
-    margin: 0.7em 0 0.35em 0;
-}
-.content .blog-post .post-content h4 {
-    margin: 0.5em 0 0.25em 0;
-}
-
-.content .blog-post .post-content img.align-center {
-    display: block;
-    margin: 1em auto;
-}
-
-.content .blog-post .post-content img.align-left {
+.post-content .align-left {
     display: block;
     float: left;
     /* Add margin to separate from text on the right */
     margin-right: 2em;
 }
 
-.content .blog-post .post-content img.align-right {
+.post-content .align-right {
     display: block;
     float: right;
     /* Add margin to separate from text on the left */
     margin-left: 2em; 
 }
 
-/* Don't add margins to images on small displays. */
-@media (min-width: 480px) {
-    .content .blog-post .post-content img {
-        margin: 1em;
-    }
-}
-@media (max-width: 480px) {
-    .content .blog-post .post-content img {
-        margin: 1em 0 1em 0;
-    }
-}
+/* ======== Notes in ReST ============ */
 
-.content .blog-post .post-content img {
-
-    padding: 10px;
-    border: 1px solid #CCC;
-
-    -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
-       -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
-            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.075);
-
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-}
-
-.content .blog-post .post-content .section {
-  *zoom: 1;
-}
-
-.content .blog-post .post-content .section:before,
-.content .blog-post .post-content .section:after {
-  display: table;
-  content: "";
-}
-
-.content .blog-post .post-content .section:after {
-  clear: both;
-}
-
-/* =========== Notes ============== */
-
-.note {
+.post-content .note {
     position: relative;
     margin: 15px 0;
     padding: 39px 19px 14px;
@@ -329,7 +195,8 @@ footer p {
        -moz-border-radius: 4px;
             border-radius: 4px;
 }
-.admonition-title {
+
+.post-content .admonition-title {
     /* content: "Note"; */
     position: absolute;
     top: -1px;
@@ -346,68 +213,22 @@ footer p {
             border-radius: 4px 0 4px 0;
 }
 
-/* =========== Pagination ============== */
+/* ========= Pagination =========== */
 
 .pagination {
     text-align: center;
 }
 
-/* =========== About Page ============== */
-
-#flatpage {
-    margin: 20px 0;
+.pagination ul {
+    display: inline-block;
+    padding: 0;
 }
 
-#flatpage #about p {
-    margin: 10px 0;
-}
-
-#flatpage #about .profiles li {
-    /* display: inline; */
-    float: left;
-    margin-right: 5px;
+.pagination li {
+    display: inline;
     list-style: none;
 }
 
-#flatpage #about .profiles li a {
-    display: block;
-    height: 16px;
-    width: 16px;
-    text-indent: -30000px;
-    /* border: 1px solid #CCC; */
-}
-
-#flatpage #about .profiles li a {
-    background-image: url(../img/icon_externalsite.png);
-    background-repeat: no-repeat;
-    outline: none;
-}
-
-
-#flatpage #about .profiles li.twitter a {
-    background-position: 0 -650px;
-}
-#flatpage #about .profiles li.bitbucket a {
-    background-position: 0 -1751px;
-}
-#flatpage #about .profiles li.github a {
-    background-position: 0 -1516px;
-}
-#flatpage #about .profiles li.flickr a {
-    background-position: 0 -150px;
-}
-#flatpage #about .profiles li.lastfm a {
-    background-position: 0 -350px;
-}
-#flatpage #about .profiles li.facebook a {
-    background-position: 0 -1648px;
-}
-#flatpage #about .profiles li.delicious a {
-    background-position: 0 -1200px;
-}
-#flatpage #about .profiles li.linkedin a {
-    background-position: 0 -800px;
-}
-#flatpage #about .profiles li.friendfeed a {
-    background-position: 0 -1472px;
+.pagination .mdl-button {
+    min-width: 10px;
 }

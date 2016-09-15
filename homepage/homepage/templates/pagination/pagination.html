@@ -3,21 +3,35 @@
 <div class="pagination">
   <ul>
     <li{% if not page_obj.has_previous %} class="disabled"{% endif %}>
-      <a href="{% if not page_obj.has_previous %}#{% else %}?page={{ page_obj.previous_page_number }}{{ getvars }}{% endif %}">&lsaquo;&lsaquo; {% trans "previous" %}</a>
+      {% if page_obj.has_previous %}
+      {# TODO: fix padding-top #}
+      <a class="mdl-button mdl-js-button" href="?page={{ page_obj.previous_page_number }}{{ getvars }}"><i class="material-icons" style="padding-top:6px;">chevron_left</i></a>
+      {% else %}
+      <button class="mdl-button mdl-js-button" disabled><i class="material-icons">chevron_left</i></button>
+      {% endif %}
     </li>
     {% for page in pages %}
         {% if page %}
-        <li{% if page = page_obj.number %} class="active"{% endif %}>
-          <a href="{% if page = page_obj.number %}#{% else %}?page={{ page }}{{ getvars }}{% endif %}">{{ page }}</a>
-        </li>
+          <li{% if page == page_obj.number %} class="active"{% endif %}>
+            {% if page == page_obj.number %}
+            <button class="mdl-button mdl-js-button" disabled>{{ page }}</button>
+            {% else %}
+            <a class="mdl-button mdl-js-button" href="?page={{ page }}{{ getvars }}">{{ page }}</a>
+            {% endif %}
+          </li>
         {% else %}
-        <li class="disabled">
-          <a href="#">...</a>
+        <li>
+          <button class="mdl-button mdl-js-button" disabled>...</button>
         </li>
         {% endif %}
     {% endfor %}
-    <li{% if not page_obj.has_next %} class="disabled"{% endif %}>
-      <a href="{% if not page_obj.has_next %}#{% else %}?page={{ page_obj.next_page_number }}{{ getvars }}{% endif %}">{% trans "next" %} &rsaquo;&rsaquo;</a>
+    <li>
+      {% if page_obj.has_next %}
+      {# TODO: fix padding-top #}
+      <a class="mdl-button mdl-js-button" href="?page={{ page_obj.next_page_number }}{{ getvars }}"><i class="material-icons" style="padding-top:6px;">chevron_right</i></a>
+      {% else %}
+      <button class="mdl-button mdl-js-button" disabled><i class="material-icons">chevron_right</i></button>
+      {% endif %}
     </li>
   </ul>    
 </div>

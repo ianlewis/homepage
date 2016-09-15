@@ -5,48 +5,58 @@
 {% block keywords %}{{ object.tags.all|join:" " }}{% endblock %}
 {% block description %}{% with object|to_html|striptags as description %}{{ description|slice:":150" }}{% if description|length > 150 %}...{% endif %}{% endwith %}{% endblock %}
 
-{% block blog_content %}
-<div class="blog-post">
-  {% if request.user.is_staff %}
-  <p class="pull-right"><a class="btn" href="{% url "admin:blog_post_change" post.id %}"><i class="icon-edit"></i> Edit</a></p>
-  {% endif %}
-  <div class="post-header">
-    <h1 itemprop="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
-    <div class="post-date">{{ object.pub_date|date:"DATE_FORMAT" }}</div>
-  </div>
-  <div class="post-content clearfix">
-    {{ object|to_html|default:"&nbsp;"|safe }}
-  </div>
-  <div class="post-footer">
-    <div class="pull-right">
-      <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ object.get_absolute_url }}"></g:plusone>
+{% block content %}
+<div class="mdl-grid">
+  <div class="post-detail mdl-color--white mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+    <h1 class="title" itemprop="title">{{ post.title }}</h1>
+    <div><em>{{ post.pub_date|date:"DATE_FORMAT" }}</em></div>
+    <div style="float:right; ">
+      <g:plusone size="medium" annotation="none" href="https://{{ request.get_host }}{{ object.get_absolute_url }}"></g:plusone>
       <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-text="{{ object.title }}" data-via="IanMLewis" data-related="IanMLewis" data-lang="{{ object.lang }}">Tweet</a>
 
       {# NOTE: Hatena's cert for b.hatena.ne.jp is bad. #}
       {#}<a href="http://b.hatena.ne.jp/entry/{{ object.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ object.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>#}
-
     </div>
-    <div class="post-tags">{% for tag in object.tags.all %}<i class="icon-tag"></i> <a href="{% url "blog_tag_page" locale tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
+    <p>
+      {% for tag in post.tags.all %}
+      <a href="{% url "blog_tag_page" post.locale tag.name %}" class="mdl-chip">
+        <span class="mdl-chip__text">{{ tag.name }}</a></span>
+      </a>
+      {% endfor %}
+    </p>
+
+
+    <div class="post-content">
+      {{ object|to_html|default:"&nbsp;"|safe }}
+    </div>
+
+    <hr/>
+
+    {% if not is_preview %}
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+      var disqus_shortname = '{{ disqus_shortname }}';
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    /* ]]> */
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="//disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    {% endif %}
+
+    {% if request.user.is_staff %}
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored edit-btn" href="{% url "admin:blog_post_change" post.id %}">
+      <i class="material-icons">edit</i>
+    </a>
+    {% endif %}
   </div>
 </div>
-
-{% if not is_preview %}
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-/* <![CDATA[ */
-	var disqus_shortname = '{{ disqus_shortname }}';
-	/* * * DON'T EDIT BELOW THIS LINE * * */
-	(function() {
-		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
-/* ]]> */
-</script>
-<noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="//disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-{% endif %}
-
 {% endblock %}
 
 {% block license %}

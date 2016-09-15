@@ -1,82 +1,84 @@
 {% extends "base.html" %}
-{% load utility_tags pagination_tags blog_tags i18n %}
+{% load utility_tags blog_tags i18n %}
 
 {% block content %}
-<div id="index">
-  <div class="blog-links">
-    <div class="row-fluid">
-      <div class="blog-hero span6">
-        <div class="hero-inner">
-          <img src="{{ STATIC_URL }}img/usa_flag.png" /><br />
-          <h2>English Blog</h2>
-          <p>For those from the English speaking world.</p>
-          <p><a class="btn btn-primary" href="{% url "blog_page" "en" %}">View all posts &raquo;</a></p>
+<div class="hero">
+  <div class="hero-card demo-card-wide mdl-card mdl-shadow--2dp">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--3-col"></div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <div class="center">
+          <img src="https://storage.googleapis.com/static.ianlewis.org/prod/img/me2.jpg" style="max-width: 100%; max-height:200px;border-radius:100px;" /> 
         </div>
       </div>
-
-      <div class="blog-hero span6">
-        <div class="hero-inner">
-          <img src="{{ STATIC_URL }}img/japan_flag.png" style="border: 1px solid #DDD;"/><br />
-          <h2>日本語ブログ</h2>
-          <p>日本語の世界の皆様はこちらへ</p>
-          <p><a class="btn btn-success" href="{% url "blog_page" "jp" %}">すべての記事を読む &raquo;</a></p>
-        </div>
+      <div class="mdl-cell mdl-cell--3-col"></div>
+      <div class="mdl-cell mdl-cell--12-col">
+        <p style="font-size:24px;">Hi! I'm <strong style="font-size:30px">Ian</strong>. I am a Developer Advocate working for Google on the <strong>Google Cloud Platform</strong> Team in <strong>Tokyo, Japan</strong>. I like to play with and hack on distributed systems, containers, in Go, and Python.</p>
       </div>
     </div>
   </div>
-
-  <div class="blog-two-column row-fluid blog-list">
-    <div class="span6">
-      {% for post in en_posts|slice:":5" %}
-      <div class="blog-post clearfix">
-        <div class="post-header">
-          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
-        </div>
-        <div class="post-content">
-          <p>{{ post|to_lead:200|default:"&nbsp;" }}</p>
-        </div>
-        <div class="post-footer">
-          <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">Read More &raquo;</a></p>
-          <div class="post-tags">{% for tag in post.tags.all %}<i class="icon-tag"></i> <a href="{% url "blog_tag_page" "en" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
-        </div>
-        {% comment %}
-        <div class="post-comment-link">
-          <a class="disqus-link" href="{{ post.get_absolute_url }}#disqus_thread">Send feedback</a>
-          &nbsp;
-          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ post.get_absolute_url }}"></g:plusone>
-          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ post.title }}" data-url="{{ post.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ post.lang }}">Tweet</a>
-          <a href="http://b.hatena.ne.jp/entry/{{ post.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ post.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
-        </div>
-        {% endcomment %}
-      </div>
-      {% endfor %}
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col text-center">
+      <h2>English Blog</h2>
+      <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "en" %}">View all posts</a></p>
     </div>
-    <div class="span6">
-      {% for post in jp_posts|slice:":5" %}
-      <div class="blog-post clearfix">
-        <div class="post-header">
-          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-          <div class="post-date">{{ post.pub_date|date:"DATE_FORMAT" }}</div>
-        </div>
-        <div class="post-content">
-          <p>{{ post|to_lead:100|default:"&nbsp;" }}</p>
-        </div>
-        <div class="post-footer">
-          <p class="pull-right"><a class="btn" href="{{ post.get_absolute_url }}">もっと読む&raquo;</a></p>
-          <div class="post-tags">{% for tag in post.tags.all %}<i class="icon-tag"></i> <a href="{% url "blog_tag_page" "jp" tag.name %}">{{ tag.name }}</a> {% endfor %}</div>
-        </div>
-        {% comment %}
-        <div class="post-comment-link">
-          <a class="disqus-link" href="{{ post.get_absolute_url }}#disqus_thread">Send feedback</a>
-          &nbsp;
-          <g:plusone size="medium" annotation="none" href="http://www.ianlewis.org{{ post.get_absolute_url }}"></g:plusone>
-          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ post.title }}" data-url="{{ post.get_full_url }}" data-count="horizontal" data-via="IanMLewis" data-lang="{{ post.lang }}">Tweet</a>
-          <a href="http://b.hatena.ne.jp/entry/{{ post.get_full_url }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ post.title }}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
-        </div>
-        {% endcomment %}
+    <div class="mdl-cell mdl-cell--6-col text-center">
+      <h2>日本語ブログ</h3>
+      <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "jp" %}">すべての記事を読む</a></p>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-grid">
+        {% for post in en_posts|slice:":5" %}
+          {% with post|to_html|first_image as post_image %}
+          <div class="hero-cell mdl-cell mdl-cell--12-col">
+            <div class="hero-post">
+              <div class="mdl-card mdl-shadow--2dp"{% if post_image %} style="min-height:400px;"{% endif %}>
+                {% if post_image %} 
+                <div class="mdl-card__media" style="background-image: url({{ post_image }});">&nbsp;</div>
+                {% endif %}  
+                <div class="mdl-card__title">
+                  <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <em>{{ post.pub_date|date:"DATE_FORMAT" }}</em><br />
+                  {{ post|to_lead:200|default:"&nbsp;" }}
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">Read More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endwith %}
+        {% endfor %}
       </div>
-      {% endfor %}
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-grid">
+        {% for post in jp_posts|slice:":5" %}
+          {% with post|to_html|first_image as post_image %}
+          <div class="mdl-cell mdl-cell--12-col">
+            <div class="hero-post">
+              <div class="mdl-card mdl-shadow--2dp"{% if post_image %} style="min-height:400px;"{% endif %}>
+                {% if post_image %} 
+                <div class="mdl-card__media" style="background-image: url({{ post_image }});">&nbsp;</div>
+                {% endif %}  
+                <div class="mdl-card__title">
+                  <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <em>{{ post.pub_date|date:"DATE_FORMAT" }}</em><br />
+                  {{ post|to_lead:100|default:"&nbsp;" }}
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">Read More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endwith %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>

@@ -3,11 +3,10 @@
 <html{% block html_attrs %}{% endblock %}>
   <head>
     <title>{% block title %}Homepage{% endblock %} - Ian Lewis</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-blue.min.css">
     {% compress css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/highlight.css" type="text/css" media="screen" />
     {% endcompress %}
 
@@ -21,37 +20,43 @@
     {% block other_head %}{% endblock %}
   </head>
   <body>
-    <div class="main">
-      <div class="header">
-        {% block header %}
-        <div class="header-inner container">
-            <table class="about">
-              <tbody>
-                <tr>
-                  <td style="width:90px;vertical-align:top;padding-right:20px;padding-top:0.5em;"><a href="{% url "main_page" %}"><img src="{{ config.header_profile_img_url }}" alt="Ian Lewis"></a></td>
-                  <td style="vertical-align:top;padding-top:0.5em;">
-                    <span class="title"><a href="{% url "main_page" %}">Ian Lewis</a></span> is a web developer living in Tokyo Japan. His current interests are in <a href="http://golang.org/">Go</a>, <a href="http://www.python.org/">Python</a>, <a href="http://blip.tv/file/1949416">alternative databases</a> and <a href="http://www.google.com/search?q=rapid+web+application+development">rapid web application development</a>. <br /><a class="profile-link" href="/en/about/">About Me...</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-800">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Ian Lewis</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "main_page" %}">Home</a>
+            <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "blog_page" "en" %}">English Blog</a>
+            <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "blog_page" "jp" %}">日本語ブログ</a>
+            <a class="mdl-navigation__link mdl-color-text--grey-800" href="/en/about/">About</a>
+          </nav>
         </div>
-        {# TODO: search etc. #}
-        {% endblock %}
-      </div>
-      <div class="content">
-        {% block content %}{% endblock %}
-      </div>
-      <footer>
-        <a href="{% url "main_page" %}">Home</a> | <a href="/en/about/">About</a> | <a href="https://plus.google.com/103970721692220852299/?rel=author">Google+</a>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="bg-ribbon"></div>
+          <div class="content">
+            {% block content %}{% endblock %}</div>
+          </div>
+        <footer class="mdl-mini-footer">
+          <div class="mdl-mini-footer__left-section">
+            <div class="mdl-logo">&copy; 2012 Ian Lewis</div>
+            <ul class="mdl-mini-footer__link-list">
 
-        {% block license %}
-        <p>&copy; 2012. Ian Lewis.</p>
-        {% endblock %}
-      </div>
-    </footer>
-    <script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery-1.3.2.min.js"></script>
+              <li><a href="{% url "main_page" %}">Home</a></li>
+              <li><a href="/en/about/">About</a></li>
+              <li><a href="https://plus.google.com/103970721692220852299/?rel=author">Google+</a></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script type="text/javascript">
       STATIC_URL='{{ STATIC_URL }}';
       $('a[href="#"]').click(function(){return false;});

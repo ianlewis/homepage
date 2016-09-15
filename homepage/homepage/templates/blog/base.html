@@ -5,29 +5,9 @@
 {% if locale %}<meta http-equiv="content-language" content="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}">{% endif %}
 {% endblock %}
 
+{% block title %}{% if locale == "jp" %}日本語ブログ{% else %}Blog{% endif %}{% endblock %}
+
 {# To fix JS errors in old blog posts #}
 {% block javascript %}
 <script type="text/javascript">var SHARETHIS = {addEntry: function() {}};</script>
-{% endblock %}
-
-{% block js_footer %}
-{{ block.super }}
-<script type="text/javascript" src="{{ STATIC_URL }}lib/jquery/jquery.lightbox-0.5.min.js"></script>
-<script type="text/javascript">
-$(function() {
-    $("a[rel*=lightbox]").lightBox({
-      imageLoading: STATIC_URL+'img/lightbox/lightbox-ico-loading.gif',
-      imageBtnClose: STATIC_URL+'img/lightbox/lightbox-btn-close.gif',
-      imageBtnPrev: STATIC_URL+'img/lightbox/lightbox-btn-prev.gif',
-      imageBtnNext: STATIC_URL+'img/lightbox/lightbox-btn-next.gif',
-      imageBlank: STATIC_URL+'img/lightbox/lightbox-blank.gif'
-    });
-});
-</script>
-{% endblock %}
-
-{% block content %}
-<div id="blog">
-  {% block blog_content %}{% endblock %}
-</div>
 {% endblock %}
