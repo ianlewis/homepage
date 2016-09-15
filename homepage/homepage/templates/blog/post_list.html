@@ -11,28 +11,33 @@
   {% autopaginate object_list 10 %}
 
   {% if object_list %}
-  <div class="mdl-grid">
+  <div class="post-list mdl-grid">
     {% for post in object_list %}
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-      <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">{{ post.title }}</h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-        <p><em>{{ post.pub_date|date:"DATE_FORMAT" }}</em></p>
-        <p>{{ post|to_lead:400|default:"&nbsp;" }}</p>
-      </div>
-      <div class="mdl-card__actions mdl-card--border flex">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">
-          Read More
-        </a>
-        <div class="mdl-layout-spacer"></div>
-        {% for tag in post.tags.all %}
-          <a href="{% url "blog_tag_page" post.locale tag.name %}" class="mdl-chip">
-            <span class="mdl-chip__text">{{ tag.name }}</a></span>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
+      <div class="mdl-cell mdl-cell--1-col"></div>
+      {% with post|to_html|first_image as post_image %}
+        <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--10-col"{% if post_image %} style="min-height:450px;"{% endif %}>
+          {% if post_image %} 
+          <div class="mdl-card__media" style="background-image: url({{ post_image }});">&nbsp;</div>
+          {% endif %}  
+          <div class="mdl-card__title">
+            <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+          </div>
+          <div class="mdl-card__supporting-text">
+            <em>{{ post.pub_date|date:"DATE_FORMAT" }}</em><br />
+            {{ post|to_lead:250|default:"&nbsp;" }}
+          </div>
+          <div class="mdl-card__actions mdl-card--border flex">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">Read More</a>
+            <div class="mdl-layout-spacer"></div>
+            {% for tag in post.tags.all %}
+              <a href="{% url "blog_tag_page" post.locale tag.name %}" class="mdl-chip">
+                <span class="mdl-chip__text">{{ tag.name }}</a></span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endwith %}
+      <div class="mdl-cell mdl-cell--1-col"></div>
     {% endfor %}
   </div>
   {% endif %}
