@@ -5,6 +5,7 @@
 set -e
 
 VERSION=`python setup.py --version`
+rm -rf homepage/site_media
 python setup.py sdist
 mkdir -p dist/image
 mv dist/homepage-${VERSION}.tar.gz dist/image/homepage.tar.gz
