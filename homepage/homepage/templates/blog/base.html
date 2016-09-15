@@ -5,8 +5,6 @@
 {% if locale %}<meta http-equiv="content-language" content="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}">{% endif %}
 {% endblock %}
 
-{% block title %}{% if locale == "jp" %}日本語ブログ{% else %}Blog{% endif %}{% endblock %}
-
 {# To fix JS errors in old blog posts #}
 {% block javascript %}
 <script type="text/javascript">var SHARETHIS = {addEntry: function() {}};</script>
