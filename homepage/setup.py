@@ -57,6 +57,7 @@ setup(
     packages=find_packages(),
     long_description=open(os.path.join(BASE_PATH, 'README.md')).read(),
     install_requires=install_requires,
+    tests_require=["mock==2.0.0"],
     include_package_data=True,  # Include static files, templates, etc.
     cmdclass={
         'build_static': BuildStatic,
@@ -74,4 +75,5 @@ setup(
         "Framework :: Django :: 1.4",
         "License :: OSI Approved :: MIT License",
     ],
+    test_suite='tests.main',
 )

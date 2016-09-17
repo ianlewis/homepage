@@ -34,8 +34,8 @@ class HealthMiddleware(object):
         like databases, shoud be available.
         """
         try:
-            from django.db import connection
-            cursor = connection.cursor()
+            from django import db
+            cursor = db.connection.cursor()
             cursor.execute("SELECT 1;")
             row = cursor.fetchone()
             if row is None:
