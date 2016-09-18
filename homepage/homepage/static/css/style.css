@@ -136,10 +136,10 @@
 }
 
 .post-content pre {
+    /* font-size: 12.025px; */
     display: block;
-    padding: 8.5px;
+    padding: 15px;
     margin: 0 0 9px;
-    font-size: 12.025px;
     line-height: 18px;
     word-break: break-all;
     word-wrap: break-word;
