@@ -3,9 +3,9 @@
 <html{% block html_attrs %}{% endblock %}>
   <head>
     <title>{% block title %}Homepage{% endblock %} - Ian Lewis</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-blue.min.css">
     {% compress css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/material-icons-fonts.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/material.indigo-blue.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/highlight.css" type="text/css" media="screen" />
     {% endcompress %}
@@ -64,8 +64,8 @@
         </footer>
       </main>
     </div>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script defer src="{{ STATIC_URL }}js/material.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript">
       STATIC_URL='{{ STATIC_URL }}';
       $('a[href="#"]').click(function(){return false;});
