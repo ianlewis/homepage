@@ -23,4 +23,17 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "homepage.settings")
 from django.core.wsgi import get_wsgi_application
 from dj_static import Cling
 
-application = Cling(get_wsgi_application())
+class Cache(object):
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+
+        def custom_start_response(status, headers, exc_info=None):
+            if environ['REQUEST_METHOD'] == 'GET':
+                headers.append(('Cache-Control', "public, max-age=300"))
+            return start_response(status, headers, exc_info)
+
+        return self.app(environ, custom_start_response)
+
+application = Cache(Cling(get_wsgi_application()))
