@@ -1,29 +1,50 @@
-# GoCron
+# Cron Controller
 
-This directory contains the gocron app. This app implements scheduled jobs.
+This directory contains a simple cron controller. This app implements scheduled jobs.
 
-## Get kubectl 
+You can create scheduled jobs using a ThirdPartyResource
 
-Download the kubectl binary:
+## Create the ThirdPartyResource
 
-    $ curl -O https://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl
+Create the CronTab ThirdPartyResource object to enable the CronTab API.
+
+```console
+$ kubectl create -f resource.yaml
+```
+
+CronTab objects can then be created with the following format.
+
+```yaml
+apiVersion: "alpha.ianlewis.org/v1"
+kind: "CronTab"
+metadata:
+  name: <name>
+spec:
+  schedule: "<cron spec>"
+  jobTemplate:
+    <job template>
+```
+
+See an example in the [test-crontab.yaml](test-crontab.yaml) file.
 
 ## Building
 
-Build the image:
+Build and tag the image:
 
-    $ docker build -t gocron .
+```console
+$ make image
+```
 
-Tag and push the image:
+Push the image:
 
-    $ docker tag gocron asia.gcr.io/ianlewis-org/gocron:v1
-    $ gcloud docker push asia.gcr.io/ianlewis-org/gocron:v1
-
-## Create ConfigMaps
-
-    kubectl create configmap crontab --from-file=prod/crontab
-    kubectl create configmap backup-job --from-file=../backup/job.yaml
+```console
+$ make push
+```
 
 ## Deploy
 
-    $ kubectl create -f deploy.yaml
+Create the cron-controller deployment.
+
+```console
+$ kubectl create -f deploy.yaml
+```

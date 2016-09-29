@@ -1,40 +1,45 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: gocron
+  name: cron-controller
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: gocron
+        name: cron-controller
     spec:
       containers: 
         - name: cron
-          image: asia.gcr.io/ianlewis-org/gocron:13
-          command: ["/gocron"]
-          args: 
-            - "-conf=/conf/crontab/crontab"
-            - "-debug"
+          image: asia.gcr.io/ianlewis-org/cron-controller:0.0.3
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           resources:
             limits:
-              cpu: 50m
+              cpu: 25m
               memory: 25Mi
           volumeMounts:
-            - name: crontab-volume
-              mountPath: /conf/crontab
-            - name: backup-volume
-              mountPath: /conf/backup
             - name: certs
               mountPath: /etc/ssl/certs
               readOnly: true
+
+        # Run "kubectl proxy" in a sidecar container to handle authentication.
+        - name: kubectl
+          image: lachlanevenson/k8s-kubectl:v1.3.4
+          args:
+            - "proxy"
+          ports:
+            # Open the 8001 port so it can be accessed on localhost.
+            - name: proxy
+              containerPort: 8001
+          resources:
+            limits:
+              cpu: 10m
+              memory: 25Mi
       volumes:
-        - name: crontab-volume
-          configMap:
-            name: crontab
-        - name: backup-volume
-          configMap:
-            name: backup-job
         - name: certs
           hostPath:
             path: /etc/ssl/certs

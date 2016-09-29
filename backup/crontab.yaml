@@ -1,0 +1,39 @@
+apiVersion: "alpha.ianlewis.org/v1"
+kind: "CronTab"
+metadata:
+  name: homepage-backup
+spec:
+  schedule: "@daily"
+  jobTemplate:
+    containers:
+      - image: asia.gcr.io/ianlewis-org/homepage-backup:v9
+        name: homepage-backup
+        env:
+          - name: BOTO_CONFIG
+            value: '/etc/backup/gsutil.conf'
+          - name: BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: backup-conf
+                key: bucket.name
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        volumeMounts:
+          - name: homepage-secrets
+            mountPath: '/etc/secrets'
+          - name: backup-secrets
+            mountPath: '/etc/backup'
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: 50m
+    volumes:
+      - name: homepage-secrets
+        secret:
+          secretName: homepage-secret
+      - name: backup-secrets
+        secret:
+          secretName: homepage-backup-secret
+    restartPolicy: Never

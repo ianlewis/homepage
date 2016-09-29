@@ -3,19 +3,20 @@
 PROJECT=$(shell gcloud config list project | awk 'FNR==2 { print $$3 }')
 VERSION=$(shell cat VERSION)
 
-all: gocron
+all: cron-controller
 
-# Build gocron for linux
-gocron:
-	CGO_ENABLED=0 GOOS=linux go build -o gocron -a -ldflags '-s' -installsuffix cgo .
+# Build cron-controller for linux
+cron-controller:
+	go generate
+	CGO_ENABLED=0 GOOS=linux go build -o cron-controller -a -ldflags '-s' -installsuffix cgo .
 
 # Build a docker image for the local architecture
-image: gocron
-	docker build -t gocron .
-	$(SHELL) -ec 'docker tag gocron asia.gcr.io/$(PROJECT)/gocron:$(VERSION)'
+image: cron-controller 
+	docker build -t cron-controller .
+	$(SHELL) -ec 'docker tag cron-controller asia.gcr.io/$(PROJECT)/cron-controller:$(VERSION)'
 
 push:
-	$(SHELL) -ec 'gcloud docker push asia.gcr.io/$(PROJECT)/gocron:$(VERSION)'
+	$(SHELL) -ec 'gcloud docker push asia.gcr.io/$(PROJECT)/cron-controller:$(VERSION)'
 
 clean:
-	rm -f gocron
+	rm -f cron-controller 

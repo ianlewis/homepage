@@ -1,2 +1,0 @@
-@daily bash -c 'sed "s/backup-job-name-placeholder/backup-`date +%Y%m%d%H%M%S`/" /conf/backup/job.yaml | /kubectl create -f - --namespace=homepage-prod'
-# @monthly bash -c 'sed "s/renew-certs-job-name-placeholder/renew-certs-`date +%Y%m%d%H%M%S`/" /conf/renew-certs/job.yaml | /kubectl create -f - --namespace=homepage-prod'
