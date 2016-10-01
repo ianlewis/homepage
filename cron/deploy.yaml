@@ -28,7 +28,7 @@ spec:
 
         # Run "kubectl proxy" in a sidecar container to handle authentication.
         - name: kubectl
-          image: lachlanevenson/k8s-kubectl:v1.3.4
+          image: asia.gcr.io/ianlewis-org/kubectl:v1.3.7
           args:
             - "proxy"
           ports:
