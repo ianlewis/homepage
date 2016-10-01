@@ -1,7 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
- name: homepage
+  name: homepage
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: www-ianlewis-org
 spec:
   tls:
     - secretName: homepage-ingress-tls
