@@ -12,3 +12,4 @@ spec:
   selector: 
     name: camlistored
   type: LoadBalancer
+  loadBalancerIP: 104.155.195.68
