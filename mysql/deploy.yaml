@@ -29,9 +29,12 @@ spec:
               # mount path within the container
               mountPath: /var/lib/mysql
           resources:
+            requests:
+              memory: 800Mi
+              cpu: 250m
             limits:
               memory: 800Mi
-              cpu: 200m
+              cpu: 500m
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
