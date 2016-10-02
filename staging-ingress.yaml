@@ -8,6 +8,12 @@ spec:
   tls:
     - secretName: homepage-ingress-tls
   rules:
+    - host: staging.ianlewis.org
+      http:
+        paths:
+          - backend:
+              serviceName: homepage
+              servicePort: 80
     - host: www.staging.ianlewis.org
       http:
         paths:
