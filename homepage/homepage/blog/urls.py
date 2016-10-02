@@ -1,6 +1,7 @@
 #:coding=utf8:
 
 from django.conf.urls import patterns, url
+from django.views.generic import RedirectView
 
 from homepage.blog.feeds import (
     LatestEnglishBlogEntries,
@@ -33,9 +34,12 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     '',
+    url(r'^feed/enfeed$', RedirectView.as_view(url='/feed/enfeed/')),
     url(r'^feed/enfeed/$', LatestEnglishBlogEntries(), name='blog_feed_en'),
     url(r'^feed/enfeed/(?P<tag>.+)$', LatestEnglishBlogEntries(),
         name='blog_feed_en_tag'),
+
+    url(r'^feed/jpfeed$', RedirectView.as_view(url='/feed/jpfeed/')),
     url(r'^feed/jpfeed/$', LatestJapaneseBlogEntries(), name='blog_feed_jp'),
     url(r'^feed/jpfeed/(?P<tag>.+)$', LatestJapaneseBlogEntries(),
         name='blog_feed_jp_tag'),
