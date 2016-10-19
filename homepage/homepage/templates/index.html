@@ -3,33 +3,33 @@
 
 {% block content %}
 <div class="hero">
-  <div class="hero-card demo-card-wide mdl-card mdl-shadow--2dp">
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--3-col"></div>
-      <div class="mdl-cell mdl-cell--6-col">
-        <div class="center">
-          {% with "me.jpg me2.jpg me3.jpg me4.jpg" as img_str %}
-            <img src="{{ STATIC_URL }}/img/{{ img_str.split|random }}" style="max-width: 100%; max-height:200px;border-radius:100px;" /> 
-          {% endwith %}
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="hero-card mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--3-col"></div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <div class="center">
+            {% with "me.jpg me2.jpg me3.jpg me4.jpg" as img_str %}
+              <img src="{{ STATIC_URL }}/img/{{ img_str.split|random }}" style="max-width: 100%; max-height:200px;border-radius:100px;" /> 
+            {% endwith %}
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col"></div>
+        <div class="mdl-cell mdl-cell--12-col hero-bio">
+          <p>Hi! I'm <strong class="hero-name">Ian</strong>. I am a Developer Advocate working for Google on the <strong>Google Cloud Platform</strong> Team in <strong>Tokyo, Japan</strong>. I like to play with and hack on distributed systems, containers, in Go, and Python.</p>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--3-col"></div>
-      <div class="mdl-cell mdl-cell--12-col">
-        <p style="font-size:24px;">Hi! I'm <strong style="font-size:30px">Ian</strong>. I am a Developer Advocate working for Google on the <strong>Google Cloud Platform</strong> Team in <strong>Tokyo, Japan</strong>. I like to play with and hack on distributed systems, containers, in Go, and Python.</p>
-      </div>
     </div>
+    <div class="mdl-cell mdl-cell--2-col"></div>
   </div>
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col text-center">
-      <h2>English Blog</h2>
-      <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "en" %}">View all posts</a></p>
-    </div>
-    <div class="mdl-cell mdl-cell--6-col text-center">
-      <h2>日本語ブログ</h3>
-      <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "jp" %}">すべての記事を読む</a></p>
-    </div>
     <div class="mdl-cell mdl-cell--6-col">
       <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col text-center">
+          <h2>English Blog</h2>
+          <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "en" %}">View all posts</a></p>
+        </div>
         {% for post in en_posts|slice:":5" %}
           {% with post|to_html|first_image as post_image %}
           <div class="hero-cell mdl-cell mdl-cell--12-col">
@@ -57,6 +57,10 @@
     </div>
     <div class="mdl-cell mdl-cell--6-col">
       <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col text-center">
+          <h2>日本語ブログ</h3>
+          <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "jp" %}">すべての記事を読む</a></p>
+        </div>
         {% for post in jp_posts|slice:":5" %}
           {% with post|to_html|first_image as post_image %}
           <div class="mdl-cell mdl-cell--12-col">
