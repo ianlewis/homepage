@@ -28,7 +28,7 @@ spec:
               mountPath: /certs
           resources:
             requests:
-              memory: 800Mi
+              memory: 1200Mi
               cpu: 200m
             limits:
               memory: 1200Mi
