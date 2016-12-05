@@ -30,7 +30,6 @@
 
 .bg-ribbon {
     width: 100%;
-    /* height: 40vh; */
     height: 350px;
     background-color: rgb(63,81,133);
     flex-shrink: 0;
@@ -39,7 +38,6 @@
 .content {
     max-width: 1200px;
     margin: 0 auto;
-    /* margin-top: -35vh; */
     margin-top: -325px;
     flex-shrink: 0;
 }
@@ -73,14 +71,10 @@
 
 .hero {
     max-width:1200px;
-    /* margin: 0 auto; */
 }
 
 .hero-card {
-    /* width: 900px; */
-    /* min-height: 40vh; */
     min-height: 350px;
-    /* margin: 0 auto; */
 }
 
 .hero-card .mdl-cell {
@@ -88,7 +82,6 @@
 }
 
 .hero-card .hero-bio p {
-    /* font-size: 3.0vh; */
     font-size: 24px;
 }
 
@@ -102,7 +95,6 @@
 }
 
 .hero-post {
-    /* max-width: 450px; */
     margin: 0 auto;
 }
 
