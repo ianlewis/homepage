@@ -10,9 +10,9 @@ This repo holds a number of apps that run in my personal
 - [Camlistore](camlistore/) - Camlistore to manage personal data
 - [MySQL](mysql/) - MySQL database.
 - [Backup](backup/) - MySQL database backups.
-- [Cron](cron/) - A simple cron server that can run Kubernetes Jobs
+- [Cron](cron/) - A simple cron controller that can run Kubernetes Jobs
 - [nginx](nginx/) - Nginx frontend for the homepage/blog
-- [renew-certs](renew-certs/) - An attempt at automatic certificate renewal
+- [kube-lego](kube-lego/) - A controller for renewing certificates automatically.
 
 # Creating a Cluster
 
