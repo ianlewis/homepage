@@ -4,9 +4,16 @@ metadata:
   name: homepage
   annotations:
     kubernetes.io/ingress.global-static-ip-name: www-ianlewis-org
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
 spec:
   tls:
-    - secretName: homepage-ingress-tls
+    - hosts:
+      - ianlewis.org
+      - www.ianlewis.org
+      - api.ianlewis.org
+      - forwarder.ianlewis.org
+      secretName: homepage-ingress-tls
   rules:
     - host: ianlewis.org
       http:
