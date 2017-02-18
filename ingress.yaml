@@ -13,6 +13,7 @@ spec:
       - www.ianlewis.org
       - api.ianlewis.org
       - forwarder.ianlewis.org
+      - camlistore.ianlewis.org
       secretName: homepage-ingress-tls
   rules:
     - host: ianlewis.org
@@ -38,4 +39,10 @@ spec:
         paths:
           - backend:
               serviceName: twilio-forwarder
+              servicePort: 80
+    - host: camlistore.ianlewis.org
+      http:
+        paths:
+          - backend:
+              serviceName: camlistored
               servicePort: 80

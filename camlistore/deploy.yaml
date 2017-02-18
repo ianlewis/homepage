@@ -10,8 +10,32 @@ spec:
     metadata:
       labels:
         name: camlistored
+      annotations:
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"camlistored"}]'
     spec:
       containers: 
+        - name: camlistore-nginx
+          image: nginx:1.11.1-alpine
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx
+            - name: nginx-secrets
+              mountPath: /secret
+          resources:
+            requests:
+              memory: 10Mi
+              cpu: 50m
+            limits:
+              memory: 10Mi
+              cpu: 100m
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
         - name: camlistored
           image: gcr.io/ianlewis-org/camlistored:108f4b7-1
           args:
@@ -24,22 +48,34 @@ spec:
               mountPath: /blobs
             - name: camlistore-server-config
               mountPath: /conf
-            - name: camlistore-tls-certs
-              mountPath: /certs
+            - name: camlistore-keyring
+              mountPath: /keyring
+          livenessProbe:
+            httpGet:
+              path: /ui/
+              port: 3179
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
           resources:
             requests:
-              memory: 1200Mi
-              cpu: 200m
-            limits:
-              memory: 1200Mi
+              memory: 5000Mi
               cpu: 500m
+            limits:
+              memory: 6500Mi
+              cpu: 1
       volumes:
         - name: camlistore-blobs
           persistentVolumeClaim:
             claimName: camlistore-blobs
         - name: camlistore-server-config
+          configMap:
+            name: camlistore-server-config
+        - name: camlistore-keyring
           secret:
-            secretName: camlistore-server-config
-        - name: camlistore-tls-certs
+            secretName: camlistore-keyring
+        - name: nginx-conf
+          configMap:
+            name: camlistore-nginx-conf
+        - name: nginx-secrets
           secret:
-            secretName: camlistore-tls-certs
+            secretName: camlistore-nginx

@@ -11,38 +11,6 @@ $ docker tag camlistored gcr.io/ianlewis-org/camlistored:108f4b7-1
 $ gcloud docker push gcr.io/ianlewis-org/camlistored:108f4b7-1
 ```
 
-# Create a server-config.json
-
-Alter the identity, googlecloudstorage, and mysql keys and save to
-`server-config.json`. We will store blobs locally for fast access, as well as
-mirror them to Google Cloud Storage.
-
-```json
-{
-    "auth": "userpass:alice:secret",
-    "https": true,
-    "httpsCert": "/certs/tls.crt",
-    "httpsKey": "/certs/tls.key",
-
-    "listen": ":3179",
-    "identity": "XXXXXXXXX",
-    "identitySecretRing": "/conf/identity-secring.gpg",
-
-    "blobPath": "/blobs",
-    "packRelated": true,
-
-    "googlecloudstorage": "clientId:clientSecret:refreshToken:bucketName[/optional/dir]",
-
-    "mysql": "camlistore@mysql:password",
-    "dbNames": {
-        "index": "camlistore_index",
-        "blobpacked_index": "camlistore_blobpacked_index",
-        "ui_thumbcache": "camlistore_ui_thumbcache",
-        "queue-sync-to-index": "camlistore_sync_queue"
-    }
-}
-```
-
 # Set up mysql
 
 I'm using mysql for [indexing](https://camlistore.org/doc/overview) of
@@ -110,23 +78,40 @@ uid                  Ian Lewis <ianlewis@example.com>
 sub   CCCCC/DDDDDDDD 2016-08-18
 ```
 
-# Create secrets
+# Create config
 
 This creates the secret containing the server-config.json and
 identity-secring.gpg that camlistore will use.
 
 ```shell
-$ kubectl create secret generic camlistore-server-config \
-    --from-file=server-config.json \
+$ kubectl create configmap camlistore-server-config \
+    --from-file=server-config.json
+```
+
+Create a secret for the keyring.
+
+```shell
+$ kubectl create secret generic camlistore-keyring \
     --from-file=identity-secring.gpg
 ```
 
-Create the HTTPS certs secret. We all use https right?
+Create a ConfigMap for the nginx proxy.
 
 ```shell
-$ kubectl create secret generic camlistore-tls-certs \
-    --from-file=tls.crt \
-    --from-file=tls.key
+$ kubectl create configmap camlistore-nginx-conf \
+    --from-file=nginx.conf
+```
+
+Create a username & password for access and create a secret for it.
+
+```shell
+$ htpasswd -c htpasswd user
+New password: 
+Re-type new password: 
+Adding password for user user
+
+$ kubectl create secret generic camlistore-nginx \
+    --from-file=htpasswd
 ```
 
 # Create the needed volumes.

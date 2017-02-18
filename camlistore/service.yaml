@@ -6,10 +6,9 @@ metadata:
   name: camlistored
 spec: 
   ports:
-    - name: https
-      port: 443
-      targetPort: 3179
+    - name: http
+      port: 80
+      targetPort: 8000
   selector: 
     name: camlistored
-  type: LoadBalancer
-  loadBalancerIP: 104.155.195.68
+  type: NodePort
