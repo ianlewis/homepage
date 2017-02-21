@@ -20,4 +20,4 @@ docker build -t homepage dist/image/
 docker tag homepage asia.gcr.io/ianlewis-org/homepage:${VERSION}
 
 # Export to Container Registry
-gcloud docker push asia.gcr.io/ianlewis-org/homepage:${VERSION}
+gcloud docker -- push asia.gcr.io/ianlewis-org/homepage:${VERSION}
