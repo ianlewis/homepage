@@ -1,0 +1,10 @@
+.vagrant
+build
+dist
+src
+homepage/site_media
+
+syntax: glob
+*.pyc
+*.egg-info
+*.sqlite

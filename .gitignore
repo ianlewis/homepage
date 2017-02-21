@@ -5,16 +5,7 @@ syntax: glob
 *.bak
 *.marks
 *.o
-*.pyc
 *.swp
-*.db
-*.sqlite
-*.egg-info
-build
-dist
-src
-homepage/homepage/site_media
-pip-log.txt
 
 syntax: regexp
 .*\#.*\#$ 
