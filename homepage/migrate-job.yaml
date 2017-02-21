@@ -6,17 +6,15 @@ spec:
   selector:
     matchLabels:
       name: homepage-migrate
-      version: 0.3.5-0
   template:
     metadata:
       name: hompage-migrate
       labels:
         name: homepage-migrate
-        version: 0.3.5-0
     spec:
       containers:
         - name: homepage-migrate
-          image: asia.gcr.io/ianlewis-org/homepage:0.3.5
+          image: asia.gcr.io/ianlewis-org/homepage:0.3.6
           command: ["homepage", "migrate"]
           env:
             - name: DEBUG
