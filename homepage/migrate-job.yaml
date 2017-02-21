@@ -6,11 +6,13 @@ spec:
   selector:
     matchLabels:
       name: homepage-migrate
+      version: 0.3.6-0
   template:
     metadata:
       name: hompage-migrate
       labels:
         name: homepage-migrate
+        version: 0.3.6-0
     spec:
       containers:
         - name: homepage-migrate
