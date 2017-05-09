@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: twilio-forwarder
-          image: asia.gcr.io/ianlewis-org/twilio-forwarder:0.9
+          image: asia.gcr.io/ianlewis-org/twilio-forwarder:0.91
           env:
             - name: FIREBASE_URI_PATH
               value: /etc/twilio-forwarder/firebase-uri
