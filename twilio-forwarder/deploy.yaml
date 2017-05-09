@@ -33,6 +33,7 @@ spec:
               path: /_status/readiness
               port: 8080
             timeoutSeconds: 5
+            periodSeconds: 300
           ports:
             - containerPort: 8080
           volumeMounts:
