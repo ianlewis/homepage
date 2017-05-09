@@ -22,6 +22,9 @@ import (
 
 //go:generate go run scripts/gen.go
 
+// lastReadinessCheck is a Time object containing a timestamp of the last successful readiness check.
+var lastReadinessCheck time.Time
+
 var Firebase *firego.Firebase
 
 type TwiML struct {
@@ -53,10 +56,25 @@ func getConfig(key, def string) string {
 	return def
 }
 
+func getConfigDuration(key string, def time.Duration) time.Duration {
+	val := os.Getenv(key)
+	if val != "" {
+		d, err := time.ParseDuration(val)
+		if err != nil {
+			log.Printf("Invalid value in environment variable %s: %s", key, val)
+			return def
+		}
+		return d
+	}
+
+	return def
+}
+
 var (
 	addr            = flag.String("addr", ":8080", "The address to listen on.")
 	firebaseUriPath = flag.String("firebase-uri-path", getConfig("FIREBASE_URI_PATH", "/etc/twilio-forwarder/firebase-uri"), "The path to a file containing the firebase URI.")
 	secretPath      = flag.String("secret-path", getConfig("FIREBASE_SECRET_PATH", "/etc/twilio-forwarder/firebase-secret"), "The path a file containing the firebase secret to use for authentication.")
+	healthFreq      = flag.Duration("health-freq", getConfigDuration("HEALTH_DURATION", 5*time.Minute), "How often readiness checks should hit the database.")
 	version         = flag.Bool("version", false, "Show the version number and exit.")
 )
 
@@ -263,19 +281,21 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func readinessHandler(w http.ResponseWriter, r *http.Request) {
-	healthz := Firebase.Child("healthz")
-	var getVal *int64
-	if err := healthz.Set(rand.Int63()); err != nil {
-		log.Printf("Could not write to Firebase: %v", err)
-		http.Error(w, "firebase: Could not write to Firebase.", http.StatusInternalServerError)
-		return
+	if time.Since(lastReadinessCheck) > *healthFreq {
+		healthz := Firebase.Child("healthz")
+		var getVal *int64
+		if err := healthz.Set(rand.Int63()); err != nil {
+			log.Printf("Could not write to Firebase: %v", err)
+			http.Error(w, "firebase: Could not write to Firebase.", http.StatusInternalServerError)
+			return
+		}
+		if err := healthz.Value(&getVal); err != nil {
+			log.Printf("Could not read from Firebase: %v", err)
+			http.Error(w, "firebase: Could not read from Firebase.", http.StatusInternalServerError)
+			return
+		}
+		lastReadinessCheck = time.Now()
 	}
-	if err := healthz.Value(&getVal); err != nil {
-		log.Printf("Could not read from Firebase: %v", err)
-		http.Error(w, "firebase: Could not read from Firebase.", http.StatusInternalServerError)
-		return
-	}
-
 	w.Write([]byte("OK"))
 }
 
