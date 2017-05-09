@@ -16,7 +16,7 @@ image: twilio-forwarder
 	$(SHELL) -ec 'docker tag twilio-forwarder asia.gcr.io/$(PROJECT)/twilio-forwarder:$(VERSION)'
 
 push:
-	$(SHELL) -ec 'gcloud docker push asia.gcr.io/$(PROJECT)/twilio-forwarder:$(VERSION)'
+	$(SHELL) -ec 'gcloud docker -- push asia.gcr.io/$(PROJECT)/twilio-forwarder:$(VERSION)'
 
 clean:
 	rm -f twilio-forwarder
