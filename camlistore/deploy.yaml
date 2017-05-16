@@ -11,7 +11,25 @@ spec:
       labels:
         name: camlistored
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"camlistored"}]'
+        # Restrict scheduling to zone where volume is located.
+        scheduler.alpha.kubernetes.io/affinity: >
+          {
+            "nodeAffinity": {
+              "requiredDuringSchedulingIgnoredDuringExecution": {
+                "nodeSelectorTerms": [
+                  {
+                    "matchExpressions": [
+                      {
+                        "key": "failure-domain.beta.kubernetes.io/zone",
+                        "operator": "In",
+                        "values": ["asia-northeast1-c"]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
     spec:
       containers: 
         - name: camlistore-nginx
@@ -37,7 +55,7 @@ spec:
             initialDelaySeconds: 10
             timeoutSeconds: 1
         - name: camlistored
-          image: gcr.io/ianlewis-org/camlistored:108f4b7-1
+          image: asia.gcr.io/ianlewis-org/camlistored:9e34d14ef5-1
           args:
             - "-configfile=/conf/server-config.json"
           ports: 
@@ -46,6 +64,8 @@ spec:
           volumeMounts:
             - name: camlistore-blobs
               mountPath: /blobs
+            - name: camlistore-index
+              mountPath: /index
             - name: camlistore-server-config
               mountPath: /conf
             - name: camlistore-keyring
@@ -58,15 +78,18 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              memory: 5000Mi
-              cpu: 500m
-            limits:
-              memory: 6500Mi
+              memory: 6000Mi
               cpu: 1
+            limits:
+              memory: 8500Mi
+              cpu: 2
       volumes:
         - name: camlistore-blobs
           persistentVolumeClaim:
             claimName: camlistore-blobs
+        - name: camlistore-index
+          persistentVolumeClaim:
+            claimName: camlistore-index
         - name: camlistore-server-config
           configMap:
             name: camlistore-server-config
