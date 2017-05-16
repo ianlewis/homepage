@@ -15,10 +15,12 @@ ADMINS = env_var('ADMINS', email_csv, default=())
 MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
 
 _db_engine = env_var('DB_ENGINE', default='sqlite3' if DEBUG else 'mysql')
+_db_name = env_var('DB_NAME', default="homepage")
+_db_timeout = env_var('DB_TIMEOUT', int, default=3)
+_db_options = {'connect_timeout': _db_timeout}
 if _db_engine == 'sqlite3':
     _db_name = env_var('DB_NAME', default='djangodb.sqlite')
-else:
-    _db_name = env_var('DB_NAME', default="homepage")
+    _db_options = {'timeout': _db_timeout}
 
 DATABASES = {
     'default': {
@@ -28,6 +30,7 @@ DATABASES = {
         'PASSWORD': env_var('DB_PASSWORD', default=''),
         'HOST': env_var('DB_HOST', default=''),
         'PORT': env_var('DB_PORT', default=''),
+        'OPTIONS': _db_options,
     }
 }
 
@@ -119,7 +122,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'homepage.health.middleware.HealthMiddleware',
+    'homepage.health.middleware.HealthCheckMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # TODO: Transaction handling

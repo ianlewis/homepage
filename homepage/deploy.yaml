@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:0.3.6
+          image: asia.gcr.io/ianlewis-org/homepage:0.3.7
           # defines the health checking
           livenessProbe:
             # an http probe
@@ -25,7 +25,7 @@ spec:
             # length of time to wait for a pod to initialize
             # after pod startup, before applying health checking
             initialDelaySeconds: 10
-            timeoutSeconds: 1
+            timeoutSeconds: 5
           readinessProbe:
             # an http probe
             httpGet:
@@ -34,7 +34,7 @@ spec:
             # length of time to wait for a pod to initialize
             # after pod startup, before applying health checking
             initialDelaySeconds: 15
-            timeoutSeconds: 1
+            timeoutSeconds: 5
           env:
             - name: DEBUG
               value: 'False'
