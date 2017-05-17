@@ -13,6 +13,7 @@ spec:
       - www.staging.ianlewis.org
       - api.staging.ianlewis.org
       - forwarder.staging.ianlewis.org
+      - dyndns.staging.ianlewis.org
       secretName: homepage-ingress-tls
   rules:
     - host: staging.ianlewis.org
@@ -38,4 +39,10 @@ spec:
         paths:
           - backend:
               serviceName: twilio-forwarder
+              servicePort: 80
+    - host: dyndns.staging.ianlewis.org
+      http:
+        paths:
+          - backend:
+              serviceName: dyndns-server
               servicePort: 80

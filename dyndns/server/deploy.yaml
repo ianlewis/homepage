@@ -1,0 +1,68 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dyndns-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: dyndns-server
+    spec:
+      containers:
+        - name: dyndns-server
+          image: asia.gcr.io/ianlewis-org/dyndns-server:0.0.5
+          args:
+            - "-config=/config/config.json"
+            - "-service-account=/service-account/service-account.json"
+          env:
+            - name: PROJECT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: dyndns-config
+                  key: project-id
+            - name: MANAGED_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: dyndns-config
+                  key: managed-zone
+          livenessProbe:
+            # an http probe
+            httpGet:
+              path: /_status/healthz
+              port: 8080
+          readinessProbe:
+            # an http probe
+            httpGet:
+              path: /_status/healthz
+              port: 8080
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: service-account
+              mountPath: /service-account
+            - name: config
+              mountPath: /config
+          resources:
+            requests:
+              memory: 25Mi
+              cpu: 50m
+            limits:
+              memory: 50Mi
+              cpu: 100m
+      volumes: 
+        - name: certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: service-account
+          secret:
+            secretName: dyndns-service-account
+        - name: config
+          secret:
+            secretName: dyndns-config

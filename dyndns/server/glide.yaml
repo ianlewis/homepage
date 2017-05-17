@@ -1,0 +1,8 @@
+package: github.com/IanLewis/homepage/dyndns/server
+import:
+- package: golang.org/x/oauth2
+  subpackages:
+  - google
+- package: google.golang.org/api
+  subpackages:
+  - dns/v1
