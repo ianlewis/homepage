@@ -1,7 +1,7 @@
 # Makefile to build nginx image
 
 PROJECT=$(shell gcloud config list project | awk 'FNR==2 { print $$3 }')
-VERSION=1.11.1-3
+VERSION=1.13.1-4
 
 all: image
 
@@ -11,4 +11,4 @@ image:
 	$(SHELL) -ec 'docker tag nginx asia.gcr.io/$(PROJECT)/nginx:$(VERSION)'
 
 push:
-	$(SHELL) -ec 'gcloud docker push asia.gcr.io/$(PROJECT)/nginx:$(VERSION)'
+	$(SHELL) -ec 'gcloud docker -- push asia.gcr.io/$(PROJECT)/nginx:$(VERSION)'

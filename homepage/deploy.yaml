@@ -83,7 +83,7 @@ spec:
               memory: 150Mi
               cpu: 1
         - name: nginx
-          image: asia.gcr.io/ianlewis-org/nginx:1.11.1-3
+          image: asia.gcr.io/ianlewis-org/nginx:1.13.1-4
           ports:
             - containerPort: 8000
           resources:
