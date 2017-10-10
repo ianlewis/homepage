@@ -140,7 +140,7 @@
 /* ========= Post Detail Page ========= */
 
 .base-layout.is-small-screen .post-detail {
-    padding: 40px 28px;
+    padding: 30px 18px;
 }
 
 .post-detail {
@@ -157,6 +157,22 @@
 
 
 /* ========= Post Content ========= */
+
+.post-detail h1 {
+    font-size: 45px;
+}
+
+.post-detail h2 {
+    font-size: 34px;
+}
+
+.post-detail h3 {
+    font-size: 24px;
+}
+
+.post-detail h4 {
+    font-size: 20px;
+}
 
 .post-content, .post-content p {
     font-size: 18px;
@@ -193,7 +209,6 @@
 }
 
 .post-content blockquote p, .post-content blockquote pre {
-    margin-bottom: 0;
     font-size: 16px;
     font-weight: 300;
     line-height: 22.5px;
