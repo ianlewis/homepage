@@ -2,6 +2,6 @@ steps:
 - name: 'python:2.7.13'
   args: ['bash', '-c', 'cd ./homepage && ./build.sh']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia.gcr.io/$PROJECT_ID/homepage:$TAG_NAME', 'homepage/']
-  dir: 'subdirectory'
+  args: ['build', '-t', 'asia.gcr.io/$PROJECT_ID/homepage:$TAG_NAME', '.']
+  dir: 'homepage'
 images: ['asia.gcr.io/$PROJECT_ID/homepage:$TAG_NAME']
