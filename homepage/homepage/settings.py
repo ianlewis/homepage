@@ -256,7 +256,7 @@ LOGGING = {
 INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 
 # Allow any subdomain of ianlewis.org
-ALLOWED_HOSTS = env_var('ALLOWED_HOSTS', csv_list, default=[
-    '.ianlewis.org',
-    '.ianlewis.org.',
-])
+_allowed_hosts = ['.ianlewis.org', '.ianlewis.org.']
+if DEBUG:
+    _allowed_hosts = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = env_var('ALLOWED_HOSTS', csv_list, default=_allowed_hosts)
