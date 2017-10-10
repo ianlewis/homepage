@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:0.3.7
+          image: asia.gcr.io/ianlewis-org/homepage:v0.3.8
           # defines the health checking
           livenessProbe:
             # an http probe
