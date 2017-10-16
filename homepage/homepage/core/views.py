@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import cache_page
 from django.contrib.staticfiles.views import serve
+from django.conf import settings
 
 from django.shortcuts import render
 
@@ -24,6 +25,8 @@ def main_page(request):
         Post.objects.published().filter(locale="jp").order_by("-pub_date"))
 
     return render(request, "index.html", {
+        "en_rss_feed_url": settings.RSS_FEED_URLS["en"],
+        "jp_rss_feed_url": settings.RSS_FEED_URLS["jp"],
         "jp_posts": jp_posts,
         "en_posts": en_posts,
     })

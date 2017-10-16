@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load utility_tags blog_tags i18n %}
 
+{% block rss %}
+{% if en_rss_feed_url %}
+<link rel="alternate" type="application/rss+xml" title="English RSS Feed" href="{{ en_rss_feed_url }}" />
+{% endif %}
+{% if jp_rss_feed_url %}
+<link rel="alternate" type="application/rss+xml" title="Japanese RSS Feed" href="{{ jp_rss_feed_url }}" />
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="hero">
   <div class="mdl-grid">
