@@ -7,6 +7,7 @@ Implementation of the RSS feeds for the blog.
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 
+from homepage.blog.templatetags.blog_tags import to_lead
 from homepage.blog.models import Post, Tag
 
 
@@ -42,6 +43,9 @@ class LatestBlogEntries(Feed):
 
     def item_author_link(self, item):
         return reverse('main_page')
+
+    def item_description(self, item):
+        return to_lead(item)
 
     def item_pubdate(self, item):
         return item.pub_date
