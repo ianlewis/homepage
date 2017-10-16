@@ -5,6 +5,12 @@
 {% if locale %}<meta http-equiv="content-language" content="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}">{% endif %}
 {% endblock %}
 
+{% block rss %}
+{% if rss_feed_url %}
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ rss_feed_url }}" />
+{% endif %}
+{% endblock %}
+
 {# To fix JS errors in old blog posts #}
 {% block javascript %}
 <script type="text/javascript">var SHARETHIS = {addEntry: function() {}};</script>

@@ -260,3 +260,8 @@ _allowed_hosts = ['.ianlewis.org', '.ianlewis.org.']
 if DEBUG:
     _allowed_hosts = ["*"]
 ALLOWED_HOSTS = env_var('ALLOWED_HOSTS', csv_list, default=_allowed_hosts)
+
+RSS_FEED_URLS = {
+    "en": "http://feeds.feedburner.com/IanLewisBlog",
+    "jp": "http://feeds.feedburner.com/IanLewisBlogJP",
+}

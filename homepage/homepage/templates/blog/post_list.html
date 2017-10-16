@@ -3,12 +3,6 @@
 
 {% block title %}{% if tag %}{% if locale == "jp" %}{{ tag }}のボログ記事{% else %}{{ tag }} Blog Posts{% endif %}{% else %}{% if locale == "jp" %}日本語ブログ{% else %}English Blog{% endif %}{% endif %}{% endblock %}
 
-{% block rss %}
-{% if rss_feed_url %}
-<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ rss_feed_url }}" />
-{% endif %}
-{% endblock %}
-
 {% block content %}
   {% autopaginate object_list 10 %}
 

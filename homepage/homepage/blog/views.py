@@ -6,6 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import never_cache
+from django.conf import settings
 
 from homepage.blog.models import Post
 from homepage.blog.decorators import feed_redirect
@@ -16,7 +17,12 @@ class BlogDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(BlogDetail, self).get_context_data(**kwargs)
-        context['locale'] = context['object'].locale
+
+        locale = context['object'].locale
+
+        context['locale'] = locale
+        if locale in settings.RSS_FEED_URLS:
+            context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
         return context
 
     def get_queryset(self):
@@ -48,7 +54,8 @@ class BlogPage(ListView):
         context = super(BlogPage, self).get_context_data(**kwargs)
         locale = self.kwargs['locale']
         context['locale'] = locale
-        context['rss_feed_url'] = reverse("blog_feed_%s" % locale)
+        if locale in settings.RSS_FEED_URLS:
+            context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
         return context
 
     def get_queryset(self):
@@ -70,8 +77,8 @@ class TagPage(ListView):
         tag = self.kwargs['tag']
         context['locale'] = locale
         context['tag'] = tag
-        context['rss_feed_url'] = reverse("blog_feed_%s_tag" % locale,
-                                          kwargs={"tag": tag})
+        if locale in settings.RSS_FEED_URLS:
+            context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
         return context
 
     def get_queryset(self):
