@@ -1,7 +1,0 @@
-metadata:
-  name: cron-tab.alpha.ianlewis.org
-apiVersion: extensions/v1beta1
-kind: ThirdPartyResource
-description: "A specification of a Job to run on a cron style schedule"
-versions:
-  - name: v1
