@@ -31,5 +31,6 @@ urlpatterns += patterns(
     'homepage.core.views',
     url(r'robots.txt', 'robots', name='robots'),
     url(r'favicon.ico', 'favicon', name='favicon'),
+    url(r'_status/version', 'version', name='version'),
     url(r'^$', 'main_page', name='main_page'),
 )

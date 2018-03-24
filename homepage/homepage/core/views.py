@@ -10,6 +10,7 @@ from django.shortcuts import render
 
 from constance import config
 
+import homepage
 from homepage.blog.models import Post
 
 
@@ -52,3 +53,8 @@ def favicon(request):
     """
     # We specify the path here so insecure should be ok.
     return serve(request, 'extra/favicon.ico', insecure=True)
+
+@require_http_methods(['GET', 'HEAD'])
+@cache_page(60 * 15)
+def version(request):
+    return HttpResponse(homepage.__version__, content_type='text/plain')
