@@ -1,4 +1,4 @@
-/* ====== Generic Reusable Styles =====*/
+/* ====== Generic Reusable Styles ===== */
 
 .no-margin {
     margin: 0;
@@ -174,7 +174,7 @@
     font-size: 20px;
 }
 
-.post-content, .post-content p {
+.post-content, .post-content p, .post-content ul, .post-content ol {
     font-size: 18px;
 }
 
