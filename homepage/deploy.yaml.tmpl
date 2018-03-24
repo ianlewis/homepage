@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:${HOMEPAGE_VERSION}
+          image: asia.gcr.io/${PROJECT_ID}/homepage:${HOMEPAGE_VERSION}
           # defines the health checking
           livenessProbe:
             # an http probe
@@ -83,7 +83,7 @@ spec:
               memory: 150Mi
               cpu: 1
         - name: nginx
-          image: asia.gcr.io/ianlewis-org/nginx:${NGINX_VERSION}-alpine
+          image: asia.gcr.io/${PROJECT_ID}/nginx:${NGINX_VERSION}-alpine
           ports:
             - containerPort: 8000
           volumeMounts:

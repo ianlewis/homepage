@@ -2,10 +2,15 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--build-arg', 'SHORT_SHA=$SHORT_SHA', '-t', 'asia.gcr.io/$PROJECT_ID/homepage:$SHORT_SHA', '.']
   dir: 'homepage'
-# - name: 'gcr.io/cloud-builders/kubectl'
-#   args: ['apply', '-f', 'deploy.yaml', '-n', 'staging']
-#   dir: 'homepage'
-#   env:
-#   - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=asia-northeast1-ianlewis-org'
+- name: 'ubuntu'
+  args: ['bash', '-c', './deploy.sh > ./deploy.yaml']
+  env:
+    - 'SHORT_SHA=$SHORT_SHA'
+    - 'PROJECT_ID=$PROJECT_ID'
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', './deploy.yaml', '-n', 'staging']
+  dir: 'homepage'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=asia-northeast1-ianlewis-org'
 images: ['asia.gcr.io/$PROJECT_ID/homepage:$SHORT_SHA']
