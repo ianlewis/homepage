@@ -4,6 +4,7 @@ steps:
   dir: 'homepage'
 - name: 'ubuntu'
   args: ['bash', '-c', './deploy.sh > ./deploy.yaml']
+  dir: 'homepage'
   env:
     - 'SHORT_SHA=$SHORT_SHA'
     - 'PROJECT_ID=$PROJECT_ID'
