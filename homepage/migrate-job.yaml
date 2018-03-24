@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: homepage-migrate
-          image: asia.gcr.io/ianlewis-org/homepage:0.3.8
+          image: asia.gcr.io/ianlewis-org/homepage:v0.3.11
           command: ["homepage", "migrate"]
           env:
             - name: DEBUG

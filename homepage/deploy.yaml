@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/ianlewis-org/homepage:v0.3.10
+          image: asia.gcr.io/ianlewis-org/homepage:${HOMEPAGE_VERSION}
           # defines the health checking
           livenessProbe:
             # an http probe
@@ -83,13 +83,20 @@ spec:
               memory: 150Mi
               cpu: 1
         - name: nginx
-          image: asia.gcr.io/ianlewis-org/nginx:1.13.1-4
+          image: asia.gcr.io/ianlewis-org/nginx:${NGINX_VERSION}-alpine
           ports:
             - containerPort: 8000
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx
           resources:
             requests:
-              memory: 10Mi
+              memory: 10mi
               cpu: 50m
             limits:
-              memory: 10Mi
+              memory: 10mi
               cpu: 100m
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: homepage-nginx-conf-v1
