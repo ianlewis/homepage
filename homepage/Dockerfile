@@ -1,5 +1,7 @@
 FROM python:2.7.14-slim-jessie
 
+ARG SHORT_SHA=unknown
+
 RUN set -x \
         && apt-get update \
         && apt-get install -y \
