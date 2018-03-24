@@ -79,14 +79,14 @@ def main():
                                                    help="Create a superuser.")
 
     createsuperuser_parser.add_argument('--username', default='admin',
-                                        help="Specifies the username for the"
-                                             "superuser.")
+                                        help="Specifies the username for the "
+                                            "superuser. [Default: admin]")
     createsuperuser_parser.add_argument('--email', default='admin@example.com',
                                         help="Specifies the email address for "
-                                             "the superuser.")
+                                             "the superuser. [Default: admin@example.com]")
     createsuperuser_parser.add_argument('--password', default='admin',
                                         help="Specifies the password for the "
-                                             "superuser.")
+                                             "superuser. [Default: admin]")
 
     createsuperuser_parser.set_defaults(func=createsuperuser)
 
