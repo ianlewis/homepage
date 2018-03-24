@@ -15,10 +15,12 @@ COPY . /homepage
 RUN virtualenv /venv
 RUN rm -rf /homepage/homepage/site_media
 RUN /venv/bin/pip install -U setuptools
-RUN /venv/bin/pip install -r homepage/requirements.txt
-RUN /venv/bin/pip install /homepage
-# RUN /homepage/venv/bin/python setup.py sdist
-# RUN mv dist/homepage-*.tar.gz dist/homepage.tar.gz
+RUN /venv/bin/pip install -r /homepage/requirements.txt
+RUN set -x \
+        && cd /homepage \
+        && /venv/bin/python setup.py sdist \
+        && mv dist/homepage-*.tar.gz dist/homepage.tar.gz
+RUN /venv/bin/pip install /homepage/dist/homepage.tar.gz
 
 FROM python:2.7.14-slim-jessie
 
@@ -34,8 +36,5 @@ RUN set -x \
 # Copy entire virtualenv (with binary builds) from build container
 # virtualenv must be at the same directory where it was built
 COPY --from=0 /venv /venv
-# COPY --from=0 /homepage/dist/homepage.tar.gz /tmp/homepage.tar.gz
-# RUN pip install /tmp/homepage.tar.gz && \
-#         rm -rf /tmp/homepage.tar.gz
-    
+
 CMD [ "/venv/bin/homepage", "start", "--addr", "0.0.0.0", "--port", "8080" ]
