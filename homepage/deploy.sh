@@ -13,4 +13,8 @@ fi
 export PROJECT
 
 export NGINX_VERSION=1.13.10
-envsubst < deploy.yaml.tmpl
+sed \
+    -e "s/\${HOMEPAGE_VERSION}/$HOMEPAGE_VERSION/" \
+    -e "s/\${PROJECT}/$PROJECT/" \
+    -e "s/\${NGINX_VERSION}/$NGINX_VERSION/" \
+    deploy.yaml.tmpl
