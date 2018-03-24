@@ -91,10 +91,10 @@ spec:
               mountPath: /etc/nginx
           resources:
             requests:
-              memory: 10mi
+              memory: 10Mi
               cpu: 50m
             limits:
-              memory: 10mi
+              memory: 10Mi
               cpu: 100m
       volumes:
         - name: nginx-conf
