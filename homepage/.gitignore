@@ -1,4 +1,5 @@
 .vagrant
+.eggs
 build
 dist
 src
