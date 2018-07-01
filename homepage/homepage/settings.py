@@ -127,7 +127,6 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'pagination.middleware.PaginationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
@@ -174,7 +173,6 @@ INSTALLED_APPS = (
     'constance',
     'constance.backends.database',
     'compressor',
-    'pagination',
 
     # app
     'homepage.core',
@@ -192,11 +190,6 @@ CONSTANCE_CONFIG = {
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
 APPEND_SLASH = False
-
-# django-pagination
-PAGINATION_DEFAULT_PAGINATION = 9
-PAGINATION_INVALID_PAGE_RAISES_404 = True
-PAGINATION_DEFAULT_WINDOW = 1
 
 # django-disqus
 DISQUS_API_KEY = env_var('DISQUS_API_KEY', default='')

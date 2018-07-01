@@ -49,6 +49,7 @@ blog_detail_preview = never_cache(
 
 class BlogPage(ListView):
     model = Post
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(BlogPage, self).get_context_data(**kwargs)
@@ -70,6 +71,7 @@ blog_page = require_http_methods(['GET', 'HEAD'])(
 
 class TagPage(ListView):
     model = Post
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(TagPage, self).get_context_data(**kwargs)

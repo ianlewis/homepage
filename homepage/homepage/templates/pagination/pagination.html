@@ -1,5 +1,5 @@
 {% if is_paginated %}
-{% load i18n %}
+
 <div class="pagination">
   <ul>
     <li{% if not page_obj.has_previous %} class="disabled"{% endif %}>
@@ -10,21 +10,9 @@
       <button class="mdl-button mdl-js-button" disabled><i class="material-icons">chevron_left</i></button>
       {% endif %}
     </li>
-    {% for page in pages %}
-        {% if page %}
-          <li{% if page == page_obj.number %} class="active"{% endif %}>
-            {% if page == page_obj.number %}
-            <button class="mdl-button mdl-js-button" disabled>{{ page }}</button>
-            {% else %}
-            <a class="mdl-button mdl-js-button" href="?page={{ page }}{{ getvars }}">{{ page }}</a>
-            {% endif %}
-          </li>
-        {% else %}
-        <li>
-          <button class="mdl-button mdl-js-button" disabled>...</button>
-        </li>
-        {% endif %}
-    {% endfor %}
+    <li class="active">
+      <button class="mdl-button mdl-js-button" disabled>{{ page_obj.number }}</button>
+    </li>
     <li>
       {% if page_obj.has_next %}
       {# TODO: fix padding-top #}
