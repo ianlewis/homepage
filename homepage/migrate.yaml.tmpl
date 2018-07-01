@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: homepage-migrate
-          image: asia.gcr.io/ianlewis-org/homepage:v0.3.11
+          image: asia.gcr.io/${PROJECT}/homepage:${HOMEPAGE_VERSION}
           command: ["homepage", "migrate"]
           env:
             - name: DEBUG
@@ -40,10 +40,8 @@ spec:
                   key: db-admin-password
             - name: MEDIA_ROOT
               value: /var/www/media
-            - name: USE_MEMCACHED
-              value: 'False'
-            - name: MEMCACHED_HOSTS
-              value: memcached:11211
+            # - name: USE_MEMCACHED
+            #   value: 'False'
             - name: ENV_DIR
               value: /etc/secrets
           resources:
