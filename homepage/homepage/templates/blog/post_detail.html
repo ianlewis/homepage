@@ -61,7 +61,7 @@
 
 {% block license %}
 <p>
-  <a rel="license" href="http://creativecommons.org/licenses/by/2.1/jp/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="{{ STATIC_URL }}img/cc80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ object.title }}</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ian Lewis</span><br /> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.1/jp/deed.{% if object.lang = "ja" %}ja{% else %}en_US{% endif %}">Creative Commons Attribution 2.1 Japan License</a>.<br />
+  <a rel="license" href="http://creativecommons.org/licenses/by/2.1/jp/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="{{ STATIC_URL }}img/cc80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ object.title }}</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ian Lewis</span><br /> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.1/jp/deed.{% if object.lang == "ja" %}ja{% else %}en_US{% endif %}">Creative Commons Attribution 2.1 Japan License</a>.<br />
 Code snippets are licensed under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache Licence, Version 2</a>.
 </p>
 {% endblock %}

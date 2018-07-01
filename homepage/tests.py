@@ -5,6 +5,7 @@ def main():
     sys.exc_clear()
 
     os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
+    os.environ['ENABLE_LOGGING'] = 'False'
     os.environ['DEBUG'] = 'True'
 
     import django

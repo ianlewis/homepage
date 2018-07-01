@@ -1,6 +1,6 @@
 #:coding=utf8:
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.utils.http import urlquote
 from django.http import (
     HttpResponseRedirect,
@@ -25,9 +25,7 @@ def redirect_to(request, url, permanent=True, **kwargs):
     else:
         return HttpResponseGone()
 
-urlpatterns = patterns(
-    '',
-
+urlpatterns = [
     url(r'^projects(?:/.*)?$', redirect_to, {'url': '/'}, name="projects_redirect"),
 
     #url(r'^en/about(?:/.*)?$', redirect_to, {'url': '/'}, name="en_about_redirect"),
@@ -45,4 +43,4 @@ urlpatterns = patterns(
     # Old lifestream urls.
     url(r'^items/', redirect_to, {'url': '/'}),
     url(r'^page/(?P<page>\d+)/?$', redirect_to, {'url': '/'}, name="lifestream_page_redirect"),
-)
+]

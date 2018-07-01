@@ -9,7 +9,6 @@ from homepage.conf import env_var, email_csv, csv_list
 ROOT_PATH = os.path.dirname(__file__)
 
 DEBUG = env_var('DEBUG', bool, default=False)
-TEMPLATE_DEBUG = env_var('TEMPLATE_DEBUG', bool, default=DEBUG)
 
 ADMINS = env_var('ADMINS', email_csv, default=())
 MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
@@ -98,28 +97,27 @@ else:
 SESSION_COOKIE_SECURE = env_var("USE_HTTPS", bool, default=not DEBUG)
 CSRF_COOKIE_SECURE = env_var("USE_HTTPS", bool, default=not DEBUG)
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-if not DEBUG:
-    TEMPLATE_LOADERS = (
-        ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
-    )
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    'django.contrib.messages.context_processors.messages',
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.request",
-    "constance.context_processors.config",
-    "homepage.core.context_processors.debug",
-    "homepage.core.context_processors.disqus",
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': (os.path.join(ROOT_PATH, 'templates'),),
+        'APP_DIRS': DEBUG,
+        'OPTIONS': {
+            'debug': env_var('TEMPLATE_DEBUG', bool, default=DEBUG),
+            'context_processors': [
+                "django.contrib.auth.context_processors.auth",
+                'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.request",
+                "constance.context_processors.config",
+                "homepage.core.context_processors.debug",
+                "homepage.core.context_processors.disqus",
+            ] 
+        }
+    }        
+]
 
 MIDDLEWARE_CLASSES = (
     'homepage.health.middleware.HealthCheckMiddleware',
@@ -162,10 +160,6 @@ COMPRESS_CACHE_BACKEND = 'compress'
 
 
 ROOT_URLCONF = 'homepage.urls'
-
-TEMPLATE_DIRS = (
-    os.path.join(ROOT_PATH, 'templates'),
-)
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -211,47 +205,61 @@ DISQUS_WEBSITE_SHORTNAME = env_var('DISQUS_WEBSITE_SHORTNAME', default='')
 # logging
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '[%(asctime)s][%(name)s] %(levelname)s %(message)s',
-            'datefmt': "%Y-%m-%d %H:%M:%S",
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
+    'disable_existing_loggers': True,
     'handlers': {
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
-        },
-        'stderr': {
-            'level': 'ERROR',
-            'formatter': 'verbose',
-            'class': 'logging.StreamHandler',
-            'stream': sys.stderr,
-        },
-        'stdout': {
-            'level': 'DEBUG',
-            'formatter': 'verbose',
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
+            'class': 'logging.NullHandler',
         },
     },
     'loggers': {
-        '': {
-            'handlers': ['stdout'],
-            'level': env_var('LOG_LEVEL',
-                             default='DEBUG' if DEBUG else 'INFO'),
-        },
-        'django.request': {
-            'handlers': ['stderr'],
-            'propagate': False,
-            'level': 'ERROR',
-        },
-    }
+        '': {'handlers': ['null']},
+    },
 }
+if env_var('ENABLE_LOGGING', bool, default=True):
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '[%(asctime)s][%(name)s] %(levelname)s %(message)s',
+                'datefmt': "%Y-%m-%d %H:%M:%S",
+            },
+            'simple': {
+                'format': '%(levelname)s %(message)s'
+            },
+        },
+        'handlers': {
+            'null': {
+                'level': 'DEBUG',
+                'class': 'logging.NullHandler',
+            },
+            'stderr': {
+                'level': 'ERROR',
+                'formatter': 'verbose',
+                'class': 'logging.StreamHandler',
+                'stream': sys.stderr,
+            },
+            'stdout': {
+                'level': 'DEBUG',
+                'formatter': 'verbose',
+                'class': 'logging.StreamHandler',
+                'stream': sys.stdout,
+            },
+        },
+        'loggers': {
+            '': {
+                'handlers': ['stdout'],
+                'level': env_var('LOG_LEVEL',
+                                 default='DEBUG' if DEBUG else 'INFO'),
+            },
+            'django.request': {
+                'handlers': ['stderr'],
+                'propagate': False,
+                'level': 'ERROR',
+            },
+        }
+    }
 
 INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
 

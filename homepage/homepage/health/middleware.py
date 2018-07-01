@@ -4,7 +4,7 @@ import logging
 
 from django.http import HttpResponse, HttpResponseServerError
 
-logger = logging.getLogger("healthz")
+logger = logging.getLogger("homepage.health.middleware")
 
 class HealthCheckMiddleware(object):
     def __init__(self, get_response=None):

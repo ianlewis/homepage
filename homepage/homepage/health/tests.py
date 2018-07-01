@@ -7,13 +7,13 @@ from django.test import (
     RequestFactory,
 )
 
-from homepage.health.middleware import HealthMiddleware
+from homepage.health.middleware import HealthCheckMiddleware
 
 __all__ = (
-    "HealthMiddlewareTest",
+    "HealthCheckMiddlewareTest",
 )
 
-class HealthMiddlewareTest(TestCase):
+class HealthCheckMiddlewareTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
 
@@ -22,7 +22,7 @@ class HealthMiddlewareTest(TestCase):
         Tests the healthz endpoint
         """
         request = self.factory.get("/_status/healthz")
-        middleware = HealthMiddleware()
+        middleware = HealthCheckMiddleware()
         response = middleware.process_request(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, "OK")
@@ -32,7 +32,7 @@ class HealthMiddlewareTest(TestCase):
         Tests when the readiness endpoint is ok.
         """
         request = self.factory.get("/_status/readiness")
-        middleware = HealthMiddleware()
+        middleware = HealthCheckMiddleware()
         response = middleware.process_request(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, "OK")
@@ -42,11 +42,13 @@ class HealthMiddlewareTest(TestCase):
         Tests when the readiness endpoint is not ok.
         """
         from django import db
-        with mock.patch.object(db, 'connection') as connection:
-            connection.cursor().fetchone.side_effect = Exception("No DB!")
+        with mock.patch.object(db, 'connections') as connections:
+            # Make the connections mock iterable.
+            connections.__iter__ = mock.Mock(return_value = iter(["default"]))
+            connections["default"].cursor().fetchone.side_effect = Exception("No DB!")
 
             request = self.factory.get("/_status/readiness")
-            middleware = HealthMiddleware()
+            middleware = HealthCheckMiddleware()
             response = middleware.process_request(request)
 
             self.assertEqual(response.status_code, 500)
