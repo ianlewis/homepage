@@ -9,7 +9,7 @@ Markdown==2.6
 # For thumbnails
 Pillow==3.0.0
 
- Settings
+# Settings
 django-constance[database]==2.2.0
 
 # Static files
