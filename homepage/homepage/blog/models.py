@@ -52,7 +52,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
 
     active = models.BooleanField(u'published', default=False, db_index=True)
-    pub_date = models.DateTimeField(u'published', default=datetime.now,
+    pub_date = models.DateTimeField(u'published date', default=datetime.now,
                                     db_index=True)
     create_date = models.DateTimeField(u'created', default=datetime.now)
 
