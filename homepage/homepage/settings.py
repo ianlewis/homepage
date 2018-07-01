@@ -101,7 +101,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': (os.path.join(ROOT_PATH, 'templates'),),
-        'APP_DIRS': DEBUG,
+        'APP_DIRS': True,
         'OPTIONS': {
             'debug': env_var('TEMPLATE_DEBUG', bool, default=DEBUG),
             'context_processors': [
