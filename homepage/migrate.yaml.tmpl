@@ -1,23 +1,19 @@
-apiVersion: extensions/v1beta1
+apiVersion: batch/v1
 kind: Job
 metadata:
   name: homepage-migrate
 spec:
-  selector:
-    matchLabels:
-      name: homepage-migrate
-      version: 0.3.8-0
   template:
     metadata:
       name: hompage-migrate
       labels:
         name: homepage-migrate
-        version: 0.3.8-0
+        version: "${HOMEPAGE_VERSION}"
     spec:
       containers:
         - name: homepage-migrate
           image: asia.gcr.io/${PROJECT}/homepage:${HOMEPAGE_VERSION}
-          command: ["homepage", "migrate"]
+          command: ["/venv/bin/homepage", "migrate"]
           env:
             - name: DEBUG
               value: 'False'
@@ -31,12 +27,12 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: homepage-secret
+                  name: homepage-admin-secret
                   key: db-admin-user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: homepage-secret
+                  name: homepage-admin-secret
                   key: db-admin-password
             - name: MEDIA_ROOT
               value: /var/www/media
