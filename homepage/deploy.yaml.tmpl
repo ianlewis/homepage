@@ -82,7 +82,7 @@ spec:
             limits:
               memory: 150Mi
               cpu: 1
-        - name: nginx
+        - name: homepage-nginx
           image: asia.gcr.io/${PROJECT}/nginx:${NGINX_VERSION}-alpine
           ports:
             - containerPort: 8000
