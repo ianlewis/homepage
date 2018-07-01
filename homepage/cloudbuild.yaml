@@ -1,6 +1,6 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--build-arg', 'SHORT_SHA=$SHORT_SHA', '-t', 'asia.gcr.io/$PROJECT_ID/homepage:$SHORT_SHA', '.']
+  args: ['build', '--build-arg', 'SHORT_SHA=${SHORT_SHA}', '-t', 'asia.gcr.io/${PROJECT_ID}/homepage:${SHORT_SHA}', '.']
   dir: 'homepage'
 - name: 'ubuntu'
   args: ['bash', '-c', './deploy.sh > ./deploy.yaml']
@@ -8,10 +8,19 @@ steps:
   env:
     - 'SHORT_SHA=$SHORT_SHA'
     - 'PROJECT_ID=$PROJECT_ID'
+    - 'NGINX_CONFIGMAP=homepage-nginx-conf-${SHORT_SHA}'
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', './deploy.yaml', '-n', 'staging']
+  args: ['create', 'configmap', 'homepage-nginx-conf-${SHORT_SHA}', '-n', '${_NAMESPACE}', '--from-file', 'nginx.conf']
   dir: 'homepage'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=asia-northeast1-ianlewis-org'
-images: ['asia.gcr.io/$PROJECT_ID/homepage:$SHORT_SHA']
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', './deploy.yaml', '-n', '${_NAMESPACE}']
+  dir: 'homepage'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=asia-northeast1-ianlewis-org'
+substitutions:
+  _NAMESPACE: staging # default value
+images: ['asia.gcr.io/${PROJECT_ID}/homepage:${SHORT_SHA}']
