@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load utility_tags pagination_tags blog_tags %} 
+{% load utility_tags blog_tags %} 
 
 {% block title %}{% if tag %}{% if locale == "jp" %}{{ tag }}のボログ記事{% else %}{{ tag }} Blog Posts{% endif %}{% else %}{% if locale == "jp" %}日本語ブログ{% else %}English Blog{% endif %}{% endif %}{% endblock %}
 
