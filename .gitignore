@@ -1,11 +1,11 @@
-syntax: glob
-*.orig
-*.rej
-*~
-*.bak
-*.marks
-*.o
-*.swp
+.vagrant
+.eggs
+build
+dist
+src
+homepage/site_media
 
-syntax: regexp
-.*\#.*\#$ 
+syntax: glob
+*.pyc
+*.egg-info
+*.sqlite
