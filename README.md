@@ -62,12 +62,9 @@ cluster would do.
 
 ### Create the Environment
 
-I recommend you have a namespace for staging and one for production
-but YMMV.
-
 1. Create secrets for the homepage app. The secrets file should something like
    the file below. Each value should be encoded in base64. See the [secrets
-   doc](http://kubernetes.io/docs/user-guide/secrets/walkthrough/) for more info.
+   doc](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/) for more info.
    Save the file to homepage-secrets.yaml.
 
     ```yaml
@@ -83,58 +80,28 @@ but YMMV.
       db-password: ...
     ```
 
-1. Create secrets for the web frontend nginx.
-
-    ```yaml
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: webfront-secret
-    data:
-      webfront-crt: ...
-      webfront-key: ...
-    ```
-
 1. Deploy the secrets to the cluster.
 
     ```shell
-    $ kubectl create -f homepage-secrets.yaml
-    $ kubectl create -f webfront-secrets.yaml
+    $ kubectl apply -f homepage-secrets.yaml
     ```
 
 ### Build the Docker Images
 
-There is a handy build script in the `bin` directory you can run to build
-and push the app image.
+Building a Docker image should be straight-forward. Give the image a tag that matches the repository url you want and give it a version label.
 
 ```shell
-$ ./build.sh
+$ docker build -t gcr.io/ianlewis-org/homepage:<VERSION> .
 ```
-
-This script will build a Python package for the app, build a Docker image, and
-push it to [Google Container Registry](https://cloud.google.com/container-registry/).
 
 ### Deploy the Application
 
-This app depends on [MySQL](../mysql/) so you need to deploy that app first.
+This app depends on MySQL so you need to deploy that app first.
 
 Deploy the homepage app.
 
 ```shell
-$ kubectl create -f deploy.yaml
-$ kubectl create -f service.yaml
-```
-
-### Creating the MySQL database
-
-You can create the MySQL database by running the "CREATE DATABASE" query inside
-the mysql database container after it's running.
-
-```shell
-$ MYSQL_POD=$(kubectl get pods -o jsonpath='{.items[0].metadata.name}' --selector=name=mysql)
-$ kubectl exec $MYSQL_POD -it -- \
-    bash -c "echo 'CREATE DATABASE IF NOT EXISTS homepage CHARACTER SET utf8;' \
-    | mysql -u root -p"
+$ kustomize build kubernetes/staging | kubectl apply -f -
 ```
 
 ## Running Migrations
@@ -143,7 +110,7 @@ Migrations are run by running a Job using the Kubernetes
 [Jobs API](http://kubernetes.io/docs/user-guide/jobs/).
 
 ```shell
-$ kubectl create -f migrate-job.yaml
+$ kubectl apply -f kubernetes/extras/migrate.yaml
 ```
 
 ## Creating Superusers
@@ -152,7 +119,7 @@ Creating superusers is done by running a Job using the Kubernetes
 [Jobs API](http://kubernetes.io/docs/user-guide/jobs/).
 
 ```shell
-$ kubectl create -f createsuperuser-pod.yaml
+$ kubectl apply -f kubernetes/extras/createsuperuser-job.yaml
 ```
 
 This will create a superuser with the username and password "admin". You will

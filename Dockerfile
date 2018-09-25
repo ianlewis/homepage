@@ -1,7 +1,5 @@
 FROM python:2.7.14-slim-jessie
 
-ARG SHORT_SHA=unknown
-
 RUN set -x \
         && apt-get update \
         && apt-get install -y \
@@ -15,7 +13,6 @@ RUN set -x \
 COPY . /homepage
 
 # Set the version of the app
-RUN echo $SHORT_SHA > /homepage/homepage/VERSION
 RUN virtualenv /venv
 RUN rm -rf /homepage/homepage/site_media
 RUN /venv/bin/pip install -U setuptools

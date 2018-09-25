@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: asia.gcr.io/${PROJECT}/homepage:${HOMEPAGE_VERSION}
+          image: asia.gcr.io/ianlewis-org/homepage
           # defines the health checking
           livenessProbe:
             # an http probe
@@ -48,23 +48,23 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: homepage-secret
+                  name: homepage-db-secret
                   key: db-user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: homepage-secret
+                  name: homepage-db-secret
                   key: db-password
+            - name: DISQUS_WEBSITE_SHORTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: homepage-config
+                  key: disqus-website-shortname
             - name: DISQUS_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: homepage-secret
                   key: disqus-api-key
-            - name: DISQUS_WEBSITE_SHORTNAME
-              valueFrom:
-                secretKeyRef:
-                  name: homepage-secret
-                  key: disqus-website-shortname
             - name: MEDIA_ROOT
               value: /var/www/media
             # - name: USE_MEMCACHED
@@ -83,7 +83,7 @@ spec:
               memory: 150Mi
               cpu: 1
         - name: homepage-nginx
-          image: asia.gcr.io/${PROJECT}/nginx:${NGINX_VERSION}-alpine
+          image: asia.gcr.io/ianlewis-org/nginx:1.13.10-alpine
           ports:
             - containerPort: 8000
           volumeMounts:
@@ -99,4 +99,4 @@ spec:
       volumes:
         - name: nginx-conf
           configMap:
-            name: ${NGINX_CONFIGMAP}
+            name: homepage-nginx-conf

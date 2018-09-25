@@ -1,0 +1,8 @@
+resources:
+- deploy.yaml
+- service.yaml
+- configmap.yaml
+configMapGenerator:
+- name: homepage-nginx-conf
+  files:
+  - ../../nginx.conf

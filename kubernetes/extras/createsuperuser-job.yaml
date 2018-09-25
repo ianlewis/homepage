@@ -1,19 +1,21 @@
-apiVersion: batch/v1
+apiVersion: extensions/v1beta1
 kind: Job
 metadata:
-  name: homepage-migrate
+  name: homepage-createsuperuser
 spec:
+  selector:
+    matchLabels: 
+      name: homepage-createsuperuser
   template:
     metadata:
-      name: hompage-migrate
+      name: homepage-createsuperuser
       labels:
-        name: homepage-migrate
-        version: "${HOMEPAGE_VERSION}"
+        name: homepage-createsuperuser
     spec:
       containers:
-        - name: homepage-migrate
-          image: asia.gcr.io/${PROJECT}/homepage:${HOMEPAGE_VERSION}
-          command: ["/venv/bin/homepage", "migrate"]
+        - name: homepage-createsuperuser
+          image: asia.gcr.io/ianlewis-org/homepage
+          command: ["homepage", "createsuperuser"]
           env:
             - name: DEBUG
               value: 'False'
@@ -27,17 +29,19 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: homepage-admin-secret
+                  name: homepage-secret
                   key: db-admin-user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: homepage-admin-secret
+                  name: homepage-secret
                   key: db-admin-password
             - name: MEDIA_ROOT
               value: /var/www/media
-            # - name: USE_MEMCACHED
-            #   value: 'False'
+            - name: USE_MEMCACHED
+              value: 'False'
+            - name: MEMCACHED_HOSTS
+              value: memcached:11211
             - name: ENV_DIR
               value: /etc/secrets
           resources:
