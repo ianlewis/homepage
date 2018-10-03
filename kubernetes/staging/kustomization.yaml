@@ -1,3 +1,5 @@
 bases:
   - ./../base
+resources:
+  - configmap.yaml
 namespace: staging
