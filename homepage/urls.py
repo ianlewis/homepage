@@ -1,5 +1,6 @@
 #:coding=utf-8:
 
+from django.conf import settings
 from django.conf.urls import url, include
 
 # Uncomment the next two lines to enable the admin:
@@ -33,3 +34,9 @@ urlpatterns += [
     url(r'_status/version', views.version, name='version'),
     url(r'^$', views.main_page, name='main_page'),
 ]
+
+if settings.TESTING:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

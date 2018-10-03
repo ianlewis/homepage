@@ -84,7 +84,7 @@ spec:
               cpu: 200m
             limits:
               memory: 150Mi
-              cpu: 1
+              cpu: 2000m
         - name: homepage-nginx
           image: asia.gcr.io/ianlewis-org/nginx:1.13.10-alpine
           ports:

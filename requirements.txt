@@ -1,5 +1,7 @@
 Django==1.11.13
 
+django-debug-toolbar==1.10.1
+
 # For rendering blog posts
 docutils>=0.5
 pygments>=1.0

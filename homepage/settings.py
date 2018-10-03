@@ -9,6 +9,7 @@ from homepage.conf import env_var, email_csv, csv_list
 ROOT_PATH = os.path.dirname(__file__)
 
 DEBUG = env_var('DEBUG', bool, default=False)
+TESTING = env_var('TESTING', bool, default=DEBUG)
 
 ADMINS = env_var('ADMINS', email_csv, default=())
 MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
@@ -119,8 +120,16 @@ TEMPLATES = [
     }        
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'homepage.health.middleware.HealthCheckMiddleware',
+]
+
+if TESTING:
+	MIDDLEWARE_CLASSES += [
+		'debug_toolbar.middleware.DebugToolbarMiddleware',
+	]
+
+MIDDLEWARE_CLASSES += [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # TODO: Transaction handling
@@ -128,7 +137,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-)
+]
 
 USE_X_FORWARDED_HOST = True
 
@@ -160,7 +169,7 @@ COMPRESS_CACHE_BACKEND = 'compress'
 
 ROOT_URLCONF = 'homepage.urls'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -177,7 +186,9 @@ INSTALLED_APPS = (
     # app
     'homepage.core',
     'homepage.blog',
-)
+]
+if TESTING:
+    INSTALLED_APPS += ['debug_toolbar']
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
@@ -255,6 +266,11 @@ if env_var('ENABLE_LOGGING', bool, default=True):
     }
 
 INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'homepage.settings.show_toolbar',
+}
+def show_toolbar(request):
+    return TESTING
 
 # Allow any subdomain of ianlewis.org
 _allowed_hosts = ['.ianlewis.org', '.ianlewis.org.']
