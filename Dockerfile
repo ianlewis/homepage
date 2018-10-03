@@ -10,7 +10,8 @@ RUN set -x \
             libjpeg-dev \
             zlib1g-dev
 
-COPY . /homepage
+COPY setup.py README.md requirements.txt MANIFEST.in LICENSE AUTHORS /homepage/
+COPY homepage/ /homepage/homepage
 
 # Set the version of the app
 RUN virtualenv /venv
