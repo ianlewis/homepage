@@ -70,6 +70,8 @@ spec:
                   key: disqus-api-key
             - name: MEDIA_ROOT
               value: /var/www/media
+            - name: FILEBASED_CACHE_PATH
+              value: /cache
             # - name: USE_MEMCACHED
             #   value: 'False'
             # - name: MEMCACHED_HOSTS
@@ -85,6 +87,9 @@ spec:
             limits:
               memory: 250Mi
               cpu: 1000m
+          volumeMounts:
+            - name: cache-dir
+              mountPath: /cache
         - name: homepage-nginx
           image: asia.gcr.io/ianlewis-org/nginx:1.13.10-alpine
           ports:
@@ -103,3 +108,5 @@ spec:
         - name: nginx-conf
           configMap:
             name: homepage-nginx-conf
+        - name: cache-dir
+          emptyDir: {}

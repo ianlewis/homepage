@@ -151,8 +151,15 @@ USE_X_FORWARDED_HOST = True
 #     _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
 #     _cache_location = ''  # Not used by LocMemCache
 
-_cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
-_cache_location = ''  # Not used by LocMemCache
+FILEBASED_CACHE_PATH = env_var('FILEBASED_CACHE_PATH', default='')
+USE_FILEBASED_CACHE = FILEBASED_CACHE_PATH != ''
+if USE_FILEBASED_CACHE:
+    _cache_backend = 'django.core.cache.backends.filebased.FileBasedCache'
+    _cache_location = FILEBASED_CACHE_PATH
+else:
+    # NOTE: Default is local memory cache.
+    _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
+    _cache_location = ''  # Not used by LocMemCache
 
 CACHES = {
     'default': {
