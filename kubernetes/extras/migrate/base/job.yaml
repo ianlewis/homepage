@@ -41,6 +41,9 @@ spec:
               value: /etc/secrets
           resources:
             limits:
-              memory: 100Mi
-              cpu: 50m
+              memory: 150Mi
+              cpu: 200m
+            limits:
+              memory: 150Mi
+              cpu: 200m
       restartPolicy: Never
