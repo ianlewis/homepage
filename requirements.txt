@@ -1,6 +1,7 @@
 Django==1.11.16
 
 django-debug-toolbar==1.10.1
+django-debug-toolbar-template-profiler==1.0.2
 
 # For rendering blog posts
 docutils>=0.5
