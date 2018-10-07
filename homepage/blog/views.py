@@ -10,6 +10,7 @@ from django.conf import settings
 
 from homepage.blog.models import Post
 from homepage.blog.decorators import feed_redirect
+from homepage.blog.templatetags.blog_tags import to_html
 
 
 class BlogDetail(DetailView):
@@ -18,11 +19,15 @@ class BlogDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(BlogDetail, self).get_context_data(**kwargs)
 
-        locale = context['object'].locale
+        obj = context['object']
+
+        locale = obj.locale
 
         context['locale'] = locale
         if locale in settings.RSS_FEED_URLS:
             context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
+
+        context['content_html'] = to_html(obj)
         return context
 
     def get_queryset(self):

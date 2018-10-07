@@ -55,6 +55,7 @@ class Post(models.Model):
     pub_date = models.DateTimeField(u'published date', default=datetime.now,
                                     db_index=True)
     create_date = models.DateTimeField(u'created', default=datetime.now)
+    update_date = models.DateTimeField(u'updated', auto_now=True)
 
     objects = PostManager()
 

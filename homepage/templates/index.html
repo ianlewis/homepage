@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load utility_tags blog_tags i18n %}
+{% load utility_tags blog_tags i18n cache %}
 
 {% block rss %}
 {% if en_rss_feed_url %}
@@ -40,6 +40,7 @@
           <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "en" %}">View all posts</a></p>
         </div>
         {% for post in en_posts|slice:":5" %}
+          {% cache 86400 "index_post_v1" post.id post.update_date %}
           {% with post|to_html|first_image as post_image %}
           <div class="hero-cell mdl-cell mdl-cell--12-col">
             <div class="hero-post">
@@ -61,6 +62,7 @@
             </div>
           </div>
           {% endwith %}
+          {% endcache %}
         {% endfor %}
       </div>
     </div>
@@ -71,6 +73,7 @@
           <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "jp" %}">すべての記事を読む</a></p>
         </div>
         {% for post in jp_posts|slice:":5" %}
+          {% cache 86400 "index_post_v1" post.id post.update_date %}
           {% with post|to_html|first_image as post_image %}
           <div class="mdl-cell mdl-cell--12-col">
             <div class="hero-post">
@@ -92,6 +95,7 @@
             </div>
           </div>
           {% endwith %}
+          {% endcache %}
         {% endfor %}
       </div>
     </div>

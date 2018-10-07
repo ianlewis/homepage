@@ -3,7 +3,7 @@
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block keywords %}{{ object.tags.all|join:" " }}{% endblock %}
-{% block description %}{% with object|to_html|striptags as description %}{{ description|slice:":150" }}{% if description|length > 150 %}...{% endif %}{% endwith %}{% endblock %}
+{% block description %}{% with content_html|striptags as description %}{{ description|slice:":150" }}{% if description|length > 150 %}...{% endif %}{% endwith %}{% endblock %}
 
 {% block content %}
 <div class="mdl-grid">
@@ -28,7 +28,7 @@
 
 
     <div class="post-content">
-      {{ object|to_html|default:"&nbsp;"|safe }}
+      {{ content_html|default:"&nbsp;"|safe }}
     </div>
 
     <hr/>
