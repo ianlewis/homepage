@@ -1,6 +1,6 @@
 #:coding=utf8:
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import cache_page
 from django.contrib.staticfiles.views import serve
@@ -44,6 +44,26 @@ def robots(request):
     """
     return HttpResponse(config.robots_txt, content_type='text/plain')
 
+@require_http_methods(['GET', 'HEAD'])
+@cache_page(60 * 15)
+def security_txt(request):
+    """
+    security.txt for security issue disclosure.
+    See: https://securitytxt.org/
+    """
+    if len(config.security_txt) == 0:
+        raise Http404("Not found")
+    return HttpResponse(config.security_txt, content_type='text/plain')
+
+@require_http_methods(['GET', 'HEAD'])
+@cache_page(60 * 15)
+def security_txt_sig(request):
+    """
+    Signature for security.txt
+    """
+    if len(config.security_txt_sig) == 0:
+        raise Http404("Not found")
+    return HttpResponse(config.security_txt_sig, content_type='text/plain')
 
 @require_http_methods(['GET', 'HEAD'])
 @cache_page(60 * 15)

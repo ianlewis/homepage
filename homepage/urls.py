@@ -31,9 +31,11 @@ urlpatterns += blog_urls.urlpatterns
 urlpatterns += event_urls.urlpatterns
 
 urlpatterns += [
-    url(r'robots.txt', views.robots, name='robots'),
-    url(r'favicon.ico', views.favicon, name='favicon'),
-    url(r'_status/version', views.version, name='version'),
+    url(r'^robots.txt$', views.robots, name='robots'),
+    url(r'^favicon.ico$', views.favicon, name='favicon'),
+    url(r'^.well-known/security.txt$', views.security_txt, name='favicon'),
+    url(r'^.well-known/security.txt.sig$', views.security_txt_sig, name='favicon'),
+    url(r'^_status/version$', views.version, name='version'),
     url(r'^$', views.main_page, name='main_page'),
 ]
 

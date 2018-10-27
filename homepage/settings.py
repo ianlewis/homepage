@@ -203,6 +203,10 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'robots_txt': ("User-agent: *\nDisallow: /",
                    "The contents of robots.txt."),
+    'security_txt': ("", "security.txt for responsible disclosure."),
+    'security_txt_sig': ("", "Signature for security.txt"),
+    'robots_txt': ("User-agent: *\nDisallow: /",
+                   "The contents of robots.txt."),
     'header_profile_img_url': ("/static/img/profile_sm.jpg",
                                "The URL for the profile image in the header."),
 }
