@@ -187,6 +187,7 @@ INSTALLED_APPS = [
 
     # Third party
     'constance',
+    'gargoyle',
     'constance.backends.database',
     'compressor',
 
@@ -204,6 +205,14 @@ CONSTANCE_CONFIG = {
                    "The contents of robots.txt."),
     'header_profile_img_url': ("/static/img/profile_sm.jpg",
                                "The URL for the profile image in the header."),
+}
+
+GARGOYLE_SWITCH_DEFAULTS = {
+    'talks': {
+      'is_active': False,
+      'label': 'Show talks',
+      'description': 'Show talks feature',
+    },
 }
 
 # Need this to get around a bugs in HttpResponseRedirect

@@ -3,6 +3,9 @@ Django==1.11.16
 django-debug-toolbar==1.10.1
 django-debug-toolbar-template-profiler==1.0.2
 
+# Feature flags
+gargoyle-yplan==1.4.0
+
 # For rendering blog posts
 docutils>=0.5
 pygments>=1.0
