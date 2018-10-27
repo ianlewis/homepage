@@ -72,9 +72,21 @@ class FeedRedirectTest(TestCase):
         # Redirects permanently
         self.assertRedirects(resp, settings.RSS_FEED_URLS["en"],
                 status_code=301, fetch_redirect_response=False)
+
+    def test_legacy_en_feed_redirect(self):
+        resp = self.client.get("/en/?tempskin=_atom", follow=False)
+        # Redirects permanently
+        self.assertRedirects(resp, settings.RSS_FEED_URLS["en"],
+                status_code=301, fetch_redirect_response=False)
             
     def test_jp_feed_redirect(self):
         resp = self.client.get("/feed/jpfeed", follow=False)
+        # Redirects permanently
+        self.assertRedirects(resp, settings.RSS_FEED_URLS["jp"],
+                status_code=301, fetch_redirect_response=False)
+
+    def test_legacy_jp_feed_redirect(self):
+        resp = self.client.get("/jp/?tempskin=_atom", follow=False)
         # Redirects permanently
         self.assertRedirects(resp, settings.RSS_FEED_URLS["jp"],
                 status_code=301, fetch_redirect_response=False)

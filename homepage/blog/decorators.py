@@ -1,6 +1,7 @@
 #:coding=utf8:
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponsePermanentRedirect
+from django.conf import settings
 
 def feed_redirect(view):
     """
@@ -14,9 +15,9 @@ def feed_redirect(view):
            request.GET.get("tempskin") == "_atom":
             if request.GET.get("lang") == "ja-JP" or \
                kwargs.get("locale") == "jp":
-                return HttpResponseRedirect("http://feeds2.feedburner.com/IanLewisBlogJP")
+                return HttpResponsePermanentRedirect(settings.RSS_FEED_URLS["jp"])
             else:
-                return HttpResponseRedirect("http://feeds2.feedburner.com/IanLewisBlog")
+                return HttpResponsePermanentRedirect(settings.RSS_FEED_URLS["en"])
         return view(request, *args, **kwargs)
 
     return wrapped
