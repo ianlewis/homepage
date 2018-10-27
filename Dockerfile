@@ -11,13 +11,15 @@ RUN set -x \
             zlib1g-dev
 
 COPY setup.py README.md requirements.txt MANIFEST.in LICENSE AUTHORS /homepage/
-COPY homepage/ /homepage/homepage
 
 # Set the version of the app
 RUN virtualenv /venv
-RUN rm -rf /homepage/homepage/site_media
 RUN /venv/bin/pip install -U setuptools
 RUN /venv/bin/pip install -r /homepage/requirements.txt
+
+# Copy homepage after installing dependencies in order to take advantage of cache.
+COPY homepage/ /homepage/homepage
+RUN rm -rf /homepage/homepage/site_media
 RUN set -x \
         && cd /homepage \
         && /venv/bin/python setup.py sdist \
