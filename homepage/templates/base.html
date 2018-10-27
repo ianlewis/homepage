@@ -24,12 +24,11 @@
       <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-800">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">Ian Lewis</span>
+          <span class="mdl-layout-title"><a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "main_page" %}">Ian Lewis</a></span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "main_page" %}">Home</a>
             <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "blog_page" "en" %}">English Blog</a>
             <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "blog_page" "jp" %}">日本語ブログ</a>
             <a class="mdl-navigation__link mdl-color-text--grey-800" href="{% url "talk_list" %}">Talks</a>
