@@ -193,6 +193,7 @@ INSTALLED_APPS = [
     # app
     'homepage.core',
     'homepage.blog',
+    'homepage.events',
 ]
 if TESTING:
     INSTALLED_APPS += ['debug_toolbar', 'template_profiler_panel']

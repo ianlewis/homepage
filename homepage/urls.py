@@ -7,6 +7,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from homepage.blog import urls as blog_urls
+from homepage.events import urls as event_urls
 from homepage.core import views
 
 import redirects
@@ -27,6 +28,7 @@ urlpatterns += [
 ]
 
 urlpatterns += blog_urls.urlpatterns
+urlpatterns += event_urls.urlpatterns
 
 urlpatterns += [
     url(r'robots.txt', views.robots, name='robots'),

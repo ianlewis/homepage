@@ -1,7 +1,13 @@
 #:coding=utf8:
+
 import re
+import markdown
 
 from datetime import datetime,timedelta
+
+from docutils.writers import html4css1
+from docutils.core import publish_parts
+from docutils import nodes
 
 from django.utils.safestring import mark_safe
 from django.utils.translation import ngettext,ugettext_lazy as _
@@ -13,6 +19,47 @@ from homepage.core.utils import batch
 register = template.Library()
 
 register.filter(batch)
+
+class HTMLWriter(html4css1.Writer):
+    def __init__(self):
+        html4css1.Writer.__init__(self)
+        self.translator_class = HTMLTranslator
+
+class HTMLTranslator(html4css1.HTMLTranslator):
+    named_tags = []
+
+    def visit_literal(self, node):
+        # TODO: wrapping fixes.
+        self.body.append("<code>%s</code>" % node.astext())
+        raise nodes.SkipNode
+
+def rst_to_html(value):
+    parts = publish_parts(source=value, writer=HTMLWriter(),
+                          settings_overrides={"initial_header_level": 2})
+    return mark_safe(parts["fragment"])
+register.filter("rst_to_html", rst_to_html)
+
+def md_to_html(value):
+    """
+    Convert markdown post to HTML
+    """
+    return mark_safe(
+        markdown.markdown(
+            text=value,
+            extensions=[
+                'markdown.extensions.fenced_code',
+                'markdown.extensions.codehilite',
+                'markdown.extensions.tables',
+                'markdown.extensions.smart_strong',
+            ],
+            extension_configs={
+                'markdown.extensions.codehilite': {
+                    'css_class': 'highlight',
+                }
+            }
+        )
+    )
+register.filter("md_to_html", md_to_html)
 
 @register.filter
 @stringfilter

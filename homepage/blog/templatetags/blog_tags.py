@@ -4,20 +4,22 @@ import re
 import logging
 import html2text
 import HTMLParser
-import markdown
 
 from django.template import Library
 from django.utils.safestring import mark_safe
 
-from docutils import nodes
-from docutils.writers import html4css1
-from docutils.core import publish_parts
 from docutils.parsers.rst import directives, states
 from docutils.parsers.rst import DirectiveError
+from docutils import nodes
 
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, TextLexer
+
+from homepage.core.templatetags.utility_tags import (
+    rst_to_html,
+    md_to_html,
+) 
 
 register = Library()
 
@@ -29,7 +31,6 @@ def flag(argument):
         raise ValueError('no argument is allowed; "%s" supplied' % argument)
     else:
         return True
-
 
 def pygments_directive(name, arguments, options, content, lineno,
                        content_offset, block_text, state, state_machine):
@@ -119,56 +120,15 @@ lightbox_directive.options = {
 directives.register_directive("lightbox", lightbox_directive)
 
 
-class HTMLWriter(html4css1.Writer):
-    def __init__(self):
-        html4css1.Writer.__init__(self)
-        self.translator_class = HTMLTranslator
-
-
-class HTMLTranslator(html4css1.HTMLTranslator):
-    named_tags = []
-
-    def visit_literal(self, node):
-        # TODO: wrapping fixes.
-        self.body.append("<code>%s</code>" % node.astext())
-        raise nodes.SkipNode
-
-
-def rst_to_html(value):
-    parts = publish_parts(source=value, writer=HTMLWriter(),
-                          settings_overrides={"initial_header_level": 2})
-    return parts["fragment"]
-
-
-def md_to_html(value):
-    """
-    Convert markdown post to HTML
-    """
-    return markdown.markdown(
-        text=value,
-        extensions=[
-            'markdown.extensions.fenced_code',
-            'markdown.extensions.codehilite',
-            'markdown.extensions.tables',
-            'markdown.extensions.smart_strong',
-        ],
-        extension_configs={
-            'markdown.extensions.codehilite': {
-                'css_class': 'highlight',
-            }
-        }
-    )
-
-
 def to_html(obj):
     if obj.markup_type == "md":
         html = md_to_html(obj.content)
     elif obj.markup_type == "rst":
         html = rst_to_html(obj.content)
     else:
-        html = obj.content
+        html = mark_safe(obj.content)
 
-    return mark_safe(html)
+    return html
 register.filter("to_html", to_html)
 
 

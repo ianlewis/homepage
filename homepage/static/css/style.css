@@ -106,7 +106,11 @@
     width: 100%;
 }
 
-.hero-post .mdl-card__title, .post-list .mdl-card__title {
+.hero-post .mdl-card, .post-list .mdl-card, .talk-list .mdl-card {
+    min-height: 0;
+}
+
+.hero-post .mdl-card__title, .post-list .mdl-card__title, .talk-list .mdl-card__title {
     padding-bottom: 0;
 }
 
@@ -115,7 +119,7 @@
     margin: 0;
 }
 
-.post-list .mdl-card__title h4 {
+.post-list .mdl-card__title h4, .talk-list .mdl-card__title h4 {
     font-size: 28px;
     margin: 0;
 }
@@ -277,6 +281,20 @@
     -webkit-border-radius: 4px 0 4px 0;
        -moz-border-radius: 4px 0 4px 0;
             border-radius: 4px 0 4px 0;
+}
+
+/* ========= Talks ================ */
+
+.talk-detail .mdl-card__title h3 {
+    margin-bottom: 0;
+}
+
+.talk-detail .mdl-card__subtitle-text {
+    padding-left: 16px;
+}
+    
+.talk-detail .talk-abstract {
+    padding: 16px;
 }
 
 /* ========= Pagination =========== */
