@@ -116,24 +116,55 @@ def blog_page(request, locale):
 
     return render(request, 'blog/post_list.html', context)
 
-class TagPage(ListView):
-    model = Post
-    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super(TagPage, self).get_context_data(**kwargs)
-        locale = self.kwargs['locale']
-        tag = self.kwargs['tag']
-        context['locale'] = locale
-        context['tag'] = tag
-        if locale in settings.RSS_FEED_URLS:
-            context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
-        return context
+@require_http_methods(['GET', 'HEAD'])
+def tag_page(request, locale, tag):
+    # Validate the page number
+    try:
+        page_number = int(request.GET.get("page", "1"))
+    except ValueError:
+        page_number = 1
 
-    def get_queryset(self):
-        return Post.objects.published().filter(
-            locale=self.kwargs['locale'],
-            tags__name=self.kwargs['tag'],
+    if page_number < 1:
+        raise Http404("Less than 1")
+
+    pub_date = int(time.time())
+
+    page_future = blog_stub.GetPage.future(
+        blog_pb2.GetPageRequest(
+            locale=locale,
+            pub_date=pub_date,
+            tag=blog_pb2.Tag(name=tag),
+            active=blog_pb2.PUBLISHED,
+            # Page number is zero indexed
+            page_number=page_number - 1,
+            result_per_page=10,
         )
+    )
 
-tag_page = TagPage.as_view()
+    num_pages_future = blog_stub.GetNumPages.future(
+        blog_pb2.GetNumPagesRequest(
+            locale=locale,
+            pub_date=pub_date,
+            tag=blog_pb2.Tag(name=tag),
+            active=blog_pb2.PUBLISHED,
+            result_per_page=10,
+        )
+    )
+    
+    page_reply = page_future.result()
+    num_pages_reply = num_pages_future.result()
+
+    if page_number > num_pages_reply.num_pages:
+        raise Http404("Page doesn't exist.")
+
+    context = {}
+    context["locale"] = locale
+    context["tag"] = tag
+    context["is_paginated"] = num_pages_reply.num_pages > 1
+    context["page_obj"] = Page(page_number, num_pages_reply.num_pages)
+    context["object_list"] = page_reply.posts
+    if locale in settings.RSS_FEED_URLS:
+        context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
+
+    return render(request, 'blog/post_list.html', context)
