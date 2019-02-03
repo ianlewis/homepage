@@ -1,5 +1,7 @@
 #:coding=utf8:
 
+import time
+
 from django.http import HttpResponse, Http404
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import cache_page
@@ -11,7 +13,8 @@ from django.shortcuts import render
 from constance import config
 
 import homepage
-from homepage.blog.models import Post
+from homepage.blog.stub import blog_stub
+from homepage.blog.pb import blog_pb2
 
 
 @require_http_methods(['GET', 'HEAD'])
@@ -20,16 +23,37 @@ def main_page(request):
     The top page.
     Shows a few English and Japanese blog posts as a teaser.
     """
-    en_posts = (
-        Post.objects.published().filter(locale="en").order_by("-pub_date"))
-    jp_posts = (
-        Post.objects.published().filter(locale="jp").order_by("-pub_date"))
+    pub_date = int(time.time())
+
+    en_page_future = blog_stub.GetPage.future(
+        blog_pb2.GetPageRequest(
+            locale="en",
+            pub_date=pub_date,
+            active=blog_pb2.PUBLISHED,
+            # Page number is zero indexed
+            page_number=0,
+            result_per_page=10,
+        )
+    )
+    jp_page_future = blog_stub.GetPage.future(
+        blog_pb2.GetPageRequest(
+            locale="jp",
+            pub_date=pub_date,
+            active=blog_pb2.PUBLISHED,
+            # Page number is zero indexed
+            page_number=0,
+            result_per_page=5,
+        )
+    )
+
+    en_reply = en_page_future.result()
+    jp_reply = jp_page_future.result()
 
     return render(request, "index.html", {
         "en_rss_feed_url": settings.RSS_FEED_URLS["en"],
         "jp_rss_feed_url": settings.RSS_FEED_URLS["jp"],
-        "jp_posts": jp_posts,
-        "en_posts": en_posts,
+        "jp_posts": jp_reply.posts,
+        "en_posts": en_reply.posts,
     })
 
 

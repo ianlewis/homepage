@@ -40,7 +40,7 @@
           <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "en" %}">View all posts</a></p>
         </div>
         {% for post in en_posts|slice:":5" %}
-          {% cache 86400 "index_post_v1" post.id post.update_date %}
+          {% cache 86400 "index_post_v1" post.slug post.update_date %}
           {% with post|to_html|first_image as post_image %}
           <div class="hero-cell mdl-cell mdl-cell--12-col">
             <div class="hero-post">
@@ -49,14 +49,14 @@
                 <div class="mdl-card__media" style="background-image: url({{ post_image }});">&nbsp;</div>
                 {% endif %}  
                 <div class="mdl-card__title">
-                  <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+                  <h4><a href="{% url "blog_detail" post.locale post.slug %}">{{ post.title }}</a></h4>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <em>{{ post.pub_date|date:"DATE_FORMAT" }}</em><br />
+                  <em>{{ post.pub_date|timestamp:"DATE_FORMAT" }}</em><br />
                   {{ post|to_lead:200|default:"&nbsp;" }}
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">Read More</a>
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url "blog_detail" post.locale post.slug %}">Read More</a>
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@
           <p><a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" href="{% url "blog_page" "jp" %}">すべての記事を読む</a></p>
         </div>
         {% for post in jp_posts|slice:":5" %}
-          {% cache 86400 "index_post_v1" post.id post.update_date %}
+          {% cache 86400 "index_post_v1" post.slug post.update_date %}
           {% with post|to_html|first_image as post_image %}
           <div class="mdl-cell mdl-cell--12-col">
             <div class="hero-post">
@@ -82,14 +82,14 @@
                 <div class="mdl-card__media" style="background-image: url({{ post_image }});">&nbsp;</div>
                 {% endif %}  
                 <div class="mdl-card__title">
-                  <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+                  <h4><a href="{% url "blog_detail" post.locale post.slug %}">{{ post.title }}</a></h4>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <em>{{ post.pub_date|date:"DATE_FORMAT" }}</em><br />
+                  <em>{{ post.pub_date|timestamp:"DATE_FORMAT" }}</em><br />
                   {{ post|to_lead:100|default:"&nbsp;" }}
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">Read More</a>
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url "blog_detail" post.locale post.slug %}">Read More</a>
                 </div>
               </div>
             </div>

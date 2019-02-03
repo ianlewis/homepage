@@ -15,14 +15,9 @@ from django.conf import settings
 from homepage.blog.models import Post
 from homepage.blog.decorators import feed_redirect
 from homepage.blog.templatetags.blog_tags import to_html
-
 from homepage.blog.pagination import Page 
-
 from homepage.blog.stub import blog_stub
-from homepage.blog.pb import (
-    blog_pb2,
-    blog_pb2_grpc,
-)
+from homepage.blog.pb import blog_pb2
 
 @require_http_methods(['GET', 'HEAD'])
 def blog_detail(request, locale, slug):
@@ -71,27 +66,6 @@ def blog_detail_preview(request, locale, slug):
     context['content_html'] = to_html(reply.post)
 
     return render(request, 'blog/post_detail.html', context)
-
-# class BlogPage(ListView):
-#     model = Post
-#     paginate_by = 10
-
-#     def get_context_data(self, **kwargs):
-#         context = super(BlogPage, self).get_context_data(**kwargs)
-#         locale = self.kwargs['locale']
-#         context['locale'] = locale
-#         if locale in settings.RSS_FEED_URLS:
-#             context['rss_feed_url'] = settings.RSS_FEED_URLS[locale]
-#         return context
-
-#     def get_queryset(self):
-#         return Post.objects.published().filter(
-#             locale=self.kwargs['locale'],
-#         )
-
-# blog_page = require_http_methods(['GET', 'HEAD'])(
-#     feed_redirect(BlogPage.as_view()),
-# )
 
 @require_http_methods(['GET', 'HEAD'])
 def blog_page(request, locale):
