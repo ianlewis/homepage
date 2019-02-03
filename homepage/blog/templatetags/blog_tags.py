@@ -4,9 +4,12 @@ import re
 import logging
 import html2text
 import HTMLParser
+from datetime import datetime
 
 from django.template import Library
 from django.utils.safestring import mark_safe
+from django.utils import timezone
+from django.template.defaultfilters import date as datefilter
 
 from docutils.parsers.rst import directives, states
 from docutils.parsers.rst import DirectiveError
@@ -20,6 +23,9 @@ from homepage.core.templatetags.utility_tags import (
     rst_to_html,
     md_to_html,
 ) 
+from homepage.blog.pb import blog_pb2
+
+
 
 register = Library()
 
@@ -121,9 +127,9 @@ directives.register_directive("lightbox", lightbox_directive)
 
 
 def to_html(obj):
-    if obj.markup_type == "md":
+    if obj.markup_type == "md" or obj.markup_type == blog_pb2.BlogPost.MARKDOWN:
         html = md_to_html(obj.content)
-    elif obj.markup_type == "rst":
+    elif obj.markup_type == "rst" or obj.markup_type == blog_pb2.BlogPost.REST:
         html = rst_to_html(obj.content)
     else:
         html = mark_safe(obj.content)
@@ -232,3 +238,11 @@ def first_image(html):
     return parser.img
 
 register.filter("first_image", first_image)
+
+def timestamp(value, arg=None):
+	"""
+	Renders the given UTC timestamp as a date.
+	"""
+	return datefilter(datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc), arg)
+
+register.filter("timestamp", timestamp)

@@ -14,6 +14,9 @@ TESTING = env_var('TESTING', bool, default=DEBUG)
 ADMINS = env_var('ADMINS', email_csv, default=())
 MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
 
+# Address of the BLOG grpc service.
+BLOG_ADDRESS = env_var('BLOG_ADDRESS', default='blog:50051')
+
 _db_engine = env_var('DB_ENGINE', default='sqlite3' if DEBUG else 'mysql')
 _db_name = env_var('DB_NAME', default="homepage")
 _db_timeout = env_var('DB_TIMEOUT', int, default=3)

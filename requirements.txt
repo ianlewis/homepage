@@ -3,6 +3,10 @@ Django==1.11.16
 django-debug-toolbar==1.10.1
 django-debug-toolbar-template-profiler==1.0.2
 
+# GRPC
+protobuf==3.6.1
+grpcio==1.18.0
+
 # Feature flags
 gargoyle-yplan==1.4.0
 

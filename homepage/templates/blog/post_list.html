@@ -7,7 +7,7 @@
   {% if object_list %}
   <div class="post-list mdl-grid">
     {% for post in object_list %}
-      {% cache 86400 "post_list_post_v1" post.id post.update_date %}
+      {% cache 86400 "post_list_post_v1" post.slug post.update_date %}
       <div class="mdl-cell mdl-cell--1-col"></div>
       {% with post|to_html|first_image as post_image %}
         <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--10-col"{% if post_image %} style="min-height:450px;"{% endif %}>
@@ -15,16 +15,16 @@
           <div class="mdl-card__media" style="background-image: url({{ post_image }});">&nbsp;</div>
           {% endif %}  
           <div class="mdl-card__title">
-            <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+            <h4><a href="{% url "blog_detail" locale post.slug %}">{{ post.title }}</a></h4>
           </div>
           <div class="mdl-card__supporting-text">
-            <em>{{ post.pub_date|date:"DATE_FORMAT" }}</em><br />
+            <em>{{ post.pub_date|timestamp:"DATE_FORMAT" }}</em><br />
             {{ post|to_lead:250|default:"&nbsp;" }}
           </div>
           <div class="mdl-card__actions mdl-card--border flex">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ post.get_absolute_url }}">Read More</a>
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url "blog_detail" locale post.slug %}">Read More</a>
             <div class="mdl-layout-spacer"></div>
-            {% for tag in post.tags.all %}
+            {% for tag in post.tags %}
               <a href="{% url "blog_tag_page" post.locale tag.name %}" class="mdl-chip">
                 <span class="mdl-chip__text">{{ tag.name }}</a></span>
               </a>
