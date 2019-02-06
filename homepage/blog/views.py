@@ -28,7 +28,7 @@ def blog_detail(request, locale, slug):
         )
     )
 
-    if not reply.post.active:
+    if not reply.post or not reply.post.active:
         raise Http404("Post not found")
 
     context = {}
