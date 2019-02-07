@@ -5,6 +5,11 @@
 {% block keywords %}{{ tags|join:" " }}{% endblock %}
 {% block description %}{% with content_html|striptags as description %}{{ description|slice:":150" }}{% if description|length > 150 %}...{% endif %}{% endwith %}{% endblock %}
 
+{% block meta %}
+{{ block.super }}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url "blog_detail" object.locale object.slug %}" />
+{% endblock %}
+
 {% block content %}
 <div class="mdl-grid">
   <div class="post-detail mdl-color--white mdl-shadow--4dp mdl-cell mdl-cell--12-col">

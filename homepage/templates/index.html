@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% load utility_tags blog_tags i18n cache %}
 
-{% block rss %}
-{% if en_rss_feed_url %}
+  {% block rss %}
+  {% if en_rss_feed_url %}
 <link rel="alternate" type="application/rss+xml" title="English RSS Feed" href="{{ en_rss_feed_url }}" />
 {% endif %}
 {% if jp_rss_feed_url %}
 <link rel="alternate" type="application/rss+xml" title="Japanese RSS Feed" href="{{ jp_rss_feed_url }}" />
 {% endif %}
+{% endblock %}
+
+{% block meta %}
+{{ block.super }}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url "main_page" %}" />
 {% endblock %}
 
 {% block content %}

@@ -3,6 +3,11 @@
 
 {% block title %}{% if tag %}{% if locale == "jp" %}{{ tag }}のボログ記事{% else %}{{ tag }} Blog Posts{% endif %}{% else %}{% if locale == "jp" %}日本語ブログ{% else %}English Blog{% endif %}{% endif %}{% endblock %}
 
+{% block meta %}
+{{ block.super }}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url "blog_page" locale %}" />
+{% endblock %}
+
 {% block content %}
   {% if object_list %}
   <div class="post-list mdl-grid">

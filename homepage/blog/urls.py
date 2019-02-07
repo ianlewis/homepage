@@ -25,9 +25,9 @@ urlpatterns += [
     url(r'^(?P<locale>jp|en)/tag/(?P<tag>.+)$',
         views.tag_page, name='blog_tag_page'),
 
-    url(r'^(?P<locale>jp|en)/(?P<slug>[^/]+)/?$',
+    url(r'^(?P<locale>jp|en)/(?P<slug>[^/]+)$',
         views.blog_detail, name='blog_detail'),
-    url(r'^(?P<locale>jp|en)/?$', views.blog_page, name="blog_page"),
+    url(r'^(?P<locale>jp|en)$', views.blog_page, name="blog_page"),
 ]
 
 # feed urls

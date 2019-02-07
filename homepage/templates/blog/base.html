@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block html_attrs %}{% if locale %} lang="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}"{% endif %}{% endblock %}
 
-{% block extra_meta %}
+{% block meta %}
+{{ block.super }}
 {% if locale %}<meta http-equiv="content-language" content="{% ifequal locale "jp" %}ja{% else %}en{% endifequal %}">{% endif %}
 {% endblock %}
 
