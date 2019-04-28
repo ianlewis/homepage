@@ -1,11 +1,11 @@
-FROM python:2.7.14-slim-jessie
+FROM python:2.7.16-slim-stretch
 
 RUN set -x \
         && apt-get update \
         && apt-get install -y \
             virtualenv \
             build-essential \
-            libmysqlclient-dev \
+            default-libmysqlclient-dev \
             libmemcached-dev \
             libjpeg-dev \
             zlib1g-dev
@@ -26,13 +26,13 @@ RUN set -x \
         && mv dist/homepage-*.tar.gz dist/homepage.tar.gz
 RUN /venv/bin/pip install /homepage/dist/homepage.tar.gz
 
-FROM python:2.7.14-slim-jessie
+FROM python:2.7.16-slim-stretch
 
 # Only install non-dev packages
 RUN set -x \
         && apt-get update \
         && apt-get install -y \
-            libmysqlclient18 \
+            libmariadbclient18 \
             libmemcached11 \
             libjpeg62 \
             zlib1g \

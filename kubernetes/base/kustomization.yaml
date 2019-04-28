@@ -5,4 +5,4 @@ resources:
 configMapGenerator:
 - name: homepage-nginx-conf
   files:
-  - ../../nginx.conf
+  - homepage-nginx-conf/nginx.conf
