@@ -1,4 +1,4 @@
-Django==1.11.23
+Django==1.11.26
 
 django-debug-toolbar==1.11
 django-debug-toolbar-template-profiler==1.0.2
