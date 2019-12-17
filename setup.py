@@ -1,4 +1,4 @@
-#:coding=utf-8:
+# :coding=utf-8:
 
 import os
 
@@ -25,19 +25,19 @@ class BuildStatic(Command):
         import django
         from django.core.management import call_command
 
-        os.environ['DEBUG'] = 'True'
-        os.environ['DJANGO_SETTINGS_MODULE'] = 'homepage.settings'
+        os.environ["DEBUG"] = "True"
+        os.environ["DJANGO_SETTINGS_MODULE"] = "homepage.settings"
         django.setup()
-        call_command('collectstatic', interactive=False)
+        call_command("collectstatic", interactive=False)
 
 
 class SdistWithBuildStatic(sdist):
     def run(self):
-        self.run_command('build_static')
+        self.run_command("build_static")
         return sdist.run(self)
 
 
-with open(os.path.join(BASE_PATH, 'requirements.txt')) as requirements:
+with open(os.path.join(BASE_PATH, "requirements.txt")) as requirements:
     install_requires = []
     for line in requirements.readlines():
         line = line.strip()
@@ -46,8 +46,7 @@ with open(os.path.join(BASE_PATH, 'requirements.txt')) as requirements:
 
 setup(
     name="homepage",
-    version=open(os.path.join(BASE_PATH,
-                              'homepage', 'VERSION')).read().strip(),
+    version=open(os.path.join(BASE_PATH, "homepage", "VERSION")).read().strip(),
     author="Ian Lewis",
     author_email="ianmlewis@gmail.com",
     description="Ian Lewis' homepage at www.ianlewis.org",
@@ -55,19 +54,12 @@ setup(
     keywords="django homepage blog",
     url="http://www.ianlewis.org/",
     packages=find_packages(),
-    long_description=open(os.path.join(BASE_PATH, 'README.md')).read(),
+    long_description=open(os.path.join(BASE_PATH, "README.md")).read(),
     install_requires=install_requires,
     tests_require=["mock==2.0.0"],
     include_package_data=True,  # Include static files, templates, etc.
-    cmdclass={
-        'build_static': BuildStatic,
-        'sdist': SdistWithBuildStatic,
-    },
-    entry_points={
-        'console_scripts': [
-            'homepage = homepage.runner:main',
-        ],
-    },
+    cmdclass={"build_static": BuildStatic, "sdist": SdistWithBuildStatic},
+    entry_points={"console_scripts": ["homepage = homepage.runner:main"]},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 2.7"
@@ -75,5 +67,5 @@ setup(
         "Framework :: Django :: 1.4",
         "License :: OSI Approved :: MIT License",
     ],
-    test_suite='tests.main',
+    test_suite="tests.main",
 )
