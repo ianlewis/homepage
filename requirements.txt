@@ -16,9 +16,6 @@ pygments>=1.0
 html2text==3.200.3
 Markdown==3.1.1
 
-# For thumbnails
-Pillow==3.0.0
-
 # Settings
 django-constance[database]==2.2.0
 
