@@ -8,32 +8,32 @@ from homepage.conf import env_var, email_csv, csv_list
 
 ROOT_PATH = os.path.dirname(__file__)
 
-DEBUG = env_var('DEBUG', bool, default=False)
-TESTING = env_var('TESTING', bool, default=DEBUG)
+DEBUG = env_var("DEBUG", bool, default=False)
+TESTING = env_var("TESTING", bool, default=DEBUG)
 
-ADMINS = env_var('ADMINS', email_csv, default=())
-MANAGERS = env_var('MANAGERS', email_csv, default=ADMINS)
+ADMINS = env_var("ADMINS", email_csv, default=())
+MANAGERS = env_var("MANAGERS", email_csv, default=ADMINS)
 
 # Address of the BLOG grpc service.
-BLOG_ADDRESS = env_var('BLOG_ADDRESS', default='blog:50051')
+BLOG_ADDRESS = env_var("BLOG_ADDRESS", default="blog:50051")
 
-_db_engine = env_var('DB_ENGINE', default='sqlite3' if DEBUG else 'mysql')
-_db_name = env_var('DB_NAME', default="homepage")
-_db_timeout = env_var('DB_TIMEOUT', int, default=3)
-_db_options = {'connect_timeout': _db_timeout}
-if _db_engine == 'sqlite3':
-    _db_name = env_var('DB_NAME', default='djangodb.sqlite')
-    _db_options = {'timeout': _db_timeout}
+_db_engine = env_var("DB_ENGINE", default="sqlite3" if DEBUG else "mysql")
+_db_name = env_var("DB_NAME", default="homepage")
+_db_timeout = env_var("DB_TIMEOUT", int, default=3)
+_db_options = {"connect_timeout": _db_timeout}
+if _db_engine == "sqlite3":
+    _db_name = env_var("DB_NAME", default="djangodb.sqlite")
+    _db_options = {"timeout": _db_timeout}
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.%s' % _db_engine,
-        'NAME': _db_name,
-        'USER': env_var('DB_USER', default=''),
-        'PASSWORD': env_var('DB_PASSWORD', default=''),
-        'HOST': env_var('DB_HOST', default=''),
-        'PORT': env_var('DB_PORT', default=''),
-        'OPTIONS': _db_options,
+    "default": {
+        "ENGINE": "django.db.backends.%s" % _db_engine,
+        "NAME": _db_name,
+        "USER": env_var("DB_USER", default=""),
+        "PASSWORD": env_var("DB_PASSWORD", default=""),
+        "HOST": env_var("DB_HOST", default=""),
+        "PORT": env_var("DB_PORT", default=""),
+        "OPTIONS": _db_options,
     }
 }
 
@@ -42,11 +42,11 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = env_var('TIME_ZONE', default='Asia/Tokyo')
+TIME_ZONE = env_var("TIME_ZONE", default="Asia/Tokyo")
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = env_var('LANGUAGE_CODE', default='en-us')
+LANGUAGE_CODE = env_var("LANGUAGE_CODE", default="en-us")
 
 SITE_ID = 1
 
@@ -56,27 +56,20 @@ USE_I18N = False
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, 'site_media')
-MEDIA_ROOT = env_var('MEDIA_ROOT',
-                     default=os.path.join(SITE_MEDIA_ROOT, 'media'))
-STATIC_ROOT = env_var('STATIC_ROOT',
-                      default=os.path.join(SITE_MEDIA_ROOT, 'static'))
+SITE_MEDIA_ROOT = os.path.join(ROOT_PATH, "site_media")
+MEDIA_ROOT = env_var("MEDIA_ROOT", default=os.path.join(SITE_MEDIA_ROOT, "media"))
+STATIC_ROOT = env_var("STATIC_ROOT", default=os.path.join(SITE_MEDIA_ROOT, "static"))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-SITE_MEDIA_URL = '/'
-MEDIA_URL = posixpath.join(SITE_MEDIA_URL, 'media/')
-STATIC_URL = posixpath.join(SITE_MEDIA_URL, 'static/')
+SITE_MEDIA_URL = "/"
+MEDIA_URL = posixpath.join(SITE_MEDIA_URL, "media/")
+STATIC_URL = posixpath.join(SITE_MEDIA_URL, "static/")
 
-STATICFILES_DIRS = (
-    os.path.join(ROOT_PATH, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(ROOT_PATH, "static"),)
 
-STATICFILES_MEDIA_DIRNAMES = (
-    'media',
-    'static',
-)
+STATICFILES_MEDIA_DIRNAMES = ("media", "static")
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -84,18 +77,18 @@ STATICFILES_FINDERS = (
     "compressor.finders.CompressorFinder",
 )
 
-COMPRESS_ENABLED = env_var('COMPRESS_ENABLED', default=not DEBUG)
+COMPRESS_ENABLED = env_var("COMPRESS_ENABLED", default=not DEBUG)
 COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
+    "compressor.filters.css_default.CssAbsoluteFilter",
+    "compressor.filters.cssmin.CSSMinFilter",
 ]
 
 # Make this unique, and don't share it with anybody.
 if not DEBUG:
     # NOTE: Secret key is required in debug mode.
-    SECRET_KEY = env_var('SECRET_KEY')
+    SECRET_KEY = env_var("SECRET_KEY")
 else:
-    SECRET_KEY = env_var('SECRET_KEY', default='snake-oil')
+    SECRET_KEY = env_var("SECRET_KEY", default="snake-oil")
 
 # Set session and csrf cookies so they are only sent over a secure connection.
 SESSION_COOKIE_SECURE = env_var("USE_HTTPS", bool, default=not DEBUG)
@@ -103,14 +96,14 @@ CSRF_COOKIE_SECURE = env_var("USE_HTTPS", bool, default=not DEBUG)
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (os.path.join(ROOT_PATH, 'templates'),),
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'debug': env_var('TEMPLATE_DEBUG', bool, default=DEBUG),
-            'context_processors': [
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": (os.path.join(ROOT_PATH, "templates"),),
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "debug": env_var("TEMPLATE_DEBUG", bool, default=DEBUG),
+            "context_processors": [
                 "django.contrib.auth.context_processors.auth",
-                'django.contrib.messages.context_processors.messages',
+                "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
@@ -118,28 +111,24 @@ TEMPLATES = [
                 "constance.context_processors.config",
                 "homepage.core.context_processors.debug",
                 "homepage.core.context_processors.disqus",
-            ] 
-        }
-    }        
+            ],
+        },
+    }
 ]
 
-MIDDLEWARE_CLASSES = [
-    'homepage.health.middleware.HealthCheckMiddleware',
-]
+MIDDLEWARE_CLASSES = ["homepage.health.middleware.HealthCheckMiddleware"]
 
 if TESTING:
-	MIDDLEWARE_CLASSES += [
-		'debug_toolbar.middleware.DebugToolbarMiddleware',
-	]
+    MIDDLEWARE_CLASSES += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
 MIDDLEWARE_CLASSES += [
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
     # TODO: Transaction handling
     # 'django.middleware.transaction.TransactionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
 ]
 
 USE_X_FORWARDED_HOST = True
@@ -154,72 +143,67 @@ USE_X_FORWARDED_HOST = True
 #     _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
 #     _cache_location = ''  # Not used by LocMemCache
 
-FILEBASED_CACHE_PATH = env_var('FILEBASED_CACHE_PATH', default='')
-USE_FILEBASED_CACHE = FILEBASED_CACHE_PATH != ''
+FILEBASED_CACHE_PATH = env_var("FILEBASED_CACHE_PATH", default="")
+USE_FILEBASED_CACHE = FILEBASED_CACHE_PATH != ""
 if USE_FILEBASED_CACHE:
-    _cache_backend = 'django.core.cache.backends.filebased.FileBasedCache'
+    _cache_backend = "django.core.cache.backends.filebased.FileBasedCache"
     _cache_location = FILEBASED_CACHE_PATH
 else:
     # NOTE: Default is local memory cache.
-    _cache_backend = 'django.core.cache.backends.locmem.LocMemCache'
-    _cache_location = ''  # Not used by LocMemCache
+    _cache_backend = "django.core.cache.backends.locmem.LocMemCache"
+    _cache_location = ""  # Not used by LocMemCache
 
 CACHES = {
-    'default': {
-        'BACKEND': _cache_backend,
-        'LOCATION': _cache_location,
+    "default": {"BACKEND": _cache_backend, "LOCATION": _cache_location},
+    "compress": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "TIMEOUT": 2000,
     },
-    'compress': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'TIMEOUT': 2000,
-    }
 }
-COMPRESS_CACHE_BACKEND = 'compress'
+COMPRESS_CACHE_BACKEND = "compress"
 
 
-ROOT_URLCONF = 'homepage.urls'
+ROOT_URLCONF = "homepage.urls"
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.flatpages',
-    'django.contrib.staticfiles',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django.contrib.flatpages",
+    "django.contrib.staticfiles",
     # Third party
-    'constance',
-    'gargoyle',
-    'constance.backends.database',
-    'compressor',
-
+    "constance",
+    "gargoyle",
+    "constance.backends.database",
+    "compressor",
     # app
-    'homepage.core',
-    'homepage.blog',
-    'homepage.events',
+    "homepage.core",
+    "homepage.blog",
+    "homepage.events",
 ]
 if TESTING:
-    INSTALLED_APPS += ['debug_toolbar', 'template_profiler_panel']
+    INSTALLED_APPS += ["debug_toolbar", "template_profiler_panel"]
 
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
-    'robots_txt': ("User-agent: *\nDisallow: /",
-                   "The contents of robots.txt."),
-    'security_txt': ("", "security.txt for responsible disclosure."),
-    'security_txt_sig': ("", "Signature for security.txt"),
-    'robots_txt': ("User-agent: *\nDisallow: /",
-                   "The contents of robots.txt."),
-    'header_profile_img_url': ("/static/img/profile_sm.jpg",
-                               "The URL for the profile image in the header."),
+    "robots_txt": ("User-agent: *\nDisallow: /", "The contents of robots.txt."),
+    "security_txt": ("", "security.txt for responsible disclosure."),
+    "security_txt_sig": ("", "Signature for security.txt"),
+    "robots_txt": ("User-agent: *\nDisallow: /", "The contents of robots.txt."),
+    "header_profile_img_url": (
+        "/static/img/profile_sm.jpg",
+        "The URL for the profile image in the header.",
+    ),
 }
 
 GARGOYLE_SWITCH_DEFAULTS = {
-    'talks': {
-      'is_active': False,
-      'label': 'Show talks',
-      'description': 'Show talks feature',
-    },
+    "talks": {
+        "is_active": False,
+        "label": "Show talks",
+        "description": "Show talks feature",
+    }
 }
 
 # Need this to get around a bugs in HttpResponseRedirect
@@ -227,96 +211,84 @@ GARGOYLE_SWITCH_DEFAULTS = {
 APPEND_SLASH = False
 
 # django-disqus
-DISQUS_API_KEY = env_var('DISQUS_API_KEY', default='')
-DISQUS_WEBSITE_SHORTNAME = env_var('DISQUS_WEBSITE_SHORTNAME', default='')
+DISQUS_API_KEY = env_var("DISQUS_API_KEY", default="")
+DISQUS_WEBSITE_SHORTNAME = env_var("DISQUS_WEBSITE_SHORTNAME", default="")
 
 # logging
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-    },
-    'loggers': {
-        '': {'handlers': ['null']},
-    },
+    "version": 1,
+    "disable_existing_loggers": True,
+    "handlers": {"null": {"level": "DEBUG", "class": "logging.NullHandler"}},
+    "loggers": {"": {"handlers": ["null"]}},
 }
-if env_var('ENABLE_LOGGING', bool, default=True):
+if env_var("ENABLE_LOGGING", bool, default=True):
     LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'verbose': {
-                'format': '[%(asctime)s][%(name)s] %(levelname)s %(message)s',
-                'datefmt': "%Y-%m-%d %H:%M:%S",
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "verbose": {
+                "format": "[%(asctime)s][%(name)s] %(levelname)s %(message)s",
+                "datefmt": "%Y-%m-%d %H:%M:%S",
             },
-            'simple': {
-                'format': '%(levelname)s %(message)s'
+            "simple": {"format": "%(levelname)s %(message)s"},
+        },
+        "handlers": {
+            "null": {"level": "DEBUG", "class": "logging.NullHandler"},
+            "stderr": {
+                "level": "ERROR",
+                "formatter": "verbose",
+                "class": "logging.StreamHandler",
+                "stream": sys.stderr,
+            },
+            "stdout": {
+                "level": "DEBUG",
+                "formatter": "verbose",
+                "class": "logging.StreamHandler",
+                "stream": sys.stdout,
             },
         },
-        'handlers': {
-            'null': {
-                'level': 'DEBUG',
-                'class': 'logging.NullHandler',
+        "loggers": {
+            "": {
+                "handlers": ["stdout"],
+                "level": env_var("LOG_LEVEL", default="DEBUG" if DEBUG else "INFO"),
             },
-            'stderr': {
-                'level': 'ERROR',
-                'formatter': 'verbose',
-                'class': 'logging.StreamHandler',
-                'stream': sys.stderr,
-            },
-            'stdout': {
-                'level': 'DEBUG',
-                'formatter': 'verbose',
-                'class': 'logging.StreamHandler',
-                'stream': sys.stdout,
+            "django.request": {
+                "handlers": ["stderr"],
+                "propagate": False,
+                "level": "ERROR",
             },
         },
-        'loggers': {
-            '': {
-                'handlers': ['stdout'],
-                'level': env_var('LOG_LEVEL',
-                                 default='DEBUG' if DEBUG else 'INFO'),
-            },
-            'django.request': {
-                'handlers': ['stderr'],
-                'propagate': False,
-                'level': 'ERROR',
-            },
-        }
     }
 
-INTERNAL_IPS = env_var('INTERNAL_IPS', csv_list, default=())
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'homepage.settings.show_toolbar',
-}
+INTERNAL_IPS = env_var("INTERNAL_IPS", csv_list, default=())
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "homepage.settings.show_toolbar"}
+
+
 def show_toolbar(request):
     return TESTING
 
+
 DEBUG_TOOLBAR_PANELS = [
-	'debug_toolbar.panels.versions.VersionsPanel',
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.settings.SettingsPanel',
-    'debug_toolbar.panels.headers.HeadersPanel',
-    'debug_toolbar.panels.request.RequestPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-    'debug_toolbar.panels.templates.TemplatesPanel',
-	'template_profiler_panel.panels.template.TemplateProfilerPanel',
-    'debug_toolbar.panels.cache.CachePanel',
-    'debug_toolbar.panels.signals.SignalsPanel',
-    'debug_toolbar.panels.logging.LoggingPanel',
-    'debug_toolbar.panels.redirects.RedirectsPanel',
+    "debug_toolbar.panels.versions.VersionsPanel",
+    "debug_toolbar.panels.timer.TimerPanel",
+    "debug_toolbar.panels.settings.SettingsPanel",
+    "debug_toolbar.panels.headers.HeadersPanel",
+    "debug_toolbar.panels.request.RequestPanel",
+    "debug_toolbar.panels.sql.SQLPanel",
+    "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+    "debug_toolbar.panels.templates.TemplatesPanel",
+    "template_profiler_panel.panels.template.TemplateProfilerPanel",
+    "debug_toolbar.panels.cache.CachePanel",
+    "debug_toolbar.panels.signals.SignalsPanel",
+    "debug_toolbar.panels.logging.LoggingPanel",
+    "debug_toolbar.panels.redirects.RedirectsPanel",
 ]
 
 # Allow any subdomain of ianlewis.org
-_allowed_hosts = ['.ianlewis.org', '.ianlewis.org.']
+_allowed_hosts = [".ianlewis.org", ".ianlewis.org."]
 if DEBUG:
     _allowed_hosts = ["*"]
-ALLOWED_HOSTS = env_var('ALLOWED_HOSTS', csv_list, default=_allowed_hosts)
+ALLOWED_HOSTS = env_var("ALLOWED_HOSTS", csv_list, default=_allowed_hosts)
 
 RSS_FEED_URLS = {
     "en": "http://feeds.feedburner.com/IanLewisBlog",
