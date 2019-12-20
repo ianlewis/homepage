@@ -1,0 +1,22 @@
+apiVersion: skaffold/v1beta9
+kind: Config
+profiles:
+  # This is the profile for staging.
+  - name: staging
+    build:
+      artifacts:
+       - image: asia.gcr.io/ianlewis-org/homepage
+         context: "."
+    deploy:
+      kustomize:
+        path: ./kubernetes/staging
+
+  # This is the profile for production.
+  - name: prod
+    build:
+      artifacts:
+       - image: asia.gcr.io/ianlewis-org/homepage
+         context: "."
+    deploy:
+      kustomize:
+        path: ./kubernetes/prod
