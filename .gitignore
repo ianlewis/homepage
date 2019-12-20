@@ -4,6 +4,7 @@ build
 dist
 src
 homepage/site_media
+.secrets
 
 syntax: glob
 *.pyc

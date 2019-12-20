@@ -20,3 +20,23 @@ profiles:
     deploy:
       kustomize:
         path: ./kubernetes/prod
+
+  # Profile for migration for staging
+  - name: migrate_staging
+    build:
+      artifacts:
+        - image: asia.gcr.io/ianlewis-org/homepage
+          context: "."
+    deploy:
+      kustomize:
+        path: ./kubernetes/extras/migrate/staging
+
+  # Profile for migration for staging
+  - name: migrate_prod
+    build:
+      artifacts:
+        - image: asia.gcr.io/ianlewis-org/homepage
+          context: "."
+    deploy:
+      kustomize:
+        path: ./kubernetes/extras/migrate/prod

@@ -27,12 +27,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: homepage-admin-secret
-                  key: db-admin-user
+                  key: admin-user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: homepage-admin-secret
-                  key: db-admin-password
+                  key: admin-password
             - name: MEDIA_ROOT
               value: /var/www/media
             # - name: USE_MEMCACHED

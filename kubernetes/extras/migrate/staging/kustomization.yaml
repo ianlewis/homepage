@@ -1,3 +1,4 @@
 bases:
   - ./../base
+  - ./../../../staging/secrets
 namespace: staging
