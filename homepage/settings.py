@@ -63,7 +63,7 @@ STATIC_ROOT = env_var("STATIC_ROOT", default=os.path.join(SITE_MEDIA_ROOT, "stat
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-SITE_MEDIA_URL = "/"
+SITE_MEDIA_URL = "/admin/"
 MEDIA_URL = posixpath.join(SITE_MEDIA_URL, "media/")
 STATIC_URL = posixpath.join(SITE_MEDIA_URL, "static/")
 
@@ -74,14 +74,7 @@ STATICFILES_MEDIA_DIRNAMES = ("media", "static")
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 )
-
-COMPRESS_ENABLED = env_var("COMPRESS_ENABLED", default=not DEBUG)
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.css_default.CssAbsoluteFilter",
-    "compressor.filters.cssmin.CSSMinFilter",
-]
 
 # Make this unique, and don't share it with anybody.
 if not DEBUG:
@@ -108,18 +101,12 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
                 "django.template.context_processors.request",
-                "constance.context_processors.config",
-                "homepage.core.context_processors.debug",
-                "homepage.core.context_processors.disqus",
             ],
         },
     }
 ]
 
 MIDDLEWARE_CLASSES = ["homepage.health.middleware.HealthCheckMiddleware"]
-
-if TESTING:
-    MIDDLEWARE_CLASSES += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
 MIDDLEWARE_CLASSES += [
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -155,13 +142,7 @@ else:
 
 CACHES = {
     "default": {"BACKEND": _cache_backend, "LOCATION": _cache_location},
-    "compress": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "TIMEOUT": 2000,
-    },
 }
-COMPRESS_CACHE_BACKEND = "compress"
-
 
 ROOT_URLCONF = "homepage.urls"
 
@@ -173,46 +154,15 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "django.contrib.staticfiles",
-    # Third party
-    "constance",
-    "gargoyle",
-    "constance.backends.database",
-    "compressor",
     # app
     "homepage.core",
     "homepage.blog",
     "homepage.events",
 ]
-if TESTING:
-    INSTALLED_APPS += ["debug_toolbar", "template_profiler_panel"]
-
-CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-CONSTANCE_CONFIG = {
-    "robots_txt": ("User-agent: *\nDisallow: /", "The contents of robots.txt."),
-    "security_txt": ("", "security.txt for responsible disclosure."),
-    "security_txt_sig": ("", "Signature for security.txt"),
-    "robots_txt": ("User-agent: *\nDisallow: /", "The contents of robots.txt."),
-    "header_profile_img_url": (
-        "/static/img/profile_sm.jpg",
-        "The URL for the profile image in the header.",
-    ),
-}
-
-GARGOYLE_SWITCH_DEFAULTS = {
-    "talks": {
-        "is_active": False,
-        "label": "Show talks",
-        "description": "Show talks feature",
-    }
-}
 
 # Need this to get around a bugs in HttpResponseRedirect
 # for non-ascii urls and flatpages
 APPEND_SLASH = False
-
-# django-disqus
-DISQUS_API_KEY = env_var("DISQUS_API_KEY", default="")
-DISQUS_WEBSITE_SHORTNAME = env_var("DISQUS_WEBSITE_SHORTNAME", default="")
 
 # logging
 LOGGING = {
@@ -261,36 +211,9 @@ if env_var("ENABLE_LOGGING", bool, default=True):
     }
 
 INTERNAL_IPS = env_var("INTERNAL_IPS", csv_list, default=())
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "homepage.settings.show_toolbar"}
-
-
-def show_toolbar(request):
-    return TESTING
-
-
-DEBUG_TOOLBAR_PANELS = [
-    "debug_toolbar.panels.versions.VersionsPanel",
-    "debug_toolbar.panels.timer.TimerPanel",
-    "debug_toolbar.panels.settings.SettingsPanel",
-    "debug_toolbar.panels.headers.HeadersPanel",
-    "debug_toolbar.panels.request.RequestPanel",
-    "debug_toolbar.panels.sql.SQLPanel",
-    "debug_toolbar.panels.staticfiles.StaticFilesPanel",
-    "debug_toolbar.panels.templates.TemplatesPanel",
-    "template_profiler_panel.panels.template.TemplateProfilerPanel",
-    "debug_toolbar.panels.cache.CachePanel",
-    "debug_toolbar.panels.signals.SignalsPanel",
-    "debug_toolbar.panels.logging.LoggingPanel",
-    "debug_toolbar.panels.redirects.RedirectsPanel",
-]
 
 # Allow any subdomain of ianlewis.org
 _allowed_hosts = [".ianlewis.org", ".ianlewis.org."]
 if DEBUG:
     _allowed_hosts = ["*"]
 ALLOWED_HOSTS = env_var("ALLOWED_HOSTS", csv_list, default=_allowed_hosts)
-
-RSS_FEED_URLS = {
-    "en": "http://feeds.feedburner.com/IanLewisBlog",
-    "jp": "http://feeds.feedburner.com/IanLewisBlogJP",
-}

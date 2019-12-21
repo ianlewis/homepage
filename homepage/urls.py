@@ -1,46 +1,17 @@
-#:coding=utf-8:
+# :coding=utf-8:
 
-from django.conf import settings
 from django.conf.urls import url, include
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
-from homepage.blog import urls as blog_urls
-from homepage.events import urls as event_urls
-from homepage.core import views
-
-import redirects
-
 admin.autodiscover()
 
-urlpatterns = redirects.urlpatterns
-
-urlpatterns += [
+urlpatterns = [
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
     # to INSTALLED_APPS to enable admin documentation:
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
+    url(r"^admin/doc/", include("django.contrib.admindocs.urls")),
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
-
-    url(r'accounts/', include('django.contrib.auth.urls')),
+    url(r"^admin/", include(admin.site.urls)),
+    url(r"accounts/", include("django.contrib.auth.urls")),
 ]
-
-urlpatterns += blog_urls.urlpatterns
-urlpatterns += event_urls.urlpatterns
-
-urlpatterns += [
-    url(r'^robots.txt$', views.robots, name='robots'),
-    url(r'^favicon.ico$', views.favicon, name='favicon'),
-    url(r'^.well-known/security.txt$', views.security_txt, name='favicon'),
-    url(r'^.well-known/security.txt.sig$', views.security_txt_sig, name='favicon'),
-    url(r'^_status/version$', views.version, name='version'),
-    url(r'^$', views.main_page, name='main_page'),
-]
-
-if settings.TESTING:
-    import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns

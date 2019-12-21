@@ -1,10 +1,11 @@
-#:coding=utf-8:
+# :coding=utf-8:
 
 import logging
 
 from django.http import HttpResponse, HttpResponseServerError
 
 logger = logging.getLogger("homepage.health.middleware")
+
 
 class HealthCheckMiddleware(object):
     def __init__(self, get_response=None):
@@ -23,7 +24,9 @@ class HealthCheckMiddleware(object):
             self.process_request(request)
             return self.get_response(request)
         else:
-            raise RuntimeError("No get_response callable given. Callable middleware not supported.")
+            raise RuntimeError(
+                "No get_response callable given. Callable middleware not supported."
+            )
 
     def healthz(self, request):
         """
@@ -37,6 +40,7 @@ class HealthCheckMiddleware(object):
         # being present.
         try:
             from django.db import connections
+
             for name in connections:
                 cursor = connections[name].cursor()
                 cursor.execute("SELECT 1;")
@@ -52,11 +56,14 @@ class HealthCheckMiddleware(object):
         try:
             from django.core.cache import caches
             from django.core.cache.backends.memcached import BaseMemcachedCache
+
             for cache in caches.all():
                 if isinstance(cache, BaseMemcachedCache):
                     stats = cache._cache.get_stats()
                     if len(stats) != len(cache._servers):
-                        return HttpResponseServerError("cache: cannot connect to cache.")
+                        return HttpResponseServerError(
+                            "cache: cannot connect to cache."
+                        )
         except Exception, e:
             logger.exception(e)
             return HttpResponseServerError("cache: cannot connect to cache.")

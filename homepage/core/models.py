@@ -1,8 +1,7 @@
 import datetime
 
 from django.db import models
-from django.core.exceptions import ImproperlyConfigured
-from django.conf import settings
+
 
 class Log(models.Model):
     "A log message, used by jogging's DatabaseHandler"
@@ -14,6 +13,7 @@ class Log(models.Model):
 
     def abbrev_msg(self, maxlen=500):
         if len(self.msg) > maxlen:
-            return u'%s ...' % self.msg[:maxlen]
+            return u"%s ..." % self.msg[:maxlen]
         return self.msg
-    abbrev_msg.short_description = u'abbreviated message'
+
+    abbrev_msg.short_description = u"abbreviated message"

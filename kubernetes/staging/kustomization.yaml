@@ -1,8 +1,6 @@
 bases:
   - ./../base
   - ./secrets
-resources:
-  - configmap.yaml
 namespace: staging
 patches:
   - set_testing.yaml

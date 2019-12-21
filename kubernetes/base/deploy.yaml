@@ -58,16 +58,6 @@ spec:
                 secretKeyRef:
                   name: homepage-db-secret
                   key: db-password
-            - name: DISQUS_WEBSITE_SHORTNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: homepage-config
-                  key: disqus-website-shortname
-            - name: DISQUS_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: homepage-secret
-                  key: disqus-api-key
             - name: MEDIA_ROOT
               value: /var/www/media
             - name: FILEBASED_CACHE_PATH
